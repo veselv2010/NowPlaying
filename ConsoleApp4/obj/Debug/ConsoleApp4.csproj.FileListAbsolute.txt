@@ -1,0 +1,12 @@
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\ConsoleApp4.exe.config
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\ConsoleApp4.exe
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\ConsoleApp4.pdb
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\ConsoleApp4.csprojAssemblyReference.cache
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\ConsoleApp4.csproj.CoreCompileInputs.cache
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\ConsoleApp4.exe
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\ConsoleApp4.pdb
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\Newtonsoft.Json.dll
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\SpotifyAPI.dll
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\Newtonsoft.Json.xml
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Debug\SpotifyAPI.xml
+C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Debug\ConsoleApp4.csproj.CopyComplete
