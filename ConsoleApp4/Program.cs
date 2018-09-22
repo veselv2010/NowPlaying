@@ -12,11 +12,15 @@ namespace NowPlayingMain
     {
         public static void Main()
         {
-            Console.WriteLine("кнопка exec: ");
-            string exec_button = Console.ReadLine();
-            Console.WriteLine($"bind \"{exec_button}\" \"exec audio\"");
-            TextShit.CmdText();
-            while (true)
+                        if (CSGOProcessChecker.csgoprocess() == "Ok")
+                        {
+                            TextShit.CmdText();
+                        }
+                        else
+                        {
+                            Console.WriteLine("no csgo no work");
+                        } 
+            while (CSGOProcessChecker.csgoprocess() == "Ok")
             {
                 string currenttrack = Spotify.CurrentTrack();
                 string currenttrackformatted = TrackFormatter.nameToWrite();
@@ -134,6 +138,10 @@ namespace NowPlayingMain
         public static string chat_button;
         public static void CmdText()
         {
+            Console.WriteLine(CSGOProcessChecker.csgoprocess());
+            Console.WriteLine("кнопка exec: ");
+            string exec_button = Console.ReadLine();
+            Console.WriteLine($"bind \"{exec_button}\" \"exec audio\"");
             Console.WriteLine("кнопка чата: ");
             chat_button = Console.ReadLine();
             Console.WriteLine("Выбери бойца: ");
@@ -173,6 +181,23 @@ namespace NowPlayingMain
         {
             using (StreamWriter sw = new StreamWriter(WritePath, false, Encoding.GetEncoding(28591)))
                 sw.WriteLine(string.Format(ToWrite, TrackFormatter.nameToWrite(), TextShit.chat_button));
+        }
+    }
+}
+
+public class CSGOProcessChecker
+{
+    public static string csgoprocess()
+    {
+        var CSGOprocess = Process.GetProcessesByName("csgo")
+                                        .FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.MainWindowTitle));
+        if (CSGOprocess == null)
+        {
+            return "fuck no";
+        }
+        else
+        {
+            return "Ok";
         }
     }
 }
