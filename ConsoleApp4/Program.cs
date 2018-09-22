@@ -12,14 +12,15 @@ namespace NowPlayingMain
     {
         public static void Main()
         {
-                        if (CSGOProcessChecker.csgoprocess() == "Ok")
-                        {
-                            TextShit.CmdText();
-                        }
-                        else
-                        {
-                            Console.WriteLine("no csgo no work");
-                        } 
+            if (CSGOProcessChecker.csgoprocess() == "Ok")
+            {
+                TextShit.CmdText();
+            }
+            else
+            {
+                Console.WriteLine("process status: no csgo no work");
+                Console.ReadKey();
+            }
             while (CSGOProcessChecker.csgoprocess() == "Ok")
             {
                 string currenttrack = Spotify.CurrentTrack();
@@ -136,19 +137,17 @@ namespace NowPlayingMain
     public class TextShit
     {
         public static string chat_button;
+        private static string enter = "\n";
         public static void CmdText()
         {
-            Console.WriteLine(CSGOProcessChecker.csgoprocess());
-            Console.WriteLine("кнопка exec: ");
+            Console.WriteLine("process status: " + CSGOProcessChecker.csgoprocess());
+            Console.Write("кнопка exec: ");
             string exec_button = Console.ReadLine();
             Console.WriteLine($"bind \"{exec_button}\" \"exec audio\"");
-            Console.WriteLine("кнопка чата: ");
+            Console.Write("кнопка чата: ");
             chat_button = Console.ReadLine();
-            Console.WriteLine("Выбери бойца: ");
-            Console.WriteLine("1. veselv2010");
-            Console.WriteLine("2. scoutpan");
-            Console.WriteLine("3. smurf acc by vasilvs");
-            Console.WriteLine("4. jigido");
+            Console.WriteLine("1. veselv2010" + enter + "2. scoutpan" + enter + "3. smurf acc by vasilvs" + enter + "4. jigido" + enter + "5. jigido no cheat");
+            Console.Write("Выбери бойца: ");
         }
     }
 
@@ -174,9 +173,13 @@ namespace NowPlayingMain
             {
                 return @"C:\Program Files (x86)\Steam\userdata\899887627\730\local\cfg\audio.cfg";
             }
+            if (temp == "5")
+            {
+                return @"C:\Program Files (x86)\Steam\userdata\882950809\730\local\cfg\audio.cfg";
+            }
             return "0";
         }
-        private const string ToWrite = "bind \"{1}\" \"say Now Playing: {0}\"";
+        private const string ToWrite = "bind \"{1}\" \"say [Spotify] Now Playing: {0}\"";
         public static void Write()
         {
             using (StreamWriter sw = new StreamWriter(WritePath, false, Encoding.GetEncoding(28591)))
@@ -201,5 +204,6 @@ public class CSGOProcessChecker
         }
     }
 }
+
 
 //=_-icon by SCOUTPAN-_=

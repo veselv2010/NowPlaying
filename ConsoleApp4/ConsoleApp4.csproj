@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mwvra5f4q0y_JnS_icon.ico" />
-    <Content Include="mwvra5f4q0y_lcZ_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
