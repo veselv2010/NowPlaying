@@ -11,5 +11,3 @@ namespace NowPlaying
 
     }
 }
-
-//=_-icon by SCOUTPAN-_=

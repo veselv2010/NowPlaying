@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Threading;
+using System.Windows;
 
 namespace NowPlaying
 {
-    public class MainProgram
+    public class Program
     {
+        [STAThread]
         public static void Main(string[] args)
         {
-            Console.Title = "NowPlaying";
+            new Application().Run(new MainWindow());
+
+            /*
 
             if (!ProcessChecker.IsCSGORunning())
             {
@@ -19,16 +22,19 @@ namespace NowPlaying
             ConsoleExtensions.WelcomeMessage();
             while (ProcessChecker.IsCSGORunning())
             {
-                string currentTrack = Spotify.CurrentTrack();
+                string currentTrack = Spotify.GetCurrentTrack();
                 string currentTrackFormatted = TrackNameFormatter.FormatForWriting(currentTrack);
-                ConfigWriter.Write();
-                Console.WriteLine("original: " + currentTrack);
-                Console.WriteLine("formatted: " + "[Spotify] Now Playing: " + currentTrackFormatted);
+                if (currentTrackFormatted != null)
+                {
+                    ConfigWriter.Write(currentTrackFormatted);
+                    Console.WriteLine("original: " + currentTrack);
+                    Console.WriteLine("formatted: " + "[Spotify] Now Playing: " + currentTrackFormatted);
+                }
                 Thread.Sleep(1000);
                 Console.Clear();
             }
+
+            */
         }
     }
 }
-
-//=_-icon by SCOUTPAN-_=

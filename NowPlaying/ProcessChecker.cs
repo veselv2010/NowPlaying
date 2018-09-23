@@ -5,12 +5,17 @@ public class ProcessChecker
 {
     public static bool IsCSGORunning()
     {
-        var CSGOprocess = Process.GetProcessesByName("csgo")
+        Process CSGOprocess = Process.GetProcessesByName("csgo")
                                         .FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.MainWindowTitle));
         return (CSGOprocess != null);
 
     }
+
+    public static bool IsSpotifyRunning()
+    {
+        Process spotifyProcess = Process.GetProcessesByName("Spotify")
+                              .FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.MainWindowTitle));
+
+        return (spotifyProcess != null);
+    }
 }
-
-
-//=_-icon by SCOUTPAN-_=

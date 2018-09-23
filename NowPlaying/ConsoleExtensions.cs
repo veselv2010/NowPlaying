@@ -23,7 +23,7 @@ namespace NowPlaying
             Console.Write("Выбери бойца: ");
         }
 
-        public static string SelectConfigDirectoryMessage()
+        public static string SelectConfigDirectoryDialog()
         {
             string temp = Console.ReadLine();
             if (temp == "1")
@@ -50,5 +50,3 @@ namespace NowPlaying
         }
     }
 }
-
-//=_-icon by SCOUTPAN-_=
