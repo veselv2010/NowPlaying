@@ -10,26 +10,27 @@ namespace NowPlayingMain
 {
     public class MainProgram
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
+            Console.Title = "NowPlaying";
             if (CSGOProcessChecker.csgoprocess() == "Ok")
             {
                 TextShit.CmdText();
+                while (CSGOProcessChecker.csgoprocess() == "Ok")
+                {
+                    string currenttrack = Spotify.CurrentTrack();
+                    string currenttrackformatted = TrackFormatter.nameToWrite();
+                    TxtWorker.Write();
+                    Console.WriteLine("original: " + currenttrack);
+                    Console.WriteLine("formatted: " + "[Spotify] Now Playing: " + currenttrackformatted);
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                }
             }
             else
             {
                 Console.WriteLine("process status: no csgo no work");
                 Console.ReadKey();
-            }
-            while (CSGOProcessChecker.csgoprocess() == "Ok")
-            {
-                string currenttrack = Spotify.CurrentTrack();
-                string currenttrackformatted = TrackFormatter.nameToWrite();
-                TxtWorker.Write();
-                Console.WriteLine("original: " + currenttrack);
-                Console.WriteLine("formatted: " + currenttrackformatted);
-                Thread.Sleep(1000);
-                Console.Clear();
             }
         }
     }
@@ -143,10 +144,10 @@ namespace NowPlayingMain
             Console.WriteLine("process status: " + CSGOProcessChecker.csgoprocess());
             Console.Write("кнопка exec: ");
             string exec_button = Console.ReadLine();
-            Console.WriteLine($"bind \"{exec_button}\" \"exec audio\"");
-            Console.Write("кнопка чата: ");
+            Console.WriteLine(enter + $"bind \"{exec_button}\" \"exec audio\"");
+            Console.Write(enter + "кнопка чата: ");
             chat_button = Console.ReadLine();
-            Console.WriteLine("1. veselv2010" + enter + "2. scoutpan" + enter + "3. smurf acc by vasilvs" + enter + "4. jigido" + enter + "5. jigido no cheat");
+            Console.WriteLine(enter + "1. veselv2010" + enter + "2. scoutpan" + enter + "3. smurf acc by vasilvs" + enter + "4. jigido" + enter + "5. jigido no cheat");
             Console.Write("Выбери бойца: ");
         }
     }
