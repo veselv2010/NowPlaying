@@ -67,9 +67,9 @@
     <Compile Include="ProcessChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Slovar.cs" />
+    <Compile Include="GlobalVariables.cs" />
     <Compile Include="Spotify.cs" />
-    <Compile Include="TrackFormatter.cs" />
+    <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="TxtWorker.cs" />
   </ItemGroup>
   <ItemGroup>
