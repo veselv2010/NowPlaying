@@ -1,7 +1,0 @@
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Release\ConsoleApp4.csproj.CoreCompileInputs.cache
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Release\ConsoleApp4.csprojAssemblyReference.cache
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Release\NowPlaying.exe.config
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Release\NowPlaying.exe
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\bin\Release\NowPlaying.pdb
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Release\NowPlaying.exe
-C:\Users\vesel\source\repos\ConsoleApp4\ConsoleApp4\obj\Release\NowPlaying.pdb
