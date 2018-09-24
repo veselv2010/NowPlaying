@@ -12,10 +12,13 @@ namespace NowPlaying
     class SteamidLooker
     {
         public static string SteamID64; //
-        private static string ReadPath; //
+        private static string ReadPath; //C:\Program Files (x86)\Steam\Steam.exe
         public static string SteamProcessPath()
         {
-            ReadPath = Process.GetProcessesByName("steam")[0].StartInfo.FileName;
+            foreach (Process PPath in Process.GetProcessesByName("steam"))
+            {
+                ReadPath = PPath.MainModule.FileName;
+            }
             return ReadPath;
         }
         public static void SteamCfgReader()
