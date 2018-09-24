@@ -9,7 +9,7 @@ namespace NowPlaying.OAuth
     {
         private const string authLinkTemplate = @"https://accounts.spotify.com/en/authorize?client_id={0}&redirect_uri={1}&response_type=token&scope=user-read-playback-state";
 
-        private static string AuthLink => string.Format(authLinkTemplate, AppInfo.ClientId, AppInfo.RedirectUri);
+        private static string AuthLink => string.Format(authLinkTemplate, AppInfo.SpotifyClientId, AppInfo.RedirectUri);
 
         public string ResultToken { get; private set; }
 

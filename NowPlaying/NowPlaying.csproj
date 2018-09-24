@@ -56,6 +56,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral, PublicKeyToken=db7cfd3acb5ad44e, processorArchitecture=MSIL">
       <HintPath>..\packages\WatiN.2.1.0\lib\net40\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -69,6 +72,12 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Steam.Models, Version=3.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Steam.Models.3.0.8\lib\netstandard2.0\Steam.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamWebAPI2, Version=4.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SteamWebAPI2.4.0.8\lib\netstandard2.0\SteamWebAPI2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -99,6 +108,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="SpotifyProcessWorker.cs" />
+    <Compile Include="SteamidLooker.cs" />
     <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="TxtWorker.cs" />
   </ItemGroup>
