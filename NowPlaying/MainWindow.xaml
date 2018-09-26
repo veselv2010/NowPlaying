@@ -7,12 +7,15 @@
              mc:Ignorable="d"
              Loaded="Window_Loaded" Width="567.172" Height="225.322">
     <Grid HorizontalAlignment="Left" Width="192">
-        <Label Content="=_-icon by SCOUTPAN-_=" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="6pt"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="19*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="=_-icon by SCOUTPAN-_=" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="6pt" Grid.ColumnSpan="2"/>
 
-        <TextBox Text="%token%" Name="TextBoxToken" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12pt" Margin="10,21,-348,0" Width="530"/>
-
-        <Button Content="Do things" Name="ButtonDo" HorizontalAlignment="Left" Margin="10,69,-348,0" VerticalAlignment="Top" 
-                Width="530" Height="97" Click="ButtonDo_Click"/>
+        <Button Content="Do things" Name="ButtonDo" HorizontalAlignment="Left" Margin="10,54,-348,0" VerticalAlignment="Top" 
+                Width="530" Height="97" Click="ButtonDo_Click" Grid.ColumnSpan="2" FontSize="14pt"/>
+        <Label Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,-348,0" FontSize="12pt" Grid.ColumnSpan="2" Width="530"/>
 
     </Grid>
 </Window>
