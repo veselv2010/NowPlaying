@@ -7,9 +7,10 @@ namespace NowPlaying.OAuth
 {
     public partial class BrowserWindow : Window
     {
-        private const string authLinkTemplate = @"https://accounts.spotify.com/en/authorize?client_id={0}&redirect_uri={1}&response_type=token&scope=user-read-playback-state";
+        private const string authLinkTemplate = @"https://accounts.spotify.com/en/authorize?client_id={0}"
+                                                    + "&redirect_uri={1}&response_type=token&scope=user-read-playback-state";
 
-        private static string AuthLink => string.Format(authLinkTemplate, AppInfo.SpotifyClientId, AppInfo.RedirectUri);
+        private static string AuthLink => string.Format(authLinkTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
         public string ResultToken { get; private set; }
 
@@ -38,8 +39,9 @@ namespace NowPlaying.OAuth
                 string token = urlParams.Single(p => p.Contains("access_token"))
                                         .Split('=')[1]; // "access_token=*text*" split by '=', take *text*
 
-                ResultToken = token;
+                this.ResultToken = token;
 
+                this.Browser.Dispose();
                 this.Close();
             }
         }

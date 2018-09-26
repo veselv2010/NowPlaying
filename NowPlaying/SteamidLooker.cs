@@ -2,63 +2,58 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
-using System.Management;
 
 namespace NowPlaying
 {
-    class SteamidLooker
+    class SteamIdLooker
     {
-        public static string[] SteamAPIurls = new string[10];
-        public static string RegexPattern = "\"";
-        public static int linecount = File.ReadAllLines(ReadPath).Length;
-        public static Regex haHAA = new Regex(RegexPattern);
-        public static int ArrayCounter;
-        public static string[] accounts = new string[100];
-        public static string[] SteamID64 = new string[100];
-        private static string ReadPath = @"";
-        public static string SteamCfgPath(string name)
+        public static List<string> SteamAPIurls = new List<string>();
+        public static List<string> accounts = new List<string>();
+        public static List<string> SteamIds64 = new List<string>();
+
+        private static Regex haHAA = new Regex("\"");
+        private static string LoginUsersPath = @"";
+
+
+        public static string SteamCfgPath(string processName)
         {
-            foreach (Process PPath in Process.GetProcessesByName(name))
-            {
-                ReadPath = PPath.MainModule.FileName;
-            }
-            int PositionOfSteamEXE = ReadPath.IndexOf("Steam.exe");
-            return ReadPath = ReadPath.Remove(PositionOfSteamEXE) + @"config\loginusers.vdf";
+            string steamFullPath = Process.GetProcessesByName(processName)[0].MainModule.FileName;
+
+            int IndexOfSteamEXE = steamFullPath.IndexOf("Steam.exe");
+            return LoginUsersPath = steamFullPath.Remove(IndexOfSteamEXE) + @"config\loginusers.vdf";
         }
+
         public static void SteamCfgReader()
         {
-            Console.WriteLine(linecount);
-            for (int i = 2; i < linecount; i++) //id64
+            string[] fileLines = File.ReadAllLines(LoginUsersPath);
+            
+            for (int lineIndex = 2; lineIndex < fileLines.Length - 1; lineIndex += 8) //id64
             {
-                if (i == linecount - 1)
-                {
-                    break;
-                }
-                SteamID64[ArrayCounter] = File.ReadLines(ReadPath).Skip(i).Take(1).First().Trim().Replace(RegexPattern, "");
-                i += 7;
-                Console.WriteLine(SteamID64[ArrayCounter]);
-                ArrayCounter++;
+                string currentSteamId64 = fileLines.Skip(lineIndex).Take(1).First().Trim().Replace("\"", "");
+
+                SteamIds64.Add(currentSteamId64);
+                Console.WriteLine(SteamIds64.Last());
             }
-            ArrayCounter = 0;
-            for (int i = 4; i < linecount; i++) //accountname
+
+            for (int lineIndex = 4; lineIndex < fileLines.Length; lineIndex += 8) //accountname
             {
-                accounts[ArrayCounter] = File.ReadLines(ReadPath).Skip(i).Take(1).First().Trim()
-                                        .Replace("AccountName", "").Replace(RegexPattern, "").Trim();
-                i += 7;
-                Console.WriteLine(accounts[ArrayCounter]);
-                ArrayCounter++;
+                string currentAcc = fileLines.Skip(lineIndex).Take(1).First().Trim()
+                                            .Replace("AccountName", "").Replace("\"", "").Trim();
+
+                accounts.Add(currentAcc);
+                Console.WriteLine(accounts.Last());
             }
         }
-        public static void urlMaker()
+
+        public static void MakeUrls()
         {
-            int g = 0;
-            while (g < SteamID64.Length)
+            for (int i = 0; i < SteamIds64.Count; i++)
             {
-                SteamAPIurls[g] = $"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={AppInfo.SteamAPIKey}&steamids={SteamID64[g]}";
-                g++;
+                SteamAPIurls[i] = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/" +
+                    $"?key={AppInfo.SteamAPIKey}" +
+                    $"&steamids={SteamIds64[i]}";
             }
         }
     }

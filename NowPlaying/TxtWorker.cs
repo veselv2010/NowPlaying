@@ -20,7 +20,7 @@ namespace NowPlaying
             // if (WritePath == null) return;
 
             using (StreamWriter sw = new StreamWriter(WritePath, false, Encoding.GetEncoding(28591)))
-                sw.WriteLine(string.Format(WriteConfigText, text, ConsoleExtensions.chatButton));
+                sw.WriteLine(string.Format(WriteConfigText, text, "kp_end")); // random button name as a temporary placeholder.
         }
     }
 }
