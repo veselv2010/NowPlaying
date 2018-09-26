@@ -54,7 +54,15 @@ namespace NowPlaying
                 userdataNumbers.Add(tempint);
             }
             userdataNumbers.Sort();
+            for (int PositionInDictionary = 0; PositionInDictionary < accounts.Count; PositionInDictionary++)
+            {
+                AccountNameToSteamid3.Add(accounts[PositionInDictionary], userdataNumbers[PositionInDictionary]);
+            }
         }
+        public static Dictionary<string, int> AccountNameToSteamid3 = new Dictionary<string, int>
+        {
+
+        };
 
         public static void MakeUrls() //future feature
         {

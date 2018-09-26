@@ -107,10 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GlobalVariables.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Requests.cs" />
->>>>>>> c4ebd22fd7777f260234633afdabfc04ca587e05
     <Compile Include="SteamIdLooker.cs" />
     <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="ConfigWriter.cs" />
