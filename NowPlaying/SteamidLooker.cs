@@ -12,16 +12,18 @@ namespace NowPlaying
         public static List<string> SteamAPIurls = new List<string>();
         public static List<string> accounts = new List<string>();
         public static List<string> SteamIds64 = new List<string>();
+        public static List<int> userdataNumbers = new List<int>();
 
         private static Regex haHAA = new Regex("\"");
         private static string LoginUsersPath = @"";
+        private static string userdataPath = @"";
 
 
         public static string SteamCfgPath(string processName)
         {
             string steamFullPath = Process.GetProcessesByName(processName)[0].MainModule.FileName;
-
             int IndexOfSteamEXE = steamFullPath.IndexOf("Steam.exe");
+            userdataPath = steamFullPath.Remove(IndexOfSteamEXE) + @"userdata";
             return LoginUsersPath = steamFullPath.Remove(IndexOfSteamEXE) + @"config\loginusers.vdf";
         }
 
@@ -45,9 +47,16 @@ namespace NowPlaying
                 accounts.Add(currentAcc);
                 Console.WriteLine(accounts.Last());
             }
+            foreach(string s in Directory.GetDirectories(userdataPath)) //userdata steamid3
+            {
+                string temp = s.Remove(0, userdataPath.Length + 1);
+                int tempint = int.Parse(temp);
+                userdataNumbers.Add(tempint);
+            }
+            userdataNumbers.Sort();
         }
 
-        public static void MakeUrls()
+        public static void MakeUrls() //future feature
         {
             for (int i = 0; i < SteamIds64.Count; i++)
             {
