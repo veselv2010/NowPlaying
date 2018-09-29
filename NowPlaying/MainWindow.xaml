@@ -8,24 +8,27 @@
              Loaded="Window_Loaded" Width="567.172" Height="225.322">
 	<Grid HorizontalAlignment="Left" Width="192">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="13*"/>
-			<ColumnDefinition Width="19*"/>
+			<ColumnDefinition Width="78*"/>
+			<ColumnDefinition Width="91*"/>
+			<ColumnDefinition Width="23*"/>
 		</Grid.ColumnDefinitions>
 		<Label Content="=_-icon by SCOUTPAN-_=" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="6pt" Grid.ColumnSpan="2"/>
 
 		<Button Content="manual" Name="ButtonDo" HorizontalAlignment="Left" Margin="10,123,-348,0" VerticalAlignment="Top" 
-                Width="530" Height="61" Click="ButtonDo_Click" FontSize="14pt" Grid.ColumnSpan="2"/>
-		<Label Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,15,-151,0" Width="275" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
-		<TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="411,30,-348,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" TextChanged="textBox_TextChanged"/>
-		<TextBlock x:Name="textBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="339,30,-292,0" TextWrapping="Wrap" Text="chat button" VerticalAlignment="Top" Width="67" Height="19"/>
-		<Label x:Name="LabelWithButton" Content="key to record" Margin="61,27,45,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
-		<ComboBox x:Name="AccountsList" Grid.Column="1" HorizontalAlignment="Left" Margin="220,30,-220,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11"/>
+                Width="530" Height="61" Click="ButtonDo_Click" FontSize="14pt" Grid.ColumnSpan="3"/>
+		<Label Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,15,-151,0" Width="275" Height="23" FontSize="10" Grid.ColumnSpan="3"/>
+		<TextBox x:Name="textBox" Grid.Column="2" HorizontalAlignment="Left" Height="19" Margin="320.148,30,-348,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" TextChanged="textBox_TextChanged"/>
+		<TextBlock x:Name="textBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="248.148,30,-292,0" TextWrapping="Wrap" Text="chat button" VerticalAlignment="Top" Width="67" Height="19"/>
+		<Label x:Name="LabelWithButton" Content="key to record" Margin="61,27,21.852,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
+		<ComboBox x:Name="AccountsList" Grid.Column="2" HorizontalAlignment="Left" Margin="129.148,30,-220,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11"/>
 		<Label x:Name="label" Content="Current key:" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" FontSize="10"/>
 		<Label x:Name="label1" Content="Current track:" HorizontalAlignment="Left" Margin="5,14,0,0" VerticalAlignment="Top" Width="81" FontSize="10" Grid.ColumnSpan="2"/>
-		<Label x:Name="label2" Content="npc work " HorizontalAlignment="Left" Margin="10,60,-5,0" VerticalAlignment="Top" Width="187" Grid.ColumnSpan="2" FontSize="36"/>
-		<local:ToggleSwitch Grid.Column="1" HorizontalAlignment="Left" Height="65" Margin="87,60,-91,0" VerticalAlignment="Top" Width="118" Loaded="ToggleSwitch_Loaded" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown"/>
-		<Label x:Name="label3" Content="Current acc:" Grid.Column="1" HorizontalAlignment="Left" Margin="149,26,-106,0" VerticalAlignment="Top" Width="71"/>
-		<Label x:Name="label4" Content="&lt;-pressing this button will kill the npc" Grid.Column="1" HorizontalAlignment="Left" Margin="210,70,-309,0" VerticalAlignment="Top" Width="213" Height="39"/>
+		<Label x:Name="label2" Content="npc work " HorizontalAlignment="Left" Margin="10,60,-5,0" VerticalAlignment="Top" Width="187" Grid.ColumnSpan="3" FontSize="36"/>
+		<local:ToggleSwitch Grid.Column="1" HorizontalAlignment="Left" Height="65" Margin="87,60,-91,0" VerticalAlignment="Top" Width="118" Loaded="ToggleSwitch_Loaded" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown" Grid.ColumnSpan="2"/>
+		<Label x:Name="label3" Content="Current acc:" Grid.Column="2" HorizontalAlignment="Left" Margin="58.148,26,-106,0" VerticalAlignment="Top" Width="71"/>
+		<Label x:Name="label4" Content="&lt;-pressing this button will kill the npc" Grid.Column="2" HorizontalAlignment="Left" Margin="119.148,70,-309,0" VerticalAlignment="Top" Width="213" Height="39"/>
+		<TextBox x:Name="pathBox" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,0,-368,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="381" FontSize="9"/>
+		<Button x:Name="button" Content="path" Grid.Column="1" Margin="64,-1,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Height="23" Click="button_Click" Grid.ColumnSpan="2"/>
 
 	</Grid>
 </Window>

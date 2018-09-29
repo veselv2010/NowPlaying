@@ -5,14 +5,11 @@ namespace NowPlaying
 {
     public static class Program
     {
-        public static MainWindow mainWindow;
         [STAThread]
         public static void Main(string[] args)
         {
             SteamIdLooker.SteamCfgPath("steam");
             SteamIdLooker.SteamCfgReader();
-
-            mainWindow = new MainWindow();
 
             new Application().Run(new MainWindow());
             /*

@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows.Threading;
+using System;
 using NowPlaying.ApiResponses;
 
 namespace NowPlaying
@@ -110,17 +112,26 @@ namespace NowPlaying
                     LabelFormatted.Content = formattedTrackName;
                     if (formattedTrackName == LastTrack)
                     {
+                        
                         Thread.Sleep(1000);
                     }
                     else
                     {
                         cfgWriter.Write(formattedTrackName);
                         LastTrack = formattedTrackName;
+                        i = 0;
                         Thread.Sleep(1000);
                     }
                 }
 
             }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedaccountid;
+            SteamIdLooker.AccountNameToSteamid3.TryGetValue(AccountsList.SelectedItem.ToString(), out selectedaccountid);
+            pathBox.Text = SteamIdLooker.userdataPath + $@"\{selectedaccountid.ToString()}\730\local\cfg\audio.cfg";
         }
     }
 
