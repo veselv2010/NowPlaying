@@ -3,13 +3,18 @@ using System.Windows;
 
 namespace NowPlaying
 {
-    public class Program
+    public static class Program
     {
+        public static MainWindow mainWindow;
         [STAThread]
         public static void Main(string[] args)
         {
-            new Application().Run(new MainWindow());
+            SteamIdLooker.SteamCfgPath("steam");
+            SteamIdLooker.SteamCfgReader();
 
+            mainWindow = new MainWindow();
+
+            new Application().Run(new MainWindow());
             /*
 
             if (!ProcessChecker.IsCSGORunning())

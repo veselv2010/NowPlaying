@@ -16,7 +16,7 @@ namespace NowPlaying
 
         private static Regex haHAA = new Regex("\"");
         private static string LoginUsersPath = @"";
-        private static string userdataPath = @"";
+        public static string userdataPath = @"";
 
 
         public static string SteamCfgPath(string processName)

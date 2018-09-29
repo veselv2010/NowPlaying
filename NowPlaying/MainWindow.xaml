@@ -13,15 +13,21 @@
 		</Grid.ColumnDefinitions>
 		<Label Content="=_-icon by SCOUTPAN-_=" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="6pt" Grid.ColumnSpan="2"/>
 
-		<Button Content="Do things" Name="ButtonDo" HorizontalAlignment="Left" Margin="10,54,-348,0" VerticalAlignment="Top" 
-                Width="530" Height="97" Click="ButtonDo_Click" Grid.ColumnSpan="2" FontSize="14pt"/>
-		<Label Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="187,156,-348,0" Width="275" Height="23" FontSize="10" Grid.Column="1"/>
+		<Button Content="manual" Name="ButtonDo" HorizontalAlignment="Left" Margin="10,123,-348,0" VerticalAlignment="Top" 
+                Width="530" Height="61" Click="ButtonDo_Click" FontSize="14pt" Grid.ColumnSpan="2"/>
+		<Label Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,15,-151,0" Width="275" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
 		<TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="411,30,-348,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" TextChanged="textBox_TextChanged"/>
 		<TextBlock x:Name="textBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="339,30,-292,0" TextWrapping="Wrap" Text="chat button" VerticalAlignment="Top" Width="67" Height="19"/>
-		<Label x:Name="LabelWithButton" Content="key to record" Margin="73,158,33,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
+		<Label x:Name="LabelWithButton" Content="key to record" Margin="61,27,45,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
 		<ComboBox x:Name="AccountsList" Grid.Column="1" HorizontalAlignment="Left" Margin="220,30,-220,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11"/>
-		<Label x:Name="label" Content="Current key:" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top" FontSize="10"/>
-		<Label x:Name="label1" Content="Current track:" Grid.Column="1" HorizontalAlignment="Left" Margin="124,156,-91,0" VerticalAlignment="Top" Width="81" FontSize="10"/>
+		<Label x:Name="label" Content="Current key:" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" FontSize="10"/>
+		<Label x:Name="label1" Content="Current track:" HorizontalAlignment="Left" Margin="5,14,0,0" VerticalAlignment="Top" Width="81" FontSize="10" Grid.ColumnSpan="2"/>
+		<Label x:Name="label2" Content="npc work " HorizontalAlignment="Left" Margin="10,60,-5,0" VerticalAlignment="Top" Width="187" Grid.ColumnSpan="2" FontSize="36"/>
+		<local:ToggleSwitch Grid.Column="1" HorizontalAlignment="Left" Height="65" Margin="87,60,-91,0" VerticalAlignment="Top" Width="118" Loaded="ToggleSwitch_Loaded" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown"/>
+		<Label x:Name="label3" Content="Current acc:" Grid.Column="1" HorizontalAlignment="Left" Margin="149,26,-106,0" VerticalAlignment="Top" Width="71"/>
+		<Label x:Name="label4" Content="&lt;-pressing this button will kill the npc" Grid.Column="1" HorizontalAlignment="Left" Margin="210,70,-309,0" VerticalAlignment="Top" Width="213" Height="39"/>
 
 	</Grid>
 </Window>
+	
+	
