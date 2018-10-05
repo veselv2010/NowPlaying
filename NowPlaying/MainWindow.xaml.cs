@@ -74,10 +74,13 @@ namespace NowPlaying
         }
         private void ToggleSwitch_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (ToggleSwitch.Toggled == true)
-            {
+
+               if (ToggleSwitch.Toggled == true)
+               {
                 string LastTrack;
                 int selectedaccountid;
+                long duration;
+                long durationtemp;
                 SteamIdLooker.AccountNameToSteamid3.TryGetValue(AccountsList.SelectedItem.ToString(), out selectedaccountid);
                 var cfgWriter = new ConfigWriter(SteamIdLooker.userdataPath + $@"\{selectedaccountid.ToString()}\730\local\cfg\audio.cfg");
 
@@ -96,35 +99,69 @@ namespace NowPlaying
                 string originalTrackName = $"{resp.GetArtistsString()} - {resp.TrackName}";
                 string formattedTrackName = TrackNameFormatter.FormatForWriting(originalTrackName);
 
-                ButtonDo.Content = $"{originalTrackName} | {resp.Progress/1000}/{resp.Duration/1000}";
+                ButtonDo.Content = $"{originalTrackName} | {resp.Progress / 1000}/{resp.Duration / 1000}";
                 LabelFormatted.Content = formattedTrackName;
                 cfgWriter.Write(formattedTrackName);
                 LastTrack = formattedTrackName;
-                for (int i = 0; i < resp.Duration/1000; i++)
-                {
-                    getTrackTask = new Task<CurrentTrackResponse>(() => Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken));
-                    getTrackTask.Start();
-                    getTrackTask.Wait();
-                    resp = getTrackTask.Result;
-                    originalTrackName = $"{resp.GetArtistsString()} - {resp.TrackName}";
-                    formattedTrackName = TrackNameFormatter.FormatForWriting(originalTrackName);
-                    ButtonDo.Content = $"{originalTrackName} | {resp.Progress / 1000}/{resp.Duration / 1000}";
-                    LabelFormatted.Content = formattedTrackName;
-                    if (formattedTrackName == LastTrack)
-                    {
-                        
-                        Thread.Sleep(1000);
-                    }
-                    else
-                    {
-                        cfgWriter.Write(formattedTrackName);
-                        LastTrack = formattedTrackName;
-                        i = 0;
-                        Thread.Sleep(1000);
-                    }
-                }
 
-            }
+                    Thread.CurrentThread.IsBackground = true;
+                   SteamIdLooker.AccountNameToSteamid3.TryGetValue(AccountsList.SelectedItem.ToString(), out selectedaccountid);
+                   cfgWriter = new ConfigWriter(SteamIdLooker.userdataPath + $@"\{selectedaccountid.ToString()}\730\local\cfg\audio.cfg");
+
+                   getTrackTask = new Task<CurrentTrackResponse>(() => Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken));
+                   getTrackTask.Start();
+                   getTrackTask.Wait();
+
+                   resp = getTrackTask.Result;
+
+                   if (resp == null)
+                       return;
+
+                   ConfigWriter.ButtonToWrite = textBox.Text;
+                   LabelWithButton.Content = ConfigWriter.ButtonToWrite;
+
+                   originalTrackName = $"{resp.GetArtistsString()} - {resp.TrackName}";
+                   formattedTrackName = TrackNameFormatter.FormatForWriting(originalTrackName);
+
+                   ButtonDo.Content = $"{originalTrackName} | {resp.Progress / 1000}/{resp.Duration / 1000}";
+                   LabelFormatted.Content = formattedTrackName;
+                   cfgWriter.Write(formattedTrackName);
+                   LastTrack = formattedTrackName;
+                   for (int i = 0; i < resp.Duration / 1000; i++)
+                   {
+                    int itemp = i;
+                       getTrackTask = new Task<CurrentTrackResponse>(() => Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken));
+                       getTrackTask.Start();
+                       getTrackTask.Wait();
+                       resp = getTrackTask.Result;
+                       originalTrackName = $"{resp.GetArtistsString()} - {resp.TrackName}";
+                       formattedTrackName = TrackNameFormatter.FormatForWriting(originalTrackName);
+                       ButtonDo.Content = $"{originalTrackName} | {resp.Progress / 1000}/{resp.Duration / 1000}";
+                        duration = resp.Progress;
+                       LabelFormatted.Content = formattedTrackName;
+                       if (formattedTrackName == LastTrack)
+                       {
+                            Program.Refresh(ButtonDo);
+                        durationtemp = resp.Progress;
+                            if (duration == durationtemp)
+                            {
+                            i = itemp - 1;
+                            Thread.Sleep(1000);
+                            }
+                            else
+                           Thread.Sleep(1000);
+                       }
+                       else
+                       {
+                            Program.Refresh(ButtonDo);
+                            cfgWriter.Write(formattedTrackName);
+                           LastTrack = formattedTrackName;
+                           i = 0;
+                           Thread.Sleep(1000);
+                       }
+                   }
+        }
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
