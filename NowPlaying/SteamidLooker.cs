@@ -10,20 +10,26 @@ namespace NowPlaying
     class SteamIdLooker
     {
         public static List<string> SteamAPIurls = new List<string>();
-        public static List<string> accounts = new List<string>();
+        public static List<string> Accounts = new List<string>();
         public static List<string> SteamIds64 = new List<string>();
-        public static List<int> userdataNumbers = new List<int>();
+        public static List<int> UserdataNumbers = new List<int>();
 
-        private static Regex haHAA = new Regex("\"");
+        public static Dictionary<string, int> AccountNameToSteamid3 = new Dictionary<string, int>();
+
         private static string LoginUsersPath = @"";
-        public static string userdataPath = @"";
+        public static string UserdataPath = @"";
 
 
         public static string SteamCfgPath(string processName)
         {
+            var processes = Process.GetProcessesByName(processName);
+
+            if (processes.Length == 0)
+                throw new ArgumentNullException($"{processName} process is not running.");
+
             string steamFullPath = Process.GetProcessesByName(processName)[0].MainModule.FileName;
             int IndexOfSteamEXE = steamFullPath.IndexOf("Steam.exe");
-            userdataPath = steamFullPath.Remove(IndexOfSteamEXE) + @"userdata";
+            UserdataPath = steamFullPath.Remove(IndexOfSteamEXE) + @"userdata";
             return LoginUsersPath = steamFullPath.Remove(IndexOfSteamEXE) + @"config\loginusers.vdf";
         }
 
@@ -44,25 +50,21 @@ namespace NowPlaying
                 string currentAcc = fileLines.Skip(lineIndex).Take(1).First().Trim()
                                             .Replace("AccountName", "").Replace("\"", "").Trim();
 
-                accounts.Add(currentAcc);
-                Console.WriteLine(accounts.Last());
+                Accounts.Add(currentAcc);
+                Console.WriteLine(Accounts.Last());
             }
-            foreach(string s in Directory.GetDirectories(userdataPath)) //userdata steamid3
+            foreach(string s in Directory.GetDirectories(UserdataPath)) //userdata steamid3
             {
-                string temp = s.Remove(0, userdataPath.Length + 1);
+                string temp = s.Remove(0, UserdataPath.Length + 1);
                 int tempint = int.Parse(temp);
-                userdataNumbers.Add(tempint);
+                UserdataNumbers.Add(tempint);
             }
-            userdataNumbers.Sort();
-            for (int PositionInDictionary = 0; PositionInDictionary < accounts.Count; PositionInDictionary++)
+            UserdataNumbers.Sort();
+            for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count; PositionInDictionary++)
             {
-                AccountNameToSteamid3.Add(accounts[PositionInDictionary], userdataNumbers[PositionInDictionary]);
+                AccountNameToSteamid3.Add(Accounts[PositionInDictionary], UserdataNumbers[PositionInDictionary]);
             }
         }
-        public static Dictionary<string, int> AccountNameToSteamid3 = new Dictionary<string, int>
-        {
-
-        };
 
         public static void MakeUrls() //future feature
         {

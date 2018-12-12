@@ -6,7 +6,7 @@ namespace NowPlaying
 {
     public class ProcessWorker
     {
-        public static string GetTrackFromSpotifyTtile()
+        public static string GetTrackFromSpotifyTitle()
         {
             Process spotifyProcess = Process.GetProcessesByName("Spotify")
                               .FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.MainWindowTitle));
