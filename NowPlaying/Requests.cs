@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Text;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NowPlaying.ApiResponses;
 
@@ -11,7 +12,7 @@ namespace NowPlaying
     {
         public static CurrentTrackResponse GetCurrentTrack(string accessToken)
         {
-            string resp = Requests.PerformApiRequest(@"https://api.spotify.com/v1/me/player/currently-playing?access_token=" + accessToken);
+            string resp = Requests.PerformGetRequest(@"https://api.spotify.com/v1/me/player/currently-playing?access_token=" + accessToken);
 
             if (string.IsNullOrEmpty(resp))
                 return null;
@@ -31,13 +32,34 @@ namespace NowPlaying
             return new CurrentTrackResponse(trackId, trackName, artists, progress, duration);
         }
 
-        private static string PerformApiRequest(string url)
+        private static string PerformGetRequest(string url)
         {
             string resp;
             using (WebClient wc = new WebClient() { Encoding = Encoding.UTF8 })
                 resp = wc.DownloadString(url);
 
             return resp;
+        }
+
+        public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
+        {
+            string resp;
+            using (WebClient wc = new WebClient())
+            {
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+
+                var b64str = Requests.Base64Encode($"{AppInfo.SpotifyClientId}:{AppInfo.SpotifyClientSecret}");
+                wc.Headers[HttpRequestHeader.Authorization] = $"Basic {b64str}";
+                resp = wc.UploadString(url, data);
+            }
+
+            return JsonConvert.DeserializeObject<RespT>(resp);
+        }
+
+        private static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
         }
     }
 }

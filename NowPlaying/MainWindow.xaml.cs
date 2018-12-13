@@ -26,8 +26,13 @@ namespace NowPlaying
             var browserWindow = new OAuth.BrowserWindow();
             browserWindow.ShowDialog();
 
-            AppInfo.SpotifyAccessToken = browserWindow.ResultToken;
+            if (browserWindow.ResultToken == null)
+            {
+                this.Close();
+                return;
+            }
 
+            AppInfo.SpotifyAccessToken = browserWindow.ResultToken;
             this.Show();
         }
 
@@ -69,7 +74,7 @@ namespace NowPlaying
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
-            await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) => 
+            await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) =>
             {                           // чтобы потом его можно было использовать внутри этого блока
                 while (true)
                 {

@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiResponses\CurrentTrackResponse.cs" />
+    <Compile Include="ApiResponses\TokenResponse.cs" />
     <Compile Include="AppInfo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -117,6 +118,7 @@
     </Compile>
     <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="ConfigWriter.cs" />
+    <Compile Include="UriExt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
