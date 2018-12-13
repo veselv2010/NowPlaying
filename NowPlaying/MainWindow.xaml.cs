@@ -7,6 +7,8 @@ namespace NowPlaying
 {
     public partial class MainWindow : Window
     {
+        private CancellationTokenSource _cancellationGetSpotifyUpdates;
+
         protected string LastPlayingTrackId { get; set; }
 
         public MainWindow()
@@ -51,7 +53,7 @@ namespace NowPlaying
         {
             if (!ToggleSwitch.Toggled)
             {
-                // Сюда серануть с .Cancel()
+                this._cancellationGetSpotifyUpdates?.Cancel();
                 return;
             }
 
@@ -61,7 +63,11 @@ namespace NowPlaying
                 return;
             }
 
+
+            this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
+
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
+            this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
             await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) => 
             {                           // чтобы потом его можно было использовать внутри этого блока
@@ -77,9 +83,12 @@ namespace NowPlaying
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
 
                     // if (trackResp.Id != this.LastPlayingTrackId)
-                    // { cfgWriter.Write(trackResp); }
+                    //     cfgWriter.Write(trackResp);
+
+                    if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
+                        return;
                 }
-            }/*, сюда вторым аргументом серануть чето про CancellationToken */);
+            });
         }
 
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
