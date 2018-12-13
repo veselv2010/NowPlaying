@@ -9,7 +9,7 @@ namespace NowPlaying
 {
     class SteamIdLooker
     {
-        public static List<string> SteamAPIurls = new List<string>();
+        //public static List<string> SteamAPIurls = new List<string>();
         public static List<string> Accounts = new List<string>();
         public static List<string> SteamIds64 = new List<string>();
         public static List<int> UserdataNumbers = new List<int>();
@@ -60,13 +60,13 @@ namespace NowPlaying
                 UserdataNumbers.Add(tempint);
             }
             UserdataNumbers.Sort();
-            for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count; PositionInDictionary++)
+            for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count - 1; PositionInDictionary++)
             {
                 AccountNameToSteamid3.Add(Accounts[PositionInDictionary], UserdataNumbers[PositionInDictionary]);
             }
         }
 
-        public static void MakeUrls() //future feature
+        /*public static void MakeUrls() //future feature
         {
             for (int i = 0; i < SteamIds64.Count; i++)
             {
@@ -74,6 +74,6 @@ namespace NowPlaying
                     $"?key={AppInfo.SteamAPIKey}" +
                     $"&steamids={SteamIds64[i]}";
             }
-        }
+        }*/
     }
 }
