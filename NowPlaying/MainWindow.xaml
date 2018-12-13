@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NowPlaying"
              mc:Ignorable="d"
+             ResizeMode="NoResize"
              Loaded="Window_Loaded" Width="567.172" Height="225.322">
 	<Grid HorizontalAlignment="Left" Width="192">
 		<Grid.ColumnDefinitions>
