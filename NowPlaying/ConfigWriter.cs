@@ -14,13 +14,15 @@ namespace NowPlaying
         {
             this.BindKey = bindKey;
             this.WritePath = writePath;
+            if (!File.Exists(WritePath))
+                File.CreateText(WritePath).Dispose();
         }
 
         public void RewriteKeyBinding(CurrentTrackResponse currentTrack)
         {
             string strForWriting = string.Format(WriteConfigText, currentTrack.FormattedName, this.BindKey);
 
-            using (StreamWriter sw = new StreamWriter(this.WritePath, false, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(this.WritePath))
                 sw.WriteLine(strForWriting);
         }
     }
