@@ -14,6 +14,10 @@ namespace NowPlaying
         {
             this.BindKey = bindKey;
             this.WritePath = writePath;
+
+            int IndexOfAudioCfg = WritePath.IndexOf(@"\audio.cfg");
+            DirectoryInfo di = Directory.CreateDirectory(WritePath.Remove(IndexOfAudioCfg));
+
             if (!File.Exists(WritePath))
                 File.CreateText(WritePath).Dispose();
         }
