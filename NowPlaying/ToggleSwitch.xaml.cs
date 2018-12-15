@@ -29,25 +29,33 @@ namespace NowPlaying
 
         public ToggleSwitch()
         {
-            InitializeComponent();
-            Background.Fill = Off;
-            Toggled = false;
-            Dot.Margin = LeftSide;
+            this.InitializeComponent();
+            this.TurnOff();
+        }
+
+        public void TurnOff()
+        {
+            this.Background.Fill = this.Off;
+            ToggleSwitch.Toggled = false;
+            this.Dot.Margin = this.LeftSide;
+        }
+
+        public void TurnOn()
+        {
+            this.Background.Fill = this.On;
+            ToggleSwitch.Toggled = true;
+            this.Dot.Margin = this.RightSide;
         }
 
         private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!Toggled)
             {
-                Background.Fill = On;
-                Toggled = true;
-                Dot.Margin = RightSide;
+                this.TurnOn();
             }
             else
             {
-                Background.Fill = Off;
-                Toggled = false;
-                Dot.Margin = LeftSide;
+                this.TurnOff();
             }
         }
 
@@ -55,15 +63,11 @@ namespace NowPlaying
         {
             if (!Toggled)
             {
-                Background.Fill = On;
-                Toggled = true;
-                Dot.Margin = RightSide;
+                this.TurnOn();
             }
             else
             {
-                Background.Fill = Off;
-                Toggled = false;
-                Dot.Margin = LeftSide;
+                this.TurnOff();
             }
         }
     }
