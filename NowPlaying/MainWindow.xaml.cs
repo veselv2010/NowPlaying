@@ -48,15 +48,13 @@ namespace NowPlaying
             if (this.AccountsList.SelectedItem == null)
                 return;
 
-            SteamIdLooker.AccountNameToSteamid3.TryGetValue(this.AccountsList.SelectedItem.ToString(), out int selectedAccId);
-
-            var cfgWriter = new ConfigWriter(this.TextBox.Text, $@"{SteamIdLooker.UserdataPath}\{selectedAccId.ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter(this.TextBox.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
             cfgWriter.RewriteKeyBinding(trackResp);
         }
 
         private async void ToggleSwitch_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!ToggleSwitch.Toggled)
+            if (!this.SpotifySwitch.Toggled)
             {
                 this._cancellationGetSpotifyUpdates?.Cancel();
                 return;
@@ -75,6 +73,8 @@ namespace NowPlaying
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
+            var cfgWriter = new ConfigWriter(this.TextBox.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+
             await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) =>
             {                           // чтобы потом его можно было использовать внутри этого блока
                 while (true)
@@ -85,8 +85,11 @@ namespace NowPlaying
 
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
 
-                    // if (trackResp.Id != this.LastPlayingTrackId)
-                    //     cfgWriter.Write(trackResp);
+                    if (trackResp?.Id != this.LastPlayingTrackId)
+                    {
+                        cfgWriter.RewriteKeyBinding(trackResp);
+                        this.LastPlayingTrackId = trackResp.Id;
+                    }
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
@@ -109,23 +112,21 @@ namespace NowPlaying
             this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.Progress / 1000}/{trackResp.Duration / 1000}";
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private int GetSelectedAccountId()
         {
-            SteamIdLooker.AccountNameToSteamid3.TryGetValue(this.AccountsList.SelectedItem.ToString(), out int selectedaccountid);
-            this.PathTextBox.Text = SteamIdLooker.UserdataPath + $@"\{selectedaccountid.ToString()}\730\local\cfg\audio.cfg";
+            SteamIdLooker.AccountNameToSteamid3.TryGetValue(this.AccountsList.SelectedItem.ToString(), out int selectedAccountId);
+            return selectedAccountId;
         }
 
-
-        private void textBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
+            this.PathTextBox.Text = SteamIdLooker.UserdataPath + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
 
         private void AccountsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-        }
-
-        private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
-        {
+            // if (this.SpotifySwitch.Toggled && this._cancellationGetSpotifyUpdates != null)
+            //    this.ToggleSwitch_MouseLeftButtonDown(null, null);
         }
     }
 

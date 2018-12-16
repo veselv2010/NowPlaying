@@ -24,7 +24,7 @@ namespace NowPlaying
         Thickness RightSide = new Thickness(0, 0, -120, 0);
         SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(155, 32, 32));
         SolidColorBrush On = new SolidColorBrush(Color.FromRgb(39, 185, 39));
-        public static bool Toggled = false;
+        public bool Toggled = false;
 
 
         public ToggleSwitch()
@@ -36,20 +36,20 @@ namespace NowPlaying
         public void TurnOff()
         {
             this.Background.Fill = this.Off;
-            ToggleSwitch.Toggled = false;
+            this.Toggled = false;
             this.Dot.Margin = this.LeftSide;
         }
 
         public void TurnOn()
         {
             this.Background.Fill = this.On;
-            ToggleSwitch.Toggled = true;
+            this.Toggled = true;
             this.Dot.Margin = this.RightSide;
         }
 
         private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!Toggled)
+            if (!this.Toggled)
             {
                 this.TurnOn();
             }
@@ -61,7 +61,7 @@ namespace NowPlaying
 
         private void Background_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!Toggled)
+            if (!this.Toggled)
             {
                 this.TurnOn();
             }
