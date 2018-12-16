@@ -64,7 +64,8 @@ namespace NowPlaying
 
             if (this.AccountsList.SelectedItem == null)
             {
-                // Здесь просто MessageBox какой-нибудь пользователю алертнуть мол он в край ебнулся
+                Toggle_Switch.TurnOff();
+                MessageBox.Show("Выберите аккаунт"); // Здесь просто MessageBox какой-нибудь пользователю алертнуть мол он в край ебнулся
                 return;
             }
 
