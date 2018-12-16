@@ -18,7 +18,7 @@
 		<Button Content="manual" Name="ButtonDo" HorizontalAlignment="Left" Margin="10,123,-348,0" VerticalAlignment="Top" 
                 Width="530" Height="61" Click="ButtonDo_Click" FontSize="14pt" Grid.ColumnSpan="3"/>
 		<Label Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,15,-151,0" Width="275" Height="23" FontSize="10" Grid.ColumnSpan="3"/>
-		<TextBox x:Name="TextBox" Grid.Column="2" HorizontalAlignment="Left" Height="19" Margin="320.148,30,-348,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+		<TextBox x:Name="KeyBind" Grid.Column="2" HorizontalAlignment="Left" Height="19" Margin="320.148,30,-348,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
 		<TextBlock x:Name="textBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="248.148,30,-292,0" TextWrapping="Wrap" Text="chat button" VerticalAlignment="Top" Width="67" Height="19"/>
 		<Label x:Name="LabelWithButton" Content="key to record" Margin="61,27,21.852,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
 		<ComboBox x:Name="AccountsList" Grid.Column="2" HorizontalAlignment="Left" Margin="129.148,30,-220,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11" SelectedIndex="0" SelectionChanged="AccountsList_SelectionChanged"/>
