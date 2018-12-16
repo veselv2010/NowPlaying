@@ -21,11 +21,11 @@
 		<TextBox x:Name="TextBox" Grid.Column="2" HorizontalAlignment="Left" Height="19" Margin="320.148,30,-348,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" TextChanged="textBox_TextChanged"/>
 		<TextBlock x:Name="textBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="248.148,30,-292,0" TextWrapping="Wrap" Text="chat button" VerticalAlignment="Top" Width="67" Height="19"/>
 		<Label x:Name="LabelWithButton" Content="key to record" Margin="61,27,21.852,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2"/>
-		<ComboBox x:Name="AccountsList" Grid.Column="2" HorizontalAlignment="Left" Margin="129.148,30,-220,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11"/>
+		<ComboBox x:Name="AccountsList" Grid.Column="2" HorizontalAlignment="Left" Margin="129.148,30,-220,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11" SelectedIndex="0"/>
 		<Label x:Name="label" Content="Current key:" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" FontSize="10"/>
 		<Label x:Name="label1" Content="Current track:" HorizontalAlignment="Left" Margin="5,14,0,0" VerticalAlignment="Top" Width="81" FontSize="10" Grid.ColumnSpan="2"/>
 		<Label x:Name="label2" Content="npc work " HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="155" Grid.ColumnSpan="2" FontSize="36"/>
-		<local:ToggleSwitch x:Name="Toggle_Switch" Grid.Column="2" HorizontalAlignment="Left" Height="65" Margin="0,60,-91,0" VerticalAlignment="Top" Width="114" Loaded="ToggleSwitch_Loaded" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown"/>
+		<local:ToggleSwitch x:Name="SpotifySwitch" Grid.Column="2" HorizontalAlignment="Left" Height="65" Margin="0,60,-91,0" VerticalAlignment="Top" Width="114" Loaded="ToggleSwitch_Loaded" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown"/>
 		<Label x:Name="label3" Content="Current acc:" Grid.Column="2" HorizontalAlignment="Left" Margin="58.148,26,-106,0" VerticalAlignment="Top" Width="71"/>
 		<Label x:Name="label4" Content="&lt;-pressing this button will kill the npc" Grid.Column="2" HorizontalAlignment="Left" Margin="119.148,70,-309,0" VerticalAlignment="Top" Width="213" Height="39"/>
 		<TextBox x:Name="PathTextBox" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,0,-368,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="381" FontSize="9"/>

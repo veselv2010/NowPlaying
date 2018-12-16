@@ -64,7 +64,7 @@ namespace NowPlaying
 
             if (this.AccountsList.SelectedItem == null)
             {
-                Toggle_Switch.TurnOff();
+                this.SpotifySwitch.TurnOff();
                 MessageBox.Show("Выберите аккаунт"); // Здесь просто MessageBox какой-нибудь пользователю алертнуть мол он в край ебнулся
                 return;
             }
@@ -83,9 +83,6 @@ namespace NowPlaying
 
                     CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken);
 
-                    if (trackResp == null)
-                        continue;
-
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
 
                     // if (trackResp.Id != this.LastPlayingTrackId)
@@ -100,6 +97,14 @@ namespace NowPlaying
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
             this.LabelWithButton.Content = this.TextBox.Text;
+
+            if (trackResp == null)
+            {
+                this.LabelFormatted.Content = "";
+                this.ButtonDo.Content = "Nothing is playing!";
+                return;
+            }
+            
             this.LabelFormatted.Content = trackResp.FormattedName;
             this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.Progress / 1000}/{trackResp.Duration / 1000}";
         }
