@@ -125,8 +125,11 @@ namespace NowPlaying
 
         private void AccountsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            // if (this.SpotifySwitch.Toggled && this._cancellationGetSpotifyUpdates != null)
-            //    this.ToggleSwitch_MouseLeftButtonDown(null, null);
+            if (this.SpotifySwitch.Toggled && this._cancellationGetSpotifyUpdates != null)
+            {
+                this.SpotifySwitch.TurnOff();
+                this._cancellationGetSpotifyUpdates?.Cancel();
+            }
         }
     }
 
