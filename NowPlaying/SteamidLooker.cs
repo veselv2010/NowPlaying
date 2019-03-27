@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.IO;
-using System.Diagnostics;
 using Microsoft.Win32;
+using System.Text.RegularExpressions;
 
 namespace NowPlaying
 {
@@ -20,7 +19,6 @@ namespace NowPlaying
         private static string LoginUsersPath = @"";
         public static string UserdataPath = @"";
 
-
         public static string SteamCfgPath()
         { 
             var steamFullPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
@@ -34,14 +32,21 @@ namespace NowPlaying
 
         public static void SteamCfgReader()
         {
+            string RegexPattern = @"(765611)\w+";
+            Regex id64Looker = new Regex(RegexPattern);
             string[] fileLines = File.ReadAllLines(LoginUsersPath);
-            
-            for (int lineIndex = 2; lineIndex < fileLines.Length - 1; lineIndex += 8) //id64
+            int temp32;
+            long temp64;
+            for (int lineIndex = 2; lineIndex < fileLines.Length - 1; lineIndex++) //id64 + userdata(steamid3/32)
             {
-                string currentSteamId64 = fileLines.Skip(lineIndex).Take(1).First().Trim().Replace("\"", "");
-
-                SteamIds64.Add(currentSteamId64);
-                Console.WriteLine(SteamIds64.Last());
+                var currentSteamId64 = id64Looker.Match(fileLines[lineIndex]);
+                long.TryParse(currentSteamId64.ToString(), out temp64);
+                var currentSteamId32 = temp64 - 76561197960265728; //steamid64 - 76561197960265728 = steamid3/32
+                int.TryParse(currentSteamId32.ToString(), out temp32);
+                if (temp64 != 0)
+                    SteamIds64.Add(temp64.ToString());
+                if (temp32 != 0)
+                    UserdataNumbers.Add(temp32);
             }
 
             for (int lineIndex = 4; lineIndex < fileLines.Length; lineIndex += 8) //accountname
@@ -52,19 +57,12 @@ namespace NowPlaying
                 Accounts.Add(currentAcc);
                 Console.WriteLine(Accounts.Last());
             }
-            foreach(string s in Directory.GetDirectories(UserdataPath)) //userdata steamid3
-            {
-                string temp = s.Remove(0, UserdataPath.Length + 1);
-                int tempint = int.Parse(temp);
-                UserdataNumbers.Add(tempint);
-            }
-            UserdataNumbers.Sort();
-            for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count - 1; PositionInDictionary++)
+
+            for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count; PositionInDictionary++)
             {
                 AccountNameToSteamid3.Add(Accounts[PositionInDictionary], UserdataNumbers[PositionInDictionary]);
             }
         }
-
         /*public static void MakeUrls() //future feature
         {
             for (int i = 0; i < SteamIds64.Count; i++)
