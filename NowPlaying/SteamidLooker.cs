@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace NowPlaying
 {
@@ -20,17 +21,15 @@ namespace NowPlaying
         public static string UserdataPath = @"";
 
 
-        public static string SteamCfgPath(string processName)
-        {
-            var processes = Process.GetProcessesByName(processName);
+        public static string SteamCfgPath()
+        { 
+            var steamFullPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
 
-            if (processes.Length == 0)
-                throw new ArgumentNullException($"{processName} process is not running.");
+            if (String.IsNullOrEmpty(steamFullPath))
+                throw new InvalidOperationException("Unable to locate the steam folder");
 
-            string steamFullPath = Process.GetProcessesByName(processName)[0].MainModule.FileName;
-            int IndexOfSteamEXE = steamFullPath.IndexOf("Steam.exe");
-            UserdataPath = steamFullPath.Remove(IndexOfSteamEXE) + @"userdata";
-            return LoginUsersPath = steamFullPath.Remove(IndexOfSteamEXE) + @"config\loginusers.vdf";
+            UserdataPath = steamFullPath + @"\userdata";
+            return LoginUsersPath = steamFullPath + @"\config\loginusers.vdf";
         }
 
         public static void SteamCfgReader()

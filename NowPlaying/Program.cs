@@ -8,7 +8,7 @@ namespace NowPlaying
         [STAThread]
         public static void Main(string[] args)
         {
-            SteamIdLooker.SteamCfgPath("steam");
+            SteamIdLooker.SteamCfgPath();
             SteamIdLooker.SteamCfgReader();
 
             new Application().Run(new MainWindow());
