@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
@@ -32,8 +31,10 @@ namespace NowPlaying
 
         public static void SteamCfgReader()
         {
-            string RegexPattern = @"(765611)\w+";
-            Regex id64Looker = new Regex(RegexPattern);
+            string RegexPatternId64 = @"(765611)\w+";
+            string RegexPatternAcc = "(Acc)\\w+" + '"' + "\\s+" + '"' + "([A-z-0-9])+";
+            Regex id64Looker = new Regex(RegexPatternId64);
+            Regex accountLooker = new Regex(RegexPatternAcc);
             string[] fileLines = File.ReadAllLines(LoginUsersPath);
             int temp32;
             long temp64;
@@ -47,16 +48,10 @@ namespace NowPlaying
                     int.TryParse(currentSteamId32.ToString(), out temp32);
                     SteamIds64.Add(temp64.ToString());
                     UserdataNumbers.Add(temp32);
-                }                
-            }
-
-            for (int lineIndex = 4; lineIndex < fileLines.Length; lineIndex += 8) //accountname
-            {
-                string currentAcc = fileLines.Skip(lineIndex).Take(1).First().Trim()
-                                            .Replace("AccountName", "").Replace("\"", "").Trim();
-
-                Accounts.Add(currentAcc);
-                Console.WriteLine(Accounts.Last());
+                }
+                var currentAccountName = accountLooker.Match(fileLines[lineIndex]).ToString(); //accountname
+                if (currentAccountName != "")
+                    Accounts.Add(currentAccountName.Remove(0, 12).Trim().Remove(0, 1));
             }
 
             for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count; PositionInDictionary++)
