@@ -41,12 +41,13 @@ namespace NowPlaying
             {
                 var currentSteamId64 = id64Looker.Match(fileLines[lineIndex]);
                 long.TryParse(currentSteamId64.ToString(), out temp64);
-                var currentSteamId32 = temp64 - 76561197960265728; //steamid64 - 76561197960265728 = steamid3/32
-                int.TryParse(currentSteamId32.ToString(), out temp32);
                 if (temp64 != 0)
+                {
+                    var currentSteamId32 = temp64 - 76561197960265728; //steamid64 - 76561197960265728 = steamid3/32
+                    int.TryParse(currentSteamId32.ToString(), out temp32);
                     SteamIds64.Add(temp64.ToString());
-                if (temp32 != 0)
                     UserdataNumbers.Add(temp32);
+                }                
             }
 
             for (int lineIndex = 4; lineIndex < fileLines.Length; lineIndex += 8) //accountname
