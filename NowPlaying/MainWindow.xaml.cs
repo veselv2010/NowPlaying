@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System;
 using NowPlaying.ApiResponses;
 
 namespace NowPlaying
@@ -57,6 +56,13 @@ namespace NowPlaying
         {
             if (!this.SpotifySwitch.Toggled)
             {
+                this.PathTextBox.Visibility = Visibility.Visible;
+                this.NpcDisclaimer.Visibility = PathTextBox.Visibility;
+                this.button.Visibility = PathTextBox.Visibility;
+                this.LabelFormatted.Visibility = Visibility.Collapsed;
+                this.LabelWithButton.Visibility = LabelFormatted.Visibility;
+                this.LabelCurrentKey.Visibility = LabelFormatted.Visibility;
+                this.LabelCurrentTrack.Visibility = LabelFormatted.Visibility;
                 this._cancellationGetSpotifyUpdates?.Cancel();
                 return;
             }
@@ -77,6 +83,15 @@ namespace NowPlaying
 
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
+
+            this.PathTextBox.Visibility = Visibility.Collapsed;
+            this.NpcDisclaimer.Visibility = PathTextBox.Visibility;
+            this.button.Visibility = PathTextBox.Visibility;
+            this.LabelFormatted.Visibility = Visibility.Visible;
+            this.LabelWithButton.Visibility = LabelFormatted.Visibility;
+            this.LabelCurrentKey.Visibility = LabelFormatted.Visibility;
+            this.LabelCurrentTrack.Visibility = LabelFormatted.Visibility;
+
 
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
