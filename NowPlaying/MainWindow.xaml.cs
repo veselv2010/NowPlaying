@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System;
 using NowPlaying.ApiResponses;
 
 namespace NowPlaying
@@ -116,7 +117,7 @@ namespace NowPlaying
             }
             
             this.LabelFormatted.Content = trackResp.FormattedName;
-            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.Progress / 1000}/{trackResp.Duration / 1000}";
+            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.Progress / 1000/ 60}:{trackResp.Progress / 1000 % 60}/{trackResp.Duration / 1000 / 60}:{trackResp.Duration / 1000 % 60}";
         }
 
         private int GetSelectedAccountId()
