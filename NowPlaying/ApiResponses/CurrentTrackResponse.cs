@@ -5,31 +5,31 @@ namespace NowPlaying.ApiResponses
 {
     internal class CurrentTrackResponse
     {
-        public string Id { get; private set; }
+        public string Id { get; }
 
         /// <summary>
         /// Track name.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Artists list.
         /// </summary>
-        public IEnumerable<string> Artists { get; private set; }
+        public IEnumerable<string> Artists { get; }
 
         /// <summary>
         /// Track progress in milliseconds.
         /// </summary>
-        public long Progress { get; private set; }
+        public long Progress { get; }
 
         /// <summary>
         /// Track duration in milliseconds.
         /// </summary>
-        public long Duration { get; private set; }
+        public long Duration { get; }
 
-        public string FullName { get; private set; }
+        public string FullName { get; }
 
-        public string FormattedName { get; private set; }
+        public string FormattedName { get; }
 
         public CurrentTrackResponse(string trackId, string trackName, IEnumerable<string> artists, long progress, long duration)
         {

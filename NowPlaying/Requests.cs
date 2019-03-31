@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -35,7 +36,7 @@ namespace NowPlaying
         private static string PerformGetRequest(string url)
         {
             string resp;
-            using (WebClient wc = new WebClient() { Encoding = Encoding.UTF8 })
+            using (var wc = new WebClient() { Encoding = Encoding.UTF8 })
                 resp = wc.DownloadString(url);
 
             return resp;
@@ -44,7 +45,7 @@ namespace NowPlaying
         public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
         {
             string resp;
-            using (WebClient wc = new WebClient())
+            using (var wc = new WebClient())
             {
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
 
@@ -58,8 +59,8 @@ namespace NowPlaying
 
         private static string Base64Encode(string plainText)
         {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
         }
     }
 }
