@@ -8,7 +8,7 @@ namespace NowPlaying
         public static string GetPropertyValue(this Uri uri, string propertyName)
         {
             string[] urlParams = uri.ToString().Split(new char[] { '?', '&' });
-            return urlParams.Single(p => p.Contains(propertyName + "="))
+            return urlParams.FirstOrDefault(p => p.Contains(propertyName + "="))
                                     .Split('=')[1]; // {propertyName}=*text*" split by '=', take *text*
         }
 
