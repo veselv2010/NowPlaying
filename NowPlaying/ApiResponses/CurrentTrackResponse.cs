@@ -36,6 +36,8 @@ namespace NowPlaying.ApiResponses
         public int DurationMinutes { get; }
         public int DurationSeconds { get; }
 
+        public bool IsLocal { get; }
+
         public CurrentTrackResponse(string trackId, string trackName, IEnumerable<string> artists, long progress, long duration)
         {
             this.Id = trackId;
@@ -46,6 +48,7 @@ namespace NowPlaying.ApiResponses
 
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
             this.FormattedName = TrackNameFormatter.ToLatin(this.FullName);
+            this.IsLocal = this.Id == null;
             this.ProgressMinutes = (int)Progress / 1000 / 60;
             this.ProgressSeconds = (int)Progress / 1000 % 60;
             this.DurationMinutes = (int)Duration/ 1000 / 60;
@@ -55,6 +58,6 @@ namespace NowPlaying.ApiResponses
         /// <summary>
         /// Get artists separated by some string. Ex: XTENTACILION xxx AK47 xxx LANA DEL RAY.
         /// </summary>
-        public string GetArtistsString(string separator = " ") => string.Join(separator, this.Artists);
+        public string GetArtistsString(string separator = ", ") => string.Join(separator, this.Artists);
     }
 }

@@ -130,7 +130,7 @@ namespace NowPlaying
                 return;
             }
 
-            if (trackResp.Id == null)
+            if (trackResp.IsLocal == true)
                 LocalFilesWarning.Visibility = Visibility.Visible;
             else
                 LocalFilesWarning.Visibility = Visibility.Collapsed;
