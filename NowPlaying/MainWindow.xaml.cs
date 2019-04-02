@@ -84,12 +84,12 @@ namespace NowPlaying
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
             this.PathTextBox.Visibility = Visibility.Collapsed;
-            this.NpcDisclaimer.Visibility = PathTextBox.Visibility;
-            this.button.Visibility = PathTextBox.Visibility;
+            this.NpcDisclaimer.Visibility = this.PathTextBox.Visibility;
+            this.button.Visibility = this.PathTextBox.Visibility;
             this.LabelFormatted.Visibility = Visibility.Visible;
-            this.LabelWithButton.Visibility = LabelFormatted.Visibility;
-            this.LabelCurrentKey.Visibility = LabelFormatted.Visibility;
-            this.LabelCurrentTrack.Visibility = LabelFormatted.Visibility;
+            this.LabelWithButton.Visibility = this.LabelFormatted.Visibility;
+            this.LabelCurrentKey.Visibility = this.LabelFormatted.Visibility;
+            this.LabelCurrentTrack.Visibility = this.LabelFormatted.Visibility;
 
 
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
@@ -130,10 +130,10 @@ namespace NowPlaying
                 return;
             }
 
-            if (trackResp.IsLocal == true)
-                LocalFilesWarning.Visibility = Visibility.Visible;
+            if (trackResp.IsLocalFile)
+				this.LocalFilesWarning.Visibility = Visibility.Visible;
             else
-                LocalFilesWarning.Visibility = Visibility.Collapsed;
+				this.LocalFilesWarning.Visibility = Visibility.Collapsed;
 
             this.LabelFormatted.Content = trackResp.FormattedName;
             this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";

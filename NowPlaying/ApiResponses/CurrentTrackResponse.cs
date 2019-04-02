@@ -36,7 +36,7 @@ namespace NowPlaying.ApiResponses
         public int DurationMinutes { get; }
         public int DurationSeconds { get; }
 
-        public bool IsLocal { get; }
+        public bool IsLocalFile { get; }
 
         public CurrentTrackResponse(string trackId, string trackName, IEnumerable<string> artists, long progress, long duration)
         {
@@ -46,13 +46,15 @@ namespace NowPlaying.ApiResponses
             this.Progress = progress;
             this.Duration = duration;
 
+			this.IsLocalFile = this.Id == null;
+
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
             this.FormattedName = TrackNameFormatter.ToLatin(this.FullName);
-            this.IsLocal = this.Id == null;
-            this.ProgressMinutes = (int)Progress / 1000 / 60;
-            this.ProgressSeconds = (int)Progress / 1000 % 60;
-            this.DurationMinutes = (int)Duration/ 1000 / 60;
-            this.DurationSeconds = (int)Duration / 1000 % 60;
+            
+            this.ProgressMinutes = (int)(this.Progress / 1000 / 60);
+            this.ProgressSeconds = (int)(this.Progress / 1000 % 60);
+            this.DurationMinutes = (int)(this.Duration / 1000 / 60);
+            this.DurationSeconds = (int)(this.Duration / 1000 % 60);
         }
 
         /// <summary>

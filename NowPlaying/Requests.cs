@@ -25,7 +25,7 @@ namespace NowPlaying
 
             string trackId = (string) trackInfo["id"];
             string trackName = (string)trackInfo["name"];
-            IEnumerable<string> artists = artistsInfo.Select(artist => (string)artist["name"]);
+            var artists = artistsInfo.Select(artist => (string)artist["name"]);
 
             long progress = (long)currentTrackJson["progress_ms"];
             long duration = (long)trackInfo["duration_ms"];
@@ -44,17 +44,15 @@ namespace NowPlaying
 
         public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
         {
-            string resp;
             using (var wc = new WebClient())
             {
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
 
                 var b64str = Requests.Base64Encode($"{AppInfo.SpotifyClientId}:{AppInfo.SpotifyClientSecret}");
                 wc.Headers[HttpRequestHeader.Authorization] = $"Basic {b64str}";
-                resp = wc.UploadString(url, data);
+                string resp = wc.UploadString(url, data);
+				return JsonConvert.DeserializeObject<RespT>(resp);
             }
-
-            return JsonConvert.DeserializeObject<RespT>(resp);
         }
 
         private static string Base64Encode(string plainText)
