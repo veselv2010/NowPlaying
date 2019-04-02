@@ -136,7 +136,7 @@ namespace NowPlaying
                 LocalFilesWarning.Visibility = Visibility.Collapsed;
 
             this.LabelFormatted.Content = trackResp.FormattedName;
-            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.ProgressMinutes}:{trackResp.ProgressSeconds}/{trackResp.DurationMinutes}:{trackResp.DurationSeconds}";
+            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";
         }
 
         private int GetSelectedAccountId()
