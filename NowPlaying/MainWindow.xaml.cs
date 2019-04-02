@@ -81,7 +81,6 @@ namespace NowPlaying
                 return;
             }
 
-
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
             this.PathTextBox.Visibility = Visibility.Collapsed;
@@ -130,9 +129,14 @@ namespace NowPlaying
                 this.ButtonDo.Content = "Nothing is playing!";
                 return;
             }
-            
+
+            if (trackResp.Id == null)
+                LocalFilesWarning.Visibility = Visibility.Visible;
+            else
+                LocalFilesWarning.Visibility = Visibility.Collapsed;
+
             this.LabelFormatted.Content = trackResp.FormattedName;
-            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.Progress / 1000/ 60}:{trackResp.Progress / 1000 % 60}/{trackResp.Duration / 1000 / 60}:{trackResp.Duration / 1000 % 60}";
+            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.ProgressMinutes}:{trackResp.ProgressSeconds}/{trackResp.DurationMinutes}:{trackResp.DurationSeconds}";
         }
 
         private int GetSelectedAccountId()

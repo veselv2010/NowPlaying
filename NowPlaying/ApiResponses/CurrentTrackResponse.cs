@@ -31,9 +31,14 @@ namespace NowPlaying.ApiResponses
 
         public string FormattedName { get; }
 
+        public int ProgressSeconds { get; }
+        public int ProgressMinutes { get; }
+        public int DurationMinutes { get; }
+        public int DurationSeconds { get; }
+
         public CurrentTrackResponse(string trackId, string trackName, IEnumerable<string> artists, long progress, long duration)
         {
-            this.Id = trackId ?? throw new ArgumentNullException(nameof(trackId));
+            this.Id = trackId;
             this.Name = trackName ?? throw new ArgumentNullException(nameof(trackName));
             this.Artists = artists ?? throw new ArgumentNullException(nameof(artists));
             this.Progress = progress;
@@ -41,6 +46,10 @@ namespace NowPlaying.ApiResponses
 
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
             this.FormattedName = TrackNameFormatter.ToLatin(this.FullName);
+            this.ProgressMinutes = (int)Progress / 1000 / 60;
+            this.ProgressSeconds = (int)Progress / 1000 % 60;
+            this.DurationMinutes = (int)Duration/ 1000 / 60;
+            this.DurationSeconds = (int)Duration / 1000 % 60;
         }
 
         /// <summary>
