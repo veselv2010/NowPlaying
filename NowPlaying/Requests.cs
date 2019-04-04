@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -9,7 +8,7 @@ using NowPlaying.ApiResponses;
 
 namespace NowPlaying
 {
-    static class Requests
+	static class Requests
     {
         public static CurrentTrackResponse GetCurrentTrack(string accessToken)
         {
@@ -35,11 +34,8 @@ namespace NowPlaying
 
         private static string PerformGetRequest(string url)
         {
-            string resp;
             using (var wc = new WebClient() { Encoding = Encoding.UTF8 })
-                resp = wc.DownloadString(url);
-
-            return resp;
+                return wc.DownloadString(url);
         }
 
         public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)

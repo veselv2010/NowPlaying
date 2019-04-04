@@ -51,8 +51,8 @@ namespace NowPlaying.OAuth
 
                 this.ResultToken = tokenResp.AccessToken;
                 this.RefreshToken = tokenResp.RefreshToken;
-                this.Browser.Dispose();
                 this.Close();
+				this.Browser.Dispose();
                 return;
             }
         }

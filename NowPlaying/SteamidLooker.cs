@@ -28,7 +28,7 @@ namespace NowPlaying
             var steamFullPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
 
             if (String.IsNullOrEmpty(steamFullPath))
-                throw new InvalidOperationException("Unable to locate the steam folder");
+                throw new DirectoryNotFoundException("Unable to locate the steam folder");
 
             UserdataPath = steamFullPath + @"\userdata";
             return LoginUsersPath = steamFullPath + @"\config\loginusers.vdf";
