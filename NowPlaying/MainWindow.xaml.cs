@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
@@ -56,13 +57,7 @@ namespace NowPlaying
         {
             if (!this.SpotifySwitch.Toggled)
             {
-                this.PathTextBox.Visibility = Visibility.Visible;
-                this.NpcDisclaimer.Visibility = PathTextBox.Visibility;
-                this.button.Visibility = PathTextBox.Visibility;
-                this.LabelFormatted.Visibility = Visibility.Collapsed;
-                this.LabelWithButton.Visibility = LabelFormatted.Visibility;
-                this.LabelCurrentKey.Visibility = LabelFormatted.Visibility;
-                this.LabelCurrentTrack.Visibility = LabelFormatted.Visibility;
+				this.ChangeUIState(MainWindowUIState.Idle);
                 this._cancellationGetSpotifyUpdates?.Cancel();
                 return;
             }
@@ -83,14 +78,7 @@ namespace NowPlaying
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
-            this.PathTextBox.Visibility = Visibility.Collapsed;
-            this.NpcDisclaimer.Visibility = this.PathTextBox.Visibility;
-            this.button.Visibility = this.PathTextBox.Visibility;
-            this.LabelFormatted.Visibility = Visibility.Visible;
-            this.LabelWithButton.Visibility = this.LabelFormatted.Visibility;
-            this.LabelCurrentKey.Visibility = this.LabelFormatted.Visibility;
-            this.LabelCurrentTrack.Visibility = this.LabelFormatted.Visibility;
-
+			this.ChangeUIState(MainWindowUIState.NpcWork);
 
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
@@ -119,7 +107,7 @@ namespace NowPlaying
             });
         }
 
-        private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
+		private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
             this.LabelWithButton.Content = this.KeyBind.Text;
 
@@ -158,8 +146,41 @@ namespace NowPlaying
                 this._cancellationGetSpotifyUpdates?.Cancel();
             }
         }
-    }
 
+
+		private void ChangeUIState(MainWindowUIState idle)
+		{
+			switch(idle)
+			{
+				case MainWindowUIState.NpcWork:
+				{
+					this.PathTextBox.Visibility   = Visibility.Collapsed;
+					this.NpcDisclaimer.Visibility = Visibility.Collapsed;
+					this.button.Visibility	      = Visibility.Collapsed;
+
+					this.LabelFormatted.Visibility    = Visibility.Visible;
+					this.LabelWithButton.Visibility   = Visibility.Visible;
+					this.LabelCurrentKey.Visibility   = Visibility.Visible;
+					this.LabelCurrentTrack.Visibility = Visibility.Visible;
+				}
+				break;
+
+				case MainWindowUIState.Idle:
+				{
+					this.PathTextBox.Visibility   = Visibility.Visible;
+					this.NpcDisclaimer.Visibility = Visibility.Visible;
+					this.button.Visibility		  = Visibility.Visible;
+
+					this.LabelFormatted.Visibility    = Visibility.Collapsed;
+					this.LabelWithButton.Visibility   = Visibility.Collapsed;
+					this.LabelCurrentKey.Visibility   = Visibility.Collapsed;
+					this.LabelCurrentTrack.Visibility = Visibility.Collapsed;
+				}
+				break;
+			}
+		}
+
+	}
 }
 
 //-_=ICON BY SCOUTPAN_=
