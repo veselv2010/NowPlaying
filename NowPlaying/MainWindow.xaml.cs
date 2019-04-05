@@ -57,7 +57,7 @@ namespace NowPlaying
         {
             if (!this.SpotifySwitch.Toggled)
             {
-                this.ChangeUIState(MainWindowUIState.Idle);
+				this.ChangeUIState(MainWindowUIState.Idle);
                 this._cancellationGetSpotifyUpdates?.Cancel();
                 return;
             }
