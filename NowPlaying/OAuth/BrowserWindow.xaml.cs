@@ -1,11 +1,7 @@
 ﻿using System.Windows;
-using System.Windows.Navigation;
-using mshtml;
 using NowPlaying.ApiResponses;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Net;
-using System.Text;
+using CefSharp;
+
 
 
 namespace NowPlaying.OAuth
@@ -19,7 +15,7 @@ namespace NowPlaying.OAuth
 
         private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
-        private string HtmlWithJs { get; set; }
+        private string url { get; set; }
 
         public string ResultToken { get; private set; }
 
@@ -29,44 +25,23 @@ namespace NowPlaying.OAuth
         {
             this.InitializeComponent();
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Browser_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Browser.Navigate(this.GetAuthUrl());
+
         }
 
-        private void Browser_LoadCompleted(object sender, NavigationEventArgs e)
+        private void Window_Initialized(object sender, System.EventArgs e)
         {
-            // Hide scrollbar
-            (this.Browser.Document as IHTMLDocument2).body.parentElement.style.overflow = "hidden";
+            Browser.Load(GetAuthUrl());
         }
 
-        private void Browser_Navigating(object sender, NavigatingCancelEventArgs e)
+        private void Browser_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
         {
-            string FileWithJs = "index.2a0d8f60176c3d43e699.js";
-            string FileWithHtml = "auth.html";
-            string jsAddress = "https://accounts.scdn.co/js/index.2a0d8f60176c3d43e699.js";
-            string url = e.Uri.ToString();
-
-            using (var wc = new WebClient() { Encoding = Encoding.UTF8 })
-            {
-                HtmlWithJs = wc.DownloadString(url);
-                wc.DownloadFile(jsAddress, FileWithJs);               
-            }
-            string temp = File.ReadAllText(FileWithJs);
-            string NormalFunc = @"const r=function(e,t) {return new function(Promise(function(n) {return {const r=function() {return {t.test(document.readyState)&&(document.removeEventListener(e,r),n();};});};};};";
-            string ArrowFunc = @"const r = (e, t) => new Promise(n => {const r= () => { t.test(document.readyState) && (document.removeEventListener(e, r), n())};";
-            temp.Replace(ArrowFunc, NormalFunc);
-            HtmlWithJs.Replace("src =\"https://accounts.scdn.co/js/index.2a0d8f60176c3d43e699.js\"", "src = \"index.2a0d8f60176c3d43e699.js\"");
-            File.WriteAllText(FileWithHtml, HtmlWithJs);
-            string Dir = Directory.GetCurrentDirectory();
-            this.Browser.Navigate(@"file:///{Dir}/{FileWithHtml}");
-            
-            url = e.Uri.ToString();
+            url = Browser.Address.ToString();
 
             if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
             {
-                string code = e.Uri.GetPropertyValue("code");
+                string code = Browser.Address.Substring(33, 184);
 
                 var tokenReqParams = $"grant_type=authorization_code" +
                           $"&code={code}" +
@@ -76,8 +51,9 @@ namespace NowPlaying.OAuth
 
                 this.ResultToken = tokenResp.AccessToken;
                 this.RefreshToken = tokenResp.RefreshToken;
+                Cef.Shutdown();
                 this.Close();
-				this.Browser.Dispose();
+                this.Browser.Dispose();
                 return;
             }
         }
