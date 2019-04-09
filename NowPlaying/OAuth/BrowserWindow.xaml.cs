@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using NowPlaying.ApiResponses;
 using CefSharp;
+using CefSharp.Wpf;
 
 
 
@@ -15,8 +16,6 @@ namespace NowPlaying.OAuth
 
         private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
-        private string url { get; set; }
-
         public string ResultToken { get; private set; }
 
         public string RefreshToken { get; private set; }
@@ -25,19 +24,15 @@ namespace NowPlaying.OAuth
         {
             this.InitializeComponent();
         }
-        private void Browser_Loaded(object sender, RoutedEventArgs e)
+        private void BrowserWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Window_Initialized(object sender, System.EventArgs e)
-        {
-            Browser.Load(GetAuthUrl());
         }
 
         private void Browser_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
         {
-            url = Browser.Address.ToString();
+
+         /*   string url = Browser.Address;
 
             if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
             {
@@ -55,7 +50,12 @@ namespace NowPlaying.OAuth
                 this.Close();
                 this.Browser.Dispose();
                 return;
-            }
+            } */
+        }
+
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+
         }
     }
 }

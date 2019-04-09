@@ -5,12 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              mc:Ignorable="d"
-             Loaded="Browser_Loaded" Height="492.159" Width="553.462" Initialized="Window_Initialized">
+             Loaded="BrowserWindow_Loaded" Height="492.159" Width="553.462">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <cefSharp:ChromiumWebBrowser Grid.Row="0" Name="Browser" HorizontalAlignment="Stretch" Height="461" VerticalAlignment="Top" Grid.ColumnSpan="2" Loaded="Browser_Loaded" LoadingStateChanged="Browser_LoadingStateChanged"/>
+        <cefSharp:ChromiumWebBrowser Name="Browser" HorizontalAlignment="Stretch" Height="461" VerticalAlignment="Top" Grid.ColumnSpan="2" LoadingStateChanged="Browser_LoadingStateChanged" Address="vk.com"/>
     </Grid>
 </Window>
