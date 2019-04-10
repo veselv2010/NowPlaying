@@ -22,7 +22,7 @@ namespace NowPlaying.OAuth
         private string url { get; set; } = "";
         public string ResultToken { get; private set; }
 
-        public string RefreshToken { get; private set; }
+        public string RefreshToken { get; private set; } = "";
 
         public BrowserWindow()
         {
@@ -40,8 +40,20 @@ namespace NowPlaying.OAuth
             {
                 HtmlBox.Text = Browser.Address;
                 url = HtmlBox.Text;
-                if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+                if (RefreshToken != "")
                 {
+                    this.Browser.Dispose();
+                    Cef.Shutdown();
+                    this.Close();
+                }
+            }));
+        }
+
+
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+            {
                     string code = url.Remove(0, 21).Trim();
 
                     var tokenReqParams = $"grant_type=authorization_code" +
@@ -52,19 +64,12 @@ namespace NowPlaying.OAuth
 
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
-                    this.Browser.Dispose();
-                    Cef.ShutdownWithoutChecks();
-                    this.Close();
+
+
+
                     return;
-                }
-            }));
 
-            
-        }
-
-        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
-        {
-            
+            };
         }
     }
 }

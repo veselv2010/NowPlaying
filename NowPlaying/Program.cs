@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System;
-using CefSharp;
-using CefSharp.Wpf;
 
 namespace NowPlaying
 {
