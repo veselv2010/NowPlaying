@@ -2,7 +2,10 @@
 using NowPlaying.ApiResponses;
 using CefSharp;
 using CefSharp.Wpf;
-
+using System.Threading;
+using System.Threading.Tasks;
+using System;
+using CefSharp.SchemeHandler;
 
 
 namespace NowPlaying.OAuth
@@ -16,6 +19,7 @@ namespace NowPlaying.OAuth
 
         private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
+        private string url { get; set; } = "";
         public string ResultToken { get; private set; }
 
         public string RefreshToken { get; private set; }
@@ -24,6 +28,7 @@ namespace NowPlaying.OAuth
         {
             this.InitializeComponent();
         }
+
         private void BrowserWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -31,31 +36,35 @@ namespace NowPlaying.OAuth
 
         private void Browser_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
         {
-
-         /*   string url = Browser.Address;
-
-            if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+            Dispatcher.BeginInvoke((Action)(() =>
             {
-                string code = Browser.Address.Substring(33, 184);
+                HtmlBox.Text = Browser.Address;
+                url = HtmlBox.Text;
+                if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+                {
+                    string code = url.Remove(0, 21).Trim();
 
-                var tokenReqParams = $"grant_type=authorization_code" +
-                          $"&code={code}" +
-                          $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
+                    var tokenReqParams = $"grant_type=authorization_code" +
+                              $"&code={code}" +
+                              $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
 
-                TokenResponse tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
+                    TokenResponse tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
 
-                this.ResultToken = tokenResp.AccessToken;
-                this.RefreshToken = tokenResp.RefreshToken;
-                Cef.Shutdown();
-                this.Close();
-                this.Browser.Dispose();
-                return;
-            } */
+                    this.ResultToken = tokenResp.AccessToken;
+                    this.RefreshToken = tokenResp.RefreshToken;
+                    this.Browser.Dispose();
+                    Cef.ShutdownWithoutChecks();
+                    this.Close();
+                    return;
+                }
+            }));
+
+            
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-
+            
         }
     }
 }
