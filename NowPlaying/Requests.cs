@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NowPlaying.ApiResponses;
+using System.Threading;
 
 namespace NowPlaying
 {
@@ -38,15 +39,17 @@ namespace NowPlaying
                 return wc.DownloadString(url);
         }
 
-        public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
+       public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
         {
+            
             using (var wc = new WebClient())
             {
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-
+                wc.Headers.Add(HttpRequestHeader.ContentType,"application/x-www-form-urlencoded");
+                
                 var b64str = Requests.Base64Encode($"{AppInfo.SpotifyClientId}:{AppInfo.SpotifyClientSecret}");
                 wc.Headers.Add(HttpRequestHeader.Authorization, $"Basic {b64str}");
                 string resp = wc.UploadString(url, data);
+                
 				return JsonConvert.DeserializeObject<RespT>(resp);
             }
         }

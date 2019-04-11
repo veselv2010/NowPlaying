@@ -39,7 +39,7 @@ namespace NowPlaying.OAuth
             Dispatcher.BeginInvoke((Action)(() =>
             {
                 HtmlBox.Text = Browser.Address;
-                url = HtmlBox.Text;
+                url = Browser.Address;
                 if (RefreshToken != "")
                 {
                     this.Browser.Dispose();
@@ -52,24 +52,22 @@ namespace NowPlaying.OAuth
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
-            {
-                    string code = url.Remove(0, 21).Trim();
+          
+                if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+                {
+
+                string code = UriExt.GetPropertyValue(url, "code");
 
                     var tokenReqParams = $"grant_type=authorization_code" +
                               $"&code={code}" +
                               $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
 
                     TokenResponse tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
-
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
-
-
-
                     return;
 
-            };
+            }
         }
     }
 }
