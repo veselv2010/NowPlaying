@@ -1,12 +1,7 @@
 ﻿using System.Windows;
 using NowPlaying.ApiResponses;
 using CefSharp;
-using CefSharp.Wpf;
-using System.Threading;
-using System.Threading.Tasks;
 using System;
-using CefSharp.SchemeHandler;
-
 
 namespace NowPlaying.OAuth
 {
@@ -49,7 +44,6 @@ namespace NowPlaying.OAuth
             }));
         }
 
-
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
           
@@ -67,7 +61,7 @@ namespace NowPlaying.OAuth
                     this.RefreshToken = tokenResp.RefreshToken;
                     return;
 
-            }
+                }
         }
     }
 }
