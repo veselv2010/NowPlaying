@@ -45,7 +45,7 @@ namespace NowPlaying
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
 
                 var b64str = Requests.Base64Encode($"{AppInfo.SpotifyClientId}:{AppInfo.SpotifyClientSecret}");
-                wc.Headers[HttpRequestHeader.Authorization] = $"Basic {b64str}";
+                wc.Headers.Add(HttpRequestHeader.Authorization, $"Basic {b64str}");
                 string resp = wc.UploadString(url, data);
 				return JsonConvert.DeserializeObject<RespT>(resp);
             }
