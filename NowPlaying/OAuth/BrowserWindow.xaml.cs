@@ -2,6 +2,7 @@
 using NowPlaying.ApiResponses;
 using CefSharp;
 using System;
+using CefSharp.Wpf;
 
 namespace NowPlaying.OAuth
 {
@@ -21,6 +22,9 @@ namespace NowPlaying.OAuth
 
         public BrowserWindow()
         {
+            var settings = new CefSettings();
+            settings.CachePath = "cache"; //несет ли какие-нибудь последствия эта тема в плане безопасности 
+            Cef.Initialize(settings);
             this.InitializeComponent();
         }
 

@@ -101,6 +101,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedVolumeControl.xaml.cs">
+      <DependentUpon>AdvancedVolumeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ApiResponses\CurrentTrackResponse.cs" />
     <Compile Include="ApiResponses\TokenResponse.cs" />
     <Compile Include="AppInfo.cs" />
@@ -144,6 +147,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AdvancedVolumeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
