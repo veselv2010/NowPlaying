@@ -10,7 +10,6 @@ namespace NowPlaying
         {
             SteamIdLooker.UpdateSteamConfigPaths();
             SteamIdLooker.UpdateAccountsInfo();
-
             new Application().Run(new MainWindow());
         }
     }

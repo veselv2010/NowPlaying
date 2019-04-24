@@ -38,17 +38,18 @@ namespace NowPlaying
                 return wc.DownloadString(url);
         }
 
-        public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
+       public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
         {
-            using (var wc = new WebClient())
-            {
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+           using (var wc = new WebClient())
+           {
+                wc.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
 
                 var b64str = Requests.Base64Encode($"{AppInfo.SpotifyClientId}:{AppInfo.SpotifyClientSecret}");
-                wc.Headers[HttpRequestHeader.Authorization] = $"Basic {b64str}";
-                string resp = wc.UploadString(url, data);
-				return JsonConvert.DeserializeObject<RespT>(resp);
-            }
+                wc.Headers.Add(HttpRequestHeader.Authorization, $"Basic {b64str}");
+                var resp = wc.UploadString(url, data);
+
+                return JsonConvert.DeserializeObject<RespT>(resp);
+           }
         }
 
         private static string Base64Encode(string plainText)

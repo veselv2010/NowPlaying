@@ -1,7 +1,8 @@
 ﻿using System.Windows;
-using System.Windows.Navigation;
-using mshtml;
 using NowPlaying.ApiResponses;
+using CefSharp;
+using System;
+using CefSharp.Wpf;
 
 namespace NowPlaying.OAuth
 {
@@ -14,46 +15,55 @@ namespace NowPlaying.OAuth
 
         private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
-
+        private string url { get; set; }
         public string ResultToken { get; private set; }
 
         public string RefreshToken { get; private set; }
 
         public BrowserWindow()
         {
+            var settings = new CefSettings();
+            settings.CachePath = "cache"; //несет ли какие-нибудь последствия эта тема в плане безопасности 
+            Cef.Initialize(settings);
             this.InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void BrowserWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Browser.Navigate(this.GetAuthUrl());
+
         }
 
-        private void Browser_LoadCompleted(object sender, NavigationEventArgs e)
+        private void Browser_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
         {
-            // Hide scrollbar
-            (this.Browser.Document as IHTMLDocument2).body.parentElement.style.overflow = "hidden";
-        }
-
-        private void Browser_Navigating(object sender, NavigatingCancelEventArgs e)
-        {
-            string url = e.Uri.ToString();
-
-            if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+            Dispatcher.BeginInvoke((Action)(() =>
             {
-                string code = e.Uri.GetPropertyValue("code");
+                url = Browser.Address;
+                if (RefreshToken != null)
+                {
+                    this.Browser.Dispose();
+                    Cef.Shutdown();
+                    this.Close();
+                }
+            }));
+        }
 
-                var tokenReqParams = $"grant_type=authorization_code" +
-                          $"&code={code}" +
-                          $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            if (url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
+            {
+                while (RefreshToken == null) //мегаублюдский костыль, требуется выкупить почему без этого выдается 400 код и уничтожить это в дальнейшем
+                {
+                    string code = UriExt.GetPropertyValue(url, "code");
 
-                TokenResponse tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
+                    var tokenReqParams = $"grant_type=authorization_code" +
+                              $"&code={code}" +
+                              $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
 
-                this.ResultToken = tokenResp.AccessToken;
-                this.RefreshToken = tokenResp.RefreshToken;
-                this.Close();
-				this.Browser.Dispose();
-                return;
+                    TokenResponse tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
+                    this.ResultToken = tokenResp.AccessToken;
+                    this.RefreshToken = tokenResp.RefreshToken;
+                    return;
+                }
             }
         }
     }

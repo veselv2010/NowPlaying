@@ -5,9 +5,9 @@ namespace NowPlaying
 {
     internal static class UriExt
     {
-        public static string GetPropertyValue(this Uri uri, string propertyName)
+        public static string GetPropertyValue(string uri, string propertyName)
         {
-            string[] urlParams = uri.ToString().Split(new char[] { '?', '&' });
+            string[] urlParams = uri.Split(new char[] { '?', '&' });
             return urlParams.FirstOrDefault(p => p.Contains(propertyName + "="))
                                     .Split('=')[1]; // {propertyName}=*text*" split by '=', take *text*
         }

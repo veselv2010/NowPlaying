@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
@@ -179,8 +178,7 @@ namespace NowPlaying
 				break;
 			}
 		}
-
-	}
+    }
 }
 
 //-_=ICON BY SCOUTPAN_=
