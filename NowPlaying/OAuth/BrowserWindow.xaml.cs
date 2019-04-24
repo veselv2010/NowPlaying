@@ -14,10 +14,10 @@ namespace NowPlaying.OAuth
 
         private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
-        private string url { get; set; } = "";
+        private string url { get; set; }
         public string ResultToken { get; private set; }
 
-        public string RefreshToken { get; private set; } = "";
+        public string RefreshToken { get; private set; }
 
         public BrowserWindow()
         {
@@ -33,9 +33,8 @@ namespace NowPlaying.OAuth
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                HtmlBox.Text = Browser.Address;
                 url = Browser.Address;
-                if (RefreshToken != "")
+                if (RefreshToken != null)
                 {
                     this.Browser.Dispose();
                     Cef.Shutdown();
@@ -46,11 +45,11 @@ namespace NowPlaying.OAuth
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-          
-                if (url.StartsWith(AppInfo.SpotifyRedirectUri) && url.Contains("code="))
+            if (url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
+            {
+                while (RefreshToken == null) //мегаублюдский костыль, требуется выкупить почему без этого выдается 400 код и уничтожить это в дальнейшем
                 {
-
-                string code = UriExt.GetPropertyValue(url, "code");
+                    string code = UriExt.GetPropertyValue(url, "code");
 
                     var tokenReqParams = $"grant_type=authorization_code" +
                               $"&code={code}" +
@@ -60,8 +59,8 @@ namespace NowPlaying.OAuth
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
                     return;
-
                 }
+            }
         }
     }
 }
