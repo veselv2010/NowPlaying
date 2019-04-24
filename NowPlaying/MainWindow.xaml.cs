@@ -178,12 +178,6 @@ namespace NowPlaying
 				break;
 			}
 		}
-
-        private void Button1_Click(object sender, RoutedEventArgs e)
-        {
-            AdvancedVolumeControl Vol = new AdvancedVolumeControl();
-            Vol.Show();
-        }
     }
 }
 

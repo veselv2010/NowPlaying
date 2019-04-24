@@ -31,7 +31,6 @@
         <TextBox x:Name="PathTextBox" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,6,-359,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" Text="=_-icon by SCOUTPAN-_=" FontSize="9"/>
         <Button x:Name="button" Content="path" Grid.Column="1" Margin="59,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Height="23" Click="button_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="LocalFilesWarning" Content="!playing from local files!" Grid.Column="2" HorizontalAlignment="Left" Margin="245,92,-359,0" VerticalAlignment="Top" Width="137" Visibility="Collapsed"/>
-        <Button x:Name="button1" Grid.ColumnSpan="2" Content="Vol" Grid.Column="1" HorizontalAlignment="Left" Margin="59,37,0,0" VerticalAlignment="Top" Width="37" Click="Button1_Click"/>
 
     </Grid>
 </Window>
