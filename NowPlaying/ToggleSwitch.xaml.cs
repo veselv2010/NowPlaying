@@ -22,8 +22,8 @@ namespace NowPlaying
     {
         Thickness LeftSide = new Thickness(-125, 0, 0, 0);
         Thickness RightSide = new Thickness(0, 0, -120, 0);
-        SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(155, 32, 32));
-        SolidColorBrush On = new SolidColorBrush(Color.FromRgb(39, 185, 39));
+        readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(155, 32, 32));
+        readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(39, 185, 39));
         public bool Toggled = false;
 
 

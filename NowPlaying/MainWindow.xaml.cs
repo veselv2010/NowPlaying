@@ -132,7 +132,7 @@ namespace NowPlaying
             return selectedAccountId;
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void ButtonPath_Click(object sender, RoutedEventArgs e)
         {
             this.PathTextBox.Text = SteamIdLooker.UserdataPath + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
@@ -155,7 +155,7 @@ namespace NowPlaying
 				{
 					this.PathTextBox.Visibility   = Visibility.Collapsed;
 					this.NpcDisclaimer.Visibility = Visibility.Collapsed;
-					this.button.Visibility	      = Visibility.Collapsed;
+					this.ButtonPath.Visibility	  = Visibility.Collapsed;
 
 					this.LabelFormatted.Visibility    = Visibility.Visible;
 					this.LabelWithButton.Visibility   = Visibility.Visible;
@@ -168,7 +168,7 @@ namespace NowPlaying
 				{
 					this.PathTextBox.Visibility   = Visibility.Visible;
 					this.NpcDisclaimer.Visibility = Visibility.Visible;
-					this.button.Visibility		  = Visibility.Visible;
+					this.ButtonPath.Visibility    = Visibility.Visible;
 
 					this.LabelFormatted.Visibility    = Visibility.Collapsed;
 					this.LabelWithButton.Visibility   = Visibility.Collapsed;

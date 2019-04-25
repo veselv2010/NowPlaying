@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              mc:Ignorable="d"
-             Loaded="BrowserWindow_Loaded" Height="800" Width="553.462">
+             Loaded="BrowserWindow_Loaded" Height="800" Width="553">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -15,6 +15,6 @@
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <cefSharp:ChromiumWebBrowser Name="Browser" HorizontalAlignment="Stretch" Height="750" VerticalAlignment="Top" Grid.ColumnSpan="2" LoadingStateChanged="Browser_LoadingStateChanged" Address="https://accounts.spotify.com/authorize?client_id=7633771350404368ac3e05c9cf73d187&amp;redirect_uri=https://vk.com/&amp;response_type=code&amp;scope=user-read-playback-state" FrameLoadEnd="Browser_FrameLoadEnd"/>
+        <cefSharp:ChromiumWebBrowser Name="Browser" HorizontalAlignment="Stretch" Height="750" VerticalAlignment="Top" Grid.ColumnSpan="2" LoadingStateChanged="Browser_LoadingStateChanged" Address="https://accounts.spotify.com/authorize?client_id=7633771350404368ac3e05c9cf73d187&amp;redirect_uri=https://vk.com/&amp;response_type=code&amp;scope=user-read-playback-state" FrameLoadStart="Browser_FrameLoadStart"/>
     </Grid>
 </Window>

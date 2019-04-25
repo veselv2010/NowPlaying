@@ -8,22 +8,24 @@ namespace NowPlaying.OAuth
 {
     public partial class BrowserWindow : Window
     {
-        private static readonly string authUrlTemplate = @"https://accounts.spotify.com/authorize?client_id={0}"
-                                                    + "&redirect_uri={1}&response_type=code&scope=user-read-playback-state";
+        //private static readonly string authUrlTemplate = @"https://accounts.spotify.com/authorize?client_id={0}"
+        //                                            + "&redirect_uri={1}&response_type=code&scope=user-read-playback-state";
 
         private static readonly string tokenUrl = @"https://accounts.spotify.com/api/token";
 
-        private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
+        //private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
-        private string url { get; set; }
+        private string Url { get; set; }
         public string ResultToken { get; private set; }
 
         public string RefreshToken { get; private set; }
 
         public BrowserWindow()
         {
-            var settings = new CefSettings();
-            settings.CachePath = "cache"; //несет ли какие-нибудь последствия эта тема в плане безопасности 
+            var settings = new CefSettings
+            {
+                CachePath = "cache" //несет ли какие-нибудь последствия эта тема в плане безопасности 
+            };
             Cef.Initialize(settings);
             this.InitializeComponent();
         }
@@ -37,7 +39,7 @@ namespace NowPlaying.OAuth
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                url = Browser.Address;
+                Url = Browser.Address;
                 if (RefreshToken != null)
                 {
                     this.Browser.Dispose();
@@ -47,13 +49,13 @@ namespace NowPlaying.OAuth
             }));
         }
 
-        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        private void Browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e)
         {
-            if (url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
+            if (Url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
             {
-                while (RefreshToken == null) //мегаублюдский костыль, требуется выкупить почему без этого выдается 400 код и уничтожить это в дальнейшем
+                while (RefreshToken == null)
                 {
-                    string code = UriExt.GetPropertyValue(url, "code");
+                    string code = UriExt.GetPropertyValue(Url, "code");
 
                     var tokenReqParams = $"grant_type=authorization_code" +
                               $"&code={code}" +
