@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
+using System;
 
 namespace NowPlaying
 {
@@ -10,6 +11,7 @@ namespace NowPlaying
         private CancellationTokenSource _cancellationGetSpotifyUpdates;
 
         protected string LastPlayingTrackId { get; set; }
+        readonly DateTime TokenExpireTime = DateTime.Now.AddHours(1);
 
         public MainWindow()
         {
@@ -109,6 +111,13 @@ namespace NowPlaying
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
+
+                    if (TokenExpireTime < DateTime.Now)
+                    {
+                        LabelTokenExpired.Visibility = Visibility.Visible;
+                        return;
+                    }
+                       
                 }
             });
         }
