@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:NowPlaying"
              mc:Ignorable="d"
              ResizeMode="NoResize"
-             Loaded="Window_Loaded" Width="575" Height="230">
+             Loaded="Window_Loaded" Width="575" Height="230" Title="NowPlaying">
     <Grid HorizontalAlignment="Left" Width="192">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="78*"/>
