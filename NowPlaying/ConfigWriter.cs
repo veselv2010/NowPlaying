@@ -28,5 +28,11 @@ namespace NowPlaying
             using (var sw = new StreamWriter(this.WritePath))
                 sw.WriteLine(strForWriting);
         }
+
+        public void RewriteKeyBinding(string ToWrite)
+        {
+            using (var sw = new StreamWriter(this.WritePath))
+                sw.WriteLine(ToWrite);
+        }
     }
 }

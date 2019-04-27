@@ -8,10 +8,11 @@ namespace NowPlaying
 {
     public partial class MainWindow : Window
     {
+        DateTime TokenExpireTime;
+
         private CancellationTokenSource _cancellationGetSpotifyUpdates;
 
         protected string LastPlayingTrackId { get; set; }
-        readonly DateTime TokenExpireTime = DateTime.Now.AddHours(1);
 
         public MainWindow()
         {
@@ -35,11 +36,19 @@ namespace NowPlaying
             }
 
             AppInfo.SpotifyAccessToken = browserWindow.ResultToken;
+            TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
             this.Show();
         }
 
         private void ButtonDo_Click(object sender, RoutedEventArgs e)
         {
+            if (TokenExpireTime < DateTime.Now)
+            {
+                ButtonDo.Content = "spotify token expired!";   
+                LabelTokenExpired.Visibility = Visibility.Visible;
+                return;
+            }
+
             CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken);
 
             if (trackResp == null)
@@ -114,6 +123,7 @@ namespace NowPlaying
 
                     if (TokenExpireTime < DateTime.Now)
                     {
+                        cfgWriter.RewriteKeyBinding("spotify token expired!");
                         LabelTokenExpired.Visibility = Visibility.Visible;
                         return;
                     }

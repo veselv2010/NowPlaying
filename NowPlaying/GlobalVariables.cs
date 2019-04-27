@@ -76,6 +76,7 @@ namespace NowPlaying
 
         public static List<string> SourceEngineAllowedKeys = new List<string>() //todo
         {
+            {""},
             {"space"},
             {"capslock"},
             {"escape"},

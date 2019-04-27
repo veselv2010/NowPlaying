@@ -16,8 +16,9 @@ namespace NowPlaying.OAuth
         //private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
         private string Url { get; set; }
-        public string ResultToken { get; private set; }
 
+        public string ResultToken { get; private set; }
+        public int ExpireTime { get; private set; }
         public string RefreshToken { get; private set; }
 
         public BrowserWindow()
@@ -62,6 +63,7 @@ namespace NowPlaying.OAuth
                               $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
 
                     TokenResponse tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
+                    this.ExpireTime = tokenResp.ExpiresIn;
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
                     return;
