@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.IO;
 
 namespace NowPlaying
 {
@@ -34,6 +35,19 @@ namespace NowPlaying
                                   .FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.MainWindowTitle));
 
             return (spotifyProcess != null);
+        }
+
+        public static bool IsSourceKeysFileExists()
+        {
+            if (File.Exists("SourceKeys.txt"))
+            {
+                Process.Start("SourceKeys.txt");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -48,7 +48,7 @@ namespace NowPlaying
             if (this.AccountsList.SelectedItem == null)
                 return;
 
-            var cfgWriter = new ConfigWriter(this.KeyBind.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter(this.TextBoxKeyBind.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
             cfgWriter.RewriteKeyBinding(trackResp);
         }
 
@@ -68,7 +68,14 @@ namespace NowPlaying
                 return;
             }
 
-            if (this.KeyBind.Text == "")
+            if (!GlobalVariables.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.Text.ToLower()))
+            {
+                this.SpotifySwitch.TurnOff();
+                MessageBox.Show("такой кнопки в кантре нет");
+                return;
+            }
+
+            if (this.TextBoxKeyBind.Text == "")
             {
                 this.SpotifySwitch.TurnOff();
                 MessageBox.Show("Не назначена клавиша чата");
@@ -82,7 +89,7 @@ namespace NowPlaying
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
-            var cfgWriter = new ConfigWriter(this.KeyBind.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter(this.TextBoxKeyBind.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
 
             await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) =>
             {                           // чтобы потом его можно было использовать внутри этого блока
@@ -108,7 +115,7 @@ namespace NowPlaying
 
 		private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
-            this.LabelWithButton.Content = this.KeyBind.Text;
+            this.LabelWithButton.Content = this.TextBoxKeyBind.Text;
 
             if (trackResp == null)
             {
@@ -118,9 +125,9 @@ namespace NowPlaying
             }
 
             if (trackResp.IsLocalFile)
-				this.LocalFilesWarning.Visibility = Visibility.Visible;
+				this.LabelLocalFilesWarning.Visibility = Visibility.Visible;
             else
-				this.LocalFilesWarning.Visibility = Visibility.Collapsed;
+				this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
             this.LabelFormatted.Content = trackResp.FormattedName;
             this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";
@@ -134,7 +141,7 @@ namespace NowPlaying
 
         private void ButtonPath_Click(object sender, RoutedEventArgs e)
         {
-            this.PathTextBox.Text = SteamIdLooker.UserdataPath + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
+            this.TextBoxPath.Text = SteamIdLooker.UserdataPath + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
 
         private void AccountsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -153,9 +160,9 @@ namespace NowPlaying
 			{
 				case MainWindowUIState.NpcWork:
 				{
-					this.PathTextBox.Visibility   = Visibility.Collapsed;
-					this.NpcDisclaimer.Visibility = Visibility.Collapsed;
-					this.ButtonPath.Visibility	  = Visibility.Collapsed;
+                    this.LabelNpcDisclaimer.Visibility = Visibility.Collapsed;
+                    this.TextBoxPath.Visibility        = Visibility.Collapsed;
+					this.ButtonPath.Visibility	       = Visibility.Collapsed;
 
 					this.LabelFormatted.Visibility    = Visibility.Visible;
 					this.LabelWithButton.Visibility   = Visibility.Visible;
@@ -166,9 +173,9 @@ namespace NowPlaying
 
 				case MainWindowUIState.Idle:
 				{
-					this.PathTextBox.Visibility   = Visibility.Visible;
-					this.NpcDisclaimer.Visibility = Visibility.Visible;
-					this.ButtonPath.Visibility    = Visibility.Visible;
+                    this.LabelNpcDisclaimer.Visibility = Visibility.Visible;
+                    this.TextBoxPath.Visibility        = Visibility.Visible;
+					this.ButtonPath.Visibility         = Visibility.Visible;
 
 					this.LabelFormatted.Visibility    = Visibility.Collapsed;
 					this.LabelWithButton.Visibility   = Visibility.Collapsed;
@@ -178,6 +185,12 @@ namespace NowPlaying
 				break;
 			}
 		}
+
+        private void ButtonSourceKeys_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ProcessWorker.IsSourceKeysFileExists())
+                MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
+        }
     }
 }
 

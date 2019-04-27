@@ -131,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mwvra5f4q0y_JnS_icon.ico" />
+    <Content Include="SourceKeys.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
