@@ -14,7 +14,7 @@ namespace NowPlaying
         private static Regex RegexAcc { get; } = new Regex(RegexPatternAcc);
 
         //public static List<string> SteamAPIurls = new List<string>();
-        public static IList<string> Accounts { get; } = new List<string>();
+        public static IList<string> AccountNames { get; } = new List<string>();
         private static IList<string> SteamIds64 { get; } = new List<string>();
         private static IList<int> UserdataNumbers { get; } = new List<int>();
 
@@ -49,13 +49,13 @@ namespace NowPlaying
                     UserdataNumbers.Add(temp32);
                 }
                 var currentAccountName = RegexAcc.Match(fileLines[lineIndex]).ToString(); //accountname
-                if (currentAccountName != "")
-                    Accounts.Add(currentAccountName.Remove(0, 12).Trim().Remove(0, 1));
+                if (string.IsNullOrEmpty(currentAccountName))
+                    AccountNames.Add(currentAccountName.Remove(0, 12).Trim().Remove(0, 1));
             }
 
-            for (int PositionInDictionary = 0; PositionInDictionary < Accounts.Count; PositionInDictionary++)
+            for (int PositionInDictionary = 0; PositionInDictionary < AccountNames.Count; PositionInDictionary++)
             {
-                AccountNameToSteamid3.Add(Accounts[PositionInDictionary], UserdataNumbers[PositionInDictionary]);
+                AccountNameToSteamid3.Add(AccountNames[PositionInDictionary], UserdataNumbers[PositionInDictionary]);
             }
         }
 

@@ -38,7 +38,7 @@ namespace NowPlaying
                 return wc.DownloadString(url);
         }
 
-       public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
+        public static RespT PerformUrlEncodedPostRequest<RespT>(string url, string data)
         {
            using (var wc = new WebClient())
            {

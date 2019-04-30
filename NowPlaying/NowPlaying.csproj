@@ -112,10 +112,9 @@
     <Compile Include="OAuth\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProcessWorker.cs" />
+    <Compile Include="SourceKeysExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="GlobalVariables.cs" />
     <Compile Include="Requests.cs" />
     <Compile Include="SteamIdLooker.cs" />
     <Compile Include="ToggleSwitch.xaml.cs">

@@ -14,8 +14,8 @@ namespace NowPlaying
             this.BindKey = bindKey;
             this.WritePath = writePath;
 
-            int IndexOfAudioCfg = this.WritePath.IndexOf(@"\audio.cfg");
-            Directory.CreateDirectory(this.WritePath.Remove(IndexOfAudioCfg));
+            int indexOfAudioCfg = this.WritePath.IndexOf(@"\audio.cfg");
+            Directory.CreateDirectory(this.WritePath.Remove(indexOfAudioCfg));
 
             if (!File.Exists(this.WritePath))
                 File.CreateText(this.WritePath).Dispose();

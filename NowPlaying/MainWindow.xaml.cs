@@ -8,18 +8,18 @@ namespace NowPlaying
 {
     public partial class MainWindow : Window
     {
-        DateTime TokenExpireTime;
-
-        private CancellationTokenSource _cancellationGetSpotifyUpdates;
+        private DateTime TokenExpireTime { get; set; }
 
         protected string LastPlayingTrackId { get; set; }
+
+        private CancellationTokenSource _cancellationGetSpotifyUpdates;
 
         public MainWindow()
         {
             this.InitializeComponent();
 
-            for (int i = 0; i < SteamIdLooker.Accounts.Count; i++)
-                this.AccountsList.Items.Add(SteamIdLooker.Accounts[i]);
+            foreach (string a in SteamIdLooker.AccountNames)
+                this.AccountsList.Items.Add(a);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -36,16 +36,16 @@ namespace NowPlaying
             }
 
             AppInfo.SpotifyAccessToken = browserWindow.ResultToken;
-            TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
+            this.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
             this.Show();
         }
 
         private void ButtonDo_Click(object sender, RoutedEventArgs e)
         {
-            if (TokenExpireTime < DateTime.Now)
+            if (this.TokenExpireTime < DateTime.Now)
             {
-                ButtonDo.Content = "spotify token expired!";   
-                LabelTokenExpired.Visibility = Visibility.Visible;
+                this.ButtonDo.Content = "spotify token expired!";
+                this.LabelTokenExpired.Visibility = Visibility.Visible;
                 return;
             }
 
@@ -79,7 +79,7 @@ namespace NowPlaying
                 return;
             }
 
-            if (!GlobalVariables.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.Text.ToLower()))
+            if (!SourceKeysExt.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.Text.ToLower()))
             {
                 this.SpotifySwitch.TurnOff();
                 MessageBox.Show("такой кнопки в кантре нет");
@@ -121,10 +121,10 @@ namespace NowPlaying
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
 
-                    if (TokenExpireTime < DateTime.Now)
+                    if (this.TokenExpireTime < DateTime.Now)
                     {
                         cfgWriter.RewriteKeyBinding("spotify token expired!");
-                        LabelTokenExpired.Visibility = Visibility.Visible;
+                        this.LabelTokenExpired.Visibility = Visibility.Visible;
                         return;
                     }
                        
@@ -207,7 +207,7 @@ namespace NowPlaying
 
         private void ButtonSourceKeys_Click(object sender, RoutedEventArgs e)
         {
-            if (!ProcessWorker.IsSourceKeysFileExists())
+            if (!SourceKeysExt.TryOpenSourceKeysFile())
                 MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
         }
     }
