@@ -49,7 +49,7 @@ namespace NowPlaying
                     UserdataNumbers.Add(temp32);
                 }
                 var currentAccountName = RegexAcc.Match(fileLines[lineIndex]).ToString(); //accountname
-                if (string.IsNullOrEmpty(currentAccountName))
+                if (!string.IsNullOrEmpty(currentAccountName))
                     AccountNames.Add(currentAccountName.Remove(0, 12).Trim().Remove(0, 1));
             }
 
