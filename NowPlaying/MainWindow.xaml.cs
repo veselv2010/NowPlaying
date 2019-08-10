@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
+using NowPlaying.Extensions;
 
 namespace NowPlaying
 {
@@ -20,7 +21,7 @@ namespace NowPlaying
         {
             this.InitializeComponent();
 
-            foreach (string a in SteamIdLooker.AccountNames)
+            foreach (string a in AppInfo.State.AccountNames)
                 this.AccountsList.Items.Add(a);
         }
 
@@ -37,7 +38,7 @@ namespace NowPlaying
                 return;
             }
 
-            AppInfo.SpotifyAccessToken = browserWindow.ResultToken;
+            AppInfo.State.SpotifyAccessToken = browserWindow.ResultToken;
             this.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
             this.Show();
         }
@@ -51,7 +52,7 @@ namespace NowPlaying
                 return;
             }
 
-            CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken);
+            var trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
             if (trackResp == null)
                 return;
@@ -77,11 +78,11 @@ namespace NowPlaying
             if (this.AccountsList.SelectedItem == null)
             {
                 this.SpotifySwitch.TurnOff();
-                MessageBox.Show("Выберите аккаунт"); // Здесь просто MessageBox какой-нибудь пользователю алертнуть мол он в край ебнулся
+                MessageBox.Show("Выберите аккаунт");
                 return;
             }
 
-            if (!SourceKeysExt.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.Text.ToLower()))
+            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.Text.ToLower()))
             {
                 this.SpotifySwitch.TurnOff();
                 MessageBox.Show("такой кнопки в кантре нет");
@@ -106,7 +107,7 @@ namespace NowPlaying
                 {
                     Thread.Sleep(1000);
 
-                    CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.SpotifyAccessToken);
+                    CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
 
@@ -152,18 +153,21 @@ namespace NowPlaying
 				this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
             this.LabelFormatted.Content = trackResp.FormattedName;
-            this.ButtonDo.Content = $"{trackResp.FullName} | {trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";
+            this.ButtonDo.Content = 
+                $"{trackResp.FullName} | " +
+                $"{trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/" +
+                $"{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";
         }
 
         private int GetSelectedAccountId()
         {
-            SteamIdLooker.AccountNameToSteamid3.TryGetValue(this.AccountsList.SelectedItem.ToString(), out int selectedAccountId);
-            return selectedAccountId;
+            return AppInfo.State.AccountNameToSteamId3[this.AccountsList.SelectedItem.ToString()];
         }
 
         private void ButtonPath_Click(object sender, RoutedEventArgs e)
         {
-            this.TextBoxPath.Text = SteamIdLooker.UserdataPath + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
+            this.TextBoxPath.Text = SteamIdLooker.UserdataPath 
+                                  + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
 
         private void AccountsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -183,14 +187,14 @@ namespace NowPlaying
 				case MainWindowUIState.NpcWork:
 				{
                     this.LabelNpcDisclaimer.Visibility = Visibility.Collapsed;
-					this.LabelFormatted.Visibility    = Visibility.Visible;
+					this.LabelFormatted.Visibility     = Visibility.Visible;
 				}
 				break;
 
 				case MainWindowUIState.Idle:
 				{
                     this.LabelNpcDisclaimer.Visibility = Visibility.Visible;
-					this.LabelFormatted.Visibility    = Visibility.Collapsed;
+					this.LabelFormatted.Visibility     = Visibility.Collapsed;
 				}
 				break;
 			}
@@ -198,7 +202,7 @@ namespace NowPlaying
 
         private void ButtonSourceKeys_Click(object sender, RoutedEventArgs e)
         {
-            if (!SourceKeysExt.TryOpenSourceKeysFile())
+            if (!SourceKeysExtensions.TryOpenSourceKeysFile())
                 MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
         }
     }

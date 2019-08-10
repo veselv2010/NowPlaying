@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace NowPlaying
+namespace NowPlaying.Extensions
 {
-    public class SourceKeysExt
+    public class SourceKeysExtensions
     {
         public static bool TryOpenSourceKeysFile()
         {

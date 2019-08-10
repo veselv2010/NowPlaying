@@ -24,14 +24,10 @@ namespace NowPlaying
             SendInput(1, Inputs, INPUT.Size);
         }
 
-        /// <summary>
-        /// Declaration of external SendInput method
-        /// </summary>
         [DllImport("user32.dll")]
         private static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, int cbSize);
 
 
-        // Declare the INPUT struct
         [StructLayout(LayoutKind.Sequential)]
         public struct INPUT
         {
@@ -43,7 +39,6 @@ namespace NowPlaying
             }
         }
 
-        // Declare the InputUnion struct
         [StructLayout(LayoutKind.Explicit)]
         internal struct InputUnion
         {
@@ -982,9 +977,6 @@ namespace NowPlaying
             OEM_CLEAR = 0,
         }
 
-        /// <summary>
-        /// Define HARDWAREINPUT struct
-        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         internal struct HARDWAREINPUT
         {

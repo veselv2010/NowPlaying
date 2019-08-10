@@ -1,72 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 
 namespace NowPlaying
 {
-    internal static class SteamIdLooker
+    internal class SteamIdLooker
     {
-		const string RegexPatternId64 = @"(765611)\w+";
-        const string RegexPatternAcc = "(Acc)\\w+\"\\s+\"([A-z-0-9])+";
-        private static Regex Regex64 { get; } = new Regex(RegexPatternId64);
-        private static Regex RegexAcc { get; } = new Regex(RegexPatternAcc);
+        private static string _steamFullPathCached;
 
-        //public static List<string> SteamAPIurls = new List<string>();
-        public static IList<string> AccountNames { get; } = new List<string>();
-        private static IList<string> SteamIds64 { get; } = new List<string>();
-        private static IList<int> UserdataNumbers { get; } = new List<int>();
-
-        public static IDictionary<string, int> AccountNameToSteamid3 { get; } = new Dictionary<string, int>();
-
-        private static string LoginUsersPath = @"";
-        public static string UserdataPath = @"";
-
-        public static string UpdateSteamConfigPaths()
+        private static string steamFullPath
         { 
-            var steamFullPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
+            get
+            {
+                if (!string.IsNullOrEmpty(_steamFullPathCached))
+                    return _steamFullPathCached;
 
-            if (String.IsNullOrEmpty(steamFullPath))
-                throw new DirectoryNotFoundException("Unable to locate the steam folder");
+                var path = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
 
-            UserdataPath = steamFullPath + @"\userdata";
-            return LoginUsersPath = steamFullPath + @"\config\loginusers.vdf";
+                if (string.IsNullOrEmpty(path))
+                    throw new DirectoryNotFoundException("Unable to locate the steam folder");
+
+                return _steamFullPathCached = path;
+            }
         }
+
+        public static string UserdataPath => steamFullPath + @"\userdata";
 
         public static void UpdateAccountsInfo()
         {
-            string[] fileLines = File.ReadAllLines(LoginUsersPath);
-			for (int lineIndex = 2; lineIndex < fileLines.Length - 1; lineIndex++) //id64 + userdata(steamid3/32)
+            var loginUsersPath = steamFullPath + @"\config\loginusers.vdf";
+
+            string[] loginUsersFile = File.ReadAllLines(loginUsersPath);
+
+            var userdataNumbers = new List<int>();
+
+            var regexSteamId64 = new Regex(@"(765611)\d+");
+            var regexAcc = new Regex(@"AccountName""\s*""([A-z-0-9]+)");
+
+			for (int line = 2; line < loginUsersFile.Length - 1; line++) //id64 + userdata(steamid3/32)
             {
-                var currentSteamId64 = Regex64.Match(fileLines[lineIndex]);
-                long.TryParse(currentSteamId64.ToString(), out long temp64);
-                if (temp64 != 0)
+                var steamId64Match = regexSteamId64.Match(loginUsersFile[line]);
+
+                if (steamId64Match.Success)
                 {
-                    var currentSteamId32 = temp64 - 76561197960265728; //steamid64 - 76561197960265728 = steamid3/32
-                    int.TryParse(currentSteamId32.ToString(), out int temp32 );
-                    SteamIds64.Add(temp64.ToString());
-                    UserdataNumbers.Add(temp32);
+                    long steamId64 = long.Parse(steamId64Match.Value);
+                    int steamId32 = (int)(steamId64 - 76561197960265728); //steamid64 - 76561197960265728 = steamid3/32
+
+                    userdataNumbers.Add(steamId32);
                 }
-                var currentAccountName = RegexAcc.Match(fileLines[lineIndex]).ToString(); //accountname
-                if (!string.IsNullOrEmpty(currentAccountName))
-                    AccountNames.Add(currentAccountName.Remove(0, 12).Trim().Remove(0, 1));
+                
+                var accMatch = regexAcc.Match(loginUsersFile[line]);
+
+                if (accMatch.Success)
+                {
+                    AppInfo.State.AccountNames.Add(accMatch.Groups[1].Value);
+                }
             }
 
-            for (int PositionInDictionary = 0; PositionInDictionary < AccountNames.Count; PositionInDictionary++)
+            for (int i = 0; i < AppInfo.State.AccountNames.Count; i++)
             {
-                AccountNameToSteamid3.Add(AccountNames[PositionInDictionary], UserdataNumbers[PositionInDictionary]);
+                AppInfo.State.AccountNameToSteamId3.Add(AppInfo.State.AccountNames[i], userdataNumbers[i]);
             }
         }
-
-        /*public static void MakeUrls() //future feature
-        {
-            for (int i = 0; i < SteamIds64.Count; i++)
-            {
-                SteamAPIurls[i] = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/" +
-                    $"?key={AppInfo.SteamAPIKey}" +
-                    $"&steamids={SteamIds64[i]}";
-            }
-        }*/
     }
 }

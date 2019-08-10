@@ -7,7 +7,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{95CAB0A7-4A2F-4B59-A3C9-7E19635E4538}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>NowPlaying</RootNamespace>
@@ -112,7 +112,6 @@
     <Compile Include="OAuth\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SourceKeysExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Requests.cs" />
@@ -122,7 +121,8 @@
     </Compile>
     <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="ConfigWriter.cs" />
-    <Compile Include="UriExt.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
+    <Compile Include="Extensions\SourceKeysExtensions.cs" />
     <Compile Include="WinAPIInputSender\KeyFormatter.cs" />
     <Compile Include="WinAPIInputSender\KeySender.cs" />
   </ItemGroup>

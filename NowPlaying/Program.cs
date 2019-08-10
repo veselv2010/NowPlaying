@@ -8,7 +8,6 @@ namespace NowPlaying
         [STAThread]
         public static void Main(string[] args)
         {
-            SteamIdLooker.UpdateSteamConfigPaths();
             SteamIdLooker.UpdateAccountsInfo();
             new Application().Run(new MainWindow());
         }

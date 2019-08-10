@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace NowPlaying
+namespace NowPlaying.Extensions
 {
-    internal static class UriExt
+    internal static class UriExtensions
     {
         public static string GetPropertyValue(string uri, string propertyName)
         {
