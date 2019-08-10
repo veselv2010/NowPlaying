@@ -6,12 +6,11 @@ namespace NowPlaying
 	internal class ConfigWriter
     {
         private string WritePath { get; set; }
-        private string BindKey { get; set; }
+
         private const string WriteConfigText = "say \"[Spotify] Now Playing: {0}\"";
 
-        public ConfigWriter(string bindKey, string writePath)
+        public ConfigWriter(string writePath)
         {
-            this.BindKey = bindKey;
             this.WritePath = writePath;
 
             int indexOfAudioCfg = this.WritePath.IndexOf(@"\audio.cfg");
@@ -23,7 +22,7 @@ namespace NowPlaying
 
         public void RewriteKeyBinding(CurrentTrackResponse currentTrack)
         {
-            string strForWriting = string.Format(ConfigWriter.WriteConfigText, currentTrack.FormattedName, this.BindKey);
+            string strForWriting = string.Format(ConfigWriter.WriteConfigText, currentTrack.FormattedName);
 
             using (var sw = new StreamWriter(this.WritePath))
                 sw.WriteLine(strForWriting);

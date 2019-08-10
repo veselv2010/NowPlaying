@@ -59,7 +59,7 @@ namespace NowPlaying
             if (this.AccountsList.SelectedItem == null)
                 return;
 
-            var cfgWriter = new ConfigWriter(this.TextBoxKeyBind.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
             cfgWriter.RewriteKeyBinding(trackResp);
         }
 
@@ -86,21 +86,17 @@ namespace NowPlaying
                 return;
             }
 
-            if (this.TextBoxKeyBind.Text == "")
-            {
-                this.SpotifySwitch.TurnOff();
-                MessageBox.Show("Не назначена клавиша чата");
-                return;
-            }
+            TextBoxToConsole.Text = $"bind \"{TextBoxKeyBind.Text}\" \"exec audio.cfg\"";
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
 			this.ChangeUIState(MainWindowUIState.NpcWork);
 
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
+
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
-            var cfgWriter = new ConfigWriter(this.TextBoxKeyBind.Text, $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
 
             await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) =>
             {                           // чтобы потом его можно было использовать внутри этого блока
