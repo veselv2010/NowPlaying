@@ -123,6 +123,8 @@
     <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="ConfigWriter.cs" />
     <Compile Include="UriExt.cs" />
+    <Compile Include="WinAPIInputSender\KeyFormatter.cs" />
+    <Compile Include="WinAPIInputSender\KeySender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

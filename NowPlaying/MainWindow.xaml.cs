@@ -1,13 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
-using System;
 
 namespace NowPlaying
 {
     public partial class MainWindow : Window
     {
+        private bool IsAutoTrackChangeEnabled { get; set; }
+        private string CurrentKeyBind { get; set; }
         private DateTime TokenExpireTime { get; set; }
 
         protected string LastPlayingTrackId { get; set; }
@@ -112,6 +114,10 @@ namespace NowPlaying
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
+                        if (IsAutoTrackChangeEnabled)
+                        {
+                            KeySender.SendInputWithAPI(CurrentKeyBind);
+                        }
                     }
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
@@ -129,6 +135,8 @@ namespace NowPlaying
 
 		private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
+            this.IsAutoTrackChangeEnabled = CheckBoxAutoSend.IsChecked.Value;
+            this.CurrentKeyBind = TextBoxKeyBind.Text;
             this.LabelWithButton.Content = this.TextBoxKeyBind.Text;
 
             if (trackResp == null)
