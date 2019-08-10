@@ -15,9 +15,9 @@
         </Grid.ColumnDefinitions>
         <Label Content="=_-icon by SCOUTPAN-_=" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="6pt" Grid.ColumnSpan="2" Margin="0,-3,0,0" Visibility="Collapsed"/>
         <Label x:Name="LabelFormatted" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,6,-368,0" Width="492" Height="21" FontSize="10" Grid.ColumnSpan="3" Visibility="Collapsed" />
-        <Label x:Name="LabelWithButton" Content="key to record" Margin="61,18,22,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2" Visibility="Collapsed"/>
-        <Label x:Name="LabelCurrentKey" Content="Current key:" HorizontalAlignment="Left" Margin="5,17,0,0" VerticalAlignment="Top" FontSize="10" Visibility="Collapsed"/>
-        <Label x:Name="LabelCurrentTrack" Content="Current track:" HorizontalAlignment="Left" Margin="5,6,0,0" VerticalAlignment="Top" Width="81" FontSize="10" Grid.ColumnSpan="2" Visibility="Collapsed" />
+        <Label x:Name="LabelWithButton" Content="key to record" Margin="61,18,22,0" VerticalAlignment="Top" Height="23" FontSize="10" Grid.ColumnSpan="2" Visibility="{Binding ElementName=LabelFormatted, Path=Visibility, Mode=OneWay}"/>
+        <Label x:Name="LabelCurrentKey" Content="Current key:" HorizontalAlignment="Left" Margin="5,17,0,0" VerticalAlignment="Top" FontSize="10" Visibility="{Binding ElementName=LabelFormatted, Path=Visibility, Mode=OneWay}"/>
+        <Label x:Name="LabelCurrentTrack" Content="Current track:" HorizontalAlignment="Left" Margin="5,6,0,0" VerticalAlignment="Top" Width="81" FontSize="10" Grid.ColumnSpan="2" Visibility="{Binding ElementName=LabelFormatted, Path=Visibility, Mode=OneWay}"/>
         <Label x:Name="LabelNpcWork" Content="npc work " HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="155" Grid.ColumnSpan="2" FontSize="36"/>
         <Label x:Name="LabelCurrentAccLabel" Content="сurrent acc" Grid.Column="2" HorizontalAlignment="Left" Margin="58,32,-106,0" VerticalAlignment="Top" Width="71" Height="23"/>
         <Label x:Name="LabelNpcDisclaimer" Content="&lt;-pressing this button will kill the npc" Grid.Column="2" HorizontalAlignment="Left" Margin="119,74,-309,0" VerticalAlignment="Top" Width="213" Height="29"/>
@@ -25,10 +25,10 @@
         <Label x:Name="LabelChatButton" Content="chat button" Grid.Column="2" HorizontalAlignment="Left" Margin="254,32,-303,0" VerticalAlignment="Top" Width="72" Height="23"/>
         <Label x:Name="LabelTokenExpired" Content="!spotify token expired!" HorizontalAlignment="Left" Margin="117,92,-222,0" VerticalAlignment="Top" Grid.Column="2" Width="128" Visibility="Collapsed"/>
         <Button x:Name="ButtonDo" Content="manual" HorizontalAlignment="Left" Margin="10,123,-359,0" VerticalAlignment="Top" Width="541" Height="61" Click="ButtonDo_Click" FontSize="14pt" Grid.ColumnSpan="3"/>
-        <Button x:Name="ButtonPath" Content="path" Grid.Column="1" Margin="59,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Height="23" Click="ButtonPath_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="ButtonPath" Content="path" Grid.Column="1" Margin="59,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Height="23" Click="ButtonPath_Click" Grid.ColumnSpan="2" Visibility="{Binding ElementName=LabelNpcDisclaimer, Path=Visibility, Mode=OneWay}"/>
         <Button x:Name="ButtonSourceKeys" Content="затуп?" Grid.Column="2" HorizontalAlignment="Left" Margin="331,60,-359,0" VerticalAlignment="Top" Width="51" Click="ButtonSourceKeys_Click"/>
         <TextBox x:Name="TextBoxKeyBind" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="331,32,-359,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" FontSize="14"/>
-        <TextBox x:Name="TextBoxPath" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,6,-359,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" Text="=_-icon by SCOUTPAN-_=" FontSize="9"/>
+        <TextBox x:Name="TextBoxPath" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,6,-359,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" Text="=_-icon by SCOUTPAN-_=" FontSize="9" Visibility="{Binding ElementName=LabelNpcDisclaimer, Path=Visibility, Mode=OneWay}"/>
         <ComboBox x:Name="AccountsList" Grid.Column="2" HorizontalAlignment="Left" Margin="134,36,-225,0" VerticalAlignment="Top" Width="114" Height="19" FontSize="11" SelectedIndex="0" SelectionChanged="AccountsList_SelectionChanged"/>
         <local:ToggleSwitch x:Name="SpotifySwitch" Grid.Column="2" HorizontalAlignment="Left" Height="65" Margin="1,60,-92,0" VerticalAlignment="Top" Width="114" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown"/>
     </Grid>

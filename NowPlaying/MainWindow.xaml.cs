@@ -123,11 +123,10 @@ namespace NowPlaying
 
                     if (this.TokenExpireTime < DateTime.Now)
                     {
-                        cfgWriter.RewriteKeyBinding("spotify token expired!");
+                        cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
                         this.LabelTokenExpired.Visibility = Visibility.Visible;
                         return;
-                    }
-                       
+                    }                       
                 }
             });
         }
@@ -180,26 +179,14 @@ namespace NowPlaying
 				case MainWindowUIState.NpcWork:
 				{
                     this.LabelNpcDisclaimer.Visibility = Visibility.Collapsed;
-                    this.TextBoxPath.Visibility        = Visibility.Collapsed;
-					this.ButtonPath.Visibility	       = Visibility.Collapsed;
-
 					this.LabelFormatted.Visibility    = Visibility.Visible;
-					this.LabelWithButton.Visibility   = Visibility.Visible;
-					this.LabelCurrentKey.Visibility   = Visibility.Visible;
-					this.LabelCurrentTrack.Visibility = Visibility.Visible;
 				}
 				break;
 
 				case MainWindowUIState.Idle:
 				{
                     this.LabelNpcDisclaimer.Visibility = Visibility.Visible;
-                    this.TextBoxPath.Visibility        = Visibility.Visible;
-					this.ButtonPath.Visibility         = Visibility.Visible;
-
 					this.LabelFormatted.Visibility    = Visibility.Collapsed;
-					this.LabelWithButton.Visibility   = Visibility.Collapsed;
-					this.LabelCurrentKey.Visibility   = Visibility.Collapsed;
-					this.LabelCurrentTrack.Visibility = Visibility.Collapsed;
 				}
 				break;
 			}

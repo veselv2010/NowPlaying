@@ -7,7 +7,7 @@ namespace NowPlaying
     {
         private string WritePath { get; set; }
         private string BindKey { get; set; }
-        private const string WriteConfigText = "bind \"{1}\" \"say [Spotify] Now Playing: {0}\"";
+        private const string WriteConfigText = "say \"[Spotify] Now Playing: {0}\"";
 
         public ConfigWriter(string bindKey, string writePath)
         {

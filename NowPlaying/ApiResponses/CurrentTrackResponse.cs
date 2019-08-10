@@ -29,7 +29,7 @@ namespace NowPlaying.ApiResponses
 
         public string FullName { get; }
 
-        public string FormattedName { get; }
+        public string FormattedName { get; set; }
 
         public int ProgressSeconds { get; }
         public int ProgressMinutes { get; }
