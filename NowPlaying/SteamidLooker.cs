@@ -38,7 +38,7 @@ namespace NowPlaying
             var userdataNumbers = new List<int>();
 
             var regexSteamId64 = new Regex(@"(765611)\d+");
-            var regexAcc = new Regex(@"AccountName""\s*""([A-z-0-9]+)");
+            var regexAcc = new Regex(@"AccountName""\s*""(\w+)");
 
 			for (int line = 2; line < loginUsersFile.Length - 1; line++) //id64 + userdata(steamid3/32)
             {
