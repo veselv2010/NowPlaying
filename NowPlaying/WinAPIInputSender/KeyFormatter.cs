@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NowPlaying
 {
@@ -12,7 +10,7 @@ namespace NowPlaying
             return KeyCode;
         }
 
-        public static KeySender.VirtualKeyShort GetVurtualKey(string Key)
+        public static KeySender.VirtualKeyShort GetVirtualKey(string Key)
         {
             VirtualKeyValuePairs.TryGetValue(Key, out KeySender.VirtualKeyShort KeyCode);
             return KeyCode;

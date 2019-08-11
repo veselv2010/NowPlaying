@@ -11,7 +11,7 @@ namespace NowPlaying
             INPUT Input = new INPUT();
 
             Input.type = 1; // 1 = Keyboard Input
-            Input.U.ki.wVk = KeyFormatter.GetVurtualKey(Key);
+            Input.U.ki.wVk = KeyFormatter.GetVirtualKey(Key);
             Input.U.ki.wScan = KeyFormatter.GetKey(Key);
             Input.U.ki.dwFlags = KEYEVENTF.SCANCODE;
             Inputs[0] = Input;
