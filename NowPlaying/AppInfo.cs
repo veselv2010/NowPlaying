@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NowPlaying
 {
@@ -10,7 +11,9 @@ namespace NowPlaying
 
         public static class State
         {
-            public static string SpotifyAccessToken;
+            public static string SpotifyAccessToken { get; set; }
+
+            public static DateTime TokenExpireTime { get; set; }
 
             public static IList<string> AccountNames { get; } = new List<string>();
 

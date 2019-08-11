@@ -10,10 +10,10 @@ namespace NowPlaying
         private static string _steamFullPathCached;
 
         private static string SteamFullPath
-        { 
+        {
             get
             {
-                if (!string.IsNullOrEmpty(_steamFullPathCached))
+                if (_steamFullPathCached != null)
                     return _steamFullPathCached;
 
                 var path = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
@@ -49,7 +49,7 @@ namespace NowPlaying
 
                     userdataNumbers.Add(steamId32);
                 }
-                
+
                 var accMatch = regexAcc.Match(loginUsersFile[line]);
 
                 if (accMatch.Success)

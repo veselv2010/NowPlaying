@@ -11,7 +11,6 @@ namespace NowPlaying
     {
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
-        private DateTime TokenExpireTime { get; set; }
 
         protected string LastPlayingTrackId { get; set; }
 
@@ -39,13 +38,13 @@ namespace NowPlaying
             }
 
             AppInfo.State.SpotifyAccessToken = browserWindow.ResultToken;
-            this.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
+            AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
             this.Show();
         }
 
         private void ButtonDo_Click(object sender, RoutedEventArgs e)
         {
-            if (this.TokenExpireTime < DateTime.Now)
+            if (AppInfo.State.TokenExpireTime < DateTime.Now)
             {
                 this.ButtonDo.Content = "spotify token expired!";
                 this.LabelTokenExpired.Visibility = Visibility.Visible;
@@ -124,12 +123,12 @@ namespace NowPlaying
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
 
-                    if (this.TokenExpireTime < DateTime.Now)
+                    if (AppInfo.State.TokenExpireTime < DateTime.Now)
                     {
                         cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
                         this.LabelTokenExpired.Visibility = Visibility.Visible;
                         return;
-                    }                       
+                    }
                 }
             });
         }
@@ -153,7 +152,7 @@ namespace NowPlaying
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
             this.LabelFormatted.Content = trackResp.FormattedName;
-            this.ButtonDo.Content = 
+            this.ButtonDo.Content =
                 $"{trackResp.FullName} | " +
                 $"{trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/" +
                 $"{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";
@@ -166,7 +165,7 @@ namespace NowPlaying
 
         private void ButtonPath_Click(object sender, RoutedEventArgs e)
         {
-            this.TextBoxPath.Text = SteamIdLooker.UserdataPath 
+            this.TextBoxPath.Text = SteamIdLooker.UserdataPath
                                   + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
 

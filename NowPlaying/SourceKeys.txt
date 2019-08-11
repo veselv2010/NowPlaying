@@ -94,7 +94,7 @@ Keypad Key - Key Bind Name
 8 - kp_uparrow
 9 - kp_pgup
 0 - kp_ins
-+ - kp_plus 
++ - kp_plus
 - - kp_minus
 / - kp_slash
 . - kp_del

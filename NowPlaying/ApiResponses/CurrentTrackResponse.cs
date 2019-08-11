@@ -50,7 +50,7 @@ namespace NowPlaying.ApiResponses
 
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
             this.FormattedName = TrackNameFormatter.ToLatin(this.FullName);
-            
+
             this.ProgressMinutes = (int)(this.Progress / 1000 / 60);
             this.ProgressSeconds = (int)((this.Progress / 1000) % 60);
             this.DurationMinutes = (int)(this.Duration / 1000 / 60);
