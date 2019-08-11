@@ -31,11 +31,6 @@ namespace NowPlaying.OAuth
             this.InitializeComponent();
         }
 
-        private void BrowserWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Browser_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
         {
             Dispatcher.BeginInvoke((Action)(() =>

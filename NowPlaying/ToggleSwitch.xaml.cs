@@ -26,7 +26,6 @@ namespace NowPlaying
         readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(39, 185, 39));
         public bool Toggled = false;
 
-
         public ToggleSwitch()
         {
             this.InitializeComponent();

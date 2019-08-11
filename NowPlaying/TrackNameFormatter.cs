@@ -81,8 +81,6 @@ namespace NowPlaying
             { "Ь", "J"},
             { "Э", "E"}
         };
-
         #endregion
-
     }
 }

@@ -11,6 +11,5 @@ namespace NowPlaying.Extensions
             return urlParams.FirstOrDefault(p => p.Contains(propertyName + "="))
                                     .Split('=')[1]; // {propertyName}=*text*" split by '=', take *text*
         }
-
     }
 }
