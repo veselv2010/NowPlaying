@@ -6,24 +6,16 @@ namespace NowPlaying
 {
     class KeyFormatter
     {
-        public static Task<KeySender.ScanCodeShort> GetKey(string Key)
+        public static KeySender.ScanCodeShort GetKey(string Key)
         {
-            return Task.Run(() =>
-            {
-                KeySender.ScanCodeShort KeyCode;
-                KeyValuePairs.TryGetValue(Key, out KeyCode);
-                return KeyCode;
-            });
+            KeyValuePairs.TryGetValue(Key, out KeySender.ScanCodeShort KeyCode);
+            return KeyCode;
         }
 
-        public static Task<KeySender.VirtualKeyShort> GetVurtualKey(string Key)
+        public static KeySender.VirtualKeyShort GetVurtualKey(string Key)
         {
-            return Task.Run(() =>
-            {
-                KeySender.VirtualKeyShort KeyCode;
-                VirtualKeyValuePairs.TryGetValue(Key, out KeyCode);
-                return KeyCode;
-            });
+            VirtualKeyValuePairs.TryGetValue(Key, out KeySender.VirtualKeyShort KeyCode);
+            return KeyCode;
         }
 
         public static Dictionary<string, KeySender.ScanCodeShort> KeyValuePairs = new Dictionary<string, KeySender.ScanCodeShort>

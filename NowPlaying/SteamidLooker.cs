@@ -11,7 +11,7 @@ namespace NowPlaying
     {
         private static string _steamFullPathCached;
 
-        private static string steamFullPath
+        private static string SteamFullPath
         { 
             get
             {
@@ -27,11 +27,11 @@ namespace NowPlaying
             }
         }
 
-        public static string UserdataPath => steamFullPath + @"\userdata";
+        public static string UserdataPath => SteamFullPath + @"\userdata";
 
         public static void UpdateAccountsInfo()
         {
-            var loginUsersPath = steamFullPath + @"\config\loginusers.vdf";
+            var loginUsersPath = SteamFullPath + @"\config\loginusers.vdf";
 
             string[] loginUsersFile = File.ReadAllLines(loginUsersPath);
 

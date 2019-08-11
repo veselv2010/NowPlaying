@@ -8,13 +8,12 @@ using NowPlaying.Extensions;
 namespace NowPlaying.OAuth
 {
     public partial class BrowserWindow : Window
-    {
+    {       
+        //private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
         //private static readonly string authUrlTemplate = @"https://accounts.spotify.com/authorize?client_id={0}"
         //                                            + "&redirect_uri={1}&response_type=code&scope=user-read-playback-state";
 
         private static readonly string tokenUrl = "https://accounts.spotify.com/api/token";
-
-        //private string GetAuthUrl() => string.Format(authUrlTemplate, AppInfo.SpotifyClientId, AppInfo.SpotifyRedirectUri);
 
         private string Url { get; set; }
 
