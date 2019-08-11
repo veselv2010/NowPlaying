@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-             mc:Ignorable="d"
-             Loaded="BrowserWindow_Loaded" Height="800" Width="550" ShowInTaskbar="False" Title="NowPlaying Authentication Window">
+             mc:Ignorable="d" Height="800" Width="550" ShowInTaskbar="False" Title="NowPlaying Authentication Window">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

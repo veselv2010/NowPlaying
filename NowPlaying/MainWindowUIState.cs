@@ -1,5 +1,4 @@
-﻿
-namespace NowPlaying
+﻿namespace NowPlaying
 {
 	public enum MainWindowUIState
     {
