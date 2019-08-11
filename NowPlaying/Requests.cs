@@ -42,7 +42,6 @@ namespace NowPlaying
             var resp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(baseUrl, tokenReqParams);
 
             AppInfo.State.SpotifyAccessToken = resp.AccessToken;
-            AppInfo.State.SpotifyRefreshToken = resp.RefreshToken;
             AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(resp.ExpiresIn - 5);
 
             return resp;
