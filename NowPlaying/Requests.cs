@@ -32,6 +32,22 @@ namespace NowPlaying
             return new CurrentTrackResponse(trackId, trackName, artists, progress, duration);
         }
 
+        public static TokenResponse RefreshToken()
+        {
+            var baseUrl = "https://accounts.spotify.com/api/token?";
+
+            var tokenReqParams =  "grant_type=refresh_token" +
+                                 $"&refresh_token={AppInfo.State.SpotifyRefreshToken}";
+
+            var resp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(baseUrl, tokenReqParams);
+
+            AppInfo.State.SpotifyAccessToken = resp.AccessToken;
+            AppInfo.State.SpotifyRefreshToken = resp.RefreshToken;
+            AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(resp.ExpiresIn - 5);
+
+            return resp;
+        }
+
         private static string PerformGetRequest(string url)
         {
             using (var wc = new WebClient() { Encoding = Encoding.UTF8 })

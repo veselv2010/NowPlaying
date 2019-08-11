@@ -38,7 +38,9 @@ namespace NowPlaying
             }
 
             AppInfo.State.SpotifyAccessToken = browserWindow.ResultToken;
-            AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime);
+            AppInfo.State.SpotifyRefreshToken = browserWindow.RefreshToken;
+            AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime - 5);
+
             this.Show();
         }
 
