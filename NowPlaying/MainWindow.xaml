@@ -35,5 +35,5 @@
         <CheckBox x:Name="CheckBoxAutoSend" Content="autosend on new track" Grid.Column="2" HorizontalAlignment="Left" Margin="134,59,-257,0" VerticalAlignment="Top" Width="146"/>
     </Grid>
 </Window>
-	
-	
+    
+    

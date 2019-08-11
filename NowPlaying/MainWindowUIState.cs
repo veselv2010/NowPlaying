@@ -1,9 +1,9 @@
 ﻿
 namespace NowPlaying
 {
-	public enum MainWindowUIState
+    public enum MainWindowUIState
     {
         NpcWork,
-		Idle,
+        Idle,
     }
 }

@@ -46,7 +46,7 @@ namespace NowPlaying.ApiResponses
             this.Progress = progress;
             this.Duration = duration;
 
-			this.IsLocalFile = this.Id == null;
+            this.IsLocalFile = this.Id == null;
 
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
             this.FormattedName = TrackNameFormatter.ToLatin(this.FullName);

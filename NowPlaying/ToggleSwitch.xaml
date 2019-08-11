@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:NowPlaying"
              mc:Ignorable="d" d:DesignWidth="800" Height="371.849">
 
-	<Grid>
-		<Viewbox Margin="-1,0,0,0">
-			<Grid HorizontalAlignment="Left" Height="111" Margin="0" VerticalAlignment="Top" Width="239">
-				<Rectangle x:Name="Background" Fill="#FF9B2020" HorizontalAlignment="Left" Height="91" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" RadiusY="49.836" RadiusX="49.836" MouseLeftButtonDown="Background_MouseLeftButtonDown"/>
-				<Ellipse x:Name="Dot" Fill="White" HorizontalAlignment="Center" Height="82" VerticalAlignment="Center" Width="82" MouseLeftButtonDown="Dot_MouseLeftButtonDown"/>
-			</Grid>
-		</Viewbox>
-	</Grid>
+    <Grid>
+        <Viewbox Margin="-1,0,0,0">
+            <Grid HorizontalAlignment="Left" Height="111" Margin="0" VerticalAlignment="Top" Width="239">
+                <Rectangle x:Name="Background" Fill="#FF9B2020" HorizontalAlignment="Left" Height="91" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" RadiusY="49.836" RadiusX="49.836" MouseLeftButtonDown="Background_MouseLeftButtonDown"/>
+                <Ellipse x:Name="Dot" Fill="White" HorizontalAlignment="Center" Height="82" VerticalAlignment="Center" Width="82" MouseLeftButtonDown="Dot_MouseLeftButtonDown"/>
+            </Grid>
+        </Viewbox>
+    </Grid>
 </UserControl>

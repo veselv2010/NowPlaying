@@ -8,7 +8,7 @@ using NowPlaying.ApiResponses;
 
 namespace NowPlaying
 {
-	static class Requests
+    static class Requests
     {
         public static CurrentTrackResponse GetCurrentTrack(string accessToken)
         {

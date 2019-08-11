@@ -3,7 +3,7 @@ using NowPlaying.ApiResponses;
 
 namespace NowPlaying
 {
-	internal class ConfigWriter
+    internal class ConfigWriter
     {
         private string WritePath { get; set; }
 

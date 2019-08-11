@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 
@@ -40,7 +38,7 @@ namespace NowPlaying
             var regexSteamId64 = new Regex(@"(765611)\d+");
             var regexAcc = new Regex(@"AccountName""\s*""(\w+)");
 
-			for (int line = 2; line < loginUsersFile.Length - 1; line++) //id64 + userdata(steamid3/32)
+            for (int line = 2; line < loginUsersFile.Length - 1; line++) //id64 + userdata(steamid3/32)
             {
                 var steamId64Match = regexSteamId64.Match(loginUsersFile[line]);
 

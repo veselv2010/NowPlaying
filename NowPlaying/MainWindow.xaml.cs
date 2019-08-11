@@ -70,7 +70,7 @@ namespace NowPlaying
         {
             if (!this.SpotifySwitch.Toggled)
             {
-				this.ChangeUIState(MainWindowUIState.Idle);
+                this.ChangeUIState(MainWindowUIState.Idle);
                 this._cancellationGetSpotifyUpdates?.Cancel();
                 return;
             }
@@ -93,7 +93,7 @@ namespace NowPlaying
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
-			this.ChangeUIState(MainWindowUIState.NpcWork);
+            this.ChangeUIState(MainWindowUIState.NpcWork);
 
             string keyboardButton = this.AccountsList.SelectedItem.ToString();
 
@@ -134,7 +134,7 @@ namespace NowPlaying
             });
         }
 
-		private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
+        private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
             this.IsAutoTrackChangeEnabled = CheckBoxAutoSend.IsChecked.Value;
             this.CurrentKeyBind = TextBoxKeyBind.Text;
@@ -148,9 +148,9 @@ namespace NowPlaying
             }
 
             if (trackResp.IsLocalFile)
-				this.LabelLocalFilesWarning.Visibility = Visibility.Visible;
+                this.LabelLocalFilesWarning.Visibility = Visibility.Visible;
             else
-				this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
+                this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
             this.LabelFormatted.Content = trackResp.FormattedName;
             this.ButtonDo.Content = 
@@ -180,25 +180,25 @@ namespace NowPlaying
         }
 
 
-		private void ChangeUIState(MainWindowUIState idle)
-		{
-			switch(idle)
-			{
-				case MainWindowUIState.NpcWork:
-				{
+        private void ChangeUIState(MainWindowUIState idle)
+        {
+            switch(idle)
+            {
+                case MainWindowUIState.NpcWork:
+                {
                     this.LabelNpcDisclaimer.Visibility = Visibility.Collapsed;
-					this.LabelFormatted.Visibility     = Visibility.Visible;
-				}
-				break;
+                    this.LabelFormatted.Visibility     = Visibility.Visible;
+                }
+                break;
 
-				case MainWindowUIState.Idle:
-				{
+                case MainWindowUIState.Idle:
+                {
                     this.LabelNpcDisclaimer.Visibility = Visibility.Visible;
-					this.LabelFormatted.Visibility     = Visibility.Collapsed;
-				}
-				break;
-			}
-		}
+                    this.LabelFormatted.Visibility     = Visibility.Collapsed;
+                }
+                break;
+            }
+        }
 
         private void ButtonSourceKeys_Click(object sender, RoutedEventArgs e)
         {
