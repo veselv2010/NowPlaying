@@ -110,12 +110,13 @@ namespace NowPlaying
                     CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
+                    this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
 
                     if (trackResp?.Id != this.LastPlayingTrackId)
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
-                        if (IsAutoTrackChangeEnabled)
+                        if (IsAutoTrackChangeEnabled && Program.GameProcess.IsValid)
                         {
                             KeySender.SendInputWithAPI(CurrentKeyBind);
                         }
@@ -203,6 +204,11 @@ namespace NowPlaying
         {
             if (!SourceKeysExtensions.TryOpenSourceKeysFile())
                 MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Program.GameProcess.Dispose();
         }
     }
 }

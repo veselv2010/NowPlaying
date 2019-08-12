@@ -20,6 +20,8 @@ namespace NowPlaying
             public static IList<string> AccountNames { get; } = new List<string>();
 
             public static IDictionary<string, int> AccountNameToSteamId3 { get; } = new Dictionary<string, int>();
+
+            public static string WindowHandle { get; set; }
         }
     }
 }

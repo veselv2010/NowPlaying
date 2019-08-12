@@ -105,6 +105,10 @@
     <Compile Include="ApiResponses\CurrentTrackResponse.cs" />
     <Compile Include="ApiResponses\TokenResponse.cs" />
     <Compile Include="AppInfo.cs" />
+    <Compile Include="GameProcessHook\GameProcess.cs" />
+    <Compile Include="GameProcessHook\GameProcessHookHelper.cs" />
+    <Compile Include="GameProcessHook\ThreadComponent.cs" />
+    <Compile Include="GameProcessHook\WinAPI\WinAPIUser32Methods.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
