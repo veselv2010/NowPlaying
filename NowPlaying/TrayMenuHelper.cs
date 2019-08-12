@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows;
+using System.Windows.Forms;
 
 namespace NowPlaying
 {
     class TrayMenuHelper
     {
-        public static System.Windows.Forms.ContextMenu TrayMenu = new System.Windows.Forms.ContextMenu();
-        public static System.Windows.Forms.NotifyIcon TrayMenuIcon = new System.Windows.Forms.NotifyIcon();
+        public static ContextMenu TrayMenu = new ContextMenu();
+        public static NotifyIcon TrayMenuIcon = new NotifyIcon();
 
         public TrayMenuHelper()
         {
-            TrayMenuIcon.Icon = new System.Drawing.Icon("mwvra5f4q0y_JnS_icon.ico");
+            TrayMenuIcon.Icon = new System.Drawing.Icon("icon.ico");
             TrayMenuIcon.Visible = true;
             TrayMenuIcon.Text = "NowPlaying";
 
