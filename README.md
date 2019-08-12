@@ -11,7 +11,7 @@ cefsharp & ie11 versions will work for 1 hour because refresh token logic isnt i
 5. Turn on the programm by switching the "npc work" slider on
 6. Copy the console string
 7. Paste console string into the csgo console (~)
-8. Press the binded key to send current track info or use the autosend option metioned in the 4th step
+8. Press the assigned key to send current track info or use the autosend option metioned in the 4th step
 
 Make sure to not be in any kind of a in-game menu or alt-tabbed when using autosend to prevent it not sending input to the game when the track has changed.
 
