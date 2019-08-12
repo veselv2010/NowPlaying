@@ -184,7 +184,6 @@ namespace NowPlaying
             }
         }
 
-
         private void ChangeUIState(MainWindowUIState idle)
         {
             switch(idle)
