@@ -8,7 +8,7 @@ cefsharp & ie11 versions will work for 1 hour because refresh token logic isnt i
 2. Select your Steam account in "current acc" list
 3. Enter desired chat button (If you run into any trouble setting one, you can press the "затуп?" button to see the Source engine keys)
 4. Optionally, you can use autosend, which activates send button on each change of track via WinAPI SendInput
-5. Turn on the programm by switching the "npc work" slider on
+5. Turn on the program by switching the "npc work" slider on
 6. Copy the console string
 7. Paste console string into the csgo console (~)
 8. Press the assigned key to send current track info or use the autosend option metioned in the 4th step
