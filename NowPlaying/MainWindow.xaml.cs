@@ -41,7 +41,7 @@ namespace NowPlaying
             AppInfo.State.SpotifyRefreshToken = browserWindow.RefreshToken;
             AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime - 5);
 
-            TrayMenuHelper fgd = new TrayMenuHelper();
+            new TrayMenuHelper();
             TrayMenuHelper.TrayMenu.MenuItems.Add("Show", new EventHandler((_sender, _args) => ShowFromTray()));
             TrayMenuHelper.TrayMenuIcon.DoubleClick += new EventHandler((_sender, _args) => ShowFromTray());
             TrayMenuHelper.TrayMenu.MenuItems.Add("Exit", new EventHandler((_sender, _args) => ExitFromTray()));
@@ -183,7 +183,7 @@ namespace NowPlaying
                 this._cancellationGetSpotifyUpdates?.Cancel();
             }
         }
-
+    
         private void ChangeUIState(MainWindowUIState idle)
         {
             switch(idle)
