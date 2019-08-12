@@ -41,6 +41,11 @@ namespace NowPlaying
             AppInfo.State.SpotifyRefreshToken = browserWindow.RefreshToken;
             AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime - 5);
 
+            TrayMenuHelper fgd = new TrayMenuHelper();
+            TrayMenuHelper.TrayMenu.MenuItems.Add("Show", new EventHandler((_sender, _args) => ShowFromTray()));
+            TrayMenuHelper.TrayMenuIcon.DoubleClick += new EventHandler((_sender, _args) => ShowFromTray());
+            TrayMenuHelper.TrayMenu.MenuItems.Add("Exit", new EventHandler((_sender, _args) => ExitFromTray()));
+
             this.Show();
         }
 
@@ -206,10 +211,26 @@ namespace NowPlaying
                 MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
         }
 
+        private void ExitFromTray() => this.Close();
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            TrayMenuHelper.TrayMenuIcon.Dispose();
+            TrayMenuHelper.TrayMenu.Dispose();
             Program.GameProcess.Dispose();
         }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized) //костыль для работы трея из форм в впфе
+                this.Hide();
+        }
+
+        private void ShowFromTray()
+        {
+            this.Show();
+            WindowState = WindowState.Normal;
+        }       
     }
 }
 

@@ -7,7 +7,7 @@ namespace NowPlaying
     {
         public static string ToLatin(string name)
         {
-            return TrackNameFormatter.Ru2En.Aggregate(name, (current, value) => current.Replace(value.Key, value.Value));
+            return Ru2En.Aggregate(name, (current, value) => current.Replace(value.Key, value.Value));
         }
 
         #region Translit Dictionary

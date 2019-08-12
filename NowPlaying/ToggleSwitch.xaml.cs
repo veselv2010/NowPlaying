@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace NowPlaying
 {
-    /// <summary>
-    /// Логика взаимодействия для ToggleSwitch.xaml
-    /// </summary>
     public partial class ToggleSwitch : UserControl
     {
         Thickness LeftSide = new Thickness(-125, 0, 0, 0);

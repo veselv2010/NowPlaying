@@ -127,6 +127,7 @@
     <Compile Include="ConfigWriter.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\SourceKeysExtensions.cs" />
+    <Compile Include="TrayMenuHelper.cs" />
     <Compile Include="WinAPIInputSender\KeyFormatter.cs" />
     <Compile Include="WinAPIInputSender\KeySender.cs" />
   </ItemGroup>
@@ -135,7 +136,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="mwvra5f4q0y_JnS_icon.ico" />
+    <Content Include="mwvra5f4q0y_JnS_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SourceKeys.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
