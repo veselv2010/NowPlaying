@@ -23,7 +23,6 @@
         <Label x:Name="LabelNpcDisclaimer" Content="&lt;-pressing this button will kill the npc" Grid.Column="2" HorizontalAlignment="Left" Margin="119,74,-309,0" VerticalAlignment="Top" Width="213" Height="29"/>
         <Label x:Name="LabelLocalFilesWarning" Content="!playing from local files!" Grid.Column="2" HorizontalAlignment="Left" Margin="245,92,-359,0" VerticalAlignment="Top" Width="137" Visibility="Collapsed"/>
         <Label x:Name="LabelChatButton" Content="chat button" Grid.Column="2" HorizontalAlignment="Left" Margin="254,32,-303,0" VerticalAlignment="Top" Width="72" Height="23"/>
-        <Label x:Name="LabelTokenExpired" Content="!spotify token expired!" HorizontalAlignment="Left" Margin="117,92,-222,0" VerticalAlignment="Top" Grid.Column="2" Width="128" Visibility="Collapsed"/>
         <Button x:Name="ButtonDo" Content="manual" HorizontalAlignment="Left" Margin="10,123,-359,0" VerticalAlignment="Top" Width="541" Height="61" Click="ButtonDo_Click" FontSize="14pt" Grid.ColumnSpan="3"/>
         <Button x:Name="ButtonPath" Content="path" Grid.Column="1" Margin="59,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Height="23" Click="ButtonPath_Click" Grid.ColumnSpan="2" Visibility="{Binding ElementName=LabelNpcDisclaimer, Path=Visibility, Mode=OneWay}"/>
         <Button x:Name="ButtonSourceKeys" Content="затуп?" Grid.Column="2" HorizontalAlignment="Left" Margin="331,60,-359,0" VerticalAlignment="Top" Width="51" Click="ButtonSourceKeys_Click"/>
