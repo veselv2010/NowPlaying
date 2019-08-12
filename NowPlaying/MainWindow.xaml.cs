@@ -49,6 +49,7 @@ namespace NowPlaying
             if (AppInfo.State.TokenExpireTime < DateTime.Now)
             {
                 this.ButtonDo.Content = "spotify token expired!";
+                this.LabelTokenExpired.Visibility = Visibility.Visible;
                 return;
             }
 
@@ -127,6 +128,7 @@ namespace NowPlaying
                     if (AppInfo.State.TokenExpireTime < DateTime.Now)
                     {
                         cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
+                        this.LabelTokenExpired.Visibility = Visibility.Visible;
                         return;
                     }
                 }
