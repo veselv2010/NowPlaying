@@ -45,6 +45,7 @@ namespace NowPlaying
             TrayMenuHelper.TrayMenu.MenuItems.Add("Show", new EventHandler((_sender, _args) => ShowFromTray()));
             TrayMenuHelper.TrayMenuIcon.DoubleClick += new EventHandler((_sender, _args) => ShowFromTray());
             TrayMenuHelper.TrayMenu.MenuItems.Add("Exit", new EventHandler((_sender, _args) => ExitFromTray()));
+            TrayMenuHelper.NpcWorkTrayCheckBox.Click += new EventHandler((_sender, _args) => NpcWorkCheckChange());
 
             this.Show();
 
@@ -84,6 +85,7 @@ namespace NowPlaying
             {
                 this.ChangeUIState(MainWindowUIState.Idle);
                 this._cancellationGetSpotifyUpdates?.Cancel();
+                TrayMenuHelper.NpcWorkTrayCheckBox.Checked = false;
                 return;
             }
 
@@ -229,7 +231,27 @@ namespace NowPlaying
         {
             this.Show();
             WindowState = WindowState.Normal;
-        }       
+        }
+
+        private void NpcWorkCheckChange()
+        {
+            object sender = null;
+            System.Windows.Input.MouseButtonEventArgs e = null;
+
+            if (TrayMenuHelper.NpcWorkTrayCheckBox.Checked)
+            {
+                this.SpotifySwitch.TurnOn();
+                ToggleSwitch_MouseLeftButtonDown(sender, e);
+                return;
+            }
+
+            if (!TrayMenuHelper.NpcWorkTrayCheckBox.Checked)
+            {
+                this.SpotifySwitch.TurnOff();
+                ToggleSwitch_MouseLeftButtonDown(sender, e);
+                return;
+            }
+        }
     }
 }
 
