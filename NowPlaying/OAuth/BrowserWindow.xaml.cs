@@ -29,23 +29,11 @@ namespace NowPlaying.OAuth
 
         private void Browser_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
         {
-            Dispatcher.BeginInvoke((Action)(() =>
-            {
-                Url = Browser.Address;
-                if (RefreshToken != null)
-                {
-                    this.Browser.Dispose();
-                    Cef.Shutdown();
-                    this.Close();
-                }
-            }));
-        }
+            Dispatcher.Invoke(() => Url = Browser.Address);
 
-        private void Browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e)
-        {
-            if (Url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
+            if (Url != null && Url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
             {
-                while (RefreshToken == null)
+                while (RefreshToken == null) //костыль
                 {
                     string code = UriExtensions.GetPropertyValue(Url, "code");
 
@@ -57,6 +45,8 @@ namespace NowPlaying.OAuth
                     this.ExpireTime = tokenResp.ExpiresIn;
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
+                    Dispatcher.Invoke(() => this.Browser.Dispose());
+                    Dispatcher.Invoke(() => this.Close());
                     return;
                 }
             }
