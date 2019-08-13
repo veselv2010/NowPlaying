@@ -29,6 +29,5 @@ namespace NowPlaying
 
         private void NpcWork_Click() => NpcWorkTrayCheckBox.Checked = !NpcWorkTrayCheckBox.Checked;
         private void OpenGitHubPage() => Process.Start("https://github.com/veselv2010/NowPlaying");
-
     }
 }

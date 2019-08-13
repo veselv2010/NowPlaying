@@ -252,6 +252,8 @@ namespace NowPlaying
                 return;
             }
         }
+
+        private void ButtonHelp_Click(object sender, RoutedEventArgs e) => System.Diagnostics.Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
     }
 }
 
