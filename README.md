@@ -1,8 +1,6 @@
 # NowPlaying
 spotify current track to csgo chat very nice
 
-cefsharp & ie11 versions will work for 1 hour because refresh token logic isnt implemented yet
-
 # How to use
 1. Login to your Spotify account (Don't forget to use "Remember me" option)
 2. Select your Steam account in "current acc" list
