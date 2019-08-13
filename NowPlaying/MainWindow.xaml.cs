@@ -114,6 +114,12 @@ namespace NowPlaying
                 {
                     Thread.Sleep(1000);
 
+                    if (AppInfo.State.TokenExpireTime < DateTime.Now)
+                    {
+                        Requests.RefreshToken();
+                        cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
+                    }
+
                     CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
@@ -131,12 +137,6 @@ namespace NowPlaying
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
-
-                    if (AppInfo.State.TokenExpireTime < DateTime.Now)
-                    {
-                        cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
-                        return;
-                    }
                 }
             });
         }
