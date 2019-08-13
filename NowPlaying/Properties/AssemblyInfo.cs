@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Spotify Now Playing => CSGO Chat")]
+[assembly: AssemblyTitle("NowPlaying")]
 [assembly: AssemblyDescription("=_-icon by SCOUTPAN-_=")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
