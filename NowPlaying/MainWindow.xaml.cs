@@ -47,6 +47,13 @@ namespace NowPlaying
             TrayMenuHelper.TrayMenu.MenuItems.Add("Exit", new EventHandler((_sender, _args) => ExitFromTray()));
 
             this.Show();
+
+            if (this.AccountsList.SelectedItem == null)
+            {
+                MessageBox.Show("Файл loginusers.vdf пуст");
+                this.Close();
+                return;
+            }
         }
 
         private void ButtonDo_Click(object sender, RoutedEventArgs e)
@@ -77,13 +84,6 @@ namespace NowPlaying
             {
                 this.ChangeUIState(MainWindowUIState.Idle);
                 this._cancellationGetSpotifyUpdates?.Cancel();
-                return;
-            }
-
-            if (this.AccountsList.SelectedItem == null)
-            {
-                this.SpotifySwitch.TurnOff();
-                MessageBox.Show("Выберите аккаунт");
                 return;
             }
 
