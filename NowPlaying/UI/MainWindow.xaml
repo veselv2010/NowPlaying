@@ -1,9 +1,9 @@
-﻿<Window x:Name="ActualWindow" x:Class="NowPlaying.MainWindow"
+﻿<Window x:Name="ActualWindow" x:Class="NowPlaying.UI.MainWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:NowPlaying"
+             xmlns:local="clr-namespace:NowPlaying.UI"
              mc:Ignorable="d"
              ResizeMode="CanMinimize"
              Loaded="Window_Loaded" Width="575" Height="180" Title="NowPlaying" Closing="Window_Closing" Topmost="True" ShowInTaskbar="False" StateChanged="Window_StateChanged">
@@ -34,6 +34,7 @@
         <CheckBox x:Name="CheckBoxAutoSend" Content="autosend on new track" Grid.Column="2" HorizontalAlignment="Left" Margin="134,63,-257,0" VerticalAlignment="Top" Width="146"/>
         <Button x:Name="ButtonHelp" Content="> Help!" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="58" Height="35" Click="ButtonHelp_Click" Visibility="{Binding ElementName=LabelNpcDisclaimer, Path=Visibility, Mode=OneWay}"/>
         <CheckBox x:Name="DebugCheckBox" Content="hacker mode" Grid.Column="2" HorizontalAlignment="Left" Margin="291,6,-368,0" VerticalAlignment="Top" Width="100" Visibility="Collapsed" IsChecked="True" IsEnabled="False"/>
+        <local:CustomComboBox x:Name="DebugComboBox" Grid.Column="2" HorizontalAlignment="Left" Margin="99,9,-190,0" VerticalAlignment="Top" Width="114" IsEnabled="True" Visibility="Visible" Height="22"></local:CustomComboBox>
     </Grid>
 </Window>
 

@@ -5,7 +5,7 @@ using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
 
-namespace NowPlaying
+namespace NowPlaying.UI
 {
     public partial class MainWindow : Window
     {

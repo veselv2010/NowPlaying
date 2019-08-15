@@ -116,24 +116,27 @@
     <Compile Include="GameProcessHook\GameProcessHookHelper.cs" />
     <Compile Include="GameProcessHook\ThreadComponent.cs" />
     <Compile Include="GameProcessHook\WinAPI\WinAPIUser32Methods.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowUIState.cs" />
-    <Compile Include="OAuth\BrowserWindow.xaml.cs">
+    <Compile Include="UI\MainWindowUIState.cs" />
+    <Compile Include="UI\OAuth\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Requests.cs" />
     <Compile Include="SteamIdLooker.cs" />
-    <Compile Include="ToggleSwitch.xaml.cs">
+    <Compile Include="UI\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConfigWriter.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\SourceKeysExtensions.cs" />
-    <Compile Include="TrayMenuHelper.cs" />
+    <Compile Include="UI\TrayMenuHelper.cs" />
+    <Compile Include="UI\CustomComboBox.xaml.cs">
+      <DependentUpon>CustomComboBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinAPIInputSender\KeyFormatter.cs" />
     <Compile Include="WinAPIInputSender\KeySender.cs" />
   </ItemGroup>
@@ -164,15 +167,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OAuth\BrowserWindow.xaml">
+    <Page Include="UI\OAuth\BrowserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ToggleSwitch.xaml">
+    <Page Include="UI\ToggleSwitch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CustomComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
