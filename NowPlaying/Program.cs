@@ -7,7 +7,7 @@ namespace NowPlaying
     public class Program : Application, IDisposable
     {
         [STAThread]
-        public static void Main(string[] args)
+        public static void Main()
         {
             SteamIdLooker.UpdateAccountsInfo();
             Ctor();

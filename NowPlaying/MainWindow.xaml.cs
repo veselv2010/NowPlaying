@@ -22,6 +22,12 @@ namespace NowPlaying
 
             foreach (string a in AppInfo.State.AccountNames)
                 this.AccountsList.Items.Add(a);
+
+            #if DEBUG
+            DebugCheckBox.Visibility = Visibility.Visible;
+            LabelFormatted.Visibility = Visibility.Visible;
+            ActualWindow.Height = 230;
+            #endif
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -129,10 +135,9 @@ namespace NowPlaying
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
+
                         if (IsAutoTrackChangeEnabled && Program.GameProcess.IsValid)
-                        {
                             KeySender.SendInputWithAPI(CurrentKeyBind);
-                        }
                     }
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
@@ -149,8 +154,7 @@ namespace NowPlaying
 
             if (trackResp == null)
             {
-                this.LabelFormatted.Content = "";
-                this.ButtonDo.Content = "Nothing is playing!";
+                this.LabelFormatted.Content = "Nothing is playing!";
                 return;
             }
 
@@ -159,11 +163,10 @@ namespace NowPlaying
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            this.LabelFormatted.Content = trackResp.FormattedName;
-            this.ButtonDo.Content =
+            this.LabelFormatted.Content =
                 $"{trackResp.FullName} | " +
-                $"{trackResp.ProgressMinutes}:{trackResp.ProgressSeconds:00}/" +
-                $"{trackResp.DurationMinutes}:{trackResp.DurationSeconds:00}";
+                $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}/" +
+                $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
         }
 
         private int GetSelectedAccountId()
@@ -199,8 +202,9 @@ namespace NowPlaying
 
                 case MainWindowUIState.Idle:
                 {
-                    this.LabelNpcDisclaimer.Visibility = Visibility.Visible;
-                    this.LabelFormatted.Visibility     = Visibility.Collapsed;
+                    this.LabelNpcDisclaimer.Visibility     = Visibility.Visible;
+                    this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
+                    this.LabelFormatted.Visibility         = Visibility.Collapsed;
                 }
                 break;
             }

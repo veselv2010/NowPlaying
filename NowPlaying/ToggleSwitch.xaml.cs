@@ -32,7 +32,7 @@ namespace NowPlaying
         public void TurnOff()
         {
             TrayMenuHelper.NpcWorkTrayCheckBox.Checked = false;
-            this.Background.Fill = this.Off;
+            this.SwitchBackground.Fill = this.Off;
             this.Toggled = false;
             this.Dot.Margin = this.LeftSide;
         }
@@ -40,7 +40,7 @@ namespace NowPlaying
         public void TurnOn()
         {
             TrayMenuHelper.NpcWorkTrayCheckBox.Checked = true;
-            this.Background.Fill = this.On;
+            this.SwitchBackground.Fill = this.On;
             this.Toggled = true;
             this.Dot.Margin = this.RightSide;
         }

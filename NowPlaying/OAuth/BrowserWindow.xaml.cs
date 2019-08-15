@@ -21,8 +21,9 @@ namespace NowPlaying.OAuth
         {
             var settings = new CefSettings
             {
-                CachePath = "cache" //несет ли какие-нибудь последствия эта тема в плане безопасности
+                CachePath = "cache", //несет ли какие-нибудь последствия эта тема в плане безопасности
             };
+            settings.CefCommandLineArgs.Remove("process-per-tab");
             Cef.Initialize(settings);
             this.InitializeComponent();
         }
@@ -33,7 +34,7 @@ namespace NowPlaying.OAuth
 
             if (Url != null && Url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
             {
-                while (RefreshToken == null) //костыль
+                while (RefreshToken == null)
                 {
                     string code = UriExtensions.GetPropertyValue(Url, "code");
 
@@ -45,10 +46,10 @@ namespace NowPlaying.OAuth
                     this.ExpireTime = tokenResp.ExpiresIn;
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
+                    Dispatcher.BeginInvoke((Action)(() => Cef.Shutdown()));
                     Dispatcher.Invoke(() => this.Browser.Dispose());
                     Dispatcher.Invoke(() => this.Close());
-                    return;
-                }
+                }            
             }
         }
     }
