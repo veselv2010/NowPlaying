@@ -22,7 +22,7 @@ namespace NowPlaying
 
         public void RewriteKeyBinding(CurrentTrackResponse currentTrack)
         {
-            string strForWriting = string.Format(ConfigWriter.WriteConfigText, currentTrack.FormattedName);
+            string strForWriting = string.Format(ConfigWriter.WriteConfigText, currentTrack.FullName);
 
             using (var sw = new StreamWriter(this.WritePath))
                 sw.WriteLine(strForWriting);

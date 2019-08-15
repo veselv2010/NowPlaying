@@ -130,7 +130,6 @@
     <Compile Include="ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TrackNameFormatter.cs" />
     <Compile Include="ConfigWriter.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\SourceKeysExtensions.cs" />
