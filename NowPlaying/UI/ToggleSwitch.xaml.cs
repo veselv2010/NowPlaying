@@ -37,7 +37,7 @@ namespace NowPlaying.UI
 
             ActivesbFillAnimation.Begin();
 
-            TrayMenuHelper.NpcWorkTrayCheckBox.Checked = false;
+            Program.TrayMenu.NpcWorkTrayCheckBox.Checked = false;
             this.SwitchBackground.Fill = this.Off;
             this.Toggled = false;
         }
@@ -51,7 +51,7 @@ namespace NowPlaying.UI
 
             InActivesbFillAnimation.Begin();
 
-            TrayMenuHelper.NpcWorkTrayCheckBox.Checked = true;
+            Program.TrayMenu.NpcWorkTrayCheckBox.Checked = true;
             this.Toggled = true;
         }
 

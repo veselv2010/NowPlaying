@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
+using MenuItem = System.Windows.Forms.MenuItem;
 
 namespace NowPlaying.UI
 {
@@ -18,11 +20,27 @@ namespace NowPlaying.UI
         public MainWindow()
         {
             this.InitializeComponent();
+            this.InitializeTrayMenu();
+
+            Program.TrayMenu.Show();
 
             #if DEBUG
+
             DebugCheckBox.Visibility = Visibility.Visible;
             
             #endif
+        }
+
+        private void InitializeTrayMenu()
+        {
+            Program.TrayMenu.Items.AddRange(new MenuItem[]
+            {
+                new MenuItem("Show", TrayMenu.CreateEventHandler(ShowFromTray)),
+                new MenuItem("Exit", TrayMenu.CreateEventHandler(Close)),
+            });
+
+            Program.TrayMenu.Icon.DoubleClick += TrayMenu.CreateEventHandler(ShowFromTray);
+            Program.TrayMenu.NpcWorkTrayCheckBox.Click += TrayMenu.CreateEventHandler(NpcWorkCheckChange);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -41,12 +59,6 @@ namespace NowPlaying.UI
             AppInfo.State.SpotifyAccessToken = browserWindow.ResultToken;
             AppInfo.State.SpotifyRefreshToken = browserWindow.RefreshToken;
             AppInfo.State.TokenExpireTime = DateTime.Now.AddSeconds(browserWindow.ExpireTime - 5);
-
-            new TrayMenuHelper();
-            TrayMenuHelper.TrayMenu.MenuItems.Add("Show", new EventHandler((_sender, _args) => ShowFromTray()));
-            TrayMenuHelper.TrayMenuIcon.DoubleClick += new EventHandler((_sender, _args) => ShowFromTray());
-            TrayMenuHelper.TrayMenu.MenuItems.Add("Exit", new EventHandler((_sender, _args) => ExitFromTray()));
-            TrayMenuHelper.NpcWorkTrayCheckBox.Click += new EventHandler((_sender, _args) => NpcWorkCheckChange());
 
             this.Show();
 
@@ -84,9 +96,8 @@ namespace NowPlaying.UI
         {
             if (!this.SpotifySwitch.Toggled)
             {
-                this.ChangeUIState(MainWindowUIState.Idle);
                 this._cancellationGetSpotifyUpdates?.Cancel();
-                TrayMenuHelper.NpcWorkTrayCheckBox.Checked = false;
+                Program.TrayMenu.NpcWorkTrayCheckBox.Checked = false;
                 return;
             }
 
@@ -101,16 +112,14 @@ namespace NowPlaying.UI
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
-            this.ChangeUIState(MainWindowUIState.NpcWork);
-
             string keyboardButton = CustomComboBox.SelectedItem;
             int _SelectedAccount = CustomComboBox.SelectedIndex;
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
             var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
 
-            await Task.Factory.StartNew((/* сюда серануть keyboardButton как нибудь*/) =>
-            {                           // чтобы потом его можно было использовать внутри этого блока
+            await Task.Factory.StartNew(() =>
+            {
                 while (true)
                 {
                     if (CustomComboBox.SelectedIndex != _SelectedAccount)
@@ -181,24 +190,6 @@ namespace NowPlaying.UI
                 this._cancellationGetSpotifyUpdates?.Cancel();
             }
         }
-    
-        private void ChangeUIState(MainWindowUIState idle)
-        {
-            switch(idle)
-            {
-                case MainWindowUIState.NpcWork:
-                {
-                    //
-                }
-                break;
-
-                case MainWindowUIState.Idle:
-                {
-                    //
-                }
-                break;
-            }
-        }
 
         private void LabelSourceKeysClick(object sender, RoutedEventArgs e)
         {
@@ -206,13 +197,9 @@ namespace NowPlaying.UI
                 MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
         }
 
-        private void ExitFromTray() => this.Close();
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            TrayMenuHelper.TrayMenuIcon.Dispose();
-            TrayMenuHelper.TrayMenu.Dispose();
-            Program.GameProcess.Dispose();
+            Program.Dispose();
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
@@ -232,14 +219,14 @@ namespace NowPlaying.UI
             object sender = null;
             System.Windows.Input.MouseButtonEventArgs e = null;
 
-            if (TrayMenuHelper.NpcWorkTrayCheckBox.Checked)
+            if (Program.TrayMenu.NpcWorkTrayCheckBox.Checked)
             {
                 this.SpotifySwitch.TurnOn();
                 ToggleSwitch_MouseLeftButtonDown(sender, e);
                 return;
             }
 
-            if (!TrayMenuHelper.NpcWorkTrayCheckBox.Checked)
+            if (!Program.TrayMenu.NpcWorkTrayCheckBox.Checked)
             {
                 this.SpotifySwitch.TurnOff();
                 ToggleSwitch_MouseLeftButtonDown(sender, e);
@@ -247,7 +234,8 @@ namespace NowPlaying.UI
             }
         }
 
-        private void LabelHelpClick(object sender, RoutedEventArgs e) => System.Diagnostics.Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
+        private void LabelHelpClick(object sender, RoutedEventArgs e) 
+            => Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
     }
 }
 

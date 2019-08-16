@@ -140,7 +140,7 @@
     <Compile Include="ConfigWriter.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\SourceKeysExtensions.cs" />
-    <Compile Include="UI\TrayMenuHelper.cs" />
+    <Compile Include="UI\TrayMenu.cs" />
     <Compile Include="UI\CustomComboBox.xaml.cs">
       <DependentUpon>CustomComboBox.xaml</DependentUpon>
     </Compile>

@@ -5,34 +5,36 @@ using NowPlaying.UI;
 
 namespace NowPlaying
 {
-    public class Program : Application, IDisposable
+    public class Program : Application
     {
         [STAThread]
         public static void Main()
         {
             SteamIdLooker.UpdateAccountsInfo();
-            Ctor();
+            InitializeGameProcess();
             new Application().Run(new MainWindow());
         }
 
-        public static GameProcess GameProcess { get; set; }
+        public static TrayMenu TrayMenu { get; } = new TrayMenu();
+
+        public static GameProcess GameProcess { get; private set; }
 
         public Program()
         {
-            Startup += (sender, args) => Ctor();
+            Startup += (sender, args) => InitializeGameProcess();
             Exit += (sender, args) => Dispose();
         }
 
-        public static void Ctor() //constructor
+        public static void InitializeGameProcess()
         {
             GameProcess = new GameProcess();
             GameProcess.Start();
         }
 
-        public void Dispose()
+        public static void Dispose()
         {
             GameProcess.Dispose();
-            GameProcess = default;
+            TrayMenu.Dispose();
         }
     }
 }
