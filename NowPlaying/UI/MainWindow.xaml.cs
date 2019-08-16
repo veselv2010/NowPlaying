@@ -21,8 +21,7 @@ namespace NowPlaying.UI
 
             #if DEBUG
             DebugCheckBox.Visibility = Visibility.Visible;
-            LabelFormatted.Visibility = Visibility.Visible;
-            ActualWindow.Height = 230;
+            
             #endif
         }
 
@@ -91,14 +90,14 @@ namespace NowPlaying.UI
                 return;
             }
 
-            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.Text.ToLower()))
+            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(CustomTextBox.CurrentText))
             {
                 this.SpotifySwitch.TurnOff();
                 MessageBox.Show("такой кнопки в кантре нет");
                 return;
             }
 
-            TextBoxToConsole.Text = $"bind \"{TextBoxKeyBind.Text}\" \"exec audio.cfg\"";
+            TextBoxToConsole.Text = $"bind \"{CustomTextBox.CurrentText}\" \"exec audio.cfg\"";
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
@@ -148,8 +147,8 @@ namespace NowPlaying.UI
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
             this.IsAutoTrackChangeEnabled = CustomCheckBox.IsChecked;
-            this.CurrentKeyBind = TextBoxKeyBind.Text;
-            this.LabelWithButton.Content = this.TextBoxKeyBind.Text;
+            this.CurrentKeyBind = CustomTextBox.CurrentText;
+            this.LabelWithButton.Content = CustomTextBox.CurrentText;
 
             if (trackResp == null)
             {
@@ -162,21 +161,15 @@ namespace NowPlaying.UI
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            this.LabelFormatted.Content =
-                $"{trackResp.FullName} | " +
-                $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}/" +
-                $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
+            this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
+            this.LabelFormatted.Content = $"{trackResp.Name}";
+            this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
+            this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
         }
 
         private int GetSelectedAccountId()
         {
             return AppInfo.State.AccountNameToSteamId3[CustomComboBox.SelectedItem];
-        }
-
-        private void ButtonPath_Click(object sender, RoutedEventArgs e)
-        {
-            this.TextBoxPath.Text = SteamIdLooker.UserdataPath
-                                  + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
 
         private void AccountsListSelectionChanged()
@@ -194,14 +187,12 @@ namespace NowPlaying.UI
             {
                 case MainWindowUIState.NpcWork:
                 {
-                    this.LabelNpcDisclaimer.Visibility = Visibility.Collapsed;
                     this.LabelFormatted.Visibility     = Visibility.Visible;
                 }
                 break;
 
                 case MainWindowUIState.Idle:
                 {
-                    this.LabelNpcDisclaimer.Visibility     = Visibility.Visible;
                     this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
                     this.LabelFormatted.Visibility         = Visibility.Collapsed;
                 }
@@ -209,7 +200,7 @@ namespace NowPlaying.UI
             }
         }
 
-        private void ButtonSourceKeys_Click(object sender, RoutedEventArgs e)
+        private void LabelSourceKeysClick(object sender, RoutedEventArgs e)
         {
             if (!SourceKeysExtensions.TryOpenSourceKeysFile())
                 MessageBox.Show("не найден файл с биндами (SourceKeys.txt)");
@@ -256,7 +247,7 @@ namespace NowPlaying.UI
             }
         }
 
-        private void ButtonHelp_Click(object sender, RoutedEventArgs e) => System.Diagnostics.Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
+        private void LabelHelpClick(object sender, RoutedEventArgs e) => System.Diagnostics.Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
     }
 }
 

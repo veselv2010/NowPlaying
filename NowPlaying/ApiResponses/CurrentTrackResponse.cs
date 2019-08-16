@@ -28,7 +28,7 @@ namespace NowPlaying.ApiResponses
         public long Duration { get; }
 
         public string FullName { get; }
-
+        public string FormattedArtists { get; }
         public int ProgressSeconds { get; }
         public int ProgressMinutes { get; }
         public int DurationMinutes { get; }
@@ -47,6 +47,7 @@ namespace NowPlaying.ApiResponses
             this.IsLocalFile = this.Id == null;
 
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
+            this.FormattedArtists = this.GetArtistsString();
 
             this.ProgressMinutes = (int)(this.Progress / 1000 / 60);
             this.ProgressSeconds = (int)((this.Progress / 1000) % 60);
