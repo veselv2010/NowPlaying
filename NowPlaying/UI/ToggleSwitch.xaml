@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NowPlaying.UI"
-             mc:Ignorable="d" Height="60.724" Width="111.375">
+             mc:Ignorable="d" Height="60" Width="111">
+    <UserControl.Resources>
+        <Color x:Key="SpotifyGreen">#FF1DB954</Color>
+        <Color x:Key="OffColor">#FFFF4040</Color>
+    </UserControl.Resources>
     <Viewbox>
-        <Grid HorizontalAlignment="Left" Width="112">
-            <Rectangle x:Name="SwitchBackground" Fill="#FFFF4040" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="111" RadiusY="30" RadiusX="30" MouseLeftButtonDown="Background_MouseLeftButtonDown"/>
+        <Grid HorizontalAlignment="Left" Width="111">
+            <Rectangle x:Name="SwitchBackground" Fill="#FF1DB954" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="111" RadiusY="30" RadiusX="30" MouseLeftButtonDown="Background_MouseLeftButtonDown">
+
+            </Rectangle>
             <Ellipse x:Name="Dot" Fill="White" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" MouseLeftButtonDown="Dot_MouseLeftButtonDown" Margin="7,7,0,0"/>
         </Grid>
     </Viewbox>

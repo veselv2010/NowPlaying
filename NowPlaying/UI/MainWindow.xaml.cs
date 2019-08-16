@@ -90,14 +90,14 @@ namespace NowPlaying.UI
                 return;
             }
 
-            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(CustomTextBox.CurrentText))
+            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(CustomTextBoxChatButton.CurrentText))
             {
                 this.SpotifySwitch.TurnOff();
                 MessageBox.Show("такой кнопки в кантре нет");
                 return;
             }
 
-            TextBoxToConsole.Text = $"bind \"{CustomTextBox.CurrentText}\" \"exec audio.cfg\"";
+            TextBoxToConsole.Text = $"bind \"{CustomTextBoxChatButton.CurrentText}\" \"exec audio.cfg\"";
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
@@ -129,7 +129,7 @@ namespace NowPlaying.UI
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
                     this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
 
-                    if (trackResp?.Id != this.LastPlayingTrackId)
+                    if (trackResp != null && trackResp.Id != this.LastPlayingTrackId)
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
@@ -147,11 +147,12 @@ namespace NowPlaying.UI
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
             this.IsAutoTrackChangeEnabled = CustomCheckBox.IsChecked;
-            this.CurrentKeyBind = CustomTextBox.CurrentText;
-            this.LabelWithButton.Content = CustomTextBox.CurrentText;
+            this.CurrentKeyBind = CustomTextBoxChatButton.CurrentText;
+            this.LabelWithButton.Content = CustomTextBoxChatButton.CurrentText;
 
             if (trackResp == null)
             {
+                this.LabelArtist.Content = "NowPlaying";
                 this.LabelFormatted.Content = "Nothing is playing!";
                 return;
             }
@@ -187,14 +188,13 @@ namespace NowPlaying.UI
             {
                 case MainWindowUIState.NpcWork:
                 {
-                    this.LabelFormatted.Visibility     = Visibility.Visible;
+                    //
                 }
                 break;
 
                 case MainWindowUIState.Idle:
                 {
-                    this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
-                    this.LabelFormatted.Visibility         = Visibility.Collapsed;
+                    //
                 }
                 break;
             }

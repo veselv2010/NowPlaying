@@ -46,7 +46,6 @@ namespace NowPlaying.UI.OAuth
                     this.ExpireTime = tokenResp.ExpiresIn;
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
-                    Dispatcher.BeginInvoke((Action)(() => Cef.Shutdown()));
                     Dispatcher.Invoke(() => this.Browser.Dispose());
                     Dispatcher.Invoke(() => this.Close());
                 }            

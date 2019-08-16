@@ -3,10 +3,10 @@ using System.Windows.Controls;
 
 namespace NowPlaying.UI
 {
-    public partial class CustomTextBox : UserControl
+    public partial class CustomTextBoxChatButton : UserControl
     {
         public static string CurrentText { get; private set; }
-        public CustomTextBox()
+        public CustomTextBoxChatButton()
         {
             InitializeComponent();
         }
