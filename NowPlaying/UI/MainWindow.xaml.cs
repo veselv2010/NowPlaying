@@ -11,7 +11,6 @@ namespace NowPlaying.UI
     {
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
-
         protected string LastPlayingTrackId { get; set; }
 
         private CancellationTokenSource _cancellationGetSpotifyUpdates;
@@ -19,9 +18,6 @@ namespace NowPlaying.UI
         public MainWindow()
         {
             this.InitializeComponent();
-
-            foreach (string a in AppInfo.State.AccountNames)
-                this.AccountsList.Items.Add(a);
 
             #if DEBUG
             DebugCheckBox.Visibility = Visibility.Visible;
@@ -55,7 +51,7 @@ namespace NowPlaying.UI
 
             this.Show();
 
-            if (this.AccountsList.SelectedItem == null)
+            if (CustomComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Файл loginusers.vdf пуст");
                 this.Close();
@@ -78,7 +74,7 @@ namespace NowPlaying.UI
 
             this.UpdateInterfaceTrackInfo(trackResp);
 
-            if (this.AccountsList.SelectedItem == null)
+            if (CustomComboBox.SelectedItem == null)
                 return;
 
             var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
@@ -108,8 +104,8 @@ namespace NowPlaying.UI
 
             this.ChangeUIState(MainWindowUIState.NpcWork);
 
-            string keyboardButton = this.AccountsList.SelectedItem.ToString();
-
+            string keyboardButton = CustomComboBox.SelectedItem;
+            int _SelectedAccount = CustomComboBox.SelectedIndex;
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
             var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
@@ -118,6 +114,9 @@ namespace NowPlaying.UI
             {                           // чтобы потом его можно было использовать внутри этого блока
                 while (true)
                 {
+                    if (CustomComboBox.SelectedIndex != _SelectedAccount)
+                        this.Dispatcher.Invoke(() => AccountsListSelectionChanged());
+
                     Thread.Sleep(1000);
 
                     if (AppInfo.State.TokenExpireTime < DateTime.Now)
@@ -171,7 +170,7 @@ namespace NowPlaying.UI
 
         private int GetSelectedAccountId()
         {
-            return AppInfo.State.AccountNameToSteamId3[this.AccountsList.SelectedItem.ToString()];
+            return AppInfo.State.AccountNameToSteamId3[CustomComboBox.SelectedItem];
         }
 
         private void ButtonPath_Click(object sender, RoutedEventArgs e)
@@ -180,7 +179,7 @@ namespace NowPlaying.UI
                                   + $@"\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg";
         }
 
-        private void AccountsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void AccountsListSelectionChanged()
         {
             if (this.SpotifySwitch.Toggled && this._cancellationGetSpotifyUpdates != null)
             {

@@ -55,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -95,6 +95,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -145,12 +146,48 @@
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
+    <None Include="Resources\Font\Montserrat-Black.otf" />
+    <None Include="Resources\Font\Montserrat-Black.ttf" />
+    <None Include="Resources\Font\Montserrat-BlackItalic.otf" />
+    <None Include="Resources\Font\Montserrat-BlackItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-Bold.otf" />
+    <None Include="Resources\Font\Montserrat-Bold.ttf" />
+    <None Include="Resources\Font\Montserrat-BoldItalic.otf" />
+    <None Include="Resources\Font\Montserrat-BoldItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-ExtraBold.otf" />
+    <None Include="Resources\Font\Montserrat-ExtraBold.ttf" />
+    <None Include="Resources\Font\Montserrat-ExtraBoldItalic.otf" />
+    <None Include="Resources\Font\Montserrat-ExtraBoldItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-ExtraLight.otf" />
+    <None Include="Resources\Font\Montserrat-ExtraLight.ttf" />
+    <None Include="Resources\Font\Montserrat-ExtraLightItalic.otf" />
+    <None Include="Resources\Font\Montserrat-ExtraLightItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-Italic.otf" />
+    <None Include="Resources\Font\Montserrat-Italic.ttf" />
+    <None Include="Resources\Font\Montserrat-Light.otf" />
+    <None Include="Resources\Font\Montserrat-Light.ttf" />
+    <None Include="Resources\Font\Montserrat-LightItalic.otf" />
+    <None Include="Resources\Font\Montserrat-LightItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-Medium.otf" />
+    <None Include="Resources\Font\Montserrat-Medium.ttf" />
+    <None Include="Resources\Font\Montserrat-MediumItalic.otf" />
+    <None Include="Resources\Font\Montserrat-MediumItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-Regular.otf" />
+    <Resource Include="Resources\Font\Montserrat-Regular.ttf" />
+    <None Include="Resources\Font\Montserrat-SemiBold.otf" />
+    <None Include="Resources\Font\Montserrat-SemiBold.ttf" />
+    <None Include="Resources\Font\Montserrat-SemiBoldItalic.otf" />
+    <None Include="Resources\Font\Montserrat-SemiBoldItalic.ttf" />
+    <None Include="Resources\Font\Montserrat-Thin.otf" />
+    <None Include="Resources\Font\Montserrat-Thin.ttf" />
+    <None Include="Resources\Font\Montserrat-ThinItalic.otf" />
+    <None Include="Resources\Font\Montserrat-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico">
+    <Content Include="Resources\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SourceKeys.txt">
+    <Content Include="Resources\SourceKeys.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

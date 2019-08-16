@@ -16,7 +16,7 @@ namespace NowPlaying
         };
         public TrayMenuHelper()
         {
-            TrayMenuIcon.Icon = new System.Drawing.Icon("icon.ico");
+            TrayMenuIcon.Icon = new System.Drawing.Icon("Resources/icon.ico");
             TrayMenuIcon.Visible = true;
             TrayMenuIcon.Text = "NowPlaying";
 

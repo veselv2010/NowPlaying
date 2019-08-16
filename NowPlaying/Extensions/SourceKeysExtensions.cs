@@ -8,9 +8,9 @@ namespace NowPlaying.Extensions
     {
         public static bool TryOpenSourceKeysFile()
         {
-            if (File.Exists("SourceKeys.txt"))
+            if (File.Exists("Resources/SourceKeys.txt"))
             {
-                Process.Start("SourceKeys.txt");
+                Process.Start(AppInfo.AssemblyDirectory + "/Resources/SourceKeys.txt");
                 return true;
             }
 

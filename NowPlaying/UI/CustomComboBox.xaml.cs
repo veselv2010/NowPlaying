@@ -20,6 +20,9 @@ namespace NowPlaying.UI
     /// </summary>
     public partial class CustomComboBox : UserControl
     {
+        public static string SelectedItem { get; private set; }
+        public static int SelectedIndex { get; private set; }
+
         public CustomComboBox()
         {
             InitializeComponent();
@@ -29,6 +32,13 @@ namespace NowPlaying.UI
                 this.DefaultComboBox.Items.Add(a);
             }
 
+            this.DefaultComboBox.SelectedIndex = 0;
+        }
+
+        private void DefaultComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedItem = this.DefaultComboBox.SelectedItem.ToString();
+            SelectedIndex = this.DefaultComboBox.SelectedIndex;
         }
     }
 }
