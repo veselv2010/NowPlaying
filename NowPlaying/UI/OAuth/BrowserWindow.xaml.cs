@@ -48,7 +48,7 @@ namespace NowPlaying.UI.OAuth
                     this.RefreshToken = tokenResp.RefreshToken;
                     Dispatcher.Invoke(() => this.Browser.Dispose());
                     Dispatcher.Invoke(() => this.Close());
-                }            
+                }
             }
         }
     }

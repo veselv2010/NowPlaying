@@ -11,7 +11,7 @@ namespace NowPlaying.GameProcessHook
         private Thread Thread { get; set; }
         protected ThreadComponent()
         {
-            Thread = new Thread(ThreadStart)    
+            Thread = new Thread(ThreadStart)
             {
                 Name = ThreadName, // Virtual member call in constructor
             };
@@ -24,7 +24,7 @@ namespace NowPlaying.GameProcessHook
             {
                 Thread.Abort();
             }
-            Thread = default;
+            Thread = null;
         }
 
         public void Start() => Thread.Start();

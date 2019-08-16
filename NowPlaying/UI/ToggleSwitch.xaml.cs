@@ -17,7 +17,7 @@ namespace NowPlaying.UI
         private readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(255, 64, 64));
         private readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(29, 185, 84));
         ThicknessAnimation AnimThickness = new ThicknessAnimation();
- 
+
         public bool Toggled = false;
 
         public ToggleSwitch()

@@ -18,7 +18,8 @@ namespace NowPlaying.GameProcessHook
 
         private bool WindowActive { get; set; }
 
-        public bool IsValid => WindowActive && !(Process is null);
+        public bool IsValid => WindowActive 
+                            && Process != null;
 
         public override void Dispose()
         {
@@ -40,13 +41,16 @@ namespace NowPlaying.GameProcessHook
                 InvalidateWindow();
             }
 
-            AppInfo.State.WindowHandle = IsValid ? $"0x{(int)Process.Handle:X8}" : null;  
+            AppInfo.State.WindowHandle = IsValid ? $"0x{(int)Process.Handle:X8}" : null;
         }
 
         private void InvalidateModules()
         {
-            Process?.Dispose();
-            Process = default;
+            if (Process == null)
+                return;
+
+            Process.Dispose();
+            Process = null;
         }
 
         private void InvalidateWindow()

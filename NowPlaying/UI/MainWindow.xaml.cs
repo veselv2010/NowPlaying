@@ -27,7 +27,7 @@ namespace NowPlaying.UI
             #if DEBUG
 
             DebugCheckBox.Visibility = Visibility.Visible;
-            
+
             #endif
         }
 
@@ -220,7 +220,7 @@ namespace NowPlaying.UI
             ToggleSwitch_MouseLeftButtonDown(null, null);
         }
 
-        private void LabelHelpClick(object sender, RoutedEventArgs e) 
+        private void LabelHelpClick(object sender, RoutedEventArgs e)
             => Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
     }
 }

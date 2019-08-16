@@ -12,7 +12,7 @@ namespace NowPlaying
         public static class State
         {
             public static string SpotifyAccessToken { get; set; }
-            
+
             public static string SpotifyRefreshToken { get; set; }
 
             public static DateTime TokenExpireTime { get; set; }

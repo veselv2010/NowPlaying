@@ -7,7 +7,7 @@ namespace NowPlaying.UI
 {
     public class TrayMenu : IDisposable
     {
-        public NotifyIcon Icon { get; } = 
+        public NotifyIcon Icon { get; } =
             new NotifyIcon()
             {
                 Icon = new Icon("Resources/icon.ico"),

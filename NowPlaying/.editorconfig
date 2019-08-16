@@ -174,24 +174,24 @@ dotnet_naming_rule.не_являющиеся_полем_члены_should_be_в�
 
 dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal
-dotnet_naming_symbols.interface.required_modifiers = 
+dotnet_naming_symbols.interface.required_modifiers =
 
 dotnet_naming_symbols.типы.applicable_kinds = class, struct, interface, enum
 dotnet_naming_symbols.типы.applicable_accessibilities = public, internal, private, protected, protected_internal
-dotnet_naming_symbols.типы.required_modifiers = 
+dotnet_naming_symbols.типы.required_modifiers =
 
 dotnet_naming_symbols.не_являющиеся_полем_члены.applicable_kinds = property, event, method
 dotnet_naming_symbols.не_являющиеся_полем_члены.applicable_accessibilities = public, internal, private, protected, protected_internal
-dotnet_naming_symbols.не_являющиеся_полем_члены.required_modifiers = 
+dotnet_naming_symbols.не_являющиеся_полем_члены.required_modifiers =
 
 # Стили именования
 
-dotnet_naming_style.всечастиспрописнойбуквы.required_prefix = 
-dotnet_naming_style.всечастиспрописнойбуквы.required_suffix = 
-dotnet_naming_style.всечастиспрописнойбуквы.word_separator = 
+dotnet_naming_style.всечастиспрописнойбуквы.required_prefix =
+dotnet_naming_style.всечастиспрописнойбуквы.required_suffix =
+dotnet_naming_style.всечастиспрописнойбуквы.word_separator =
 dotnet_naming_style.всечастиспрописнойбуквы.capitalization = pascal_case
 
 dotnet_naming_style.начинается_с_i.required_prefix = I
-dotnet_naming_style.начинается_с_i.required_suffix = 
-dotnet_naming_style.начинается_с_i.word_separator = 
+dotnet_naming_style.начинается_с_i.required_suffix =
+dotnet_naming_style.начинается_с_i.word_separator =
 dotnet_naming_style.начинается_с_i.capitalization = pascal_case
