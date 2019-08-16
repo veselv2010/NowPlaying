@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NowPlaying.UI
 {
     public partial class ToggleSwitch : UserControl
     {
-        Thickness LeftSide = new Thickness(-125, 0, 0, 0);
-        Thickness RightSide = new Thickness(0, 0, -120, 0);
-        readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(155, 32, 32));
-        readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(39, 185, 39));
+        Thickness LeftSide = new Thickness(7, 7, 0, 0);
+        Thickness RightSide = new Thickness(58, 7, 0, 0);
+        readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(255, 64, 64));
+        readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(29, 185, 84));
         public bool Toggled = false;
 
         public ToggleSwitch()

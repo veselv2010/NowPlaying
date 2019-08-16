@@ -4,14 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NowPlaying.UI"
-             mc:Ignorable="d" d:DesignWidth="800" Height="371.849">
-
-    <Grid>
-        <Viewbox Margin="-1,0,0,0">
-            <Grid HorizontalAlignment="Left" Height="111" Margin="0" VerticalAlignment="Top" Width="239">
-                <Rectangle x:Name="SwitchBackground" Fill="#FF9B2020" HorizontalAlignment="Left" Height="91" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" RadiusY="49.836" RadiusX="49.836" MouseLeftButtonDown="Background_MouseLeftButtonDown"/>
-                <Ellipse x:Name="Dot" Fill="White" HorizontalAlignment="Center" Height="82" VerticalAlignment="Center" Width="82" MouseLeftButtonDown="Dot_MouseLeftButtonDown"/>
-            </Grid>
-        </Viewbox>
-    </Grid>
+             mc:Ignorable="d" Height="60.724" Width="111.375">
+    <Viewbox>
+        <Grid HorizontalAlignment="Left" Width="112">
+            <Rectangle x:Name="SwitchBackground" Fill="#FFFF4040" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="111" RadiusY="30" RadiusX="30" MouseLeftButtonDown="Background_MouseLeftButtonDown"/>
+            <Ellipse x:Name="Dot" Fill="White" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" MouseLeftButtonDown="Dot_MouseLeftButtonDown" Margin="7,7,0,0"/>
+        </Grid>
+    </Viewbox>
 </UserControl>
