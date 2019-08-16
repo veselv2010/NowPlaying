@@ -11,7 +11,8 @@
         <Color x:Key="FullOpacity">#00000000</Color>
         <Color x:Key="White">#FFffffff</Color>
         <Color x:Key="SpotifyGreen">#FF1DB954</Color>
-        <Color x:Key="SpotifyGray">#FF7E7E7E</Color>
+        <Color x:Key="SpotifyGray">#FFB3B3B3</Color>
+        <Color x:Key="SpotifyGrayNight">#FF7E7E7E</Color>
         <SolidColorBrush x:Key="SpotifyGrayBrush" Color="{StaticResource SpotifyGray}"/>
         <SolidColorBrush x:Key="SpotifyGreenBrush" Color="{StaticResource SpotifyGreen}"/>
 
