@@ -22,6 +22,14 @@ namespace NowPlaying
             public static IDictionary<string, int> AccountNameToSteamId3 { get; } = new Dictionary<string, int>();
 
             public static string WindowHandle { get; set; }
+
+            public static void RefreshToken()
+            {
+                var resp = Requests.GetNewToken(SpotifyRefreshToken);
+
+                SpotifyAccessToken = resp.AccessToken;
+                TokenExpireTime = DateTime.Now.AddSeconds(resp.ExpiresIn - 5);
+            }
         }
     }
 }

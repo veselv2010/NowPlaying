@@ -129,7 +129,7 @@ namespace NowPlaying.UI
 
                     if (AppInfo.State.TokenExpireTime < DateTime.Now)
                     {
-                        Requests.RefreshToken();
+                        AppInfo.State.RefreshToken();
                         cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
                     }
 
