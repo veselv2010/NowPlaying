@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 
 namespace NowPlaying.GameProcessHook
@@ -41,7 +40,7 @@ namespace NowPlaying.GameProcessHook
                 InvalidateWindow();
             }
 
-            AppInfo.State.WindowHandle =  IsValid ? $"0x{(int)Process.Handle:X8}" : null;  
+            AppInfo.State.WindowHandle = IsValid ? $"0x{(int)Process.Handle:X8}" : null;  
         }
 
         private void InvalidateModules()

@@ -55,7 +55,7 @@ namespace NowPlaying.UI
             this.Toggled = true;
         }
 
-        private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public void Toggle()
         {
             if (!this.Toggled)
             {
@@ -65,29 +65,33 @@ namespace NowPlaying.UI
             {
                 this.TurnOff();
             }
+        }
+
+        private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Toggle();
         }
 
         private void Background_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!this.Toggled)
-            {
-                this.TurnOn();
-            }
-            else
-            {
-                this.TurnOff();
-            }
+            this.Toggle();
         }
 
         private Storyboard ActiveCreateFillAnimationStoryboard()
         {
-            Storyboard sb = new Storyboard() { Duration = TimeSpan.FromSeconds(0.5), BeginTime = TimeSpan.Zero };
+            var sb = new Storyboard()
+            {
+                Duration = TimeSpan.FromSeconds(0.5),
+                BeginTime = TimeSpan.Zero
+            };
 
-            ColorAnimation colAnim = new ColorAnimation();
-            colAnim.From = On.Color;
-            colAnim.To = Off.Color;
-            colAnim.Duration = new Duration(TimeSpan.FromSeconds(0.5));
-            colAnim.AutoReverse = false;
+            var colAnim = new ColorAnimation
+            {
+                From = On.Color,
+                To = Off.Color,
+                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                AutoReverse = false
+            };
 
             sb.Children.Add(colAnim);
 
@@ -99,13 +103,19 @@ namespace NowPlaying.UI
 
         private Storyboard InActiveCreateFillAnimationStoryboard()
         {
-            Storyboard sb = new Storyboard() { Duration = TimeSpan.FromSeconds(0.3), BeginTime = TimeSpan.Zero };
+            var sb = new Storyboard()
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                BeginTime = TimeSpan.Zero
+            };
 
-            ColorAnimation colAnim = new ColorAnimation();
-            colAnim.From = Off.Color;
-            colAnim.To = On.Color;
-            colAnim.Duration = new Duration(TimeSpan.FromSeconds(0.3));
-            colAnim.AutoReverse = false;
+            var colAnim = new ColorAnimation
+            {
+                From = Off.Color,
+                To = On.Color,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                AutoReverse = false
+            };
 
             sb.Children.Add(colAnim);
 

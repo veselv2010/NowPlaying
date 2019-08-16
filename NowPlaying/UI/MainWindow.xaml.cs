@@ -123,7 +123,7 @@ namespace NowPlaying.UI
                 while (true)
                 {
                     if (CustomComboBox.SelectedIndex != _SelectedAccount)
-                        this.Dispatcher.Invoke(() => AccountsListSelectionChanged());
+                        this.Dispatcher.Invoke(() => OnAccountsListSelectionChanged());
 
                     Thread.Sleep(1000);
 
@@ -133,7 +133,7 @@ namespace NowPlaying.UI
                         cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
                     }
 
-                    CurrentTrackResponse trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
+                    var trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
                     this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
@@ -182,7 +182,7 @@ namespace NowPlaying.UI
             return AppInfo.State.AccountNameToSteamId3[CustomComboBox.SelectedItem];
         }
 
-        private void AccountsListSelectionChanged()
+        private void OnAccountsListSelectionChanged()
         {
             if (this.SpotifySwitch.Toggled && this._cancellationGetSpotifyUpdates != null)
             {
@@ -216,22 +216,8 @@ namespace NowPlaying.UI
 
         private void NpcWorkCheckChange()
         {
-            object sender = null;
-            System.Windows.Input.MouseButtonEventArgs e = null;
-
-            if (Program.TrayMenu.NpcWorkTrayCheckBox.Checked)
-            {
-                this.SpotifySwitch.TurnOn();
-                ToggleSwitch_MouseLeftButtonDown(sender, e);
-                return;
-            }
-
-            if (!Program.TrayMenu.NpcWorkTrayCheckBox.Checked)
-            {
-                this.SpotifySwitch.TurnOff();
-                ToggleSwitch_MouseLeftButtonDown(sender, e);
-                return;
-            }
+            this.SpotifySwitch.Toggle();
+            ToggleSwitch_MouseLeftButtonDown(null, null);
         }
 
         private void LabelHelpClick(object sender, RoutedEventArgs e) 
