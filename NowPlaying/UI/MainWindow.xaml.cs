@@ -147,7 +147,7 @@ namespace NowPlaying.UI
 
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
-            this.IsAutoTrackChangeEnabled = CheckBoxAutoSend.IsChecked.Value;
+            this.IsAutoTrackChangeEnabled = CustomCheckBox.IsChecked;
             this.CurrentKeyBind = TextBoxKeyBind.Text;
             this.LabelWithButton.Content = this.TextBoxKeyBind.Text;
 

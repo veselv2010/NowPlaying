@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace NowPlaying.UI
 {
-    /// <summary>
-    /// Логика взаимодействия для CustomComboBox.xaml
-    /// </summary>
     public partial class CustomComboBox : UserControl
     {
         public static string SelectedItem { get; private set; }

@@ -117,6 +117,9 @@
     <Compile Include="GameProcessHook\GameProcessHookHelper.cs" />
     <Compile Include="GameProcessHook\ThreadComponent.cs" />
     <Compile Include="GameProcessHook\WinAPI\WinAPIUser32Methods.cs" />
+    <Compile Include="UI\CustomCheckBox.xaml.cs">
+      <DependentUpon>CustomCheckBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\CustomCheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
