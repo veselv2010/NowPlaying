@@ -17,7 +17,7 @@ namespace NowPlaying.UI
                 this.DefaultComboBox.Items.Add(a);
             }
 
-            this.DefaultComboBox.SelectedIndex = 0;
+            this.DefaultComboBox.SelectedItem = SteamIdLooker.SteamLastLoggedOnAccount;
         }
 
         private void DefaultComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

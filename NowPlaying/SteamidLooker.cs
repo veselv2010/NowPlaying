@@ -8,7 +8,7 @@ namespace NowPlaying
     internal class SteamIdLooker
     {
         private static string _steamFullPathCached;
-
+        private static string _steamLastLoggedOnAccount;
         private static string SteamFullPath
         {
             get
@@ -22,6 +22,22 @@ namespace NowPlaying
                     throw new DirectoryNotFoundException("Unable to locate the steam folder");
 
                 return _steamFullPathCached = path;
+            }
+        }
+
+        public static string SteamLastLoggedOnAccount
+        {
+            get
+            {
+                if (_steamLastLoggedOnAccount != null)
+                    return _steamLastLoggedOnAccount;
+
+                var account = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "AutoLoginUser", "") as string;
+
+                if (string.IsNullOrEmpty(account))
+                    throw new DirectoryNotFoundException("Unable to locate last logged-on account");
+
+                return _steamLastLoggedOnAccount = account;
             }
         }
 
