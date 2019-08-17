@@ -8,7 +8,7 @@
              d:DesignHeight="28" d:DesignWidth="184">
     <Grid>
         <Viewbox>
-            <TextBox x:Name="DefaultTextBox" HorizontalAlignment="Left" Height="28" Width="184" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" >
+            <TextBox x:Name="DefaultTextBox" HorizontalAlignment="Left" Height="28" Width="184" TextWrapping="Wrap" VerticalAlignment="Top" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged">
                 <TextBox.Resources>
                     <Color x:Key="FullOpacity">#00000000</Color>
                     <Color x:Key="White">#FFF9F9F9</Color>
@@ -22,9 +22,9 @@
                     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="{StaticResource SpotifyGreen}"/>
                     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="{StaticResource SpotifyGreen}"/>
                     <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
-                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                        <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
-                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                        <Setter Property="Foreground" Value="Transparent"/>
                         <Setter Property="BorderThickness" Value="1"/>
                         <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -59,7 +59,7 @@
                                     <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
                                     <Condition Property="IsSelectionActive" Value="false"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                                <Setter Property="SelectionBrush" Value="{StaticResource ResourceKey=SpotifyGreenBrush}"/>
                             </MultiTrigger>
                         </Style.Triggers>
                     </Style>

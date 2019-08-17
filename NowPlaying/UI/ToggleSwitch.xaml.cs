@@ -76,6 +76,16 @@ namespace NowPlaying.UI
             this.Toggle();
         }
 
+        public void NightModeEnable()
+        {
+            Dot.Fill = new SolidColorBrush(Color.FromRgb(44, 44, 44));
+        }
+
+        public void NightModeDisable()
+        {
+            Dot.Fill = new SolidColorBrush(Color.FromRgb(249, 249, 249));
+        }
+
         private Storyboard ActiveCreateFillAnimationStoryboard()
         {
             var sb = new Storyboard()

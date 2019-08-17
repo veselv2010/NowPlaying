@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
+using System.Windows.Media;
+
 using MenuItem = System.Windows.Forms.MenuItem;
 
 namespace NowPlaying.UI
@@ -239,6 +241,26 @@ namespace NowPlaying.UI
         {
             WindowState = WindowState.Minimized;
             ShowInTaskbar = false;
+        }
+
+        private void ToggleSwitchNightMode_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (NightModeSwitch.IsNightModeToggled)
+            {
+                this.Background = new SolidColorBrush(Color.FromRgb(44, 44, 44)); //#2C2C2C
+                this.LabelCurrentKey.Foreground = new SolidColorBrush(Color.FromRgb(178, 178, 178)); //#B2B2B2
+                this.LabelNpcWork.Foreground = new SolidColorBrush(Color.FromRgb(249, 249, 249)); //#F9F9F9
+                this.SpotifySwitch.NightModeEnable();
+                this.TextBoxKeyBind.NightModeEnable();
+            }
+            else
+            {
+                this.Background = new SolidColorBrush(Color.FromRgb(249, 249, 249)); //#F9F9F9
+                this.LabelCurrentKey.Foreground = new SolidColorBrush(Color.FromRgb(126, 126, 126)); //#7e7e7e
+                this.LabelNpcWork.Foreground = new SolidColorBrush(Color.FromRgb(126, 126, 126)); //#F9F9F9
+                this.SpotifySwitch.NightModeDisable();
+                this.TextBoxKeyBind.NightModeDisable();
+            }
         }
     }
 }
