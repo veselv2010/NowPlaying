@@ -117,6 +117,10 @@
     <Compile Include="GameProcessHook\GameProcessHookHelper.cs" />
     <Compile Include="GameProcessHook\ThreadComponent.cs" />
     <Compile Include="GameProcessHook\WinAPI\WinAPIUser32Methods.cs" />
+    <Compile Include="UI\AcrylicMaterial.cs" />
+    <Compile Include="UI\CloseButton.xaml.cs">
+      <DependentUpon>CloseButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\CustomCheckBox.xaml.cs">
       <DependentUpon>CustomCheckBox.xaml</DependentUpon>
     </Compile>
@@ -127,6 +131,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainWindowUIState.cs" />
+    <Compile Include="UI\MinimizeWindowButton.xaml.cs">
+      <DependentUpon>MinimizeWindowButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\OAuth\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
@@ -134,6 +141,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Requests.cs" />
     <Compile Include="SteamIdLooker.cs" />
+    <Compile Include="UI\ToggleSwitchNightMode.xaml.cs">
+      <DependentUpon>ToggleSwitchNightMode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
@@ -210,6 +220,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\CloseButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\CustomCheckBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -222,9 +236,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\MinimizeWindowButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\OAuth\BrowserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ToggleSwitchNightMode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ToggleSwitch.xaml">
       <SubType>Designer</SubType>

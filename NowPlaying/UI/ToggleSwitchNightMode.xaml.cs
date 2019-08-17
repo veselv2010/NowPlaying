@@ -8,23 +8,29 @@ using System.Windows.Media.Animation;
 
 namespace NowPlaying.UI
 {
-    public partial class ToggleSwitch : UserControl
+    public partial class ToggleSwitchNightMode : UserControl
     {
         private readonly Storyboard ActivesbFillAnimation;
         private readonly Storyboard InActivesbFillAnimation;
+        private readonly Storyboard ActiveLabelsbFillAnimation;
+        private readonly Storyboard InActiveLabelsbFillAnimation;
         private readonly Thickness LeftSide = new Thickness(7, 7, 0, 0);
         private readonly Thickness RightSide = new Thickness(58, 7, 0, 0);
-        private readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(255, 64, 64));
-        private readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(29, 185, 84));
-        private readonly ThicknessAnimation AnimThickness = new ThicknessAnimation();
+        private readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(217, 217, 217)); //SpotifyDarkGray
+        private readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(102, 102, 102)); 
+        private readonly SolidColorBrush SpotifyGreen = new SolidColorBrush(Color.FromRgb(29, 185, 84));
+        private readonly SolidColorBrush SpotifyGrayNight = new SolidColorBrush(Color.FromRgb(126, 126, 126));
+        ThicknessAnimation AnimThickness = new ThicknessAnimation();
 
-        public bool Toggled = false;
+        public bool IsNightModeToggled = false;
 
-        public ToggleSwitch()
+        public ToggleSwitchNightMode()
         {
             this.InitializeComponent();
             ActivesbFillAnimation = ActiveCreateFillAnimationStoryboard();
             InActivesbFillAnimation = InActiveCreateFillAnimationStoryboard();
+            ActiveLabelsbFillAnimation = ActiveLabelCreateFillAnimationStoryboard();
+            InActiveLabelsbFillAnimation = InActiveLabelCreateFillAnimationStoryboard();
             this.TurnOff();
         }
 
@@ -36,9 +42,9 @@ namespace NowPlaying.UI
             Dot.BeginAnimation(Ellipse.MarginProperty, AnimThickness);
 
             ActivesbFillAnimation.Begin();
+            //ActiveLabelsbFillAnimation.Begin();
 
-            Program.TrayMenu.NpcWorkTrayCheckBox.Checked = false;
-            this.Toggled = false;
+            this.IsNightModeToggled = false;
         }
 
         public void TurnOn()
@@ -49,14 +55,16 @@ namespace NowPlaying.UI
             Dot.BeginAnimation(Ellipse.MarginProperty, AnimThickness);
 
             InActivesbFillAnimation.Begin();
+            //InActiveLabelsbFillAnimation.Begin();
 
-            Program.TrayMenu.NpcWorkTrayCheckBox.Checked = true;
-            this.Toggled = true;
+            this.IsNightModeToggled = true;
+            this.TurnOff();
+            MessageBox.Show("isnt implemented yet");
         }
 
         public void Toggle()
         {
-            if (!this.Toggled)
+            if (!this.IsNightModeToggled)
             {
                 this.TurnOn();
             }
@@ -120,6 +128,54 @@ namespace NowPlaying.UI
 
             Storyboard.SetTarget(colAnim, SwitchBackground);
             Storyboard.SetTargetProperty(colAnim, new PropertyPath("Fill.Color"));
+
+            return sb;
+        }
+
+        private Storyboard ActiveLabelCreateFillAnimationStoryboard()
+        {
+            var sb = new Storyboard()
+            {
+                Duration = TimeSpan.FromSeconds(0.5),
+                BeginTime = TimeSpan.Zero
+            };
+
+            var colAnim = new ColorAnimation
+            {
+                From = SpotifyGrayNight.Color,
+                To = SpotifyGreen.Color,
+                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                AutoReverse = false
+            };
+
+            sb.Children.Add(colAnim);
+
+            Storyboard.SetTarget(colAnim, LabelDayMode);
+            Storyboard.SetTargetProperty(colAnim, new PropertyPath("SolidColorBrush.ColorProperty"));
+
+            return sb;
+        }
+
+        private Storyboard InActiveLabelCreateFillAnimationStoryboard()
+        {
+            var sb = new Storyboard()
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                BeginTime = TimeSpan.Zero
+            };
+
+            var colAnim = new ColorAnimation
+            {
+                From = SpotifyGreen.Color,
+                To = SpotifyGrayNight.Color,
+                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                AutoReverse = false
+            };
+
+            sb.Children.Add(colAnim);
+
+            Storyboard.SetTarget(colAnim, LabelNightMode);
+            Storyboard.SetTargetProperty(colAnim, new PropertyPath("SolidColorBrush.ColorProperty"));
 
             return sb;
         }

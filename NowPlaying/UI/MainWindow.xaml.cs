@@ -68,6 +68,8 @@ namespace NowPlaying.UI
                 this.Close();
                 return;
             }
+
+            //AcrylicMaterial.EnableBlur(this);
         }
 
         private void ButtonDo_Click(object sender, RoutedEventArgs e)
@@ -206,6 +208,8 @@ namespace NowPlaying.UI
         {
             if (WindowState == WindowState.Minimized) //костыль для работы трея из форм в впфе
                 this.Hide();
+            else
+                ShowInTaskbar = true;
         }
 
         private void ShowFromTray()
@@ -222,6 +226,20 @@ namespace NowPlaying.UI
 
         private void LabelHelpClick(object sender, RoutedEventArgs e)
             => Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");
+
+        private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => this.Close();
+
+        private void Rectangle_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OnMouseLeftButtonDown(e);
+            this.DragMove();
+        }
+
+        private void MinimizeWindowButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+            ShowInTaskbar = false;
+        }
     }
 }
 
