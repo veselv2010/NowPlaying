@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NowPlaying.UI
 {
