@@ -6,59 +6,59 @@
              xmlns:local="clr-namespace:NowPlaying.UI"
              mc:Ignorable="d"
              ResizeMode="CanMinimize"
-             Loaded="Window_Loaded" Width="450" Height="700" Title="NowPlaying" Closing="Window_Closing" ShowInTaskbar="True" StateChanged="Window_StateChanged" WindowStyle="None" AllowsTransparency="True" Opacity="0.94">
-    <Window.Resources>
-        <Color x:Key="FullOpacity">#00000000</Color>
-        <Color x:Key="White">#FFF9F9F9</Color>
-        <Color x:Key="SpotifyGreen">#FF1DB954</Color>
-        <Color x:Key="SpotifyGray">#FFB3B3B3</Color>
-        <Color x:Key="SpotifyGrayNight">#FF7E7E7E</Color>
-        <Color x:Key="NightLabel">#B2B2B2</Color>
-        <SolidColorBrush x:Key="SpotifyGrayBrush" Color="{StaticResource SpotifyGray}"/>
-        <SolidColorBrush x:Key="SpotifyGrayBrushNight" Color="#FF7E7E7E"/>
-        <SolidColorBrush x:Key="SpotifyGreenBrush" Color="{StaticResource SpotifyGreen}"/>
+             Loaded="Window_Loaded" Width="450" Height="685" Title="NowPlaying" Closing="Window_Closing" ShowInTaskbar="True" StateChanged="Window_StateChanged" WindowStyle="None" AllowsTransparency="True" Opacity="0.93">
+  <Window.Resources>
+    <Color x:Key="FullOpacity">#00000000</Color>
+    <Color x:Key="White">#FFF9F9F9</Color>
+    <Color x:Key="SpotifyGreen">#FF1DB954</Color>
+    <Color x:Key="SpotifyGray">#FFB3B3B3</Color>
+    <Color x:Key="SpotifyGrayNight">#FF7E7E7E</Color>
+    <Color x:Key="NightLabel">#B2B2B2</Color>
+    <SolidColorBrush x:Key="SpotifyGrayBrush" Color="{StaticResource SpotifyGray}"/>
+    <SolidColorBrush x:Key="SpotifyGrayBrushNight" Color="#FF7E7E7E"/>
+    <SolidColorBrush x:Key="SpotifyGreenBrush" Color="{StaticResource SpotifyGreen}"/>
 
-        <Style x:Key="LabelUnderline">
-            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
-        </Style>
-        
-    </Window.Resources>
-    <Window.Background>
-        <SolidColorBrush Color="{StaticResource White}"/>
-    </Window.Background>
-    <Grid Background="Transparent">
-        <Label x:Name="LabelFormatted" Content="NowPlaying" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,329,0,0" Width="310" Height="20" FontSize="16" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{DynamicResource SpotifyGreenBrush}" HorizontalContentAlignment="Center"/>
-        <Label x:Name="LabelWithButton" Content="" Margin="115,388,250,0" VerticalAlignment="Top" Height="15" Visibility="Visible" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
-        <Label x:Name="LabelCurrentKey" Content="Current key:" HorizontalAlignment="Left" Margin="41,388,0,0" VerticalAlignment="Top" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{DynamicResource SpotifyGrayBrushNight}"/>
-        <Label x:Name="LabelCurrentTrack" Content="Current track" HorizontalAlignment="Left" Margin="178,277,0,0" VerticalAlignment="Top" Width="95" FontSize="14" Visibility="Visible" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelNpcWork, Path=Foreground}"/>
-        <Label x:Name="LabelWindowHandle" Content="" HorizontalAlignment="Left" Margin="41,414,0,0" VerticalAlignment="Top" Width="156" Visibility="{Binding ElementName=LabelFormatted, Path=Visibility, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
-        <Label x:Name="LabelNpcWork" Content="npc work" HorizontalAlignment="Left" Margin="168,88,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{DynamicResource SpotifyGrayBrushNight}" Width="114"/>
-        <Label x:Name="LabelCurrentAccLabel" Content="Current acc" HorizontalAlignment="Left" Margin="91,493,0,0" VerticalAlignment="Top" Width="83" Height="17" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="14" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
-        <Label x:Name="LabelLocalFilesWarning" Content="playing from local files" HorizontalAlignment="Left" Margin="154,198,0,0" VerticalAlignment="Top" Width="140" Visibility="Collapsed" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
-        <Label x:Name="LabelChatButton" Content="Chat button" HorizontalAlignment="Left" Margin="89,560,0,0" VerticalAlignment="Top" Width="87" Height="17" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="14" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
-        <Button x:Name="ButtonDo" Content="manual request" HorizontalAlignment="Left" Margin="276,165,-368,0" VerticalAlignment="Top" Width="115" Height="27" Click="ButtonDo_Click" Grid.Column="2" Background="#FFDDDDDD" FontSize="16" Visibility="{Binding ElementName=DebugCheckBox, Path=Visibility, Mode=OneWay}"/>
-        <local:ToggleSwitch x:Name="SpotifySwitch" HorizontalAlignment="Left" Height="60" Margin="169,128,0,0" VerticalAlignment="Top" Width="111" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown" Padding="0"/>
-        <TextBox x:Name="TextBoxToConsole" HorizontalAlignment="Left" Height="19" Margin="250,594,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Visibility="Collapsed"/>
-        <Label x:Name="LabelHelp" HorizontalAlignment="Left" Margin="13,13,0,0" VerticalAlignment="Top" Width="31" Height="15"  Visibility="Visible" Padding="0" MouseLeftButtonUp="LabelHelpClick" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Cursor="Hand">
-            <TextBlock Style="{StaticResource ResourceKey=LabelUnderline}">!help</TextBlock>
-        </Label>
-        <CheckBox x:Name="DebugCheckBox" Content="hacker mode" Grid.Column="2" HorizontalAlignment="Left" Margin="291,40,-368,0" VerticalAlignment="Top" Width="100" Visibility="Collapsed" IsChecked="True" IsEnabled="False"/>
-        <local:CustomComboBox x:Name="AccountsList" HorizontalAlignment="Left" Margin="41,521,0,0" VerticalAlignment="Top" Width="184" IsEnabled="True" Visibility="Visible" Height="28" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat"/>
-        <local:CustomCheckBox x:Name="CheckBoxAutoSend" Grid.Column="2" HorizontalAlignment="Left" Height="16" Margin="236,527,-118,0" VerticalAlignment="Top" Width="16"/>
-        <Label x:Name="LabelAutoSendToolTip" Content="auto send on new track" HorizontalAlignment="Left" Margin="263,527,0,0" VerticalAlignment="Top" Width="141" Height="16" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
-        <local:CustomTextBoxChatButton x:Name="TextBoxKeyBind" Height="28" Margin="41,585,225,0" VerticalAlignment="Top" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="Black"/>
-        <Label x:Name="LabelArtist" Content="Artist" HorizontalAlignment="Left" Margin="70,305,0,0" VerticalAlignment="Top" Foreground="{StaticResource SpotifyGreenBrush}" HorizontalContentAlignment="Center" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="20" FontWeight="Bold" Width="310" />
-        <Label x:Name="LabelSourceKeys" HorizontalAlignment="Left" Margin="236,591,0,0" VerticalAlignment="Top" Width="30" Height="15"  Visibility="Visible" Padding="0" MouseLeftButtonUp="LabelSourceKeysClick" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Cursor="Hand">
-            <TextBlock Style="{StaticResource ResourceKey=LabelUnderline}">!keys</TextBlock>
-        </Label>
-        <Label x:Name="LabelCurrentTime" Content="0:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,360,0,0" Width="31" Height="17" FontSize="14" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{StaticResource SpotifyGreenBrush}" HorizontalContentAlignment="Center"/>
-        <Label x:Name="LabelSeparator" Content="/" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="221,360,0,0" Width="9" Height="17" FontSize="14" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" HorizontalContentAlignment="Center"/>
-        <Label x:Name="LabelEstimatedTime" Content="0:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,360,0,0" Width="31" Height="17" FontSize="14" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" HorizontalContentAlignment="Center"/>
-        <local:CloseButton HorizontalAlignment="Left" Height="20" Margin="418,11,0,0" VerticalAlignment="Top" Width="20" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
-        <local:MinimizeWindowButton HorizontalAlignment="Left" Height="20" Margin="395,11,0,0" VerticalAlignment="Top" Width="20" MouseLeftButtonDown="MinimizeWindowButton_MouseLeftButtonDown"/>
-        <local:ToggleSwitchNightMode x:Name="NightModeSwitch" HorizontalAlignment="Left" Height="20" Margin="291,11,0,0" VerticalAlignment="Top" Width="98" MouseLeftButtonDown="ToggleSwitchNightMode_MouseLeftButtonDown"/>
-        <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="450" Panel.ZIndex="-1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
-    </Grid>
+    <Style x:Key="LabelUnderline">
+      <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+    </Style>
+
+  </Window.Resources>
+  <Window.Background>
+    <SolidColorBrush Color="{StaticResource White}"/>
+  </Window.Background>
+  <Grid Background="Transparent">
+    <Label x:Name="LabelFormatted" Content="NowPlaying" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,321,0,0" Width="310" Height="20" FontSize="16" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{DynamicResource SpotifyGreenBrush}" HorizontalContentAlignment="Center"/>
+    <Label x:Name="LabelWithButton" Content="" Margin="115,380,250,0" VerticalAlignment="Top" Height="15" Visibility="Visible" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
+    <Label x:Name="LabelCurrentKey" Content="Current key:" HorizontalAlignment="Left" Margin="41,380,0,0" VerticalAlignment="Top" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{DynamicResource SpotifyGrayBrushNight}"/>
+    <Label x:Name="LabelCurrentTrack" Content="Current track" HorizontalAlignment="Left" Margin="179,269,0,0" VerticalAlignment="Top" Width="95" FontSize="14" Visibility="Visible" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelNpcWork, Path=Foreground}"/>
+    <Label x:Name="LabelWindowHandle" Content="" HorizontalAlignment="Left" Margin="41,406,0,0" VerticalAlignment="Top" Width="156" Visibility="{Binding ElementName=LabelFormatted, Path=Visibility, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
+    <Label x:Name="LabelNpcWork" Content="npc work" HorizontalAlignment="Left" Margin="169,79,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{DynamicResource SpotifyGrayBrushNight}" Width="114"/>
+    <Label x:Name="LabelCurrentAccLabel" Content="Current acc" HorizontalAlignment="Left" Margin="94,485,0,0" VerticalAlignment="Top" Width="83" Height="17" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="14" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
+    <Label x:Name="LabelLocalFilesWarning" Content="playing from local files" HorizontalAlignment="Left" Margin="154,190,0,0" VerticalAlignment="Top" Width="140" Visibility="Collapsed" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
+    <Label x:Name="LabelChatButton" Content="Chat button" HorizontalAlignment="Left" Margin="92,552,0,0" VerticalAlignment="Top" Width="87" Height="17" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="14" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
+    <Button x:Name="ButtonDo" Content="manual request" HorizontalAlignment="Left" Margin="323,648,0,0" VerticalAlignment="Top" Width="115" Height="27" Click="ButtonDo_Click" Grid.Column="0" Background="#FFDDDDDD" FontSize="16" Visibility="{Binding ElementName=DebugCheckBox, Path=Visibility, Mode=OneWay}"/>
+    <local:ToggleSwitch x:Name="SpotifySwitch" HorizontalAlignment="Left" Height="60" Margin="169,119,0,0" VerticalAlignment="Top" Width="111" MouseLeftButtonDown="ToggleSwitch_MouseLeftButtonDown" Padding="0"/>
+    <TextBox x:Name="TextBoxToConsole" HorizontalAlignment="Left" Height="19" Margin="250,594,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Visibility="Collapsed"/>
+    <Label x:Name="LabelHelp" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Width="31" Height="15" Visibility="Visible" Padding="0" MouseLeftButtonUp="LabelHelpClick" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Cursor="Hand">
+      <TextBlock Style="{StaticResource ResourceKey=LabelUnderline}">!help</TextBlock>
+    </Label>
+    <CheckBox x:Name="DebugCheckBox" Content="hacker mode" HorizontalAlignment="Left" Margin="179,636,0,0" VerticalAlignment="Top" Width="100" Visibility="Collapsed" IsChecked="True" IsEnabled="False"/>
+    <local:CustomComboBox x:Name="AccountsList" HorizontalAlignment="Left" Margin="44,513,0,0" VerticalAlignment="Top" Width="184" IsEnabled="True" Visibility="Visible" Height="28" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat"/>
+    <local:CustomCheckBox x:Name="CheckBoxAutoSend" Grid.Column="2" HorizontalAlignment="Left" Height="16" Margin="239,519,-118,0" VerticalAlignment="Top" Width="16"/>
+    <Label x:Name="LabelAutoSendToolTip" Content="auto send on new track" HorizontalAlignment="Left" Margin="266,520,0,0" VerticalAlignment="Top" Width="141" Height="16" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
+    <local:CustomTextBoxChatButton x:Name="TextBoxKeyBind" Margin="44,576,0,0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="Black" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
+    <Label x:Name="LabelArtist" Content="Artist" HorizontalAlignment="Left" Margin="70,297,0,0" VerticalAlignment="Top" Foreground="{StaticResource SpotifyGreenBrush}" HorizontalContentAlignment="Center" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="20" FontWeight="Bold" Width="310" />
+    <Label x:Name="LabelSourceKeys" HorizontalAlignment="Left" Margin="239,583,0,0" VerticalAlignment="Top" Width="30" Height="15"  Visibility="Visible" Padding="0" MouseLeftButtonUp="LabelSourceKeysClick" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Cursor="Hand">
+      <TextBlock Style="{StaticResource ResourceKey=LabelUnderline}">!keys</TextBlock>
+    </Label>
+    <Label x:Name="LabelCurrentTime" Content="0:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,352,0,0" Width="31" Height="17" FontSize="14" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{StaticResource SpotifyGreenBrush}" HorizontalContentAlignment="Center"/>
+    <Label x:Name="LabelSeparator" Content="/" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="221,352,0,0" Width="9" Height="17" FontSize="14" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" HorizontalContentAlignment="Center"/>
+    <Label x:Name="LabelEstimatedTime" Content="0:00" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,352,0,0" Width="31" Height="17" FontSize="14" Visibility="Visible" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" HorizontalContentAlignment="Center"/>
+    <local:CloseButton HorizontalAlignment="Left" Height="22" Width="20" Margin="418,11,0,0" VerticalAlignment="Top" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
+    <local:MinimizeWindowButton HorizontalAlignment="Left" Height="22" Margin="395,11,0,0" VerticalAlignment="Top" Width="20" MouseLeftButtonDown="MinimizeWindowButton_MouseLeftButtonDown"/>
+    <local:ToggleSwitchNightMode x:Name="NightModeSwitch" HorizontalAlignment="Left" Height="20" Margin="264,7,0,0" VerticalAlignment="Top" Width="98" MouseLeftButtonDown="ToggleSwitchNightMode_MouseLeftButtonDown"/>
+    <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="450" Panel.ZIndex="-1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
+  </Grid>
 </Window>
 
 
