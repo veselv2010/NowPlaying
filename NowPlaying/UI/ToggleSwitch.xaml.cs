@@ -32,7 +32,7 @@ namespace NowPlaying.UI
         {
             AnimThickness.From = RightSide;
             AnimThickness.To = LeftSide;
-            AnimThickness.Duration = TimeSpan.FromSeconds(0.3);
+            AnimThickness.Duration = TimeSpan.FromSeconds(0.1);
             Dot.BeginAnimation(Ellipse.MarginProperty, AnimThickness);
 
             ActivesbFillAnimation.Begin();
@@ -45,7 +45,7 @@ namespace NowPlaying.UI
         {
             AnimThickness.From = LeftSide;
             AnimThickness.To = RightSide;
-            AnimThickness.Duration = TimeSpan.FromSeconds(0.3);
+            AnimThickness.Duration = TimeSpan.FromSeconds(0.1);
             Dot.BeginAnimation(Ellipse.MarginProperty, AnimThickness);
 
             InActivesbFillAnimation.Begin();
@@ -98,7 +98,7 @@ namespace NowPlaying.UI
             {
                 From = On.Color,
                 To = Off.Color,
-                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
                 AutoReverse = false
             };
 
@@ -122,7 +122,7 @@ namespace NowPlaying.UI
             {
                 From = Off.Color,
                 To = On.Color,
-                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
                 AutoReverse = false
             };
 

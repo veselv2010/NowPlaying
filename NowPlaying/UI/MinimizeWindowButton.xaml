@@ -9,7 +9,7 @@
     <Viewbox>
         <Grid>
             <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" MouseEnter="Rectangle_MouseEnter" MouseLeave="Rectangle_MouseLeave"/>
-            <Rectangle x:Name="Rectangle1" Fill="#FF7E7E7E" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="12" Margin="4,10,0,0"/>
+            <Rectangle x:Name="Rectangle1" Fill="#FF7E7E7E" HorizontalAlignment="Left" Height="1" VerticalAlignment="Top" Width="12" Margin="4,19,0,0"/>
         </Grid>
     </Viewbox>
 </UserControl>

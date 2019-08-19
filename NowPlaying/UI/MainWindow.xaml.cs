@@ -12,6 +12,7 @@ namespace NowPlaying.UI
 {
     public partial class MainWindow : Window
     {
+        private string Artist { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
         protected string LastPlayingTrackId { get; set; }
@@ -172,7 +173,7 @@ namespace NowPlaying.UI
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
+            this.Artist = $"{trackResp.FormattedArtists}";
             this.LabelFormatted.Content = $"{trackResp.Name}";
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
