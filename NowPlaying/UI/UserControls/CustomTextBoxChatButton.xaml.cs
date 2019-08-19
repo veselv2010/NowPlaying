@@ -6,10 +6,10 @@ namespace NowPlaying.UI.Controls
 {
     public partial class CustomTextBoxChatButton : UserControl
     {
-        public static string CurrentText { get; private set; }
+        public string CurrentText { get; private set; }
 
         private static SolidColorBrush MilkyBrush { get; } = new SolidColorBrush(Color.FromRgb(0xF9, 0xF9, 0xF9));
-        
+
         private static SolidColorBrush GrayBrush { get; } = new SolidColorBrush(Color.FromRgb(0x7e, 0x7e, 0x7e));
 
         private static SolidColorBrush DarkBrush { get; } = new SolidColorBrush(Color.FromRgb(0x2C, 0x2C, 0x2C));

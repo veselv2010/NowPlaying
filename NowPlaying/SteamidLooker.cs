@@ -8,7 +8,7 @@ namespace NowPlaying
     internal class SteamIdLooker
     {
         private static string _steamFullPathCached;
-        
+
         private static string SteamFullPath
         {
             get

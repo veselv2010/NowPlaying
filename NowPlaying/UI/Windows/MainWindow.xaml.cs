@@ -8,12 +8,12 @@ using NowPlaying.Extensions;
 using NowPlaying.UI.Controls;
 using System.Windows.Media;
 using MenuItem = System.Windows.Forms.MenuItem;
+using System.Windows.Media.Animation;
 
 namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
-        private string Artist { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
         protected string LastPlayingTrackId { get; set; }
@@ -104,14 +104,14 @@ namespace NowPlaying.UI.Windows
                 return;
             }
 
-            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(CustomTextBoxChatButton.CurrentText))
+            if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.CurrentText))
             {
                 this.SpotifySwitch.TurnOff();
                 MessageBox.Show("такой кнопки в кантре нет");
                 return;
             }
 
-            TextBoxToConsole.Text = $"bind \"{CustomTextBoxChatButton.CurrentText}\" \"exec audio.cfg\"";
+            TextBoxToConsole.Text = $"bind \"{this.TextBoxKeyBind.CurrentText}\" \"exec audio.cfg\"";
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
@@ -161,9 +161,10 @@ namespace NowPlaying.UI.Windows
 
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
         {
-            this.IsAutoTrackChangeEnabled = CustomCheckBox.IsChecked;
-            this.CurrentKeyBind = CustomTextBoxChatButton.CurrentText;
-            this.LabelWithButton.Content = CustomTextBoxChatButton.CurrentText;
+            this.IsAutoTrackChangeEnabled = this.CheckBoxAutoSend.IsChecked;
+
+            this.CurrentKeyBind = this.TextBoxKeyBind.CurrentText;
+            this.LabelWithButton.Content = this.TextBoxKeyBind.CurrentText;
 
             if (trackResp == null)
             {
@@ -268,12 +269,14 @@ namespace NowPlaying.UI.Windows
         }
         private void LabelArtistAnimation()
         {
-            System.Windows.Media.Animation.DoubleAnimation doubleAnimation = new System.Windows.Media.Animation.DoubleAnimation();
-            doubleAnimation.From = -LabelArtist.ActualWidth;
-            doubleAnimation.To = ArtistCanv.ActualWidth;
-            doubleAnimation.RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever;
-            doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:8"));
-            LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, doubleAnimation);
+            var doubleAnimation = new DoubleAnimation
+            {
+                From = -LabelArtist.ActualWidth,
+                To = ArtistCanv.ActualWidth,
+                RepeatBehavior = RepeatBehavior.Forever,
+                Duration = new Duration(TimeSpan.Parse("0:0:8"))
+            };
+            this.LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, doubleAnimation);
         }
     }
 }

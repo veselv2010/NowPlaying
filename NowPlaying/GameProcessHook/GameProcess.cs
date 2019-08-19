@@ -18,7 +18,7 @@ namespace NowPlaying.GameProcessHook
 
         private bool WindowActive { get; set; }
 
-        public bool IsValid => WindowActive 
+        public bool IsValid => WindowActive
                             && Process != null;
 
         public override void Dispose()

@@ -6,7 +6,7 @@ namespace NowPlaying.UI.Controls
 {
     public partial class CustomCheckBox : UserControl
     {
-        public static bool IsChecked { get; private set; }
+        public bool IsChecked { get; private set; }
         public CustomCheckBox()
         {
             InitializeComponent();
