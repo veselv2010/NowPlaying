@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 mc:Ignorable="d" Height="20" Width="98">
+             mc:Ignorable="d" Height="20" Width="98">
     <UserControl.Resources>
         <Color x:Key="DayColor">#FFD9D9D9</Color>
         <Color x:Key="NightColor">#FF666666</Color>

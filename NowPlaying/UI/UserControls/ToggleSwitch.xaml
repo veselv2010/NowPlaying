@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 mc:Ignorable="d" Height="60" Width="111">
+             mc:Ignorable="d" Height="60" Width="111">
     <UserControl.Resources>
         <Color x:Key="SpotifyGreen">#1DB954</Color>
         <Color x:Key="OffColor">#FF4040</Color>
