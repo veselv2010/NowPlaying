@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:NowPlaying.UI"
              mc:Ignorable="d"
              ResizeMode="CanMinimize"
-             Loaded="Window_Loaded" Width="450" Height="700" Title="NowPlaying" Closing="Window_Closing" ShowInTaskbar="True" StateChanged="Window_StateChanged" WindowStyle="None">
-    <!--    AllowsTransparency="True">-->
+             Loaded="Window_Loaded" Width="450" Height="700" Title="NowPlaying" Closing="Window_Closing" ShowInTaskbar="True" StateChanged="Window_StateChanged" WindowStyle="None" AllowsTransparency="True" Opacity="0.9">
     <Window.Resources>
         <Color x:Key="FullOpacity">#00000000</Color>
         <Color x:Key="White">#FFF9F9F9</Color>

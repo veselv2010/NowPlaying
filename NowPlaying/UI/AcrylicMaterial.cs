@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace NowPlaying.UI
 {
-    class AcrylicMaterial
+    public class AcrylicMaterial
     {
         [DllImport("user32.dll")]
         private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
@@ -40,9 +40,9 @@ namespace NowPlaying.UI
             WCA_ACCENT_POLICY = 19
         }
 
-        public static void EnableBlur(Window WindowToBlur)
+        public static void EnableBlur(Window ToBlur)
         {
-            var windowHelper = new System.Windows.Interop.WindowInteropHelper(WindowToBlur);
+            var windowHelper = new System.Windows.Interop.WindowInteropHelper(ToBlur);
 
             var accent = new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND };
 
@@ -57,6 +57,11 @@ namespace NowPlaying.UI
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
+
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+
+            Marshal.FreeHGlobal(accentPtr);
         }
     }
+
 }

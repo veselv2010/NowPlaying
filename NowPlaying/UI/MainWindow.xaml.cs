@@ -6,7 +6,7 @@ using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
 using System.Windows.Media;
-
+using System.Runtime.InteropServices;
 using MenuItem = System.Windows.Forms.MenuItem;
 
 namespace NowPlaying.UI
@@ -22,9 +22,6 @@ namespace NowPlaying.UI
         public MainWindow()
         {
             this.InitializeComponent();
-            this.InitializeTrayMenu();
-
-            Program.TrayMenu.Show();
 
             #if DEBUG
 
@@ -71,7 +68,9 @@ namespace NowPlaying.UI
                 return;
             }
 
-            //AcrylicMaterial.EnableBlur(this);
+            AcrylicMaterial.EnableBlur(this);
+            this.InitializeTrayMenu();
+            Program.TrayMenu.Show();
         }
 
         private void ButtonDo_Click(object sender, RoutedEventArgs e)
