@@ -47,7 +47,9 @@
         <local:CustomCheckBox x:Name="CheckBoxAutoSend" Grid.Column="2" HorizontalAlignment="Left" Height="16" Margin="239,519,-118,0" VerticalAlignment="Top" Width="16"/>
         <Label x:Name="LabelAutoSendToolTip" Content="auto send on new track" HorizontalAlignment="Left" Margin="266,520,0,0" VerticalAlignment="Top" Width="141" Height="16" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}"/>
         <local:CustomTextBoxChatButton x:Name="TextBoxKeyBind" Margin="44,576,0,0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Foreground="Black" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
-        <Label x:Name="LabelArtist" Content="Artist" HorizontalAlignment="Left" Margin="70,297,0,0" VerticalAlignment="Top" Foreground="{StaticResource SpotifyGreenBrush}" HorizontalContentAlignment="Center" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="20" FontWeight="Bold" Width="310"/>
+        <Canvas x:Name="ArtistCanv" ClipToBounds="True" Width="310">
+            <Label x:Name="LabelArtist" Content="Artist" HorizontalAlignment="Left" Margin="0,297,0,0" VerticalAlignment="Top" Foreground="{StaticResource SpotifyGreenBrush}" HorizontalContentAlignment="Center" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="20" FontWeight="Bold" Width="310"/>
+        </Canvas>
         <Label x:Name="LabelSourceKeys" HorizontalAlignment="Left" Margin="239,583,0,0" VerticalAlignment="Top" Width="30" Height="15"  Visibility="Visible" Padding="0" MouseLeftButtonUp="LabelSourceKeysClick" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Cursor="Hand">
             <TextBlock Style="{StaticResource ResourceKey=LabelUnderline}">!keys</TextBlock>
         </Label>

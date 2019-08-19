@@ -137,22 +137,25 @@ namespace NowPlaying.UI
 
                     var trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
-                    this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
-                    this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
-
                     if (trackResp != null && trackResp.Id != this.LastPlayingTrackId)
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
-
+                        if (trackResp.FormattedArtists.Length > 27)
+                            Dispatcher.Invoke(() => LabelArtistAnimation());
+                        else Dispatcher.Invoke(() => LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, null));
                         if (IsAutoTrackChangeEnabled && Program.GameProcess.IsValid)
                             KeySender.SendInputWithAPI(CurrentKeyBind);
                     }
+
+                    this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
+                    this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
                 }
             });
+
         }
 
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
@@ -173,7 +176,7 @@ namespace NowPlaying.UI
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            this.Artist = $"{trackResp.FormattedArtists}";
+            this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
             this.LabelFormatted.Content = $"{trackResp.Name}";
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
@@ -261,6 +264,15 @@ namespace NowPlaying.UI
                 this.SpotifySwitch.NightModeDisable();
                 this.TextBoxKeyBind.NightModeDisable();
             }
+        }
+        private void LabelArtistAnimation()
+        {
+            System.Windows.Media.Animation.DoubleAnimation doubleAnimation = new System.Windows.Media.Animation.DoubleAnimation();
+            doubleAnimation.From = -LabelArtist.ActualWidth;
+            doubleAnimation.To = ArtistCanv.ActualWidth;
+            doubleAnimation.RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever;
+            doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:8"));
+            LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, doubleAnimation);
         }
     }
 }
