@@ -6,7 +6,6 @@ using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
 using System.Windows.Media;
-using System.Runtime.InteropServices;
 using MenuItem = System.Windows.Forms.MenuItem;
 
 namespace NowPlaying.UI
@@ -24,9 +23,7 @@ namespace NowPlaying.UI
             this.InitializeComponent();
 
             #if DEBUG
-
             DebugCheckBox.Visibility = Visibility.Visible;
-
             #endif
         }
 
@@ -40,6 +37,7 @@ namespace NowPlaying.UI
 
             Program.TrayMenu.Icon.DoubleClick += TrayMenu.CreateEventHandler(ShowFromTray);
             Program.TrayMenu.NpcWorkTrayCheckBox.Click += TrayMenu.CreateEventHandler(NpcWorkCheckChange);
+            Program.TrayMenu.TopMostCheckBox.Click += TrayMenu.CreateEventHandler(TopMostChange);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -224,6 +222,8 @@ namespace NowPlaying.UI
             this.SpotifySwitch.Toggle();
             ToggleSwitch_MouseLeftButtonDown(null, null);
         }
+
+        private void TopMostChange() => this.Topmost = !this.Topmost;
 
         private void LabelHelpClick(object sender, RoutedEventArgs e)
             => Process.Start("https://github.com/veselv2010/NowPlaying/blob/master/README.md");

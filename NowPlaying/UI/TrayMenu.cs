@@ -22,6 +22,14 @@ namespace NowPlaying.UI
                 Checked = false,
             };
 
+        public MenuItem TopMostCheckBox { get; } =
+            new MenuItem()
+            {
+                Name = "TopMost",
+                Text = "on top of other windows",
+                Checked = false,
+            };
+
         public ContextMenu Menu => Icon.ContextMenu;
 
         public Menu.MenuItemCollection Items => Menu.MenuItems;
@@ -30,15 +38,18 @@ namespace NowPlaying.UI
         {
             Icon.ContextMenu = new ContextMenu();
 
+            TopMostCheckBox.Click += CreateEventHandler(TopMost_Click);
             NpcWorkTrayCheckBox.Click += CreateEventHandler(NpcWork_Click);
 
             Items.AddRange(new MenuItem[] {
+                TopMostCheckBox,
                 NpcWorkTrayCheckBox,
                 new MenuItem("GitHub", CreateEventHandler(OpenGitHubPage)),
             });
         }
 
         private void NpcWork_Click() => NpcWorkTrayCheckBox.Checked = !NpcWorkTrayCheckBox.Checked;
+        private void TopMost_Click() => TopMostCheckBox.Checked = !TopMostCheckBox.Checked;
         private void OpenGitHubPage() => Process.Start("https://github.com/veselv2010/NowPlaying");
 
         public static EventHandler CreateEventHandler(Action func)
@@ -61,6 +72,7 @@ namespace NowPlaying.UI
             Menu.Dispose();
             Icon.Dispose();
             NpcWorkTrayCheckBox.Dispose();
+            TopMostCheckBox.Dispose();
         }
     }
 }
