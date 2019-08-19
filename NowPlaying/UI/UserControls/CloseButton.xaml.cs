@@ -1,20 +1,19 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace NowPlaying.UI
+namespace NowPlaying.UI.Controls
 {
-    public partial class MinimizeWindowButton : UserControl
+    public partial class CloseButton : UserControl
     {
-        public MinimizeWindowButton()
+        public CloseButton()
         {
             InitializeComponent();
         }
 
         private void Rectangle_MouseEnter(object sender, MouseEventArgs e)
         {
-            Rectangle1.Fill = new SolidColorBrush(Color.FromRgb(29, 185, 84));
+            Rectangle1.Fill = new SolidColorBrush(Color.FromRgb(255, 64, 64));
         }
 
         private void Rectangle_MouseLeave(object sender, MouseEventArgs e)

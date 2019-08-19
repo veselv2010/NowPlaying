@@ -6,7 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace NowPlaying.UI
+namespace NowPlaying.UI.Controls
 {
     public partial class ToggleSwitchNightMode : UserControl
     {
@@ -14,10 +14,12 @@ namespace NowPlaying.UI
         private readonly Storyboard InActivesbFillAnimation;
         private readonly Thickness LeftSide = new Thickness(7, 7, 0, 0);
         private readonly Thickness RightSide = new Thickness(58, 7, 0, 0);
-        private readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(217, 217, 217)); //SpotifyDarkGray
-        private readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(102, 102, 102)); 
-        private readonly SolidColorBrush SpotifyGreen = new SolidColorBrush(Color.FromRgb(29, 185, 84));
-        private readonly SolidColorBrush SpotifyGrayNight = new SolidColorBrush(Color.FromRgb(126, 126, 126));
+
+        private readonly Color SpotifyLightGray = Color.FromRgb(217, 217, 217);
+        private readonly Color SpotifyDarkGray = Color.FromRgb(102, 102, 102);
+
+        private readonly SolidColorBrush SpotifyGreenBrush = new SolidColorBrush(Color.FromRgb(29, 185, 84));
+        private readonly SolidColorBrush SpotifyGrayNightBrush = new SolidColorBrush(Color.FromRgb(126, 126, 126));
         ThicknessAnimation AnimThickness = new ThicknessAnimation();
 
         public bool IsNightModeToggled = false;
@@ -39,8 +41,8 @@ namespace NowPlaying.UI
 
             ActivesbFillAnimation.Begin();
 
-            this.LabelDayMode.Foreground = SpotifyGreen;
-            this.LabelNightMode.Foreground = SpotifyGrayNight;
+            this.LabelDayMode.Foreground = SpotifyGreenBrush;
+            this.LabelNightMode.Foreground = SpotifyGrayNightBrush;
             Dot.Fill = new SolidColorBrush(Color.FromRgb(249, 249, 249));
             this.IsNightModeToggled = false;
         }
@@ -54,8 +56,8 @@ namespace NowPlaying.UI
 
             InActivesbFillAnimation.Begin();
 
-            this.LabelDayMode.Foreground = SpotifyGrayNight;
-            this.LabelNightMode.Foreground = SpotifyGreen;
+            this.LabelDayMode.Foreground = SpotifyGrayNightBrush;
+            this.LabelNightMode.Foreground = SpotifyGreenBrush;
             Dot.Fill = new SolidColorBrush(Color.FromRgb(44, 44, 44));
             this.IsNightModeToggled = true;
         }
@@ -92,8 +94,8 @@ namespace NowPlaying.UI
 
             var colAnim = new ColorAnimation
             {
-                From = On.Color,
-                To = Off.Color,
+                From = SpotifyDarkGray,
+                To = SpotifyLightGray,
                 Duration = new Duration(TimeSpan.FromSeconds(0.5)),
                 AutoReverse = false
             };
@@ -116,8 +118,8 @@ namespace NowPlaying.UI
 
             var colAnim = new ColorAnimation
             {
-                From = Off.Color,
-                To = On.Color,
+                From = SpotifyLightGray,
+                To = SpotifyDarkGray,
                 Duration = new Duration(TimeSpan.FromSeconds(0.3)),
                 AutoReverse = false
             };

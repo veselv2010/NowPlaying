@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System;
 using NowPlaying.GameProcessHook;
+using NowPlaying.UI.Windows;
 using NowPlaying.UI;
 
 namespace NowPlaying

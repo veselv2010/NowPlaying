@@ -8,7 +8,7 @@ namespace NowPlaying
     internal class SteamIdLooker
     {
         private static string _steamFullPathCached;
-        private static string _steamLastLoggedOnAccount;
+        
         private static string SteamFullPath
         {
             get
@@ -24,6 +24,8 @@ namespace NowPlaying
                 return _steamFullPathCached = path;
             }
         }
+
+        private static string _steamLastLoggedOnAccount;
 
         public static string SteamLastLoggedOnAccount
         {

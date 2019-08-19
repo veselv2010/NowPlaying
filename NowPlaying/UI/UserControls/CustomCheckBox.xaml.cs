@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 
-namespace NowPlaying.UI
+namespace NowPlaying.UI.Controls
 {
     public partial class CustomCheckBox : UserControl
     {

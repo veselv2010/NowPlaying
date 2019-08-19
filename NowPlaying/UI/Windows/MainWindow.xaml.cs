@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
+using NowPlaying.UI.Controls;
 using System.Windows.Media;
 using MenuItem = System.Windows.Forms.MenuItem;
 
-namespace NowPlaying.UI
+namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
@@ -45,7 +46,7 @@ namespace NowPlaying.UI
         {
             this.Hide();
 
-            var browserWindow = new OAuth.BrowserWindow();
+            var browserWindow = new BrowserWindow();
             browserWindow.ShowDialog();
 
             if (browserWindow.ResultToken == null)

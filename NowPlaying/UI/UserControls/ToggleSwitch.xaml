@@ -1,13 +1,12 @@
-﻿<UserControl x:Class="NowPlaying.UI.ToggleSwitch"
+﻿<UserControl x:Class="NowPlaying.UI.Controls.ToggleSwitch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:NowPlaying.UI"
-             mc:Ignorable="d" Height="60" Width="111">
+			 mc:Ignorable="d" Height="60" Width="111">
     <UserControl.Resources>
-        <Color x:Key="SpotifyGreen">#FF1DB954</Color>
-        <Color x:Key="OffColor">#FFFF4040</Color>
+        <Color x:Key="SpotifyGreen">#1DB954</Color>
+        <Color x:Key="OffColor">#FF4040</Color>
     </UserControl.Resources>
     <Viewbox>
         <Grid HorizontalAlignment="Left" Width="111">

@@ -1,4 +1,4 @@
-﻿namespace NowPlaying
+﻿namespace NowPlaying.UI.Windows
 {
     public enum MainWindowUIState
     {

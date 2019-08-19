@@ -24,14 +24,13 @@ namespace NowPlaying
         {
             string strForWriting = string.Format(ConfigWriter.WriteConfigText, currentTrack.FullName);
 
-            using (var sw = new StreamWriter(this.WritePath))
-                sw.WriteLine(strForWriting);
+            this.RewriteKeyBinding(strForWriting);
         }
 
-        public void RewriteKeyBinding(string ToWrite)
+        public void RewriteKeyBinding(string line)
         {
             using (var sw = new StreamWriter(this.WritePath))
-                sw.WriteLine(ToWrite);
+                sw.WriteLine(line);
         }
     }
 }

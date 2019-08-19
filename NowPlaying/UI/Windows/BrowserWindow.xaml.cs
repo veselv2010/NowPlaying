@@ -5,7 +5,7 @@ using System;
 using CefSharp.Wpf;
 using NowPlaying.Extensions;
 
-namespace NowPlaying.UI.OAuth
+namespace NowPlaying.UI.Windows
 {
     public partial class BrowserWindow : Window
     {

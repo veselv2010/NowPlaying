@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 
-namespace NowPlaying.UI
+namespace NowPlaying.UI.Controls
 {
     public partial class CustomComboBox : UserControl
     {
@@ -23,7 +21,7 @@ namespace NowPlaying.UI
 
         private void DefaultComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedItem = this.DefaultComboBox.SelectedItem.ToString();
+            SelectedItem = this.DefaultComboBox.SelectedItem as string;
             SelectedIndex = this.DefaultComboBox.SelectedIndex;
         }
     }
