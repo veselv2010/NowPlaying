@@ -4,8 +4,8 @@ namespace NowPlaying.UI.UserControls
 {
     public partial class CustomComboBox : UserControl
     {
-        public static string SelectedItem { get; private set; }
-        public static int SelectedIndex { get; private set; }
+        public string SelectedItem { get; private set; }
+        public int SelectedIndex { get; private set; }
 
         public CustomComboBox()
         {

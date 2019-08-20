@@ -61,7 +61,7 @@ namespace NowPlaying.UI.Windows
 
             this.Show();
 
-            if (CustomComboBox.SelectedItem == null)
+            if (AccountsList.SelectedItem == null)
             {
                 MessageBox.Show("Файл loginusers.vdf пуст");
                 this.Close();
@@ -88,7 +88,7 @@ namespace NowPlaying.UI.Windows
 
             this.UpdateInterfaceTrackInfo(trackResp);
 
-            if (CustomComboBox.SelectedItem == null)
+            if (AccountsList.SelectedItem == null)
                 return;
 
             var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
@@ -115,8 +115,8 @@ namespace NowPlaying.UI.Windows
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
-            string keyboardButton = CustomComboBox.SelectedItem;
-            int _SelectedAccount = CustomComboBox.SelectedIndex;
+            string keyboardButton = AccountsList.SelectedItem;
+            int _SelectedAccount = AccountsList.SelectedIndex;
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
             var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
@@ -125,7 +125,7 @@ namespace NowPlaying.UI.Windows
             {
                 while (true)
                 {
-                    if (CustomComboBox.SelectedIndex != _SelectedAccount)
+                    if (AccountsList.SelectedIndex != _SelectedAccount)
                         this.Dispatcher.Invoke(() => OnAccountsListSelectionChanged());
 
                     Thread.Sleep(1000);
@@ -186,7 +186,7 @@ namespace NowPlaying.UI.Windows
 
         private int GetSelectedAccountId()
         {
-            return AppInfo.State.AccountNameToSteamId3[CustomComboBox.SelectedItem];
+            return AppInfo.State.AccountNameToSteamId3[AccountsList.SelectedItem];
         }
 
         private void OnAccountsListSelectionChanged()
