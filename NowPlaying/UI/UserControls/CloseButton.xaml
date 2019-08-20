@@ -6,30 +6,31 @@
              xmlns:local="clr-namespace:NowPlaying.UI"
              mc:Ignorable="d"
              d:DesignHeight="20" d:DesignWidth="20">
-
-    <Grid>
-        <Rectangle x:Name="Rectangle1" Fill="#FF7E7E7E" Margin="4,15,0,0" RenderTransformOrigin="0.5,0.5" Height="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="12">
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="45"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-        <Rectangle x:Name="Rectangle2" Fill="{Binding ElementName=Rectangle1, Path=Fill, Mode=OneWay}" Margin="4,15,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="12" Height="1" VerticalAlignment="Top">
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-45"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-        <Viewbox>
-            <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" MouseEnter="Rectangle_MouseEnter" MouseLeave="Rectangle_MouseLeave"/>
-        </Viewbox>
-    </Grid>
+    <Viewbox>
+        <Grid>
+            <Rectangle x:Name="Rectangle1" Fill="#FF7E7E7E" Margin="4,15,0,4" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="12">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle x:Name="Rectangle2" Fill="{Binding ElementName=Rectangle1, Path=Fill, Mode=OneWay}" Margin="4,15,0,4" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="12">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Viewbox>
+                <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" MouseEnter="Rectangle_MouseEnter" MouseLeave="Rectangle_MouseLeave"/>
+            </Viewbox>
+        </Grid>
+    </Viewbox>
 </UserControl>
