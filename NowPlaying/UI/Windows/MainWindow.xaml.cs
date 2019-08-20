@@ -252,7 +252,7 @@ namespace NowPlaying.UI.Windows
         {
             if (NightModeSwitch.IsNightModeToggled)
             {
-                this.Background = new SolidColorBrush(Color.FromRgb(44, 44, 44)); //#2C2C2C
+                this.Background = new SolidColorBrush(Color.FromRgb(23, 23, 23)); //#171717
                 this.LabelCurrentKey.Foreground = new SolidColorBrush(Color.FromRgb(178, 178, 178)); //#B2B2B2
                 this.LabelNpcWork.Foreground = new SolidColorBrush(Color.FromRgb(249, 249, 249)); //#F9F9F9
                 this.SpotifySwitch.NightModeEnable();

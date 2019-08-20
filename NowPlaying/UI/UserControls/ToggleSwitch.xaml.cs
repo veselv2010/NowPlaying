@@ -32,7 +32,7 @@ namespace NowPlaying.UI.UserControls
         {
             AnimThickness.From = RightSide;
             AnimThickness.To = LeftSide;
-            AnimThickness.Duration = TimeSpan.FromSeconds(0.1);
+            AnimThickness.Duration = TimeSpan.FromSeconds(0.2);
             Dot.BeginAnimation(Ellipse.MarginProperty, AnimThickness);
 
             ActivesbFillAnimation.Begin();
@@ -45,7 +45,7 @@ namespace NowPlaying.UI.UserControls
         {
             AnimThickness.From = LeftSide;
             AnimThickness.To = RightSide;
-            AnimThickness.Duration = TimeSpan.FromSeconds(0.1);
+            AnimThickness.Duration = TimeSpan.FromSeconds(0.2);
             Dot.BeginAnimation(Ellipse.MarginProperty, AnimThickness);
 
             InActivesbFillAnimation.Begin();
@@ -78,7 +78,7 @@ namespace NowPlaying.UI.UserControls
 
         public void NightModeEnable()
         {
-            Dot.Fill = new SolidColorBrush(Color.FromRgb(44, 44, 44));
+            Dot.Fill = new SolidColorBrush(Color.FromRgb(0x17, 0x17, 0x17));
         }
 
         public void NightModeDisable()
@@ -90,7 +90,7 @@ namespace NowPlaying.UI.UserControls
         {
             var sb = new Storyboard()
             {
-                Duration = TimeSpan.FromSeconds(0.5),
+                Duration = TimeSpan.FromSeconds(0.3),
                 BeginTime = TimeSpan.Zero
             };
 
@@ -98,7 +98,7 @@ namespace NowPlaying.UI.UserControls
             {
                 From = On.Color,
                 To = Off.Color,
-                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
                 AutoReverse = false
             };
 
@@ -122,7 +122,7 @@ namespace NowPlaying.UI.UserControls
             {
                 From = Off.Color,
                 To = On.Color,
-                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
                 AutoReverse = false
             };
 

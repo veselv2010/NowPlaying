@@ -58,7 +58,7 @@ namespace NowPlaying.UI.UserControls
 
             this.LabelDayMode.Foreground = SpotifyGrayNightBrush;
             this.LabelNightMode.Foreground = SpotifyGreenBrush;
-            Dot.Fill = new SolidColorBrush(Color.FromRgb(44, 44, 44));
+            Dot.Fill = new SolidColorBrush(Color.FromRgb(0x17, 0x17, 0x17));
             this.IsNightModeToggled = true;
         }
 

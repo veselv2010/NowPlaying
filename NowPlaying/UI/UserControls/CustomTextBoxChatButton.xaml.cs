@@ -12,7 +12,7 @@ namespace NowPlaying.UI.UserControls
 
         private static SolidColorBrush GrayBrush { get; } = new SolidColorBrush(Color.FromRgb(0x7e, 0x7e, 0x7e));
 
-        private static SolidColorBrush DarkBrush { get; } = new SolidColorBrush(Color.FromRgb(0x2C, 0x2C, 0x2C));
+        private static SolidColorBrush DarkBrush { get; } = new SolidColorBrush(Color.FromRgb(0x17, 0x17, 0x17));
 
 
         public CustomTextBoxChatButton()
