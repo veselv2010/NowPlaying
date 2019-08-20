@@ -23,7 +23,7 @@ namespace NowPlaying.UI.Windows
             {
                 CachePath = "cache", //несет ли какие-нибудь последствия эта тема в плане безопасности
             };
-            settings.CefCommandLineArgs.Remove("process-per-tab");
+            CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
             Cef.Initialize(settings);
             this.InitializeComponent();
         }
