@@ -9,6 +9,10 @@ using NowPlaying.UI.UserControls;
 using System.Windows.Media;
 using MenuItem = System.Windows.Forms.MenuItem;
 using System.Windows.Media.Animation;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace NowPlaying.UI.Windows
 {
@@ -23,7 +27,6 @@ namespace NowPlaying.UI.Windows
         public MainWindow()
         {
             this.InitializeComponent();
-
             #if DEBUG
             DebugCheckBox.Visibility = Visibility.Visible;
             #endif
@@ -137,14 +140,17 @@ namespace NowPlaying.UI.Windows
                     }
 
                     var trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
-
+                    Dispatcher.Invoke(() => DataContext = trackResp);
                     if (trackResp != null && trackResp.Id != this.LastPlayingTrackId)
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
+
                         if (trackResp.FormattedArtists.Length > 27)
                             Dispatcher.Invoke(() => LabelArtistAnimation());
-                        else Dispatcher.Invoke(() => LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, null));
+                        else
+                            Dispatcher.Invoke(() => LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, null));
+
                         if (IsAutoTrackChangeEnabled && Program.GameProcess.IsValid)
                             KeySender.SendInputWithAPI(CurrentKeyBind);
                     }
@@ -177,11 +183,6 @@ namespace NowPlaying.UI.Windows
                 this.LabelLocalFilesWarning.Visibility = Visibility.Visible;
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
-
-            this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
-            this.LabelFormatted.Content = $"{trackResp.Name}";
-            this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
-            this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
         }
 
         private int GetSelectedAccountId()

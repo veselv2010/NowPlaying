@@ -1,16 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace NowPlaying.ApiResponses
 {
-    internal class CurrentTrackResponse
+    public class CurrentTrackResponse : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private string _Name;
+        private string _FormattedArtists;
+        private string _ProgressFormatted;
+        private string _DurationFormatted;
+        private bool _IsLocalFile;
         public string Id { get; }
 
         /// <summary>
         /// Track name.
         /// </summary>
-        public string Name { get; }
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged("_Name");
+            }
+        }
 
         /// <summary>
         /// Artists list.
@@ -28,13 +48,55 @@ namespace NowPlaying.ApiResponses
         public long Duration { get; }
 
         public string FullName { get; }
-        public string FormattedArtists { get; }
-        public int ProgressSeconds { get; }
-        public int ProgressMinutes { get; }
-        public int DurationMinutes { get; }
-        public int DurationSeconds { get; }
+        public string FormattedArtists
+        {
+            get
+            {
+                return _FormattedArtists;
+            }
+            set
+            {
+                _FormattedArtists = value;
+                OnPropertyChanged("FormattedArtists");
+            }
+        }
+        public string ProgressFormatted
+        {
+            get
+            {
+                return _ProgressFormatted;
+            }
+            set
+            {
+                _ProgressFormatted = value;
+                OnPropertyChanged("ProgressFormatted");
+            }
+        }
+        public string DurationFormatted
+        {
+            get
+            {
+                return _DurationFormatted;
+            }
+            set
+            {
+                _DurationFormatted = value;
+                OnPropertyChanged("DurationFormatted");
+            }
+        }
 
-        public bool IsLocalFile { get; }
+        public bool IsLocalFile
+        {
+            get
+            {
+                return _IsLocalFile;
+            }
+            set
+            {
+                _IsLocalFile = value;
+                OnPropertyChanged("IsLocalFile");
+            }
+        }
 
         public CurrentTrackResponse(string trackId, string trackName, IEnumerable<string> artists, long progress, long duration)
         {
@@ -45,14 +107,10 @@ namespace NowPlaying.ApiResponses
             this.Duration = duration;
 
             this.IsLocalFile = this.Id == null;
-
             this.FullName = $"{this.GetArtistsString()} - {this.Name}";
             this.FormattedArtists = this.GetArtistsString();
-
-            this.ProgressMinutes = (int)(this.Progress / 1000 / 60);
-            this.ProgressSeconds = (int)((this.Progress / 1000) % 60);
-            this.DurationMinutes = (int)(this.Duration / 1000 / 60);
-            this.DurationSeconds = (int)((this.Duration / 1000) % 60);
+            this.ProgressFormatted = $"{((int)(this.Progress / 1000 / 60)).ToString()}:{(int)((this.Progress / 1000) % 60):00}";
+            this.DurationFormatted = $"{((int)(this.Duration / 1000 / 60)).ToString()}:{(int)((this.Duration / 1000) % 60):00}";
         }
 
         /// <summary>
