@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace NowPlaying.UI.Controls
+namespace NowPlaying.UI.UserControls
 {
     public partial class MinimizeWindowButton : UserControl
     {

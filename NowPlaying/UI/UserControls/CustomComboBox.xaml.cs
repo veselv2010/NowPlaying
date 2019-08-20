@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace NowPlaying.UI.Controls
+namespace NowPlaying.UI.UserControls
 {
     public partial class CustomComboBox : UserControl
     {

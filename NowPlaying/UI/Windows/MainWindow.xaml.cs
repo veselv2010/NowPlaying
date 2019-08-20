@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
-using NowPlaying.UI.Controls;
+using NowPlaying.UI.UserControls;
 using System.Windows.Media;
 using MenuItem = System.Windows.Forms.MenuItem;
 using System.Windows.Media.Animation;

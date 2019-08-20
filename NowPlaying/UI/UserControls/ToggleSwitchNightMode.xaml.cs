@@ -6,7 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace NowPlaying.UI.Controls
+namespace NowPlaying.UI.UserControls
 {
     public partial class ToggleSwitchNightMode : UserControl
     {

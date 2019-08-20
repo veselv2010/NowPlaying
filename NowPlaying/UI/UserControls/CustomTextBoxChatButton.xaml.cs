@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace NowPlaying.UI.Controls
+namespace NowPlaying.UI.UserControls
 {
     public partial class CustomTextBoxChatButton : UserControl
     {
