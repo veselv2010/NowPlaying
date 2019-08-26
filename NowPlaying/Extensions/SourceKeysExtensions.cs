@@ -21,7 +21,6 @@ namespace NowPlaying.Extensions
 
         public static List<string> SourceEngineAllowedKeys = new List<string>() //todo
         {
-            {""},
             {"space"},
             {"capslock"},
             {"escape"},

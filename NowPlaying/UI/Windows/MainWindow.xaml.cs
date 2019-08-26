@@ -62,11 +62,7 @@ namespace NowPlaying.UI.Windows
             this.Show();
 
             if (AccountsList.SelectedItem == null)
-            {
-                MessageBox.Show("Файл loginusers.vdf пуст");
-                this.Close();
-                return;
-            }
+                MessageBox.Show("failed to fetch current account");
 
             AcrylicMaterial.EnableBlur(this);
             this.InitializeTrayMenu();
