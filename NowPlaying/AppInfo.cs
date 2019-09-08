@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using NowPlaying.Api.SpotifyResponses;
 
 namespace NowPlaying
 {
-    public static class AppInfo
+    internal static class AppInfo
     {
         public static readonly string SpotifyClientId = "7633771350404368ac3e05c9cf73d187";
         public static readonly string SpotifyClientSecret = "29bd9ec2676c4bf593f3cc2858099838";
         public static readonly string SpotifyRedirectUri = "https://blank.org/"; // Random link.
         public static readonly string AssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        public static class State
+
+        internal static class State
         {
             public static string SpotifyAccessToken { get; set; }
 
@@ -23,12 +25,15 @@ namespace NowPlaying
 
             public static string WindowHandle { get; set; }
 
-            public static void RefreshToken()
+            public static void UpdateToken(string accessToken, int expiresIn)
             {
-                var resp = Requests.GetNewToken(SpotifyRefreshToken);
+                SpotifyAccessToken = accessToken;
+                TokenExpireTime = DateTime.Now.AddSeconds(expiresIn - 5);
+            }
 
-                SpotifyAccessToken = resp.AccessToken;
-                TokenExpireTime = DateTime.Now.AddSeconds(resp.ExpiresIn - 5);
+            public static void UpdateToken(TokenResponse tokenResp)
+            {
+                UpdateToken(tokenResp.AccessToken, tokenResp.ExpiresIn);
             }
         }
     }

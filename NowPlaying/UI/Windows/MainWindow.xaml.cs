@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using NowPlaying.ApiResponses;
 using NowPlaying.Extensions;
-using NowPlaying.UI.UserControls;
 using System.Windows.Media;
 using MenuItem = System.Windows.Forms.MenuItem;
 using System.Windows.Media.Animation;
+using NowPlaying.Api.SpotifyResponses;
+using NowPlaying.Api;
 
 namespace NowPlaying.UI.Windows
 {
@@ -16,13 +16,17 @@ namespace NowPlaying.UI.Windows
     {
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
-        protected string LastPlayingTrackId { get; set; }
+        private string LastPlayingTrackId { get; set; }
 
         private CancellationTokenSource _cancellationGetSpotifyUpdates;
+
+        private SpotifyRequestsManager _spotify;
 
         public MainWindow()
         {
             this.InitializeComponent();
+
+            _spotify = new SpotifyRequestsManager(AppInfo.SpotifyClientId, AppInfo.SpotifyClientSecret);
 
             #if DEBUG
             DebugCheckBox.Visibility = Visibility.Visible;
@@ -46,7 +50,7 @@ namespace NowPlaying.UI.Windows
         {
             this.Hide();
 
-            var browserWindow = new BrowserWindow();
+            var browserWindow = new BrowserWindow(_spotify);
             browserWindow.ShowDialog();
 
             if (browserWindow.ResultToken == null)
@@ -77,7 +81,7 @@ namespace NowPlaying.UI.Windows
                 return;
             }
 
-            var trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
+            var trackResp = _spotify.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
             if (trackResp == null)
                 return;
@@ -128,11 +132,12 @@ namespace NowPlaying.UI.Windows
 
                     if (AppInfo.State.TokenExpireTime < DateTime.Now)
                     {
-                        AppInfo.State.RefreshToken();
+                        var refreshedTokenResp = _spotify.GetRefreshedToken(AppInfo.State.SpotifyRefreshToken);
+                        AppInfo.State.UpdateToken(refreshedTokenResp);
                         cfgWriter.RewriteKeyBinding("say \"spotify token expired!\"");
                     }
 
-                    var trackResp = Requests.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
+                    var trackResp = _spotify.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
                     if (trackResp != null && trackResp.Id != this.LastPlayingTrackId)
                     {

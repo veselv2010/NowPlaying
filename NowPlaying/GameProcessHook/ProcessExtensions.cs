@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
+using System.Diagnostics;
 
 namespace NowPlaying.GameProcessHook
 {
-    public static class GameProcessHookHelper
+    public static class ProcessExtensions
     {
         /// <summary>
-        /// Get if process is running.
+        /// Check if process is running.
         /// </summary>
-        public static bool IsRunning(this System.Diagnostics.Process process)
+        public static bool IsRunning(this Process process)
         {
             try
             {
-                System.Diagnostics.Process.GetProcessById(process.Id);
+                Process.GetProcessById(process.Id);
             }
             catch (InvalidOperationException)
             {

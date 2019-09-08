@@ -1,24 +1,25 @@
 ﻿using System.Windows;
-using NowPlaying.ApiResponses;
 using CefSharp;
-using System;
 using CefSharp.Wpf;
+using NowPlaying.Api;
 using NowPlaying.Extensions;
 
 namespace NowPlaying.UI.Windows
 {
     public partial class BrowserWindow : Window
     {
-        private static readonly string tokenUrl = "https://accounts.spotify.com/api/token";
-
         private string Url { get; set; }
 
         public string ResultToken { get; private set; }
         public int ExpireTime { get; private set; }
         public string RefreshToken { get; private set; }
 
-        public BrowserWindow()
+        private SpotifyRequestsManager _spotify;
+
+        internal BrowserWindow(SpotifyRequestsManager spotify)
         {
+            _spotify = spotify;
+
             var settings = new CefSettings
             {
                 CachePath = "cache", //несет ли какие-нибудь последствия эта тема в плане безопасности
@@ -38,14 +39,12 @@ namespace NowPlaying.UI.Windows
                 {
                     string code = UriExtensions.GetPropertyValue(Url, "code");
 
-                    var tokenReqParams = $"grant_type=authorization_code" +
-                              $"&code={code}" +
-                              $"&redirect_uri={AppInfo.SpotifyRedirectUri}";
+                    var tokenResp = _spotify.GetToken(code, AppInfo.SpotifyRedirectUri);
 
-                    var tokenResp = Requests.PerformUrlEncodedPostRequest<TokenResponse>(tokenUrl, tokenReqParams);
                     this.ExpireTime = tokenResp.ExpiresIn;
                     this.ResultToken = tokenResp.AccessToken;
                     this.RefreshToken = tokenResp.RefreshToken;
+                    
                     Dispatcher.Invoke(() => this.Browser.Dispose());
                     Dispatcher.Invoke(() => this.Close());
                 }

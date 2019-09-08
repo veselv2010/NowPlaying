@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NowPlaying.ApiResponses
+namespace NowPlaying.Api.SpotifyResponses
 {
     internal class TokenResponse
     {

@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using NowPlaying.ApiResponses;
+using NowPlaying.Api.SpotifyResponses;
 
 namespace NowPlaying
 {
