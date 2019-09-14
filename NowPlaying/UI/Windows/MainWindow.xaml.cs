@@ -15,6 +15,7 @@ namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
+        private string LabelFormattedLastContent { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
         private string LastPlayingTrackId { get; set; }
@@ -143,22 +144,17 @@ namespace NowPlaying.UI.Windows
                     if (trackResp != null && trackResp.Id != this.LastPlayingTrackId)
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
-                        this.LastPlayingTrackId = trackResp.Id;
-
-                        Dispatcher.Invoke(() => LabelChangedAnimation(trackResp.FormattedArtists, true, LabelArtist));
-                        Dispatcher.Invoke(() => LabelChangedAnimation(trackResp.Name, false, LabelFormatted));
 
                         if (trackResp.FormattedArtists.Length > 27)
                             Dispatcher.Invoke(() => LabelArtistAnimation());
                         else 
-                            Dispatcher.Invoke(() => LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, null));
+                            Dispatcher.Invoke(() => LabelArtist.BeginAnimation(Canvas.RightProperty, null));
 
                         if (IsAutoTrackChangeEnabled && Program.GameProcess.IsValid)
                             KeySender.SendInputWithAPI(CurrentKeyBind);
                     }
 
                     this.Dispatcher.Invoke(() => this.UpdateInterfaceTrackInfo(trackResp));
-                    this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
 
                     if (this._cancellationGetSpotifyUpdates.IsCancellationRequested)
                         return;
@@ -180,15 +176,24 @@ namespace NowPlaying.UI.Windows
                 return;
             }
 
+            if (trackResp.Id != this.LastPlayingTrackId || this.LabelArtist.Content.ToString() == "NowPlaying")
+            {
+                this.LastPlayingTrackId = trackResp.Id;
+                this.LabelFormattedLastContent = this.LabelFormatted.Content.ToString();
+                LabelChangedAnimation(trackResp.FormattedArtists, true, LabelArtist);
+                LabelChangedAnimation(trackResp.Name, false, LabelFormatted);
+            }
+
             if (trackResp.IsLocalFile)
                 this.LabelLocalFilesWarning.Visibility = Visibility.Visible;
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            // this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
+            //this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
             //this.LabelFormatted.Content = $"{trackResp.Name}";
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
+            this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
         }
 
         private int GetSelectedAccountId()
