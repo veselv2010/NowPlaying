@@ -10,16 +10,15 @@ using System.Windows.Media.Animation;
 using NowPlaying.Extensions;
 using NowPlaying.Api.SpotifyResponses;
 using NowPlaying.Api;
-using System.Collections.Generic;
 
 namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
-        private int LastLength { get; set; }
+        private string PlayingTrackName { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
-        private string LastPlayingTrackId { get; set; }
+        private string PlayingTrackId { get; set; }
 
         private CancellationTokenSource _cancellationGetSpotifyUpdates;
 
@@ -142,7 +141,7 @@ namespace NowPlaying.UI.Windows
 
                     var trackResp = _spotify.GetCurrentTrack(AppInfo.State.SpotifyAccessToken);
 
-                    if (trackResp != null && trackResp.Id != this.LastPlayingTrackId)
+                    if (trackResp != null && trackResp.Id != this.PlayingTrackId)
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
 
@@ -174,19 +173,21 @@ namespace NowPlaying.UI.Windows
             {
                 this.LabelArtist.Content = "NowPlaying";
                 this.LabelFormatted.Content = "Nothing is playing!";
+                this.PlayingTrackName = null;
                 return;
             }
 
-            if (trackResp.Id != this.LastPlayingTrackId || 
-                this.LabelArtist.Content.ToString() == "NowPlaying" || 
-                this.LastLength != trackResp.DurationSeconds) //локал треки не имеют айди и проходят мимо предыдущих условий
+            if (trackResp.Id != this.PlayingTrackId || 
+                trackResp.Name != this.PlayingTrackName) //локал треки не имеют айди и проходят мимо предыдущих условий
             {
-                this.LastPlayingTrackId = trackResp.Id;
-                this.LastLength = trackResp.DurationSeconds;
-                LabelChangedAnimation(trackResp.FormattedArtists, true, LabelArtist);
-                LabelChangedAnimation(trackResp.Name, false, LabelFormatted);
-                ProgressBarSong.Value = 0;
-                ProgressBarSong.Maximum = trackResp.Duration / 1000; 
+                this.PlayingTrackId = trackResp.Id;
+                this.PlayingTrackName = trackResp.Name;
+
+                AnimateLabel(trackResp.FormattedArtists, true, LabelArtist);
+                AnimateLabel(trackResp.Name, false, LabelFormatted);
+
+                this.ProgressBarSong.Value = 0;
+                this.ProgressBarSong.Maximum = trackResp.Duration / 1000; 
             }
 
             if (trackResp.IsLocalFile)
@@ -194,8 +195,6 @@ namespace NowPlaying.UI.Windows
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            //this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
-            //this.LabelFormatted.Content = $"{trackResp.Name}";
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
             this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
@@ -308,10 +307,10 @@ namespace NowPlaying.UI.Windows
             Dispatcher.Invoke(() => ProgressBarSong.UpdateLayout());
         }
 
-        private void LabelChangedAnimation(string text, bool IsUpper, Label TrackInfo)
+        private void AnimateLabel(string text, bool IsUpper, Label TrackInfo)
         {
             ThicknessAnimation LabelDown = new ThicknessAnimation();
-            LabelDown.Completed += new EventHandler((_sender, _args) => LabelChangedAnimationReverse(text, !IsUpper, TrackInfo));
+            LabelDown.Completed += new EventHandler((_sender, _args) => AnimateLabelReverse(text, !IsUpper, TrackInfo));
             Thickness LabelOriginalPos = TrackInfo.Margin;
             Thickness LabelAfterAnimPos;
             if (IsUpper)
@@ -336,7 +335,7 @@ namespace NowPlaying.UI.Windows
             TrackInfo.BeginAnimation(Label.MarginProperty, LabelDown);
         }
 
-        private void LabelChangedAnimationReverse(string text, bool IsUpper, Label TrackInfo)
+        private void AnimateLabelReverse(string text, bool IsUpper, Label TrackInfo)
         {
             Dispatcher.Invoke(() => TrackInfo.Content = text);
             ThicknessAnimation LabelDown = new ThicknessAnimation();
