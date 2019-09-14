@@ -15,7 +15,6 @@ namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
-        private string LabelFormattedLastContent { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
         private string LastPlayingTrackId { get; set; }
@@ -179,7 +178,6 @@ namespace NowPlaying.UI.Windows
             if (trackResp.Id != this.LastPlayingTrackId || this.LabelArtist.Content.ToString() == "NowPlaying")
             {
                 this.LastPlayingTrackId = trackResp.Id;
-                this.LabelFormattedLastContent = this.LabelFormatted.Content.ToString();
                 LabelChangedAnimation(trackResp.FormattedArtists, true, LabelArtist);
                 LabelChangedAnimation(trackResp.Name, false, LabelFormatted);
             }
