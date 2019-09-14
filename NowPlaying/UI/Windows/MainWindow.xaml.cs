@@ -10,11 +10,13 @@ using System.Windows.Media.Animation;
 using NowPlaying.Extensions;
 using NowPlaying.Api.SpotifyResponses;
 using NowPlaying.Api;
+using System.Collections.Generic;
 
 namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
+        private int LastLength { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
         private string LastPlayingTrackId { get; set; }
@@ -175,11 +177,16 @@ namespace NowPlaying.UI.Windows
                 return;
             }
 
-            if (trackResp.Id != this.LastPlayingTrackId || this.LabelArtist.Content.ToString() == "NowPlaying")
+            if (trackResp.Id != this.LastPlayingTrackId || 
+                this.LabelArtist.Content.ToString() == "NowPlaying" || 
+                this.LastLength != trackResp.DurationSeconds) //локал треки не имеют айди и проходят мимо предыдущих условий
             {
                 this.LastPlayingTrackId = trackResp.Id;
+                this.LastLength = trackResp.DurationSeconds;
                 LabelChangedAnimation(trackResp.FormattedArtists, true, LabelArtist);
                 LabelChangedAnimation(trackResp.Name, false, LabelFormatted);
+                ProgressBarSong.Value = 0;
+                ProgressBarSong.Maximum = trackResp.Duration / 1000; 
             }
 
             if (trackResp.IsLocalFile)
@@ -192,6 +199,7 @@ namespace NowPlaying.UI.Windows
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
             this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
+            ProgressBarSong.Value = trackResp.Progress / 1000;
         }
 
         private int GetSelectedAccountId()
@@ -265,6 +273,7 @@ namespace NowPlaying.UI.Windows
                 this.Background = new SolidColorBrush(Color.FromRgb(23, 23, 23)); //#171717
                 this.LabelCurrentKey.Foreground = new SolidColorBrush(Color.FromRgb(178, 178, 178)); //#B2B2B2
                 this.LabelNpcWork.Foreground = new SolidColorBrush(Color.FromRgb(249, 249, 249)); //#F9F9F9
+                this.ProgressBarSong.BorderBrush = new SolidColorBrush(Color.FromRgb(102, 102, 102)); //#666666
                 this.SpotifySwitch.NightModeEnable();
                 this.TextBoxKeyBind.NightModeEnable();
             }
@@ -273,6 +282,7 @@ namespace NowPlaying.UI.Windows
                 this.Background = new SolidColorBrush(Color.FromRgb(249, 249, 249)); //#F9F9F9
                 this.LabelCurrentKey.Foreground = new SolidColorBrush(Color.FromRgb(126, 126, 126)); //#7e7e7e
                 this.LabelNpcWork.Foreground = new SolidColorBrush(Color.FromRgb(126, 126, 126)); //#F9F9F9
+                this.ProgressBarSong.BorderBrush = new SolidColorBrush(Color.FromRgb(217, 217, 217)); //#D9D9D9
                 this.SpotifySwitch.NightModeDisable();
                 this.TextBoxKeyBind.NightModeDisable();
             }
@@ -291,9 +301,10 @@ namespace NowPlaying.UI.Windows
 
         private void LabelFormatted_SizeChanged(object sender, SizeChangedEventArgs e) //костыль
         {
-            Dispatcher.Invoke(() => ProgressBarSong.Width = (LabelFormatted.Content.ToString().Length * 1.25 > LabelArtist.Content.ToString().Length) ? 
+            double DesiredWidth = (LabelFormatted.Content.ToString().Length * 1.25 > LabelArtist.Content.ToString().Length) ?
                                                                     LabelFormatted.RenderSize.Width :
-                                                                    LabelArtist.Content.ToString().Length * 12); //LabelArtist имеет фиксированный RenderSize.Width для анимации длинных строк
+                                                                    LabelArtist.Content.ToString().Length * 12;//LabelArtist имеет фиксированный RenderSize.Width для анимации длинных строк
+            Dispatcher.Invoke(() => ProgressBarSong.Width = DesiredWidth);
             Dispatcher.Invoke(() => ProgressBarSong.UpdateLayout());
         }
 
