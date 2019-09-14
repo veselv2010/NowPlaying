@@ -3,10 +3,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using NowPlaying.Extensions;
 using System.Windows.Media;
+using System.Windows.Controls;
 using MenuItem = System.Windows.Forms.MenuItem;
 using System.Windows.Media.Animation;
+using NowPlaying.Extensions;
 using NowPlaying.Api.SpotifyResponses;
 using NowPlaying.Api;
 
@@ -143,9 +144,15 @@ namespace NowPlaying.UI.Windows
                     {
                         cfgWriter.RewriteKeyBinding(trackResp);
                         this.LastPlayingTrackId = trackResp.Id;
+
+                        Dispatcher.Invoke(() => LabelChangedAnimation(trackResp.FormattedArtists, true, LabelArtist));
+                        Dispatcher.Invoke(() => LabelChangedAnimation(trackResp.Name, false, LabelFormatted));
+
                         if (trackResp.FormattedArtists.Length > 27)
                             Dispatcher.Invoke(() => LabelArtistAnimation());
-                        else Dispatcher.Invoke(() => LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, null));
+                        else 
+                            Dispatcher.Invoke(() => LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, null));
+
                         if (IsAutoTrackChangeEnabled && Program.GameProcess.IsValid)
                             KeySender.SendInputWithAPI(CurrentKeyBind);
                     }
@@ -157,7 +164,6 @@ namespace NowPlaying.UI.Windows
                         return;
                 }
             });
-
         }
 
         private void UpdateInterfaceTrackInfo(CurrentTrackResponse trackResp)
@@ -179,8 +185,8 @@ namespace NowPlaying.UI.Windows
             else
                 this.LabelLocalFilesWarning.Visibility = Visibility.Collapsed;
 
-            this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
-            this.LabelFormatted.Content = $"{trackResp.Name}";
+            // this.LabelArtist.Content = $"{trackResp.FormattedArtists}";
+            //this.LabelFormatted.Content = $"{trackResp.Name}";
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
         }
@@ -277,7 +283,71 @@ namespace NowPlaying.UI.Windows
                 RepeatBehavior = RepeatBehavior.Forever,
                 Duration = new Duration(TimeSpan.Parse("0:0:8"))
             };
-            this.LabelArtist.BeginAnimation(System.Windows.Controls.Canvas.RightProperty, doubleAnimation);
+            this.LabelArtist.BeginAnimation(Canvas.RightProperty, doubleAnimation);
+        }
+
+        private void LabelFormatted_SizeChanged(object sender, SizeChangedEventArgs e) //костыль
+        {
+            Dispatcher.Invoke(() => ProgressBarSong.Width = (LabelFormatted.Content.ToString().Length * 1.25 > LabelArtist.Content.ToString().Length) ? 
+                                                                    LabelFormatted.RenderSize.Width :
+                                                                    LabelArtist.Content.ToString().Length * 12); //LabelArtist имеет фиксированный RenderSize.Width для анимации длинных строк
+            Dispatcher.Invoke(() => ProgressBarSong.UpdateLayout());
+        }
+
+        private void LabelChangedAnimation(string text, bool IsUpper, Label TrackInfo)
+        {
+            ThicknessAnimation LabelDown = new ThicknessAnimation();
+            LabelDown.Completed += new EventHandler((_sender, _args) => LabelChangedAnimationReverse(text, !IsUpper, TrackInfo));
+            Thickness LabelOriginalPos = TrackInfo.Margin;
+            Thickness LabelAfterAnimPos;
+            if (IsUpper)
+            {
+                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left, 
+                    TrackInfo.Margin.Top + 24, 
+                    TrackInfo.Margin.Right, 
+                    TrackInfo.Margin.Bottom);
+            }
+            else
+            {
+                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left,
+                    TrackInfo.Margin.Top - 24,
+                    TrackInfo.Margin.Right,
+                    TrackInfo.Margin.Bottom);
+            }
+
+            LabelDown.To = LabelAfterAnimPos;
+            LabelDown.From = LabelOriginalPos;
+            LabelDown.Duration = TimeSpan.FromSeconds(0.5);
+            LabelDown.AccelerationRatio = 0.8;
+            TrackInfo.BeginAnimation(Label.MarginProperty, LabelDown);
+        }
+
+        private void LabelChangedAnimationReverse(string text, bool IsUpper, Label TrackInfo)
+        {
+            Dispatcher.Invoke(() => TrackInfo.Content = text);
+            ThicknessAnimation LabelDown = new ThicknessAnimation();
+            Thickness LabelOriginalPos = TrackInfo.Margin;
+            Thickness LabelAfterAnimPos;
+            if (IsUpper)
+            {
+                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left,
+                    TrackInfo.Margin.Top + 24,
+                    TrackInfo.Margin.Right,
+                    TrackInfo.Margin.Bottom);
+            }
+            else
+            {
+                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left,
+                    TrackInfo.Margin.Top - 24,
+                    TrackInfo.Margin.Right,
+                    TrackInfo.Margin.Bottom);
+            }
+
+            LabelDown.To = LabelAfterAnimPos;
+            LabelDown.From = LabelOriginalPos;
+            LabelDown.Duration = TimeSpan.FromSeconds(0.5);
+            LabelDown.AccelerationRatio = 0.05;
+            TrackInfo.BeginAnimation(Label.MarginProperty, LabelDown);
         }
     }
 }

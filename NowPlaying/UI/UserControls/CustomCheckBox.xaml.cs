@@ -11,7 +11,6 @@ namespace NowPlaying.UI.UserControls
         {
             InitializeComponent();
         }
-
         private void DefaultCheckBox_Checked(object sender, RoutedEventArgs e) => IsChecked = true;
         private void DefaultCheckBox_Unchecked(object sender, RoutedEventArgs e) => IsChecked = false;
     }

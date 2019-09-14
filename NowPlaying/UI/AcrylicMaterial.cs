@@ -63,5 +63,4 @@ namespace NowPlaying.UI
             Marshal.FreeHGlobal(accentPtr);
         }
     }
-
 }

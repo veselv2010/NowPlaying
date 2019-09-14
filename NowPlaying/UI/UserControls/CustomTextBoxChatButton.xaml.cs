@@ -14,7 +14,6 @@ namespace NowPlaying.UI.UserControls
 
         private static SolidColorBrush DarkBrush { get; } = new SolidColorBrush(Color.FromRgb(0x17, 0x17, 0x17));
 
-
         public CustomTextBoxChatButton()
         {
             InitializeComponent();
