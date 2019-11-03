@@ -8,7 +8,7 @@ namespace NowPlaying
     {
         public static readonly string SpotifyClientId = "7633771350404368ac3e05c9cf73d187";
         public static readonly string SpotifyClientSecret = "29bd9ec2676c4bf593f3cc2858099838";
-        public static readonly string SpotifyRedirectUri = "https://blank.org/"; // Random link.
+        public static readonly string SpotifyRedirectUri = "https://www.google.com/"; // Random link.
         public static readonly string AssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         internal static class State
