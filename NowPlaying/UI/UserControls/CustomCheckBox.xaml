@@ -38,13 +38,13 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="#FFF3F9FF"/>
+                    <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="{StaticResource SpotifyGrayNight}"/>
                     <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="{StaticResource SpotifyGreen}"/>
                     <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="{StaticResource SpotifyGreen}"/>
                     <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
                     <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
                     <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
-                    <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="{StaticResource FullOpacity}"/>
+                    <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="{StaticResource SpotifyGrayNight}"/>
                     <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="{StaticResource SpotifyGray}"/>
                     <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="{StaticResource SpotifyGreen}"/>
                     <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="{StaticResource SpotifyGreen}"/>

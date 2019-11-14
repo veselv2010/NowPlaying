@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using NowPlaying.Extensions;
 using NowPlaying.Api.SpotifyResponses;
 using NowPlaying.Api;
+using System.Windows.Data;
 
 namespace NowPlaying.UI.Windows
 {
@@ -117,8 +118,8 @@ namespace NowPlaying.UI.Windows
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
-            string keyboardButton = AccountsList.SelectedItem;
-            int _SelectedAccount = AccountsList.SelectedIndex;
+            //string keyboardButton = AccountsList.SelectedItem;
+            int _SelectedAccount = GetSelectedAccountIndex();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
             var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
@@ -127,7 +128,7 @@ namespace NowPlaying.UI.Windows
             {
                 while (true)
                 {
-                    if (AccountsList.SelectedIndex != _SelectedAccount)
+                    if (SelectionChanged(_SelectedAccount))
                         this.Dispatcher.Invoke(() => OnAccountsListSelectionChanged());
 
                     Thread.Sleep(1000);
@@ -197,13 +198,13 @@ namespace NowPlaying.UI.Windows
 
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
-            this.Dispatcher.Invoke(() => LabelWindowHandle.Content = AppInfo.State.WindowHandle);
+            LabelWindowHandle.Content = AppInfo.State.WindowHandle;
             ProgressBarSong.Value = trackResp.Progress / 1000;
         }
 
         private int GetSelectedAccountId()
         {
-            return AppInfo.State.AccountNameToSteamId3[AccountsList.SelectedItem];
+            return AppInfo.State.AccountNameToSteamId3[GetSelectedAccountName()];
         }
 
         private void OnAccountsListSelectionChanged()
@@ -275,6 +276,8 @@ namespace NowPlaying.UI.Windows
                 this.ProgressBarSong.BorderBrush = new SolidColorBrush(Color.FromRgb(102, 102, 102)); //#666666
                 this.SpotifySwitch.NightModeEnable();
                 this.TextBoxKeyBind.NightModeEnable();
+                this.AccountsListNight.Visibility = Visibility.Visible;
+                this.AccountsList.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -284,6 +287,8 @@ namespace NowPlaying.UI.Windows
                 this.ProgressBarSong.BorderBrush = new SolidColorBrush(Color.FromRgb(217, 217, 217)); //#D9D9D9
                 this.SpotifySwitch.NightModeDisable();
                 this.TextBoxKeyBind.NightModeDisable();
+                this.AccountsListNight.Visibility = Visibility.Hidden;
+                this.AccountsList.Visibility = Visibility.Visible;
             }
         }
         private void LabelArtistAnimation()
@@ -361,6 +366,37 @@ namespace NowPlaying.UI.Windows
             LabelDown.Duration = TimeSpan.FromSeconds(0.5);
             LabelDown.AccelerationRatio = 0.05;
             TrackInfo.BeginAnimation(Label.MarginProperty, LabelDown);
+        }
+
+        private string GetSelectedAccountName()
+        {
+            if (NightModeSwitch.IsNightModeToggled)
+                return AccountsListNight.SelectedItem;
+            else
+                return AccountsList.SelectedItem;
+        }
+
+        private int GetSelectedAccountIndex()
+        {
+            if (NightModeSwitch.IsNightModeToggled)
+                return AccountsListNight.SelectedIndex;
+            else
+                return AccountsList.SelectedIndex;
+        }
+
+        private bool SelectionChanged(int _SelectedAccount)
+        {
+            if (NightModeSwitch.IsNightModeToggled)
+            {
+                if (AccountsListNight.SelectedIndex != _SelectedAccount)
+                    return true;
+            }
+            else
+            {
+                if (AccountsList.SelectedIndex != _SelectedAccount)
+                    return true;
+            }
+            return false;
         }
     }
 }

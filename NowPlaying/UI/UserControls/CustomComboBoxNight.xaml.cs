@@ -1,14 +1,15 @@
-﻿using System.Windows.Controls;
+﻿
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace NowPlaying.UI.UserControls
 {
-    public partial class CustomComboBox : UserControl
+    public partial class CustomComboBoxNight : UserControl
     {
         public string SelectedItem { get; private set; }
         public int SelectedIndex { get; private set; }
 
-        public CustomComboBox()
+        public CustomComboBoxNight()
         {
             InitializeComponent();
 
@@ -17,7 +18,7 @@ namespace NowPlaying.UI.UserControls
                 this.DefaultComboBox.Items.Add(a);
             }
 
-            this.DefaultComboBox.Foreground = new SolidColorBrush(Color.FromRgb(0x7e, 0x7e, 0x7e));
+            this.DefaultComboBox.Foreground = new SolidColorBrush(Color.FromArgb(0xff, 0xf9, 0xf9, 0xf9));
             this.DefaultComboBox.SelectedItem = SteamIdLooker.SteamLastLoggedOnAccount;
         }
 

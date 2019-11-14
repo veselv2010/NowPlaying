@@ -6,8 +6,10 @@ namespace NowPlaying.GameProcessHook
 {
     public class GameProcess : ThreadComponent
     {
-        private const string ProcessName = "csgo";
-        private const string ProcessWindowName = "Counter-Strike: Global Offensive";
+        private const string ProcessNameCsgo = "csgo";
+        private const string ProcessNameTf2 = "hl2";
+        private const string ProcessWindowNameCsgo = "Counter-Strike: Global Offensive";
+        private const string ProcessWindowNameTf2 = "Team Fortress 2";
 
         protected override string ThreadName => "GameProcess";
         protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 500);
@@ -62,7 +64,10 @@ namespace NowPlaying.GameProcessHook
         private bool EnsureProcessAndModules()
         {
             if (Process == null)
-                Process = Process.GetProcessesByName(ProcessName).FirstOrDefault();
+                Process = Process.GetProcessesByName(ProcessNameCsgo).FirstOrDefault();
+
+            if (Process == null)
+                Process = Process.GetProcessesByName(ProcessNameTf2).FirstOrDefault();
 
             if (Process == null || !Process.IsRunning())
                 return false;
@@ -72,7 +77,10 @@ namespace NowPlaying.GameProcessHook
 
         private bool EnsureWindow()
         {
-            WindowHwnd = WinAPIUser32Methods.FindWindow(null, ProcessWindowName);
+            WindowHwnd = WinAPIUser32Methods.FindWindow(null, ProcessWindowNameCsgo);
+
+            if (WindowHwnd == IntPtr.Zero)
+                WindowHwnd = WinAPIUser32Methods.FindWindow(null, ProcessWindowNameTf2);
 
             if (WindowHwnd == IntPtr.Zero)
                 return false;

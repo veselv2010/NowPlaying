@@ -126,6 +126,9 @@
     <Compile Include="UI\UserControls\CustomCheckBox.xaml.cs">
       <DependentUpon>CustomCheckBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserControls\CustomComboBoxNight.xaml.cs">
+      <DependentUpon>CustomComboBoxNight.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserControls\CustomTextBoxChatButton.xaml.cs">
       <DependentUpon>CustomTextBoxChatButton.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
     <Page Include="UI\UserControls\CustomCheckBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserControls\CustomComboBoxNight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UserControls\CustomTextBoxChatButton.xaml">
       <SubType>Designer</SubType>
