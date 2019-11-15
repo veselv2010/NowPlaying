@@ -20,7 +20,7 @@ namespace NowPlaying.UI.UserControls
 
         private readonly SolidColorBrush SpotifyGreenBrush = new SolidColorBrush(Color.FromRgb(29, 185, 84));
         private readonly SolidColorBrush SpotifyGrayNightBrush = new SolidColorBrush(Color.FromRgb(126, 126, 126));
-        ThicknessAnimation AnimThickness = new ThicknessAnimation();
+        private readonly ThicknessAnimation AnimThickness = new ThicknessAnimation();
 
         public bool IsNightModeToggled = false;
 

@@ -119,6 +119,7 @@
     <Compile Include="GameProcessHook\ProcessExtensions.cs" />
     <Compile Include="GameProcessHook\ThreadComponent.cs" />
     <Compile Include="GameProcessHook\WinAPI\WinAPIUser32Methods.cs" />
+    <Compile Include="NowPlayingConfig.cs" />
     <Compile Include="UI\AcrylicMaterial.cs" />
     <Compile Include="UI\UserControls\CloseButton.xaml.cs">
       <DependentUpon>CloseButton.xaml</DependentUpon>

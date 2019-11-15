@@ -15,6 +15,7 @@ namespace NowPlaying.UI.Windows
 {
     public partial class MainWindow : Window
     {
+        private NowPlayingConfigWorker NowPlayingConfig;
         private string PlayingTrackName { get; set; }
         private bool IsAutoTrackChangeEnabled { get; set; }
         private string CurrentKeyBind { get; set; }
@@ -29,10 +30,6 @@ namespace NowPlaying.UI.Windows
             this.InitializeComponent();
 
             _spotify = new SpotifyRequestsManager(AppInfo.SpotifyClientId, AppInfo.SpotifyClientSecret);
-
-            #if DEBUG
-            DebugCheckBox.Visibility = Visibility.Visible;
-            #endif
         }
 
         private void InitializeTrayMenu()
@@ -50,6 +47,7 @@ namespace NowPlaying.UI.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadConfigSettings();
             this.Hide();
 
             var browserWindow = new BrowserWindow(_spotify);
@@ -93,7 +91,9 @@ namespace NowPlaying.UI.Windows
             if (AccountsList.SelectedItem == null)
                 return;
 
-            var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter(
+                $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg",
+                this.NowPlayingConfig.Config.CfgText);
             cfgWriter.RewriteKeyBinding(trackResp);
         }
 
@@ -127,7 +127,9 @@ namespace NowPlaying.UI.Windows
             int _SelectedAccount = GetSelectedAccountIndex();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
-            var cfgWriter = new ConfigWriter($@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg");
+            var cfgWriter = new ConfigWriter(
+                $@"{SteamIdLooker.UserdataPath}\{this.GetSelectedAccountId().ToString()}\730\local\cfg\audio.cfg",
+                this.NowPlayingConfig.Config.CfgText);
 
             await Task.Factory.StartNew(() =>
             {
@@ -229,6 +231,12 @@ namespace NowPlaying.UI.Windows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            NowPlayingConfig LastSettings = new NowPlayingConfig();
+            LastSettings.LastUsedKey = TextBoxKeyBind.DefaultTextBox.Text;
+            LastSettings.IsNightModeEnabled = NightModeSwitch.IsNightModeToggled;
+            LastSettings.IsAutoSendEnabled = CheckBoxAutoSend.DefaultCheckBox.IsChecked.Value;
+
+            NowPlayingConfig.SaveConfigFile(LastSettings);
             Program.Dispose();
         }
 
@@ -396,6 +404,25 @@ namespace NowPlaying.UI.Windows
                     return true;
             }
             return false;
+        }
+
+        private void LoadConfigSettings()
+        {
+            NowPlayingConfig = new NowPlayingConfigWorker();
+
+            if (NowPlayingConfig.Config.IsNightModeEnabled)
+            {
+                NightModeSwitch.Toggle();
+                ToggleSwitchNightMode_MouseLeftButtonDown(null, null);
+            }
+
+            if (NowPlayingConfig.Config.IsAutoSendEnabled)
+                CheckBoxAutoSend.DefaultCheckBox.IsChecked = true;
+
+            if (NowPlayingConfig.Config.IsDebugModeEnabled)
+                DebugCheckBox.Visibility = Visibility.Visible;
+
+            TextBoxKeyBind.DefaultTextBox.Text = NowPlayingConfig.Config.LastUsedKey;           
         }
     }
 }

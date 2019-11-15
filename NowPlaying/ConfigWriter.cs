@@ -8,10 +8,9 @@ namespace NowPlaying
     internal class ConfigWriter
     {
         private string WritePath { get; set; }
+        private string WriteConfigText { get; set; }
 
-        private const string WriteConfigText = "say \"[Spotify] Now Playing: {0}\"";
-
-        public ConfigWriter(string writePath)
+        public ConfigWriter(string writePath, string writeConfigText = "say [Spotify] Now Playing: {0}")
         {
             Process process = Process.GetProcessesByName("hl2").FirstOrDefault();
 
@@ -19,6 +18,8 @@ namespace NowPlaying
                 this.WritePath = process.MainModule.FileName.Replace("hl2.exe", "") + "tf\\cfg\\audio.cfg";
             else
                 this.WritePath = writePath;
+
+            this.WriteConfigText = writeConfigText;
 
             int indexOfAudioCfg = this.WritePath.IndexOf(@"\audio.cfg");
             Directory.CreateDirectory(this.WritePath.Remove(indexOfAudioCfg));
@@ -29,7 +30,7 @@ namespace NowPlaying
 
         public void RewriteKeyBinding(CurrentTrackResponse currentTrack)
         {
-            string strForWriting = string.Format(ConfigWriter.WriteConfigText, currentTrack.FullName);
+            string strForWriting = string.Format(this.WriteConfigText, currentTrack.FullName);
 
             this.RewriteKeyBinding(strForWriting);
         }
