@@ -10,7 +10,6 @@ using System.Windows.Media.Animation;
 using NowPlaying.Extensions;
 using NowPlaying.Api.SpotifyResponses;
 using NowPlaying.Api;
-using System.Windows.Data;
 
 namespace NowPlaying.UI.Windows
 {
@@ -107,10 +106,17 @@ namespace NowPlaying.UI.Windows
                 return;
             }
 
+            //if (AppInfo.State.WindowName == string.Empty)
+            //{
+            //    this.SpotifySwitch.TurnOff();
+            //    MessageBox.Show("make game window active at least once");
+            //    return;
+            //}
+
             if (!SourceKeysExtensions.SourceEngineAllowedKeys.Contains(this.TextBoxKeyBind.CurrentText))
             {
                 this.SpotifySwitch.TurnOff();
-                MessageBox.Show("такой кнопки в кантре нет");
+                MessageBox.Show("there is no such button in source engine");
                 return;
             }
 
@@ -118,7 +124,6 @@ namespace NowPlaying.UI.Windows
 
             this.ButtonDo_Click(this, null); // force first request to not wait for the Thread.Sleep(1000)
 
-            //string keyboardButton = AccountsList.SelectedItem;
             int _SelectedAccount = GetSelectedAccountIndex();
             this._cancellationGetSpotifyUpdates = new CancellationTokenSource();
 
@@ -198,7 +203,7 @@ namespace NowPlaying.UI.Windows
 
             this.LabelCurrentTime.Content = $"{trackResp.ProgressMinutes.ToString()}:{trackResp.ProgressSeconds:00}";
             this.LabelEstimatedTime.Content = $"{trackResp.DurationMinutes.ToString()}:{trackResp.DurationSeconds:00}";
-            LabelWindowHandle.Content = AppInfo.State.WindowHandle;
+            LabelWindowHandle.Content = AppInfo.State.WindowName;
             ProgressBarSong.Value = trackResp.Progress / 1000;
         }
 

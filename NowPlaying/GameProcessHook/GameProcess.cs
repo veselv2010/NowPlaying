@@ -43,7 +43,8 @@ namespace NowPlaying.GameProcessHook
                 InvalidateWindow();
             }
 
-            AppInfo.State.WindowHandle = IsValid ? $"0x{(int)Process.Handle:X8}" : null;
+            AppInfo.State.WindowName = IsValid ? Process.MainWindowTitle : null;
+            // $"0x{(int)Process.Handle:X8}" 
         }
 
         private void InvalidateModules()

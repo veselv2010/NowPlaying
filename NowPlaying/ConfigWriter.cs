@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Diagnostics;
+using System.Linq;
 using NowPlaying.Api.SpotifyResponses;
 
 namespace NowPlaying
@@ -11,7 +13,12 @@ namespace NowPlaying
 
         public ConfigWriter(string writePath)
         {
-            this.WritePath = writePath;
+            Process process = Process.GetProcessesByName("hl2").FirstOrDefault();
+
+            if (process != null)
+                this.WritePath = process.MainModule.FileName.Replace("hl2.exe", "") + "tf\\cfg\\audio.cfg";
+            else
+                this.WritePath = writePath;
 
             int indexOfAudioCfg = this.WritePath.IndexOf(@"\audio.cfg");
             Directory.CreateDirectory(this.WritePath.Remove(indexOfAudioCfg));

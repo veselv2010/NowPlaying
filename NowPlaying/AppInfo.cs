@@ -22,8 +22,24 @@ namespace NowPlaying
             public static IList<string> AccountNames { get; } = new List<string>();
 
             public static IDictionary<string, int> AccountNameToSteamId3 { get; } = new Dictionary<string, int>();
+            private static string _WindowName;
+            public static string WindowName
+            {
+                get
+                {
+                    if(_WindowName != null)
+                        return _WindowName;
 
-            public static string WindowHandle { get; set; }
+                    return string.Empty;
+                }
+                set
+                {
+                    if (value == null || _WindowName == value)
+                        return;
+
+                    _WindowName = value;
+                }
+            }
 
             public static void UpdateToken(string accessToken, int expiresIn)
             {
