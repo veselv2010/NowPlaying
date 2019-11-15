@@ -189,8 +189,8 @@ namespace NowPlaying.UI.Windows
                 this.PlayingTrackId = trackResp.Id;
                 this.PlayingTrackName = trackResp.Name;
 
-                AnimateLabel(trackResp.FormattedArtists, true, LabelArtist);
-                AnimateLabel(trackResp.Name, false, LabelFormatted);
+                AnimateLabel(trackResp.FormattedArtists, true, LabelArtist, new Thickness(0, 0, 0, 0));
+                AnimateLabel(trackResp.Name, false, LabelFormatted, new Thickness(70, 344, 70, 0));
 
                 this.ProgressBarSong.Value = 0;
                 this.ProgressBarSong.Maximum = trackResp.Duration / 1000; 
@@ -317,25 +317,21 @@ namespace NowPlaying.UI.Windows
             Dispatcher.Invoke(() => ProgressBarSong.UpdateLayout());
         }
 
-        private void AnimateLabel(string text, bool IsUpper, Label TrackInfo)
+        private void AnimateLabel(string text, bool IsUpper, Label TrackInfo, Thickness OriginalPosition)
         {
             ThicknessAnimation LabelDown = new ThicknessAnimation();
-            LabelDown.Completed += new EventHandler((_sender, _args) => AnimateLabelReverse(text, !IsUpper, TrackInfo));
-            Thickness LabelOriginalPos = TrackInfo.Margin;
+            LabelDown.Completed += new EventHandler((_sender, _args) => AnimateLabelReverse(text, !IsUpper, TrackInfo, OriginalPosition));
+            Thickness LabelOriginalPos = OriginalPosition;
             Thickness LabelAfterAnimPos;
             if (IsUpper)
             {
-                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left, 
-                    TrackInfo.Margin.Top + 24, 
-                    TrackInfo.Margin.Right, 
-                    TrackInfo.Margin.Bottom);
+                LabelAfterAnimPos = LabelOriginalPos;
+                LabelAfterAnimPos.Top += 24;
             }
             else
             {
-                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left,
-                    TrackInfo.Margin.Top - 24,
-                    TrackInfo.Margin.Right,
-                    TrackInfo.Margin.Bottom);
+                LabelAfterAnimPos = LabelOriginalPos;
+                LabelAfterAnimPos.Top -= 24;
             }
 
             LabelDown.To = LabelAfterAnimPos;
@@ -345,25 +341,23 @@ namespace NowPlaying.UI.Windows
             TrackInfo.BeginAnimation(Label.MarginProperty, LabelDown);
         }
 
-        private void AnimateLabelReverse(string text, bool IsUpper, Label TrackInfo)
+        private void AnimateLabelReverse(string text, bool IsUpper, Label TrackInfo, Thickness OriginalPosition)
         {
             Dispatcher.Invoke(() => TrackInfo.Content = text);
             ThicknessAnimation LabelDown = new ThicknessAnimation();
-            Thickness LabelOriginalPos = TrackInfo.Margin;
+            Thickness LabelOriginalPos = OriginalPosition;
             Thickness LabelAfterAnimPos;
             if (IsUpper)
             {
-                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left,
-                    TrackInfo.Margin.Top + 24,
-                    TrackInfo.Margin.Right,
-                    TrackInfo.Margin.Bottom);
+                LabelOriginalPos.Top -= 24;
+                LabelAfterAnimPos = LabelOriginalPos;
+                LabelAfterAnimPos.Top += 24;
             }
             else
             {
-                LabelAfterAnimPos = new Thickness(TrackInfo.Margin.Left,
-                    TrackInfo.Margin.Top - 24,
-                    TrackInfo.Margin.Right,
-                    TrackInfo.Margin.Bottom);
+                LabelOriginalPos.Top += 24;
+                LabelAfterAnimPos = LabelOriginalPos;
+                LabelAfterAnimPos.Top -= 24;
             }
 
             LabelDown.To = LabelAfterAnimPos;
