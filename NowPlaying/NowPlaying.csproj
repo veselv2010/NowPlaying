@@ -123,9 +123,8 @@
     <Compile Include="Models\TrackInfoModel.cs" />
     <Compile Include="ViewModels\ObservableObject.cs" />
     <Compile Include="ViewModels\Presenter.cs" />
-    <Compile Include="ViewModels\TrackInfoPresenter.cs" />
-    <Compile Include="View\ActualWindow.xaml.cs">
-      <DependentUpon>ActualWindow.xaml</DependentUpon>
+    <Compile Include="View\WindowView.xaml.cs">
+      <DependentUpon>WindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\AcrylicMaterial.cs" />
     <Compile Include="View\UI\UserControls\CloseButton.xaml.cs">
@@ -165,10 +164,9 @@
     <Compile Include="View\UI\UserControls\CustomComboBox.xaml.cs">
       <DependentUpon>CustomComboBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\WinAPIInputSender\KeyFormatter.cs" />
     <Compile Include="Models\WinAPIInputSender\KeySender.cs" />
-    <Compile Include="View\TrackInfoView.xaml.cs">
-      <DependentUpon>TrackInfoView.xaml</DependentUpon>
+    <Compile Include="View\ControlView.xaml.cs">
+      <DependentUpon>ControlView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -234,7 +232,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\ActualWindow.xaml">
+    <Page Include="View\WindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +276,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TrackInfoView.xaml">
+    <Page Include="View\ControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

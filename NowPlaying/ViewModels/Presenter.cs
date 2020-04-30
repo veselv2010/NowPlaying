@@ -1,23 +1,65 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using NowPlaying.Api;
+using NowPlaying.Api.SpotifyResponses;
 
 namespace NowPlaying.ViewModels
 {
-    public class Presenter : ObservableObject
+    class Presenter : ObservableObject
     {
-        private string keyBind;
-
-        public string KeyBind
+        private CurrentTrackResponse resp;
+        public CurrentTrackResponse Resp
         {
-            get { return keyBind; }
-            set 
+            get { return resp; }
+            set
             {
-                keyBind = value;
-                RaisePropertyChangedEvent("KeyBind");
+                resp = value;
+                RaisePropertyChangedEvent("resp");
             }
         }
+
+        public string Artists
+        {
+            get
+            {
+                return resp.FormattedArtists;
+            }
+        }
+
+        public string SongName
+        {
+            get
+            {
+                return resp.FullName;
+            }
+        }
+
+        public string CurrentTime
+        {
+            get
+            {
+                return $"{resp.ProgressMinutes.ToString()}:{resp.ProgressSeconds:00}";
+            }
+        }
+
+        public string EstmatedTime
+        {
+            get
+            {
+                return $"{resp.DurationMinutes.ToString()}:{resp.DurationSeconds:00}";
+            }
+        }
+
+        public double Progress
+        {
+            get
+            {
+                return resp.Progress / 1000;
+            }
+        }
+
+
     }
 }

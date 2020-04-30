@@ -57,7 +57,7 @@ namespace NowPlaying
                 if (steamId64Match.Success)
                 {
                     long steamId64 = long.Parse(steamId64Match.Value);
-                    int steamId32 = (int)(steamId64 - 76561197960265728); //steamid64 - 76561197960265728 = steamid3/32
+                    int steamId32 = GetSteamId32(steamId64);
 
                     userdataNumbers.Add(steamId32);
                 }
@@ -74,6 +74,11 @@ namespace NowPlaying
             {
                 AppInfo.State.AccountNameToSteamId3.Add(AppInfo.State.AccountNames[i], userdataNumbers[i]);
             }
+        }
+
+        private int GetSteamId32(long steamId64) //steamid64 - 76561197960265728 = steamid3/32
+        {
+            return (int)(steamId64 - 76561197960265728);
         }
     }
 }
