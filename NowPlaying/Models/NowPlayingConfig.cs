@@ -4,7 +4,7 @@ using System.IO;
 
 namespace NowPlaying
 {
-    class NowPlayingConfigWorker
+    public class NowPlayingConfigWorker
     {
         private readonly string ConfigName = "NowPlayingConfig.json";
 

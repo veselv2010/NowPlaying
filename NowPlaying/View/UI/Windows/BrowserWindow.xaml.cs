@@ -9,7 +9,6 @@ namespace NowPlaying.UI.Windows
     public partial class BrowserWindow : Window
     {
         private string Url { get; set; }
-
         public string ResultToken { get; private set; }
         public int ExpireTime { get; private set; }
         public string RefreshToken { get; private set; }
@@ -22,7 +21,7 @@ namespace NowPlaying.UI.Windows
 
             var settings = new CefSettings
             {
-                CachePath = "cache", //несет ли какие-нибудь последствия эта тема в плане безопасности
+                CachePath = "cache",
             };
             CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
             Cef.Initialize(settings);

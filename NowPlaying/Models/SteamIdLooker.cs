@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 
 namespace NowPlaying
 {
-    internal class SteamIdLooker
+    public class SteamIdLooker
     {
-        private static string _steamFullPathCached;
-        private static string SteamFullPath
+        private string _steamFullPathCached;
+        private string SteamFullPath
         {
             get
             {
@@ -24,7 +24,7 @@ namespace NowPlaying
             }
         }
 
-        public static string SteamLastLoggedOnAccount
+        public string SteamLastLoggedOnAccount
         {
             get
             {
@@ -37,9 +37,9 @@ namespace NowPlaying
             }
         }
 
-        public static string UserdataPath => SteamFullPath + @"\userdata";
+        public string UserdataPath => SteamFullPath + @"\userdata";
 
-        public static void UpdateAccountsInfo()
+        public void UpdateAccountsInfo()
         {
             var loginUsersPath = SteamFullPath + @"\config\loginusers.vdf";
 

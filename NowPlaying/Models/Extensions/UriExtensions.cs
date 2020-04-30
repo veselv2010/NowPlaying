@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NowPlaying.Extensions
 {
-    internal static class UriExtensions
+    public class UriExtensions
     {
         public static string GetPropertyValue(string uri, string propertyName)
         {

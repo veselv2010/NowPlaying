@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace NowPlaying
 {
-    class KeySender
+    public class KeySender
     {
-        public static void SendInputWithAPI(string Key)
+        public void SendInputWithAPI(string Key)
         {
             INPUT[] Inputs = new INPUT[1];
             INPUT Input = new INPUT();

@@ -2,21 +2,21 @@
 
 namespace NowPlaying
 {
-    class KeyFormatter
+    public class KeyFormatter
     {
-        public static KeySender.ScanCodeShort GetKey(string Key)
+        public KeySender.ScanCodeShort GetKey(string Key)
         {
             KeyValuePairs.TryGetValue(Key, out KeySender.ScanCodeShort KeyCode);
             return KeyCode;
         }
 
-        public static KeySender.VirtualKeyShort GetVirtualKey(string Key)
+        public KeySender.VirtualKeyShort GetVirtualKey(string Key)
         {
             VirtualKeyValuePairs.TryGetValue(Key, out KeySender.VirtualKeyShort KeyCode);
             return KeyCode;
         }
 
-        public static Dictionary<string, KeySender.ScanCodeShort> KeyValuePairs = new Dictionary<string, KeySender.ScanCodeShort>
+        public Dictionary<string, KeySender.ScanCodeShort> KeyValuePairs = new Dictionary<string, KeySender.ScanCodeShort>
         {
           //{""},
             {"space", KeySender.ScanCodeShort.SPACE},

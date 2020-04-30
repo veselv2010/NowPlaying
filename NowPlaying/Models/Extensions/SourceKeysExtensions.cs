@@ -6,7 +6,7 @@ namespace NowPlaying.Extensions
 {
     public class SourceKeysExtensions
     {
-        public static bool TryOpenSourceKeysFile()
+        public bool TryOpenSourceKeysFile()
         {
             if (File.Exists("Resources/SourceKeys.txt"))
             {
@@ -18,8 +18,7 @@ namespace NowPlaying.Extensions
         }
 
         #region Source Keys
-
-        public static List<string> SourceEngineAllowedKeys = new List<string>() //todo
+        public List<string> SourceEngineAllowedKeys = new List<string>() //todo
         {
             {"space"},
             {"capslock"},
@@ -123,7 +122,6 @@ namespace NowPlaying.Extensions
             {"*"},
             {"kp_enter"}
         };
-
         #endregion
     }
 }
