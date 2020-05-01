@@ -114,6 +114,9 @@
     <Compile Include="Models\Api\SpotifyRequestsManager.cs" />
     <Compile Include="Models\Api\SpotifyResponses\CurrentTrackResponse.cs" />
     <Compile Include="Models\Api\SpotifyResponses\TokenResponse.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="Models\AuthPresenterModel.cs" />
     <Compile Include="Models\GameProcessHook\GameProcess.cs" />
@@ -157,7 +160,6 @@
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Models\SteamIdLooker.cs" />
     <Compile Include="Views\UI\UserControls\ToggleSwitchNightMode.xaml.cs">
       <DependentUpon>ToggleSwitchNightMode.xaml</DependentUpon>
@@ -240,6 +242,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AuthControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

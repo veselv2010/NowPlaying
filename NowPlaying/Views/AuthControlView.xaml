@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="770" d:DesignWidth="550">
     <StackPanel>
-        <CefBrowser:ChromiumWebBrowser/>
+        <CefBrowser:ChromiumWebBrowser HorizontalAlignment="Stretch" Address="https://accounts.spotify.com/authorize?client_id=7633771350404368ac3e05c9cf73d187&amp;redirect_uri=https://www.google.com/&amp;response_type=code&amp;scope=user-read-playback-state"/>
     </StackPanel>
     
 </UserControl>
