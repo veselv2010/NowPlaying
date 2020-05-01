@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:NowPlaying.UI.UserControls"
              xmlns:ViewModels="clr-namespace:NowPlaying.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="111" 
+             d:DesignHeight="685" 
              d:DesignWidth="450"
-             d:DataContext="{d:DesignInstance ViewModels:Presenter}"> 
-    
-    <StackPanel Height="111">
+             >
+
+    <StackPanel Height="685">
+        <controls:ToggleSwitchNightMode x:Name="NightModeSwitch" HorizontalAlignment="Left" Height="20" Margin="264,7,0,0" VerticalAlignment="Top" Width="98" MouseLeftButtonDown="ToggleSwitchNightMode_MouseLeftButtonDown"/>
+        <Label x:Name="LabelHelp" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Width="31" Height="15" Visibility="Visible" Padding="0" MouseLeftButtonUp="LabelHelpClick" Foreground="{Binding ElementName=LabelCurrentKey, Path=Foreground, Mode=OneWay}" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Cursor="Hand">
+            <TextBlock Style="{StaticResource ResourceKey=LabelUnderline}">!help</TextBlock>
+        </Label>
+        <Rectangle Fill="Transparent" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="450" Panel.ZIndex="-1" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
         <Label Width="95" FontSize="14" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" Padding="0" Foreground="#FF7E7E7E">Current track</Label>
         <Label Content="{Binding Artists}" Margin="0,10,0,0" Width="450" Foreground="#FF1DB954" HorizontalContentAlignment="Center" Padding="0" FontFamily="/NowPlaying;component/Resources/Font/#Montserrat" FontSize="20" FontWeight="Bold" Panel.ZIndex="-2"/>
         <Rectangle Fill="AntiqueWhite" Stroke="#00000000" Panel.ZIndex="-1" Height="19"/>

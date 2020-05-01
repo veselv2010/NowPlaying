@@ -18,7 +18,7 @@ namespace NowPlaying.UI.UserControls
             }
 
             this.DefaultComboBox.Foreground = new SolidColorBrush(Color.FromRgb(0x7e, 0x7e, 0x7e));
-            this.DefaultComboBox.SelectedItem = SteamIdLooker.SteamLastLoggedOnAccount;
+            this.DefaultComboBox.SelectedItem = SteamIdLooker.SteamLastAccount;
         }
 
         private void DefaultComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
