@@ -7,37 +7,37 @@ namespace NowPlaying
 {
     internal class ConfigWriter
     {
-        private string WritePath { get; set; }
-        private string WriteConfigText { get; set; }
+        private string writePath { get; set; }
+        private string writeConfigText { get; set; }
 
         public ConfigWriter(string writePath, string writeConfigText = "say [Spotify] Now Playing: {0}")
         {
-            Process process = Process.GetProcessesByName("hl2").FirstOrDefault();
+            Process process = Process.GetProcessesByName("hl2").FirstOrDefault(); //прямой пример технического долга
 
             if (process != null)
-                this.WritePath = process.MainModule.FileName.Replace("hl2.exe", "") + "tf\\cfg\\audio.cfg";
+                this.writePath = process.MainModule.FileName.Replace("hl2.exe", "") + "tf\\cfg\\audio.cfg";
             else
-                this.WritePath = writePath;
+                this.writePath = writePath;
 
-            this.WriteConfigText = writeConfigText;
-
-            int indexOfAudioCfg = this.WritePath.IndexOf(@"\audio.cfg");
-            Directory.CreateDirectory(this.WritePath.Remove(indexOfAudioCfg));
-
-            if (!File.Exists(this.WritePath))
-                File.CreateText(this.WritePath).Dispose();
+            this.writeConfigText = writeConfigText;
         }
 
         public void RewriteKeyBinding(CurrentTrackResponse currentTrack)
         {
-            string strForWriting = string.Format(this.WriteConfigText, currentTrack.FullName);
+            int indexOfAudioCfg = this.writePath.IndexOf(@"\audio.cfg");
+            Directory.CreateDirectory(this.writePath.Remove(indexOfAudioCfg));
+
+            if (!File.Exists(this.writePath))
+                File.CreateText(this.writePath).Dispose();
+
+            string strForWriting = string.Format(this.writeConfigText, currentTrack.FullName);
 
             this.RewriteKeyBinding(strForWriting);
         }
 
         public void RewriteKeyBinding(string line)
         {
-            using (var sw = new StreamWriter(this.WritePath))
+            using (var sw = new StreamWriter(this.writePath))
                 sw.WriteLine(line);
         }
     }

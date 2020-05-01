@@ -8,6 +8,7 @@ namespace NowPlaying.UI.Windows
 {
     public partial class BrowserWindow : Window
     {
+        private string redirectUrl = "https://www.google.com/";
         private string Url { get; set; }
         public string ResultToken { get; private set; }
         public int ExpireTime { get; private set; }
@@ -32,13 +33,13 @@ namespace NowPlaying.UI.Windows
         {
             Dispatcher.Invoke(() => Url = Browser.Address);
 
-            if (Url != null && Url.StartsWith(AppInfo.SpotifyRedirectUri + "?code="))
+            if (Url != null && Url.StartsWith(redirectUrl + "?code="))
             {
                 while (RefreshToken == null)
                 {
                     string code = UriExtensions.GetPropertyValue(Url, "code");
 
-                    var tokenResp = _spotify.GetToken(code, AppInfo.SpotifyRedirectUri);
+                    var tokenResp = _spotify.GetToken(code, redirectUrl);
 
                     this.ExpireTime = tokenResp.ExpiresIn;
                     this.ResultToken = tokenResp.AccessToken;

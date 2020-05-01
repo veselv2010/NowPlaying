@@ -7,8 +7,6 @@ namespace NowPlaying.Api
 {
     public abstract class RequestsManager
     {
-
-        private readonly Func<string, string, string> _currentTrack;
         private WebClient CreateWebClient()
         {
             return new WebClient() { Encoding = Encoding.UTF8 };

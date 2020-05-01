@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -10,7 +11,7 @@ namespace NowPlaying.Extensions
         {
             if (File.Exists("Resources/SourceKeys.txt"))
             {
-                Process.Start(AppInfo.AssemblyDirectory + "/Resources/SourceKeys.txt");
+                Process.Start(AppDomain.CurrentDomain.BaseDirectory + "/Resources/SourceKeys.txt");
                 return true;
             }
 

@@ -29,7 +29,8 @@ namespace NowPlaying.UI.Windows
         {
             this.InitializeComponent();
 
-            _spotify = new SpotifyRequestsManager(AppInfo.SpotifyClientId, AppInfo.SpotifyClientSecret);
+            _spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187", 
+                "29bd9ec2676c4bf593f3cc2858099838");
         }
 
         private void InitializeTrayMenu()

@@ -7,6 +7,9 @@ namespace NowPlaying
 {
     public class SteamIdLooker
     {
+        private const long steamId32Mask = 76561197960265728;
+        private const string steamRegistryPath = @"HKEY_CURRENT_USER\Software\Valve\Steam";
+
         private string steamFullPathCached;
         private string SteamFullPath
         {
@@ -15,7 +18,7 @@ namespace NowPlaying
                 if (steamFullPathCached != null)
                     return steamFullPathCached;
 
-                var path = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", "") as string;
+                var path = Registry.GetValue(steamRegistryPath, "SteamPath", "") as string;
 
                 if (string.IsNullOrEmpty(path))
                     throw new DirectoryNotFoundException("Unable to locate the steam folder");
@@ -23,20 +26,20 @@ namespace NowPlaying
                 return steamFullPathCached = path;
             }
         }
-        private string steamLasAccountCached;
+        private string steamLastAccountCached;
         public string SteamLastAccount
         {
             get
             {
-                if (steamLasAccountCached != null)
-                    return steamLasAccountCached;
+                if (steamLastAccountCached != null)
+                    return steamLastAccountCached;
 
-                var account = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "AutoLoginUser", "") as string;
+                var account = Registry.GetValue(steamRegistryPath, "AutoLoginUser", "") as string;
 
                 if (string.IsNullOrEmpty(account))
                     throw new DirectoryNotFoundException("Unable to locate last logged-on account");
 
-                return steamLasAccountCached = account;
+                return steamLastAccountCached = account;
             }
         }
 
@@ -45,44 +48,45 @@ namespace NowPlaying
 
         public IDictionary<string, int> GetSteamAccounts()
         {
-            IDictionary<string, int> accounts = new Dictionary<string, int>();
+            var accounts = new Dictionary<string, int>();
             string line;
             int currentSteamId32 = 0;
 
             var regexSteamId64 = new Regex(@"(765611)\d+");
             var regexAcc = new Regex(@"AccountName""\s*""(\w+)");
 
-            using (StreamReader reader = new StreamReader(loginUsersPath)) 
-
-            while ((line = reader.ReadLine()) != null)
+            using (var reader = new StreamReader(loginUsersPath))
             {
-                var steamId64Match = regexSteamId64.Match(line);
-
-                if (steamId64Match.Success)
+                while ((line = reader.ReadLine()) != null)
                 {
-                    long steamId64 = long.Parse(steamId64Match.Value);
-                    currentSteamId32 = GetSteamId32(steamId64);
-                    continue;
-                }
+                    var steamId64Match = regexSteamId64.Match(line);
 
-                var accMatch = regexAcc.Match(line);
+                    if (steamId64Match.Success)
+                    {
+                        long steamId64 = long.Parse(steamId64Match.Value);
+                        currentSteamId32 = GetSteamId32(steamId64);
+                        continue;
+                    }
 
-                if (accMatch.Success)
-                {
-                    if (currentSteamId32 == 0)
-                        throw new FileFormatException();
+                    var accMatch = regexAcc.Match(line);
 
-                    accounts.Add(accMatch.Groups[1].Value, currentSteamId32);
-                    continue;
+                    if (accMatch.Success)
+                    {
+                        if (currentSteamId32 == 0)
+                            throw new FileFormatException();
+
+                        accounts.Add(accMatch.Groups[1].Value, currentSteamId32);
+                        continue;
+                    }
                 }
             }
 
             return accounts;
         }
 
-        private int GetSteamId32(long steamId64) //steamid64 - 76561197960265728 = steamid3/32
+        private int GetSteamId32(long steamId64)
         {
-            return (int)(steamId64 - 76561197960265728);
+            return (int)(steamId64 - steamId32Mask);
         }
     }
 }
