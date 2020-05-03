@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
 using NowPlaying.GameProcessHook;
+using NowPlaying.Models;
 using NowPlaying.UI.Windows;
 using NowPlaying.UI;
+using NowPlaying.Views;
 
 namespace NowPlaying
 {
@@ -25,6 +27,12 @@ namespace NowPlaying
 
             app.InitializeComponent();
             app.Run();
+
+            var steamWorker = new SteamIdLooker();
+            var steamAccounts = steamWorker.GetSteamAccounts();
+
+            var browser = new AuthControlView();
+
         }
 
         public static TrayMenu TrayMenu { get; } = new TrayMenu();

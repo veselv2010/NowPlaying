@@ -125,59 +125,44 @@
     <Compile Include="Models\GameProcessHook\WinAPI\WinAPIUser32Methods.cs" />
     <Compile Include="Models\NowPlayingConfig.cs" />
     <Compile Include="Models\PresenterModel.cs" />
-    <Compile Include="ViewModels\AuthPresenter.cs" />
-    <Compile Include="ViewModels\ObservableObject.cs" />
-    <Compile Include="ViewModels\Presenter.cs" />
-    <Compile Include="Views\AuthControlView.xaml.cs">
-      <DependentUpon>AuthControlView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AuthWindowView.xaml.cs">
-      <DependentUpon>AuthWindowView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowView.xaml.cs">
-      <DependentUpon>WindowView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UI\AcrylicMaterial.cs" />
-    <Compile Include="Views\UI\UserControls\CloseButton.xaml.cs">
+    <Compile Include="UI\AcrylicMaterial.cs" />
+    <Compile Include="UI\UserControls\CloseButton.xaml.cs">
       <DependentUpon>CloseButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\UserControls\CustomCheckBox.xaml.cs">
+    <Compile Include="UI\UserControls\CustomCheckBox.xaml.cs">
       <DependentUpon>CustomCheckBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\UserControls\CustomComboBoxNight.xaml.cs">
+    <Compile Include="UI\UserControls\CustomComboBoxNight.xaml.cs">
       <DependentUpon>CustomComboBoxNight.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\UserControls\CustomTextBoxChatButton.xaml.cs">
+    <Compile Include="UI\UserControls\CustomTextBoxChatButton.xaml.cs">
       <DependentUpon>CustomTextBoxChatButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\Windows\MainWindow.xaml.cs">
+    <Compile Include="UI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\UserControls\MinimizeWindowButton.xaml.cs">
+    <Compile Include="UI\UserControls\MinimizeWindowButton.xaml.cs">
       <DependentUpon>MinimizeWindowButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\Windows\BrowserWindow.xaml.cs">
+    <Compile Include="UI\Windows\BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\SteamIdLooker.cs" />
-    <Compile Include="Views\UI\UserControls\ToggleSwitchNightMode.xaml.cs">
+    <Compile Include="UI\UserControls\ToggleSwitchNightMode.xaml.cs">
       <DependentUpon>ToggleSwitchNightMode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UI\UserControls\ToggleSwitch.xaml.cs">
+    <Compile Include="UI\UserControls\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\ConfigWriter.cs" />
     <Compile Include="Models\Extensions\UriExtensions.cs" />
     <Compile Include="Models\Extensions\SourceKeysExtensions.cs" />
-    <Compile Include="Views\UI\TrayMenu.cs" />
-    <Compile Include="Views\UI\UserControls\CustomComboBox.xaml.cs">
+    <Compile Include="UI\TrayMenu.cs" />
+    <Compile Include="UI\UserControls\CustomComboBox.xaml.cs">
       <DependentUpon>CustomComboBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\WinAPIInputSender\KeySender.cs" />
-    <Compile Include="Views\ControlView.xaml.cs">
-      <DependentUpon>ControlView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -246,59 +231,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AuthControlView.xaml">
+    <Page Include="UI\UserControls\CloseButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AuthWindowView.xaml">
+    <Page Include="UI\UserControls\CustomCheckBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UI\UserControls\CloseButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UI\UserControls\CustomCheckBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UI\UserControls\CustomComboBoxNight.xaml">
+    <Page Include="UI\UserControls\CustomComboBoxNight.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UI\UserControls\CustomTextBoxChatButton.xaml">
+    <Page Include="UI\UserControls\CustomTextBoxChatButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UI\Windows\MainWindow.xaml">
+    <Page Include="UI\Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UI\UserControls\MinimizeWindowButton.xaml">
+    <Page Include="UI\UserControls\MinimizeWindowButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UI\Windows\BrowserWindow.xaml">
+    <Page Include="UI\Windows\BrowserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UI\UserControls\ToggleSwitchNightMode.xaml">
+    <Page Include="UI\UserControls\ToggleSwitchNightMode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UI\UserControls\ToggleSwitch.xaml">
+    <Page Include="UI\UserControls\ToggleSwitch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UI\UserControls\CustomComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlView.xaml">
+    <Page Include="UI\UserControls\CustomComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
