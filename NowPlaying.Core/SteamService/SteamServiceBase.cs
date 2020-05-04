@@ -8,8 +8,10 @@ using System.Text.RegularExpressions;
 
 namespace NowPlaying.Core.SteamService
 {
-    public class SteamAccountInfo
+    abstract class SteamServiceBase
     {
+        abstract public SteamInfo GetSteamInfo();
+
         private const long steamId32Mask = 76561197960265728;
         public IDictionary<string, int> GetSteamAccounts(SteamInfo info)
         {

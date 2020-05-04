@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -7,10 +8,10 @@ using Microsoft.Win32;
 
 namespace NowPlaying.Core.SteamService
 {
-    class WindowsSteamService : SteamAccountInfo, ISteamService
+    class SteamServiceWindows : SteamServiceBase
     {
         private const string steamRegistryPath = @"HKEY_CURRENT_USER\Software\Valve\Steam";
-        public string GetSteamFullPath()
+        private string GetSteamFullPath()
         {
             var path = Registry.GetValue(steamRegistryPath, "SteamPath", "") as string;
 
@@ -20,7 +21,7 @@ namespace NowPlaying.Core.SteamService
             return path;
         }
 
-        public string GetSteamLastAccount()
+        private string GetSteamLastAccount()
         {
             var account = Registry.GetValue(steamRegistryPath, "AutoLoginUser", "") as string;
 
@@ -28,6 +29,13 @@ namespace NowPlaying.Core.SteamService
                 throw new DirectoryNotFoundException("Unable to locate last logged-on account");
 
             return account;
+        }
+
+        public override SteamInfo GetSteamInfo()
+        {
+            return new SteamInfo(
+                GetSteamFullPath(),
+                GetSteamLastAccount());
         }
     }
 }
