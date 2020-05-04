@@ -60,7 +60,7 @@ namespace NowPlaying.CLI
             {
                 var resp = requestsManager.GetCurrentTrack();
 
-                if (resp?.FullName != lastTrackCached)
+                if (resp != null && resp.FullName != lastTrackCached)
                 {
                     Console.Clear();
                     Console.WriteLine(resp.FullName);

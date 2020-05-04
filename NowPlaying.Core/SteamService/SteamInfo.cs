@@ -17,6 +17,5 @@ namespace NowPlaying.Core.SteamService
         public string UserdataPath => FullPath + @"\userdata";
 
         public string LoginUsersPath => FullPath + @"\config\loginusers.vdf";
-
     }
 }

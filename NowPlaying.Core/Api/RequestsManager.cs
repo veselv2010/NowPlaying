@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
@@ -21,6 +22,7 @@ namespace NowPlaying.Core.Api
             }
             catch (System.Net.WebException) 
             {
+                Thread.Sleep(1000);
                 return Get(url);
             }
         }

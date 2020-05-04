@@ -101,6 +101,7 @@ namespace NowPlaying.Core.Api
 
             tokenRefreshTimer = new Timer((resp.ExpiresIn - 2) * 1000);
             tokenRefreshTimer.Elapsed += GetRefreshedToken;
+            tokenRefreshTimer.Start();
         }
 
         public string GetAuthUrl()
