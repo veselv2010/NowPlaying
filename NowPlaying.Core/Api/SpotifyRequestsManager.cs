@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
@@ -6,7 +7,7 @@ using NowPlaying.Api.SpotifyResponses;
 
 namespace NowPlaying.Api
 {
-    internal class SpotifyRequestsManager : RequestsManager
+    public class SpotifyRequestsManager : RequestsManager
     {
         private class SpotifyApiUrls
         {
@@ -17,16 +18,18 @@ namespace NowPlaying.Api
             public const string CurrentlyPlaying = "https://api.spotify.com/v1/me/player/currently-playing";
         }
 
-        private readonly string _authorization;
+        private Timer tokenRefreshTimer;
+        private readonly string authorization;
+        private TokenResponse lastTokenResponse;
 
         public SpotifyRequestsManager(string spotifyClientId, string spotifyClientSecret)
         {
-            _authorization = "Basic " + Base64Encode($"{spotifyClientId}:{spotifyClientSecret}");
+            authorization = "Basic " + Base64Encode($"{spotifyClientId}:{spotifyClientSecret}");
         }
 
         private RespT SpotifyPost<RespT>(string url, string data = "")
         {
-            return UrlEncodedPost<RespT>(url, data, _authorization);
+            return UrlEncodedPost<RespT>(url, data, authorization);
         }
 
         private string SpotifyGet(string url, string accessToken)
@@ -66,17 +69,17 @@ namespace NowPlaying.Api
             return new CurrentTrackResponse(trackId, trackName, artists, progress, duration);
         }
 
-        public TokenResponse GetRefreshedToken(string refreshToken)
+        private void GetRefreshedToken(object source, ElapsedEventArgs e)
         {
             var tokenReqParams = "grant_type=refresh_token" +
-                                 $"&refresh_token={refreshToken}";
+                                 $"&refresh_token={lastTokenResponse.RefreshToken}";
 
             var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
-            return resp;
+            lastTokenResponse = resp;
         }
 
-        public TokenResponse GetToken(string code, string redirectUrl)
+        public void StartTokenRequests(string code, string redirectUrl)
         {
             var tokenReqParams = 
                               $"grant_type=authorization_code" +
@@ -85,7 +88,10 @@ namespace NowPlaying.Api
 
             var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
-            return resp;
+            lastTokenResponse = resp;
+
+            tokenRefreshTimer = new Timer((resp.ExpiresIn - 2) * 1000);
+            tokenRefreshTimer.Elapsed += GetRefreshedToken;
         }
 
         public string GetAuthUrl(string clientId, string redirectUrl)
