@@ -30,10 +30,10 @@ namespace HelloWorldRUI.Controls.Header
             });
         }
 
-        private readonly Theme ToggledTheme = Theme.Dark;
+        private readonly Theme ToggledTheme = Theme.Black;
 
         private bool ThemeToBool(Theme theme) => theme == ToggledTheme;
-        private Theme BoolToTheme(bool isToggled) => isToggled ? ToggledTheme : Theme.Light;
+        private Theme BoolToTheme(bool isToggled) => isToggled ? ToggledTheme : Theme.White;
 
         private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

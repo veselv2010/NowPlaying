@@ -23,6 +23,6 @@ namespace HelloWorldRUI
         }
 
         // TODO: custom colors
-        private Brush ThemeToBrush(Theme theme) => theme == Theme.Dark ? Brushes.DarkGray : Brushes.Gray;
+        private Brush ThemeToBrush(Theme theme) => theme == Theme.Black ? Brushes.DarkGray : Brushes.Gray;
     }
 }

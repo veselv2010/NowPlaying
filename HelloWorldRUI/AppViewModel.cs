@@ -22,7 +22,7 @@ namespace HelloWorldRUI
 
         public AppViewModel()
         {
-            HeaderViewModel.Theme = Theme.Dark;
+            HeaderViewModel.Theme = Theme.Black;
             PlayingTrack.ProgressMs = 900;
             PlayingTrack.DurationMs = 1000;
         }
