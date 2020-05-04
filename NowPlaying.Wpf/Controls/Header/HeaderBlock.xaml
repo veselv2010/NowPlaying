@@ -25,9 +25,11 @@
         <TextBlock Text="help!" Foreground="AliceBlue" TextDecorations="Underline" x:Name="HelpTextBlock"/>
 
         <Border Grid.Column="2">
-            <TextBlock Text="O_O" />
-            <toggle:ToggleSwitch x:Name="ToggleTheme" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="40"/>
-            <TextBlock Text="v_v" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="O_O" />
+                <toggle:ToggleSwitch x:Name="ToggleTheme" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="40"/>
+                <TextBlock Text="v_v" />
+            </StackPanel>
         </Border>
 
         <buttons:LineMinimizeButton Grid.Column="3"/>
