@@ -24,9 +24,6 @@ namespace NowPlaying.Wpf.Controls.Header
                         view => view.ToggleTheme.ViewModel.IsToggled,
                         ThemeToBool, BoolToTheme)
                     .DisposeWith(d);
-
-                //this.OneWayBind(ViewModel, vm => vm.Theme, v => v.HelpTextBlock.Text, theme => theme.ToString())
-                //    .DisposeWith(d);
             });
         }
 

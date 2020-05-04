@@ -1,5 +1,4 @@
-﻿
-namespace NowPlaying.Wpf.Themes
+﻿namespace NowPlaying.Wpf.Themes
 {
     public enum Theme
     {
