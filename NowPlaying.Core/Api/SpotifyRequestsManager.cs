@@ -52,13 +52,16 @@ namespace NowPlaying.Core.Api
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
         }
-
+        /// <summary>
+        /// ¬озвращает null если на данный момент ничего не играет 
+        /// </summary>
+        /// <returns></returns>
         public CurrentTrackResponse GetCurrentTrack()
         {
             string resp = SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
-            if (string.IsNullOrEmpty(resp)) 
-                GetCurrentTrack();
+            if (string.IsNullOrEmpty(resp))
+                return null;
             
             var currentTrackJson = JToken.Parse(resp);
 

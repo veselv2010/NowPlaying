@@ -14,8 +14,15 @@ namespace NowPlaying.Core.Api
 
         protected string Get(string url)
         {
-            using (var wc = CreateWebClient())
-                return wc.DownloadString(url);
+            try 
+            {
+                using (var wc = CreateWebClient())
+                    return wc.DownloadString(url);
+            }
+            catch (System.Net.WebException) 
+            {
+                return Get(url);
+            }
         }
 
         protected RespT UrlEncodedPost<RespT>(string url, string data = "", string authorization = null)
