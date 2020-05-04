@@ -17,6 +17,12 @@ namespace NowPlaying.Wpf.Controls.PlayingTrack
             InitializeComponent();
 
             this.WhenActivated(d => {
+                this.OneWayBind(ViewModel, vm => vm.Author, v => v.TrackAuthorTextBlock.Text)
+                    .DisposeWith(d);
+
+                this.OneWayBind(ViewModel, vm => vm.Title, v => v.TrackNameTextBlock.Text)
+                    .DisposeWith(d);
+
                 this.OneWayBind(ViewModel,
                         vm => vm.ProgressMs, v => v.Progress.ViewModel.Progress,
                         progressMs => progressMs / (ViewModel.DurationMs / 100))
