@@ -1,0 +1,34 @@
+﻿<local:HeaderBlockBase
+        x:Class="NowPlaying.Wpf.Controls.Header.HeaderBlock"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.Header"
+        xmlns:buttons="clr-namespace:NowPlaying.Wpf.Controls.Header.Buttons"
+        xmlns:toggle="clr-namespace:NowPlaying.Wpf.Controls.Common.Toggle"
+        mc:Ignorable="d"
+        Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="help!" Foreground="AliceBlue" TextDecorations="Underline" x:Name="HelpTextBlock"/>
+
+        <Border Grid.Column="2">
+            <toggle:ToggleSwitch x:Name="ToggleTheme" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="40"/>
+        </Border>
+
+        <buttons:LineMinimizeButton Grid.Column="3"/>
+        <buttons:CrossCloseButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
+    </Grid>
+</local:HeaderBlockBase>
