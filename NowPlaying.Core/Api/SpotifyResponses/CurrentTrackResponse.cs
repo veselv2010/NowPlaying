@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NowPlaying.Api.SpotifyResponses
+namespace NowPlaying.Core.Api.SpotifyResponses
 {
     public class CurrentTrackResponse
     {

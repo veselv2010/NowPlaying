@@ -3,9 +3,9 @@ using System.Timers;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using NowPlaying.Api.SpotifyResponses;
+using NowPlaying.Core.Api.SpotifyResponses;
 
-namespace NowPlaying.Api
+namespace NowPlaying.Core.Api
 {
     public class SpotifyRequestsManager : RequestsManager
     {

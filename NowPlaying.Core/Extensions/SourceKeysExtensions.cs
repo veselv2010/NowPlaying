@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace NowPlaying.Extensions
+namespace NowPlaying.Core.Extensions
 {
     public class SourceKeysExtensions
     {

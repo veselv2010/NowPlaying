@@ -3,7 +3,7 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace NowPlaying.Api
+namespace NowPlaying.Core.Api
 {
     public abstract class RequestsManager
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace NowPlaying.Extensions
+namespace NowPlaying.Core.Extensions
 {
     public class UriExtensions
     {

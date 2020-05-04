@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace NowPlaying
+namespace NowPlaying.Core.InputSender
 {
     public class KeySender
     {

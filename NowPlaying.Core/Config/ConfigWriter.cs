@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using NowPlaying.Api.SpotifyResponses;
+using NowPlaying.Core.Api.SpotifyResponses;
 
 namespace NowPlaying.Core.Config
 {
