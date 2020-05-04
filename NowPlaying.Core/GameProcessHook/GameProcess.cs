@@ -16,7 +16,7 @@ namespace NowPlaying.Core.GameProcessHook
         private GameProcessInfo[] gameInfo = new GameProcessInfo[]
         {
              new GameProcessInfo(SupportedProcess.csgo, "Counter-Strike: Global Offensive"),
-             new GameProcessInfo(SupportedProcess.hl2, "Team Fortress 2") 
+             //new GameProcessInfo(SupportedProcess.hl2, "Team Fortress 2") 
         };
 
         protected override string ThreadName => nameof(GameProcess);
@@ -54,11 +54,11 @@ namespace NowPlaying.Core.GameProcessHook
                 InvalidateWindow();
             }
 
-            if (CurrentProcess.Process.ToString() != Process.ProcessName)
-            {
-                CurrentProcess = gameInfo[GetGameInfoIndex(currentProcess)];
-                CurrentProcess.ProcessPath = Process.MainModule.FileName;
-            }
+            //if (CurrentProcess.Process.ToString() != Process.ProcessName)
+            //{
+            //    CurrentProcess = gameInfo[GetGameInfoIndex(currentProcess)];
+            //    CurrentProcess.ProcessPath = Process.MainModule.FileName;
+            //}
         }
 
         private void InvalidateModules()
@@ -78,11 +78,13 @@ namespace NowPlaying.Core.GameProcessHook
 
         private bool EnsureProcessAndModules()
         {
-            foreach(var s in gameInfo)
-            {
-                Process = Process.GetProcessesByName(nameof(s.Process)).FirstOrDefault();
-                currentProcess = (Process == null) ? 0 : s.Process;
-            }     
+            //foreach(var s in gameInfo)
+            //{
+            //    Process = Process.GetProcessesByName(nameof(s.Process)).FirstOrDefault();
+            //    currentProcess = (Process == null) ? 0 : s.Process;
+            //}
+
+            Process = Process.GetProcessesByName("csgo").FirstOrDefault();
 
             if (Process == null || !Process.IsRunning())
                 return false;

@@ -19,12 +19,18 @@ namespace NowPlaying.Core.Api
         }
 
         private Timer tokenRefreshTimer;
-        private readonly string authorization;
         private TokenResponse lastTokenResponse;
 
-        public SpotifyRequestsManager(string spotifyClientId, string spotifyClientSecret)
+        private readonly string authorization;
+        private readonly string clientId;
+        private readonly string redirectUrl;
+
+        public SpotifyRequestsManager(string ñlientId, string ñlientSecret,
+            string redirectUrl)
         {
-            authorization = "Basic " + Base64Encode($"{spotifyClientId}:{spotifyClientSecret}");
+            this.authorization = "Basic " + Base64Encode($"{ñlientId}:{ñlientSecret}");
+            this.clientId = ñlientId;
+            this.redirectUrl = redirectUrl;
         }
 
         private RespT SpotifyPost<RespT>(string url, string data = "")
@@ -47,9 +53,9 @@ namespace NowPlaying.Core.Api
             return Convert.ToBase64String(plainTextBytes);
         }
 
-        public CurrentTrackResponse GetCurrentTrack(string accessToken)
+        public CurrentTrackResponse GetCurrentTrack()
         {
-            string resp = SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, accessToken);
+            string resp = SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
             if (string.IsNullOrEmpty(resp))
                 return null;
@@ -79,12 +85,12 @@ namespace NowPlaying.Core.Api
             lastTokenResponse = resp;
         }
 
-        public void StartTokenRequests(string code, string redirectUrl)
+        public void StartTokenRequests(string code)
         {
             var tokenReqParams = 
                               $"grant_type=authorization_code" +
                               $"&code={code}" +
-                              $"&redirect_uri={redirectUrl}";
+                              $"&redirect_uri={this.redirectUrl}";
 
             var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
@@ -94,11 +100,11 @@ namespace NowPlaying.Core.Api
             tokenRefreshTimer.Elapsed += GetRefreshedToken;
         }
 
-        public string GetAuthUrl(string clientId, string redirectUrl)
+        public string GetAuthUrl()
         {
             return $"{SpotifyApiUrls.Auth}" +
-                $"?client_id={clientId}" +
-                $"&redirect_uri={redirectUrl}" +
+                $"?client_id={this.clientId}" +
+                $"&redirect_uri={this.redirectUrl}" +
                 $"&response_type=code" +
                 $"&scope=user-read-playback-state";
         }
