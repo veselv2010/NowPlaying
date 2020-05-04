@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NowPlaying.Api.SpotifyResponses
 {
-    internal class CurrentTrackResponse
+    public class CurrentTrackResponse
     {
         public string Id { get; }
 

@@ -5,34 +5,35 @@ using System.Linq;
 
 namespace NowPlaying.Core.GameProcessHook
 {
+    public enum SupportedProcess
+    {
+        csgo,
+        hl2
+    }
+
     public class GameProcess : ThreadComponent
     {
-        public enum SupportedProcess
+        private GameProcessInfo[] gameInfo = new GameProcessInfo[]
         {
-            csgo,
-            hl2
-        }
-
-        private IDictionary<SupportedProcess, string> gameInfo = new Dictionary<SupportedProcess, string>
-        {
-            { SupportedProcess.csgo, "Counter-Strike: Global Offensive" },
-            { SupportedProcess.hl2, "Team Fortress 2" }
+             new GameProcessInfo(SupportedProcess.csgo, "Counter-Strike: Global Offensive"),
+             new GameProcessInfo(SupportedProcess.hl2, "Team Fortress 2") 
         };
 
-        protected override string ThreadName => "GameProcess";
+        protected override string ThreadName => nameof(GameProcess);
         protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 500);
 
         private Process Process { get; set; }
 
         private IntPtr WindowHwnd { get; set; }
 
+        private SupportedProcess currentProcess;
+
         private bool WindowActive { get; set; }
 
         public bool IsValid => WindowActive
                             && Process != null;
 
-        public string CurrentProcess;
-
+        public GameProcessInfo CurrentProcess { get; set; }
         public override void Dispose()
         {
             InvalidateWindow();
@@ -53,7 +54,11 @@ namespace NowPlaying.Core.GameProcessHook
                 InvalidateWindow();
             }
 
-            CurrentProcess = Process.ProcessName;
+            if (CurrentProcess.Process.ToString() != Process.ProcessName)
+            {
+                CurrentProcess = gameInfo[GetGameInfoIndex(currentProcess)];
+                CurrentProcess.ProcessPath = Process.MainModule.FileName;
+            }
         }
 
         private void InvalidateModules()
@@ -74,7 +79,10 @@ namespace NowPlaying.Core.GameProcessHook
         private bool EnsureProcessAndModules()
         {
             foreach(var s in gameInfo)
-                Process = Process.GetProcessesByName(nameof(s.Key)).FirstOrDefault();          
+            {
+                Process = Process.GetProcessesByName(nameof(s.Process)).FirstOrDefault();
+                currentProcess = (Process == null) ? 0 : s.Process;
+            }     
 
             if (Process == null || !Process.IsRunning())
                 return false;
@@ -85,7 +93,7 @@ namespace NowPlaying.Core.GameProcessHook
         private bool EnsureWindow()
         {
             foreach (var s in gameInfo)
-                WindowHwnd = WinAPIUser32Methods.FindWindow(null, s.Value);
+                WindowHwnd = WinAPIUser32Methods.FindWindow(null, s.WindowName);
 
             if (WindowHwnd == IntPtr.Zero)
                 return false;
@@ -93,6 +101,18 @@ namespace NowPlaying.Core.GameProcessHook
             WindowActive = WindowHwnd == WinAPIUser32Methods.GetForegroundWindow();
 
             return WindowActive;
+        }
+
+        private int GetGameInfoIndex(SupportedProcess process)
+        {
+            int i = 0;
+            foreach (var elem in gameInfo)
+                if (elem.Process == process)
+                    return i;
+                else
+                    i++;
+
+            throw new KeyNotFoundException();
         }
     }
 }

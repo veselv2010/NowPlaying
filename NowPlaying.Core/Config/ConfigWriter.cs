@@ -1,24 +1,18 @@
-﻿using System.IO;
-using System.Diagnostics;
-using System.Linq;
+﻿using System;
+using System.IO;
 using NowPlaying.Api.SpotifyResponses;
 
-namespace NowPlaying
+namespace NowPlaying.Core.Config
 {
-    internal class ConfigWriter
+    public class ConfigWriter
     {
-        private string writePath { get; set; }
-        private string writeConfigText { get; set; }
+        private readonly string writePath;
+        private readonly string writeConfigText;
 
-        public ConfigWriter(string writePath, string writeConfigText = "say [Spotify] Now Playing: {0}")
+        public ConfigWriter(string writePath, 
+            string writeConfigText = "say [Spotify] Now Playing: {0}")
         {
-            Process process = Process.GetProcessesByName("hl2").FirstOrDefault(); //прямой пример технического долга
-
-            if (process != null)
-                this.writePath = process.MainModule.FileName.Replace("hl2.exe", "") + "tf\\cfg\\audio.cfg";
-            else
-                this.writePath = writePath;
-
+            this.writePath = writePath;
             this.writeConfigText = writeConfigText;
         }
 
@@ -35,7 +29,7 @@ namespace NowPlaying
             this.RewriteKeyBinding(strForWriting);
         }
 
-        public void RewriteKeyBinding(string line)
+        private void RewriteKeyBinding(string line)
         {
             using (var sw = new StreamWriter(this.writePath))
                 sw.WriteLine(line);

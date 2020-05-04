@@ -10,6 +10,8 @@ namespace NowPlaying.Api
     {
         private class SpotifyApiUrls
         {
+            public const string Auth = "https://accounts.spotify.com/authorize";
+
             public const string Token = "https://accounts.spotify.com/api/token";
 
             public const string CurrentlyPlaying = "https://api.spotify.com/v1/me/player/currently-playing";
@@ -84,6 +86,15 @@ namespace NowPlaying.Api
             var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
             return resp;
+        }
+
+        public string GetAuthUrl(string clientId, string redirectUrl)
+        {
+            return $"{SpotifyApiUrls.Auth}" +
+                $"?client_id={clientId}" +
+                $"&redirect_uri={redirectUrl}" +
+                $"&response_type=code" +
+                $"&scope=user-read-playback-state";
         }
     }
 }

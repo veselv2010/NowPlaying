@@ -2,7 +2,7 @@
 
 namespace NowPlaying.Api.SpotifyResponses
 {
-    internal class TokenResponse
+    public class TokenResponse
     {
         [JsonProperty(PropertyName = "access_token")]
         public string AccessToken { get; private set; }
