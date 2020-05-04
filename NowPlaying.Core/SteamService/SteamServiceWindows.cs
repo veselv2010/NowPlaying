@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace NowPlaying.Core.SteamService
 {
-    class SteamServiceWindows : SteamServiceBase
+    public sealed class SteamServiceWindows : SteamServiceBase
     {
         private const string steamRegistryPath = @"HKEY_CURRENT_USER\Software\Valve\Steam";
         private string GetSteamFullPath()

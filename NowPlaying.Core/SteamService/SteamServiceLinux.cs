@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NowPlaying.Core.SteamService
 {
-    class SteamServiceLinux : SteamServiceBase
+    public sealed class SteamServiceLinux : SteamServiceBase
     {
         public override SteamInfo GetSteamInfo()
         {

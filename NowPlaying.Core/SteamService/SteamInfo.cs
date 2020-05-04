@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NowPlaying.Core.SteamService
 {
-    public class SteamInfo
+    public sealed class SteamInfo
     {
         public SteamInfo(string fullPath, string lastAccount)
         {

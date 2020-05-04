@@ -14,7 +14,7 @@ namespace NowPlaying.GameProcessHook
         protected override string ThreadName => "GameProcess";
         protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 500);
 
-        public Process Process { get; private set; }
+        private Process Process { get; set; }
 
         private IntPtr WindowHwnd { get; set; }
 
@@ -42,9 +42,6 @@ namespace NowPlaying.GameProcessHook
             {
                 InvalidateWindow();
             }
-
-            AppInfo.State.WindowName = IsValid ? Process.MainWindowTitle : null;
-            // $"0x{(int)Process.Handle:X8}" 
         }
 
         private void InvalidateModules()
