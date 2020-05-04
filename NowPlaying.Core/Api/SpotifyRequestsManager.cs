@@ -53,7 +53,7 @@ namespace NowPlaying.Core.Api
             return Convert.ToBase64String(plainTextBytes);
         }
         /// <summary>
-        /// ¬озвращает null если на данный момент ничего не играет 
+        /// Returns null if nothing is playing rn
         /// </summary>
         /// <returns></returns>
         public CurrentTrackResponse GetCurrentTrack()
