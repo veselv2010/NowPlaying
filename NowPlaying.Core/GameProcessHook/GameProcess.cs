@@ -1,15 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace NowPlaying.GameProcessHook
+namespace NowPlaying.Core.GameProcessHook
 {
     public class GameProcess : ThreadComponent
     {
-        private const string ProcessNameCsgo = "csgo";
-        private const string ProcessNameTf2 = "hl2";
-        private const string ProcessWindowNameCsgo = "Counter-Strike: Global Offensive";
-        private const string ProcessWindowNameTf2 = "Team Fortress 2";
+        public enum SupportedProcess
+        {
+            csgo,
+            hl2
+        }
+
+        private IDictionary<SupportedProcess, string> gameInfo = new Dictionary<SupportedProcess, string>
+        {
+            { SupportedProcess.csgo, "Counter-Strike: Global Offensive" },
+            { SupportedProcess.hl2, "Team Fortress 2" }
+        };
 
         protected override string ThreadName => "GameProcess";
         protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 500);
@@ -22,6 +30,8 @@ namespace NowPlaying.GameProcessHook
 
         public bool IsValid => WindowActive
                             && Process != null;
+
+        public string CurrentProcess;
 
         public override void Dispose()
         {
@@ -42,6 +52,8 @@ namespace NowPlaying.GameProcessHook
             {
                 InvalidateWindow();
             }
+
+            CurrentProcess = Process.ProcessName;
         }
 
         private void InvalidateModules()
@@ -61,11 +73,8 @@ namespace NowPlaying.GameProcessHook
 
         private bool EnsureProcessAndModules()
         {
-            if (Process == null)
-                Process = Process.GetProcessesByName(ProcessNameCsgo).FirstOrDefault();
-
-            if (Process == null)
-                Process = Process.GetProcessesByName(ProcessNameTf2).FirstOrDefault();
+            foreach(var s in gameInfo)
+                Process = Process.GetProcessesByName(nameof(s.Key)).FirstOrDefault();          
 
             if (Process == null || !Process.IsRunning())
                 return false;
@@ -75,10 +84,8 @@ namespace NowPlaying.GameProcessHook
 
         private bool EnsureWindow()
         {
-            WindowHwnd = WinAPIUser32Methods.FindWindow(null, ProcessWindowNameCsgo);
-
-            if (WindowHwnd == IntPtr.Zero)
-                WindowHwnd = WinAPIUser32Methods.FindWindow(null, ProcessWindowNameTf2);
+            foreach (var s in gameInfo)
+                WindowHwnd = WinAPIUser32Methods.FindWindow(null, s.Value);
 
             if (WindowHwnd == IntPtr.Zero)
                 return false;

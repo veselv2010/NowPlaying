@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace NowPlaying.GameProcessHook
+namespace NowPlaying.Core.GameProcessHook
 {
     public abstract class ThreadComponent : IDisposable
     {

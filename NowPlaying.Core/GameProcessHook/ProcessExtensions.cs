@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace NowPlaying.GameProcessHook
+namespace NowPlaying.Core.GameProcessHook
 {
     public static class ProcessExtensions
     {

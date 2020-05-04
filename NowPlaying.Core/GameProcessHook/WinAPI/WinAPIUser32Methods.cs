@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NowPlaying.GameProcessHook
+namespace NowPlaying.Core.GameProcessHook
 {
     class WinAPIUser32Methods
     {
