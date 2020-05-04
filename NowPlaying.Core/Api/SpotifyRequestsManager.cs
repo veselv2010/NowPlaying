@@ -25,11 +25,11 @@ namespace NowPlaying.Core.Api
         private readonly string clientId;
         private readonly string redirectUrl;
 
-        public SpotifyRequestsManager(string ñlientId, string ñlientSecret,
+        public SpotifyRequestsManager(string clientId, string clientSecret,
             string redirectUrl)
         {
-            this.authorization = "Basic " + Base64Encode($"{ñlientId}:{ñlientSecret}");
-            this.clientId = ñlientId;
+            this.authorization = "Basic " + Base64Encode($"{clientId}:{clientSecret}");
+            this.clientId = clientId;
             this.redirectUrl = redirectUrl;
         }
 
