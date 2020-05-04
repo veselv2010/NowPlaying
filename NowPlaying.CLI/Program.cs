@@ -51,9 +51,11 @@ namespace NowPlaying.CLI
             int accSteamId3 = accounts[steamInfo.LastAccount];
 
             string writePath = pathResolver.GetWritePath(process.CurrentProcess, steamInfo, accSteamId3.ToString());
+
             configWriter = new ConfigWriter(writePath);
 
             string lastTrackCached = string.Empty;
+            string currentKey = "kp_5";
             while (true)
             {
                 var resp = requestsManager.GetCurrentTrack();
@@ -61,16 +63,19 @@ namespace NowPlaying.CLI
                 if (resp.FullName != lastTrackCached)
                 {
                     Console.Clear();
-                    Console.WriteLine(resp.FormattedArtists + " - " + resp.FullName);
+                    Console.WriteLine(resp.FullName);
                     Console.WriteLine("Current account: " + steamInfo.LastAccount);
+                    Console.WriteLine("Current key: " + currentKey);
+
                     if (process.IsValid)
                     {
-                        keySender.SendInputWithAPI("kp_5");
+                        keySender.SendInputWithAPI(currentKey);
                     }
 
                     lastTrackCached = resp.FullName;
                     configWriter.RewriteKeyBinding(resp);
                 }
+
                 Thread.Sleep(1000);
             }          
         }

@@ -57,9 +57,9 @@ namespace NowPlaying.Core.Api
         {
             string resp = SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
-            if (string.IsNullOrEmpty(resp))
-                return null;
-
+            if (string.IsNullOrEmpty(resp)) 
+                GetCurrentTrack();
+            
             var currentTrackJson = JToken.Parse(resp);
 
             JToken trackInfo = currentTrackJson["item"];
