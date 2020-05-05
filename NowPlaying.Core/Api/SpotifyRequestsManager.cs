@@ -60,6 +60,7 @@ namespace NowPlaying.Core.Api
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
         }
+
         /// <summary>
         /// Returns null if nothing is playing rn
         /// </summary>
@@ -97,9 +98,7 @@ namespace NowPlaying.Core.Api
 
         public async Task StartTokenRequests(string code)
         {
-            var tokenReqParams = CreateTokenReqParams(RequestType.Auth, code);
-
-            var resp = await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+            var resp = await GetInitialResponse(code);
 
             lastTokenResponse = resp;
 
@@ -139,6 +138,13 @@ namespace NowPlaying.Core.Api
             }
 
             throw new NotImplementedException();
+        }
+
+        private async Task<TokenResponse> GetInitialResponse(string code)
+        {
+            var tokenReqParams = CreateTokenReqParams(RequestType.Auth, code);
+
+            return await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
         }
     }
 }

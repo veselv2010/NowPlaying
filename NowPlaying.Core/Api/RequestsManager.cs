@@ -8,7 +8,12 @@ namespace NowPlaying.Core.Api
 {
     public abstract class RequestsManager
     {
-        protected readonly HttpClient client = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        protected readonly HttpClient client;      
+
+        protected RequestsManager()
+        {
+            client = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        }
 
         protected async Task<string> Get(string url)
         {
