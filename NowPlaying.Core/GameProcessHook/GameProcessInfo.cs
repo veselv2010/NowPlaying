@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NowPlaying.Core.GameProcessHook
+﻿namespace NowPlaying.Core.GameProcessHook
 {
     public class GameProcessInfo
     {

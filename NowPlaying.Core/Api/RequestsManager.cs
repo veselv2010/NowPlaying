@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Net;
 using System.Text;
@@ -15,12 +14,12 @@ namespace NowPlaying.Core.Api
 
         protected string Get(string url)
         {
-            try 
+            try
             {
                 using (var wc = CreateWebClient())
                     return wc.DownloadString(url);
             }
-            catch (System.Net.WebException) 
+            catch (System.Net.WebException)
             {
                 Thread.Sleep(1000);
                 return Get(url);
