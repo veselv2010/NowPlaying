@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace NowPlaying.Core.Extensions
 {
@@ -9,7 +8,7 @@ namespace NowPlaying.Core.Extensions
         {
             string[] urlParams = uri.Split(new char[] { '?', '&' });
             return urlParams.FirstOrDefault(p => p.Contains(propertyName + "="))
-                                    .Split('=')[1]; // {propertyName}=*text*" split by '=', take *text*
+                            .Split('=')[1]; // {propertyName}=*text*" split by '=', take *text*
         }
     }
 }

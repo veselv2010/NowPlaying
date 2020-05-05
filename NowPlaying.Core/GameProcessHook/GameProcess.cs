@@ -15,8 +15,8 @@ namespace NowPlaying.Core.GameProcessHook
     {
         private GameProcessInfo[] gameInfo = new GameProcessInfo[]
         {
-             new GameProcessInfo(SupportedProcess.csgo, "Counter-Strike: Global Offensive"),
-             //new GameProcessInfo(SupportedProcess.hl2, "Team Fortress 2") 
+            new GameProcessInfo(SupportedProcess.csgo, "Counter-Strike: Global Offensive"),
+            // new GameProcessInfo(SupportedProcess.hl2, "Team Fortress 2")
         };
 
         protected override string ThreadName => nameof(GameProcess);

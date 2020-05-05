@@ -1,5 +1,4 @@
-﻿using System;
-using NowPlaying.Core.SteamService;
+﻿using NowPlaying.Core.Steam;
 using NowPlaying.Core.GameProcessHook;
 
 namespace NowPlaying.Core.Config

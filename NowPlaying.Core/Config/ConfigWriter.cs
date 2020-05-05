@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using NowPlaying.Core.Api.SpotifyResponses;
 
 namespace NowPlaying.Core.Config
@@ -9,7 +8,7 @@ namespace NowPlaying.Core.Config
         private readonly string writePath;
         private readonly string writeConfigText;
 
-        public ConfigWriter(string writePath, 
+        public ConfigWriter(string writePath,
             string writeConfigText = "say [Spotify] Now Playing: {0}")
         {
             this.writePath = writePath;

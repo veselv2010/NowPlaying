@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.Api;
-using NowPlaying.Core.SteamService;
+using NowPlaying.Core.Steam;
 using NowPlaying.Core.Config;
 using NowPlaying.Core.NowPlayingConfig;
 using NowPlaying.Core.InputSender;
@@ -15,23 +15,23 @@ namespace NowPlaying.Cli
     {
         private static GameProcess process;
         private static SpotifyRequestsManager requestsManager;
-        private static SteamServiceWindows steamService;
+        private static ISteamService steamService;
         private static ConfigWorker config;
         private static PathResolver pathResolver;
         private static ConfigWriter configWriter;
         private static KeySender keySender;
 
-        private static SteamInfo steamInfo;
-        private static IDictionary<string, int> accounts;
         static void Main()
         {
             process = new GameProcess();
             process.Start();
 
             steamService = new SteamServiceWindows();
-            steamInfo = steamService.GetSteamInfo();
-            accounts = steamService.GetSteamAccounts(steamInfo);
-            
+            var steamInfo = steamService.GetSteamInfo();
+
+            var loginUsersReader = new LoginUsersReader(steamInfo.LoginUsersPath);
+            var accounts = loginUsersReader.Read();
+
             requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
                 "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
 
@@ -53,30 +53,34 @@ namespace NowPlaying.Cli
 
             configWriter = new ConfigWriter(writePath);
 
-            string lastTrackCached = string.Empty;
+            string lastTrackId = null;
             string currentKey = "kp_5";
+
             while (true)
             {
                 var resp = requestsManager.GetCurrentTrack();
 
-                if (resp != null && resp.FullName != lastTrackCached)
+                if (resp != null)
                 {
                     Console.Clear();
-                    Console.WriteLine(resp.FullName);
+                    Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds})");
                     Console.WriteLine("Current account: " + steamInfo.LastAccount);
                     Console.WriteLine("Current key: " + currentKey);
 
-                    if (process.IsValid)
+                    if (resp.Id != lastTrackId)
                     {
-                        keySender.SendInputWithAPI(currentKey);
-                    }
+                        if (process.IsValid)
+                        {
+                            keySender.SendInputWithAPI(currentKey);
+                        }
 
-                    lastTrackCached = resp.FullName;
-                    configWriter.RewriteKeyBinding(resp);
+                        lastTrackId = resp.Id;
+                        configWriter.RewriteKeyBinding(resp);
+                    }
                 }
 
                 Thread.Sleep(1000);
-            }          
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NowPlaying.Core.NowPlayingConfig
+﻿namespace NowPlaying.Core.NowPlayingConfig
 {
     public class Config
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NowPlaying.Core.SteamService
+﻿namespace NowPlaying.Core.Steam
 {
     public sealed class SteamInfo
     {
