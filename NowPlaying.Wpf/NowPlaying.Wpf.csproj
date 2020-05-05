@@ -93,11 +93,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\Header\Buttons\CrossCloseButton.xaml.cs">
-      <DependentUpon>CrossCloseButton.xaml</DependentUpon>
+    <Compile Include="Controls\Header\Buttons\CrossButton.xaml.cs">
+      <DependentUpon>CrossButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Header\Buttons\LineMinimizeButton.xaml.cs">
-      <DependentUpon>LineMinimizeButton.xaml</DependentUpon>
+    <Compile Include="Controls\Header\Buttons\LineButton.xaml.cs">
+      <DependentUpon>LineButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Header\HeaderBlock.xaml.cs">
       <DependentUpon>HeaderBlock.xaml</DependentUpon>
@@ -119,11 +119,11 @@
     </Compile>
     <Compile Include="Controls\PlayingTrack\ProgressViewModel.cs" />
     <Compile Include="Themes\Theme.cs" />
-    <Page Include="Controls\Header\Buttons\CrossCloseButton.xaml">
+    <Page Include="Controls\Header\Buttons\CrossButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Header\Buttons\LineMinimizeButton.xaml">
+    <Page Include="Controls\Header\Buttons\LineButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

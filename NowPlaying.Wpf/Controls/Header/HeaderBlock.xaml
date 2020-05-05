@@ -32,7 +32,7 @@
             </StackPanel>
         </Border>
 
-        <buttons:LineMinimizeButton Grid.Column="3"/>
-        <buttons:CrossCloseButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
+        <buttons:LineButton Grid.Column="3"/>
+        <buttons:CrossButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
     </Grid>
 </local:HeaderBlockBase>
