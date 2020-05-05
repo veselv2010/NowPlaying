@@ -1,46 +1,53 @@
 using System.Threading;
-using System.Net;
-using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace NowPlaying.Core.Api
 {
     public abstract class RequestsManager
     {
-        private WebClient CreateWebClient()
+        private HttpClient CreateHttpClient()
         {
-            return new WebClient() { Encoding = Encoding.UTF8 };
+            return new HttpClient() { Timeout = Timeout.InfiniteTimeSpan };
         }
 
-        protected string Get(string url)
+        protected async Task<string> Get(string url)
         {
-            try
+            using (var client = CreateHttpClient())
             {
-                using (var wc = CreateWebClient())
-                    return wc.DownloadString(url);
-            }
-            catch (System.Net.WebException)
-            {
-                Thread.Sleep(1000);
-                return Get(url);
-            }
-        }
-
-        protected RespT UrlEncodedPost<RespT>(string url, string data = "", string authorization = null)
-        {
-           using (var wc = CreateWebClient())
-           {
-                wc.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-
-                if (authorization != null)
+                using (var resp = await client.GetAsync(url))
                 {
-                    wc.Headers.Add(HttpRequestHeader.Authorization, authorization);
+                    using (var content = resp.Content)
+                    {
+                        return await content.ReadAsStringAsync();
+                    }
                 }
+            }
+        }
 
-                var resp = wc.UploadString(url, data);
+        protected async Task<RespT> UrlEncodedPost<RespT>(string url, IDictionary<string, string> reqParams = null,
+            string authorization = null)
+        {
+            using (var client = CreateHttpClient())
+            {
+                using (var postRequest = new HttpRequestMessage(HttpMethod.Post, url))
+                {
+                    postRequest.Content = new FormUrlEncodedContent(reqParams);
 
-                return JsonConvert.DeserializeObject<RespT>(resp);
-           }
+                    if (authorization != null)
+                    {
+                        postRequest.Headers.Add("Authorization", authorization);
+                    }
+
+                    using (var resp = await client.SendAsync(postRequest))
+                    {
+                        var respContent = await resp.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<RespT>(respContent);
+                    }
+                }
+            }
         }
     }
 }

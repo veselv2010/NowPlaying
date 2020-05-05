@@ -1,14 +1,22 @@
 using System;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using NowPlaying.Core.Api.SpotifyResponses;
+using System.Collections.Generic;
 
 namespace NowPlaying.Core.Api
 {
     public class SpotifyRequestsManager : RequestsManager
     {
+        private enum reqType
+        {
+            auth,
+            refresh
+        }
+
         private class SpotifyApiUrls
         {
             public const string Auth = "https://accounts.spotify.com/authorize";
@@ -33,16 +41,16 @@ namespace NowPlaying.Core.Api
             this.redirectUrl = redirectUrl;
         }
 
-        private RespT SpotifyPost<RespT>(string url, string data = "")
+        private async Task<RespT> SpotifyPost<RespT>(string url, IDictionary<string, string> reqParams = null)
         {
-            return UrlEncodedPost<RespT>(url, data, authorization);
+            return await UrlEncodedPost<RespT>(url, reqParams, authorization);
         }
 
-        private string SpotifyGet(string url, string accessToken)
+        private async Task<string> SpotifyGet(string url, string accessToken)
         {
             string combinedUrl = url + "?access_token=" + accessToken;
 
-            string resp = Get(combinedUrl);
+            string resp = await Get(combinedUrl);
 
             return resp;
         }
@@ -56,9 +64,9 @@ namespace NowPlaying.Core.Api
         /// Returns null if nothing is playing rn
         /// </summary>
         /// <returns></returns>
-        public CurrentTrackResponse GetCurrentTrack()
+        public async Task<CurrentTrackResponse> GetCurrentTrack()
         {
-            string resp = SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
+            string resp = await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
             if (string.IsNullOrEmpty(resp))
                 return null;
@@ -78,24 +86,20 @@ namespace NowPlaying.Core.Api
             return new CurrentTrackResponse(trackId, trackName, artists, progress, duration);
         }
 
-        private void GetRefreshedToken(object source, ElapsedEventArgs e)
+        private async void GetRefreshedToken(object source, ElapsedEventArgs e)
         {
-            var tokenReqParams = "grant_type=refresh_token" +
-                                 $"&refresh_token={lastTokenResponse.RefreshToken}";
+            var tokenReqParams = CreateTokenReqParams(reqType.refresh);
 
-            var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+            var resp = await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
             lastTokenResponse = resp;
         }
 
         public void StartTokenRequests(string code)
         {
-            var tokenReqParams =
-                              $"grant_type=authorization_code" +
-                              $"&code={code}" +
-                              $"&redirect_uri={this.redirectUrl}";
+            var tokenReqParams = CreateTokenReqParams(reqType.auth, code);
 
-            var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+            var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams).Result;
 
             lastTokenResponse = resp;
 
@@ -111,6 +115,30 @@ namespace NowPlaying.Core.Api
                 $"&redirect_uri={this.redirectUrl}" +
                 $"&response_type=code" +
                 $"&scope=user-read-playback-state";
+        }
+
+        private IDictionary<string, string> CreateTokenReqParams(reqType type, string code = null)
+        {
+            if (type == reqType.auth)
+            {
+                return new Dictionary<string, string>
+                {
+                    { "grant_type", "authorization_code" },
+                    { "code", code },
+                    { "redirect_uri", this.redirectUrl }
+                };
+            }
+
+            if (type == reqType.refresh)
+            {
+                return new Dictionary<string, string>
+                {
+                    { "grant_type", "refresh_token" },
+                    { "refresh_token", this.lastTokenResponse.RefreshToken }
+                };
+            }
+
+            throw new NotImplementedException();
         }
     }
 }
