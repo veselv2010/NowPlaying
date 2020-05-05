@@ -8,46 +8,36 @@ namespace NowPlaying.Core.Api
 {
     public abstract class RequestsManager
     {
-        private HttpClient CreateHttpClient()
-        {
-            return new HttpClient() { Timeout = Timeout.InfiniteTimeSpan };
-        }
+        protected readonly HttpClient client = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
 
         protected async Task<string> Get(string url)
         {
-            using (var client = CreateHttpClient())
+            using (var resp = await client.GetAsync(url))
             {
-                using (var resp = await client.GetAsync(url))
-                {
-                    using (var content = resp.Content)
-                    {
-                        return await content.ReadAsStringAsync();
-                    }
-                }
+                var content = resp.Content;
+                return await content.ReadAsStringAsync();
             }
         }
 
         protected async Task<RespT> UrlEncodedPost<RespT>(string url, IDictionary<string, string> reqParams = null,
             string authorization = null)
         {
-            using (var client = CreateHttpClient())
+            using (var postRequest = new HttpRequestMessage(HttpMethod.Post, url))
             {
-                using (var postRequest = new HttpRequestMessage(HttpMethod.Post, url))
+                postRequest.Content = new FormUrlEncodedContent(reqParams);
+
+                if (authorization != null)
                 {
-                    postRequest.Content = new FormUrlEncodedContent(reqParams);
+                    postRequest.Headers.Add("Authorization", authorization);
+                }
 
-                    if (authorization != null)
-                    {
-                        postRequest.Headers.Add("Authorization", authorization);
-                    }
-
-                    using (var resp = await client.SendAsync(postRequest))
-                    {
-                        var respContent = await resp.Content.ReadAsStringAsync();
-                        return JsonConvert.DeserializeObject<RespT>(respContent);
-                    }
+                using (var resp = await client.SendAsync(postRequest))
+                {
+                    var respContent = await resp.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<RespT>(respContent);
                 }
             }
+
         }
     }
 }
