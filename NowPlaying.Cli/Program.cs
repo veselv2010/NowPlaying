@@ -43,7 +43,7 @@ namespace NowPlaying.Cli
             Console.Write("code = ");
             string code = Console.ReadLine();
 
-            requestsManager.StartTokenRequests(code);
+            await requestsManager.StartTokenRequests(code);
 
             keySender = new KeySender();
             pathResolver = new PathResolver();

@@ -11,10 +11,10 @@ namespace NowPlaying.Core.Api
 {
     public class SpotifyRequestsManager : RequestsManager
     {
-        private enum reqType
+        private enum RequestType
         {
-            auth,
-            refresh
+            Auth,
+            Refresh
         }
 
         private class SpotifyApiUrls
@@ -88,18 +88,18 @@ namespace NowPlaying.Core.Api
 
         private async void GetRefreshedToken(object source, ElapsedEventArgs e)
         {
-            var tokenReqParams = CreateTokenReqParams(reqType.refresh);
+            var tokenReqParams = CreateTokenReqParams(RequestType.Refresh);
 
             var resp = await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
             lastTokenResponse = resp;
         }
 
-        public void StartTokenRequests(string code)
+        public async Task StartTokenRequests(string code)
         {
-            var tokenReqParams = CreateTokenReqParams(reqType.auth, code);
+            var tokenReqParams = CreateTokenReqParams(RequestType.Auth, code);
 
-            var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams).Result;
+            var resp = await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
             lastTokenResponse = resp;
 
@@ -117,9 +117,9 @@ namespace NowPlaying.Core.Api
                 $"&scope=user-read-playback-state";
         }
 
-        private IDictionary<string, string> CreateTokenReqParams(reqType type, string code = null)
+        private IDictionary<string, string> CreateTokenReqParams(RequestType type, string code = null)
         {
-            if (type == reqType.auth)
+            if (type == RequestType.Auth)
             {
                 return new Dictionary<string, string>
                 {
@@ -129,7 +129,7 @@ namespace NowPlaying.Core.Api
                 };
             }
 
-            if (type == reqType.refresh)
+            if (type == RequestType.Refresh)
             {
                 return new Dictionary<string, string>
                 {

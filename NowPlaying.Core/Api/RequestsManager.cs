@@ -37,7 +37,6 @@ namespace NowPlaying.Core.Api
                     return JsonConvert.DeserializeObject<RespT>(respContent);
                 }
             }
-
         }
     }
 }
