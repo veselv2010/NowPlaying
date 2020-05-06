@@ -27,6 +27,11 @@ namespace NowPlaying.Core.Api.SpotifyResponses
         /// </summary>
         public long Duration { get; }
 
+        /// <summary>
+        /// Album cover url.
+        /// </summary>
+        public string CoverUrl { get; }
+
         public string FullName { get; }
         public string FormattedArtists { get; }
         public int ProgressSeconds { get; }
@@ -36,13 +41,14 @@ namespace NowPlaying.Core.Api.SpotifyResponses
 
         public bool IsLocalFile { get; }
 
-        public CurrentTrackResponse(string trackId, string trackName, IEnumerable<string> artists, long progress, long duration)
+        public CurrentTrackResponse(string trackId, string trackName, string coverUrl, IEnumerable<string> artists, long progress, long duration)
         {
             this.Id = trackId;
             this.Name = trackName ?? throw new ArgumentNullException(nameof(trackName));
             this.Artists = artists ?? throw new ArgumentNullException(nameof(artists));
             this.Progress = progress;
             this.Duration = duration;
+            this.CoverUrl = coverUrl;
 
             this.IsLocalFile = this.Id == null;
 
