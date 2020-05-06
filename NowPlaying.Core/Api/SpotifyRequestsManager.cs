@@ -1,14 +1,23 @@
 using System;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using NowPlaying.Core.Api.SpotifyResponses;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace NowPlaying.Core.Api
 {
-    public class SpotifyRequestsManager : RequestsManager
+    public sealed class SpotifyRequestsManager : RequestsManager
     {
+        private enum RequestType
+        {
+            Auth,
+            Refresh
+        }
+
         private class SpotifyApiUrls
         {
             public const string Auth = "https://accounts.spotify.com/authorize";
@@ -26,23 +35,23 @@ namespace NowPlaying.Core.Api
         private readonly string redirectUrl;
 
         public SpotifyRequestsManager(string clientId, string clientSecret,
-            string redirectUrl)
+            string redirectUrl, HttpClient httpClient = null) : base(httpClient)
         {
             this.authorization = "Basic " + Base64Encode($"{clientId}:{clientSecret}");
             this.clientId = clientId;
             this.redirectUrl = redirectUrl;
         }
 
-        private RespT SpotifyPost<RespT>(string url, string data = "")
+        private async Task<RespT> SpotifyPost<RespT>(string url, IDictionary<string, string> reqParams = null)
         {
-            return UrlEncodedPost<RespT>(url, data, authorization);
+            return await UrlEncodedPost<RespT>(url, reqParams, authorization);
         }
 
-        private string SpotifyGet(string url, string accessToken)
+        private async Task<string> SpotifyGet(string url, string accessToken)
         {
             string combinedUrl = url + "?access_token=" + accessToken;
 
-            string resp = Get(combinedUrl);
+            string resp = await Get(combinedUrl);
 
             return resp;
         }
@@ -52,13 +61,14 @@ namespace NowPlaying.Core.Api
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
         }
+
         /// <summary>
         /// Returns null if nothing is playing rn
         /// </summary>
         /// <returns></returns>
-        public CurrentTrackResponse GetCurrentTrack()
+        public async Task<CurrentTrackResponse> GetCurrentTrack()
         {
-            string resp = SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
+            string resp = await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
             if (string.IsNullOrEmpty(resp))
                 return null;
@@ -78,24 +88,18 @@ namespace NowPlaying.Core.Api
             return new CurrentTrackResponse(trackId, trackName, artists, progress, duration);
         }
 
-        private void GetRefreshedToken(object source, ElapsedEventArgs e)
+        private async void GetRefreshedToken(object source, ElapsedEventArgs e)
         {
-            var tokenReqParams = "grant_type=refresh_token" +
-                                 $"&refresh_token={lastTokenResponse.RefreshToken}";
+            var tokenReqParams = CreateTokenReqParams(RequestType.Refresh);
 
-            var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+            var resp = await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
 
             lastTokenResponse = resp;
         }
 
-        public void StartTokenRequests(string code)
+        public async Task StartTokenRequests(string code)
         {
-            var tokenReqParams =
-                              $"grant_type=authorization_code" +
-                              $"&code={code}" +
-                              $"&redirect_uri={this.redirectUrl}";
-
-            var resp = SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+            var resp = await GetInitialResponse(code);
 
             lastTokenResponse = resp;
 
@@ -111,6 +115,37 @@ namespace NowPlaying.Core.Api
                 $"&redirect_uri={this.redirectUrl}" +
                 $"&response_type=code" +
                 $"&scope=user-read-playback-state";
+        }
+
+        private IDictionary<string, string> CreateTokenReqParams(RequestType type, string code = null)
+        {
+            if (type == RequestType.Auth)
+            {
+                return new Dictionary<string, string>
+                {
+                    { "grant_type", "authorization_code" },
+                    { "code", code },
+                    { "redirect_uri", this.redirectUrl }
+                };
+            }
+
+            if (type == RequestType.Refresh)
+            {
+                return new Dictionary<string, string>
+                {
+                    { "grant_type", "refresh_token" },
+                    { "refresh_token", this.lastTokenResponse.RefreshToken }
+                };
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private async Task<TokenResponse> GetInitialResponse(string code)
+        {
+            var tokenReqParams = CreateTokenReqParams(RequestType.Auth, code);
+
+            return await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
         }
     }
 }

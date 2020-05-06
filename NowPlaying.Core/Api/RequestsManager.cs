@@ -1,46 +1,47 @@
 using System.Threading;
-using System.Net;
-using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace NowPlaying.Core.Api
 {
     public abstract class RequestsManager
     {
-        private WebClient CreateWebClient()
+        private readonly HttpClient client;      
+
+        protected RequestsManager(HttpClient httpClient)
         {
-            return new WebClient() { Encoding = Encoding.UTF8 };
+            client = httpClient ?? new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
         }
 
-        protected string Get(string url)
+        protected async Task<string> Get(string url)
         {
-            try
+            using (var resp = await client.GetAsync(url))
             {
-                using (var wc = CreateWebClient())
-                    return wc.DownloadString(url);
-            }
-            catch (System.Net.WebException)
-            {
-                Thread.Sleep(1000);
-                return Get(url);
+                var content = resp.Content;
+                return await content.ReadAsStringAsync();
             }
         }
 
-        protected RespT UrlEncodedPost<RespT>(string url, string data = "", string authorization = null)
+        protected async Task<RespT> UrlEncodedPost<RespT>(string url, IDictionary<string, string> reqParams = null,
+            string authorization = null)
         {
-           using (var wc = CreateWebClient())
-           {
-                wc.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+            using (var postRequest = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                postRequest.Content = new FormUrlEncodedContent(reqParams);
 
                 if (authorization != null)
                 {
-                    wc.Headers.Add(HttpRequestHeader.Authorization, authorization);
+                    postRequest.Headers.Add("Authorization", authorization);
                 }
 
-                var resp = wc.UploadString(url, data);
-
-                return JsonConvert.DeserializeObject<RespT>(resp);
-           }
+                using (var resp = await client.SendAsync(postRequest))
+                {
+                    var respContent = await resp.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<RespT>(respContent);
+                }
+            }
         }
     }
 }

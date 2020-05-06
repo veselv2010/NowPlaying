@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.Api;
 using NowPlaying.Core.Steam;
@@ -21,7 +22,7 @@ namespace NowPlaying.Cli
         private static ConfigWriter configWriter;
         private static KeySender keySender;
 
-        static void Main()
+        static async Task Main()
         {
             process = new GameProcess();
             process.Start();
@@ -42,7 +43,7 @@ namespace NowPlaying.Cli
             Console.Write("code = ");
             string code = Console.ReadLine();
 
-            requestsManager.StartTokenRequests(code);
+            await requestsManager.StartTokenRequests(code);
 
             keySender = new KeySender();
             pathResolver = new PathResolver();
@@ -58,7 +59,7 @@ namespace NowPlaying.Cli
 
             while (true)
             {
-                var resp = requestsManager.GetCurrentTrack();
+                var resp = await requestsManager.GetCurrentTrack();
 
                 if (resp != null)
                 {
