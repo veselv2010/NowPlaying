@@ -87,7 +87,7 @@ namespace NowPlaying.Core.Api
             long duration = (long)trackInfo["duration_ms"];
 
             string coverUrl = (string)albumCover["images"][0].SelectToken("url");
-
+            
             return new CurrentTrackResponse(trackId, trackName, coverUrl, artists, progress, duration);
         }
 
