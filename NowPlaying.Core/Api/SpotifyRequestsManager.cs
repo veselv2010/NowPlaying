@@ -77,7 +77,6 @@ namespace NowPlaying.Core.Api
 
             JToken trackInfo = currentTrackJson["item"];
             JToken artistsInfo = trackInfo["artists"];
-            JToken albumCover = trackInfo["album"];
 
             string trackId = (string) trackInfo["id"];
             string trackName = (string)trackInfo["name"];
@@ -86,9 +85,7 @@ namespace NowPlaying.Core.Api
             long progress = (long)currentTrackJson["progress_ms"];
             long duration = (long)trackInfo["duration_ms"];
 
-            string coverUrl = (string)albumCover["images"][0].SelectToken("url");
-
-            return new CurrentTrackResponse(trackId, trackName, coverUrl, artists, progress, duration);
+            return new CurrentTrackResponse(trackId, trackName, artists, progress, duration);
         }
 
         private async void GetRefreshedToken(object source, ElapsedEventArgs e)
