@@ -6,10 +6,11 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using NowPlaying.Core.Api.SpotifyResponses;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace NowPlaying.Core.Api
 {
-    public class SpotifyRequestsManager : RequestsManager
+    public sealed class SpotifyRequestsManager : RequestsManager
     {
         private enum RequestType
         {
@@ -34,7 +35,7 @@ namespace NowPlaying.Core.Api
         private readonly string redirectUrl;
 
         public SpotifyRequestsManager(string clientId, string clientSecret,
-            string redirectUrl)
+            string redirectUrl, HttpClient httpClient = null) : base(httpClient)
         {
             this.authorization = "Basic " + Base64Encode($"{clientId}:{clientSecret}");
             this.clientId = clientId;
