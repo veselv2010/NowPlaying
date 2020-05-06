@@ -6,10 +6,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
         mc:Ignorable="d"
-        d:DesignHeight="4" d:DesignWidth="100" HorizontalAlignment="Stretch">
+        d:DesignHeight="2" d:DesignWidth="100" HorizontalAlignment="Stretch">
     <Grid>
-        <Border Background="Brown">
-            <Border Background="Azure" Width="50" HorizontalAlignment="Left" x:Name="FillingLine"/>
+        <Border Background="#D9D9D9">
+            <Border Background="#1DB954" Width="50" HorizontalAlignment="Left" x:Name="FillingLine"/>
         </Border>
     </Grid>
 </local:ProgressBase>

@@ -6,5 +6,5 @@
              xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.Header.Buttons"
              mc:Ignorable="d"
              Width="10" Height="10">
-    <Rectangle Width="10" Height="2" Fill="White" VerticalAlignment="Bottom"/>
+    <Rectangle Width="10" Height="2" Fill="#7E7E7E" VerticalAlignment="Bottom"/>
 </UserControl>

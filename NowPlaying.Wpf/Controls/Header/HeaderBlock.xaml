@@ -17,22 +17,43 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition />
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="help!" Foreground="AliceBlue" TextDecorations="Underline" x:Name="HelpTextBlock"/>
+        <TextBlock x:Name="HelpTextBlock"
+                   Text="help!"                   
+                   Foreground="#7E7E7E" 
+                   TextDecorations="Underline" 
+                   VerticalAlignment="Center" 
+                   Padding="5" 
+                   Cursor="Hand" 
+                   FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
 
         <Border Grid.Column="2">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="O_O" />
-                <toggle:ToggleSwitch x:Name="ToggleTheme" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="40"/>
-                <TextBlock Text="v_v" />
+              
+                <TextBlock Text="O_O" 
+                           VerticalAlignment="Center" 
+                           Margin="5" 
+                           Foreground="#7E7E7E" 
+                           FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+                
+                <toggle:ToggleSwitch x:Name="ToggleTheme" 
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch" 
+                                     Height="20" 
+                                     Width="auto"/>
+                <TextBlock Text="v_v" 
+                           VerticalAlignment="Center" 
+                           Margin="5" 
+                           Foreground="#7E7E7E" 
+                           FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
             </StackPanel>
         </Border>
 
-        <buttons:LineButton Grid.Column="3"/>
-        <buttons:CrossButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
+        <buttons:LineButton Grid.Column="3" Height="Auto" Padding="5,15" Width="Auto"/>
+        <buttons:CrossButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown" Height="Auto" Padding="5,15" Width="Auto"/>
     </Grid>
 </local:HeaderBlockBase>

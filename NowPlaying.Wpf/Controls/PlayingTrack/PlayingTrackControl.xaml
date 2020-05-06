@@ -6,12 +6,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
         mc:Ignorable="d"
-        d:DesignHeight="50" d:DesignWidth="300">
+        d:DesignHeight="82" d:DesignWidth="300">
     <StackPanel>
-        <TextBlock x:Name="TrackAuthorTextBlock" Text="goreshit"  Foreground="ForestGreen" HorizontalAlignment="Center"/>
-
+        <TextBlock x:Name="TrackAuthorTextBlock" 
+                   FontSize="20" 
+                   Foreground="#1DB954"
+                   HorizontalAlignment="Center"
+                   Padding="0,0,0,5" 
+                   FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+       
         <local:Progress x:Name="Progress" Height="4"/>
-
-        <TextBlock x:Name="TrackNameTextBlock" Text="loomina shadow of a tree lona aone" HorizontalAlignment="Center" Foreground="ForestGreen" />
+        
+        <TextBlock x:Name="TrackNameTextBlock" 
+                   FontSize="16"
+                   HorizontalAlignment="Center" 
+                   Foreground="#1DB954" 
+                   Padding="0,5,0,0"
+                   FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock x:Name="CurrentProgress" 
+                       Text="0:00" 
+                       FontSize="12" 
+                       Foreground="#1DB954" 
+                       FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+            <TextBlock Text="/" 
+                       FontSize="12"
+                       Foreground="#7E7E7E" 
+                       FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+            <TextBlock x:Name="EstimatedProgress" 
+                       Text="0:00" 
+                       FontSize="12" 
+                       Foreground="#7E7E7E" 
+                       FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+        </StackPanel>
     </StackPanel>
 </local:PlayingTrackControlBase>

@@ -184,9 +184,32 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Font\Montserrat-Black.otf" />
+    <Resource Include="Resources\Font\Montserrat-Black.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Bold.otf" />
+    <Resource Include="Resources\Font\Montserrat-Bold.ttf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraBold.otf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraBold.ttf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraLight.otf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraLight.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Light.otf" />
+    <Resource Include="Resources\Font\Montserrat-Light.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Medium.otf" />
+    <Resource Include="Resources\Font\Montserrat-Medium.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Regular.otf" />
+    <Resource Include="Resources\Font\Montserrat-Regular.ttf" />
+    <Resource Include="Resources\Font\Montserrat-SemiBold.otf" />
+    <Resource Include="Resources\Font\Montserrat-SemiBold.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Thin.otf" />
+    <Resource Include="Resources\Font\Montserrat-Thin.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Font\OFL.txt" />
+    <Resource Include="Resources\icon.ico" />
+    <Resource Include="Resources\SourceKeys.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />

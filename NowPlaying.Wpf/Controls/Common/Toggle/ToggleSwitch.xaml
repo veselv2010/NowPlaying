@@ -5,14 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    mc:Ignorable="d" Width="150" Height="50">
-    <Grid>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="150" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+    mc:Ignorable="d" 
+    Width="111" 
+    Height="60">
+    <Viewbox>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="111" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
             <!-- TODO: Animation -->
 
-            <Rectangle RadiusX="20" RadiusY="20" Fill="Gray"/>
-            <Ellipse x:Name="Dot" Fill="White" HorizontalAlignment="Center" Height="50" Width="50" />
+            <Rectangle Height="60" RadiusX="30" RadiusY="30" Fill="#FF4040"/>
+
+            <Ellipse x:Name="Dot" Height="46" Width="46" Fill="White" HorizontalAlignment="Center"  />
 
         </Grid>
-    </Grid>
+    </Viewbox>
 </toggle:ToggleSwitchBase>

@@ -16,8 +16,8 @@ namespace NowPlaying.Wpf.Controls.Common.Toggle
         static readonly Thickness LeftSideThickness = new Thickness(-39, 0, 0, 0);
         static readonly Thickness RightSideThickness = new Thickness(0, 0, -39, 0);
 
-        static readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(160, 160, 160));
-        static readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(130, 190, 125));
+        static readonly SolidColorBrush Off = new SolidColorBrush(Color.FromRgb(255, 64, 64));
+        static readonly SolidColorBrush On = new SolidColorBrush(Color.FromRgb(29, 185, 84));
 
         public ToggleSwitch()
         {
