@@ -8,8 +8,8 @@ spotify current track to csgo chat very nice
 4. Optionally, you can use autosend, which activates send button on each change of track via WinAPI SendInput
 5. Turn on the program by switching the "npc work" slider on
 6. Copy the console string
-7. Paste console string into the csgo console (~) (exec "%assignedkey%" "exec audio.cfg")
-8. Press the assigned key to send current track info or use the autosend option metioned in the 4th step
+7. Paste console string into the csgo console (~) (bind "%assignedkey%" "exec audio.cfg")
+8. Press the assigned key to send current track info or use the autosend option mentioned in the 4th step
 
 Make sure to not be in any kind of a in-game menu or alt-tabbed when using autosend to prevent it not sending input to the game when the track has changed.
 
