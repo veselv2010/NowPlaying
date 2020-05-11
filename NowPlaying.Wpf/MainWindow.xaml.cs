@@ -23,7 +23,7 @@ namespace NowPlaying.Wpf
         }
 
         // TODO: custom colors
-        private Brush ThemeToBrush(Theme theme) => theme == Theme.Black ? Brushes.DarkGray : Brushes.Gray;
+        private SolidColorBrush ThemeToBrush(Theme theme) => theme == Theme.Black ? ColorsConstants.AlmostBlack : ColorsConstants.White;
 
         private void HeaderBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

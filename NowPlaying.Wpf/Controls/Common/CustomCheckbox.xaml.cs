@@ -15,12 +15,6 @@ namespace NowPlaying.Wpf.Controls.Common
 
     public partial class CustomCheckbox : CustomCheckboxBase
     {
-        static readonly SolidColorBrush ToggledOn = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0xB9, 0x54));
-        static readonly SolidColorBrush ToggledOff = new SolidColorBrush(Color.FromArgb(0x00, 0x1D, 0xB9, 0x54));
-
-        static readonly SolidColorBrush MouseEnterColor = new SolidColorBrush(Color.FromRgb(0x1D, 0xB9, 0x54));
-        static readonly SolidColorBrush MouseLeaveColor = new SolidColorBrush(Color.FromRgb(0xB3, 0xB3, 0xB3));
-
         public CustomCheckbox()
         {
             ViewModel = new ToggleViewModel();
@@ -28,8 +22,8 @@ namespace NowPlaying.Wpf.Controls.Common
 
             var map = new Dictionary<bool, SolidColorBrush>
             {
-                { false, ToggledOff },
-                { true, ToggledOn },
+                { false, ColorsConstants.Transparent },
+                { true, ColorsConstants.SpotifyGreen },
             };
 
             this.WhenActivated(d =>
@@ -46,12 +40,12 @@ namespace NowPlaying.Wpf.Controls.Common
 
         private void StackPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            BorderRectangle.Stroke = MouseEnterColor;
+            BorderRectangle.Stroke = ColorsConstants.SpotifyGreen;
         }
 
         private void StackPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            BorderRectangle.Stroke = MouseLeaveColor;
+            BorderRectangle.Stroke = ColorsConstants.MilkyGrayBorder;
         }
     }
 }

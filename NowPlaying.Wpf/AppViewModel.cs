@@ -22,7 +22,7 @@ namespace NowPlaying.Wpf
 
         public AppViewModel()
         {
-            HeaderViewModel.Theme = Theme.Black;
+            HeaderViewModel.Theme = Theme.White;
             PlayingTrack.Title = "тайтл";
             PlayingTrack.Author = "автор";
             PlayingTrack.ProgressMs = 900;

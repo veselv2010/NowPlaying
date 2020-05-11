@@ -8,13 +8,19 @@
              Width="20" Height="20">
     <Viewbox>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Rectangle Width="2" Height="12" Fill="#7E7E7E">
+            <Rectangle x:Name="Cross1" 
+                       Width="2" Height="12" Fill="#7E7E7E" 
+                       MouseEnter="CrossButtonMouseEnter" 
+                       MouseLeave="CrossButtonMouseLeave">
                 <Rectangle.LayoutTransform>
                     <RotateTransform Angle="-45"/>
                 </Rectangle.LayoutTransform>
             </Rectangle>
 
-            <Rectangle Width="2" Height="12" Fill="#7E7E7E">
+            <Rectangle x:Name="Cross2" 
+                       Width="2" Height="12" Fill="#7E7E7E" 
+                       MouseEnter="CrossButtonMouseEnter" 
+                       MouseLeave="CrossButtonMouseLeave">
                 <Rectangle.LayoutTransform>
                     <RotateTransform Angle="45"/>
                 </Rectangle.LayoutTransform>

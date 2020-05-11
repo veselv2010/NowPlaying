@@ -15,11 +15,11 @@
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
         Title="NowPlaying"
-        Opacity="1" 
+        Opacity="0.95" 
         WindowStyle="None" 
         AllowsTransparency="True" 
         Width="450"
-        Height="685">
+        Height="600">
     <StackPanel>
         <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
