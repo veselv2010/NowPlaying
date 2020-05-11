@@ -6,12 +6,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
         mc:Ignorable="d"
-        d:DesignHeight="2" d:DesignWidth="100" HorizontalAlignment="Stretch">
+        Height="2" Width="360" HorizontalAlignment="Stretch">
     <Grid>
         <Border Background="#D9D9D9">
             <Border x:Name="FillingLine"
                     Background="#1DB954" 
-                    Width="50" 
+                    Width="360" 
                     HorizontalAlignment="Left"/>
         </Border>
     </Grid>

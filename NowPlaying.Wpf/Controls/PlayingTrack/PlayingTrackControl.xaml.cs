@@ -27,6 +27,12 @@ namespace NowPlaying.Wpf.Controls.PlayingTrack
                         vm => vm.ProgressMs, v => v.Progress.ViewModel.Progress,
                         progressMs => progressMs / (ViewModel.DurationMs / 100))
                     .DisposeWith(d);
+
+                this.OneWayBind(ViewModel, vm => vm.CurrentProgress, v => v.CurrentProgress.Text)
+                     .DisposeWith(d);
+
+                this.OneWayBind(ViewModel, vm => vm.EstimatedProgress, v => v.EstimatedProgress.Text)
+                     .DisposeWith(d);
             });
         }
     }
