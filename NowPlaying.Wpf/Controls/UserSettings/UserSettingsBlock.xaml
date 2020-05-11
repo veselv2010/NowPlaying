@@ -11,7 +11,37 @@
              Height="300" 
              Width="450">
     <StackPanel>
-        <controls:CurrentKeyControl/>
-        <common:CustomCheckbox/>
+        <StackPanel  Orientation="Horizontal" Margin="45,0,0,0">
+            <TextBlock Text="Current acc: " 
+                       Foreground="#7E7E7E"/>
+            <TextBlock x:Name="CurrentAccountText" 
+                       Text="accountname" 
+                       Foreground="#7E7E7E"/>
+        </StackPanel>
+        
+        <TextBlock x:Name="CurrentGameText"
+                   Text="gameprocessname" 
+                   Foreground="#7E7E7E" Margin="45,11,0,0"/>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">
+                <TextBlock Text="Chat button"
+                       HorizontalAlignment="Center"
+                       Margin="11"
+                       FontSize="14"
+                       Foreground="#7E7E7E"/>
+
+                <controls:CurrentKeyControl HorizontalAlignment="Left"/>
+            </StackPanel>
+            
+            <common:CustomCheckbox Height="16" Width="16"
+                                   VerticalAlignment="Bottom" 
+                                   Margin="11,0,0,6"/>
+            <TextBlock Text="autosend on new track" 
+                       Height="16" 
+                       VerticalAlignment="Bottom" 
+                       Foreground="#7E7E7E" Margin="6"/>
+            
+        </StackPanel>
     </StackPanel>
 </local:UserSettingsBlockBase>
