@@ -4,13 +4,15 @@ using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using NowPlaying.Wpf.Controls.Common.Toggle;
 
 namespace NowPlaying.Wpf.Controls.Common
 {
-    public partial class CustomCheckboxBase : ReactiveUserControl<CustomCheckboxViewModel>
+    public partial class CustomCheckboxBase : ToggleBase
     {
 
     }
+
     public partial class CustomCheckbox : CustomCheckboxBase
     {
         static readonly SolidColorBrush ToggledOn = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0xB9, 0x54));
@@ -21,7 +23,7 @@ namespace NowPlaying.Wpf.Controls.Common
 
         public CustomCheckbox()
         {
-            ViewModel = new CustomCheckboxViewModel();
+            ViewModel = new ToggleViewModel();
             InitializeComponent();
 
             var map = new Dictionary<bool, SolidColorBrush>
@@ -32,18 +34,9 @@ namespace NowPlaying.Wpf.Controls.Common
 
             this.WhenActivated(d =>
             {
-                this.OneWayBind(ViewModel, vm => vm.IsChecked, view => view.CheckedRectangle.Fill, isToggled => map[isToggled])
+                this.OneWayBind(ViewModel, vm => vm.IsToggled, view => view.CheckedRectangle.Fill, isToggled => map[isToggled])
                     .DisposeWith(d);
             });
-        }
-
-        public bool IsToggled { get => ViewModel.IsChecked; set => Toggle(value); }
-
-        public void Toggle(bool? newToggled = null)
-        {
-            ViewModel.IsChecked = newToggled ?? !ViewModel.IsChecked;
-
-            System.Console.WriteLine(ViewModel.IsChecked);
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

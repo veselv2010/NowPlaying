@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Media;
+using NowPlaying.Wpf.Controls.Common.Toggle;
 
-namespace NowPlaying.Wpf.Controls.Common.Toggle
+namespace NowPlaying.Wpf.Controls.Common
 {
-    public partial class ToggleSwitchBase : ReactiveUserControl<ToggleSwitchViewModel>
+    public partial class ToggleSwitchBase : ToggleBase
     {
         // https://reactiveui.net/api/reactiveui/reactiveusercontrol_1/#Remarks
     }
@@ -21,7 +22,7 @@ namespace NowPlaying.Wpf.Controls.Common.Toggle
 
         public ToggleSwitch()
         {
-            ViewModel = new ToggleSwitchViewModel();
+            ViewModel = new ToggleViewModel();
             InitializeComponent();
 
             var map = new Dictionary<bool, Thickness>
@@ -35,15 +36,6 @@ namespace NowPlaying.Wpf.Controls.Common.Toggle
                 this.OneWayBind(ViewModel, vm => vm.IsToggled, view => view.Dot.Margin, isToggled => map[isToggled])
                     .DisposeWith(d);
             });
-        }
-
-        public bool IsToggled { get => ViewModel.IsToggled; set => Toggle(value); }
-
-        public void Toggle(bool? newToggled = null)
-        {
-            ViewModel.IsToggled = newToggled ?? !ViewModel.IsToggled;
-
-            System.Console.WriteLine(ViewModel.IsToggled);
         }
 
         private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

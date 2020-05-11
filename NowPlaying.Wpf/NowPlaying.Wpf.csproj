@@ -97,7 +97,8 @@
     <Compile Include="Controls\Common\CustomCheckbox.xaml.cs">
       <DependentUpon>CustomCheckbox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\CustomCheckboxViewModel.cs" />
+    <Compile Include="Controls\Common\Toggle\ToggleBase.cs" />
+    <Compile Include="Controls\Common\Toggle\ToggleViewModel.cs" />
     <Compile Include="Controls\UserSettings\Controls\CurrentKeyControl.xaml.cs">
       <DependentUpon>CurrentKeyControl.xaml</DependentUpon>
     </Compile>
@@ -118,10 +119,9 @@
     <Compile Include="Controls\NpcWorkSwitch.xaml.cs">
       <DependentUpon>NpcWorkSwitch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\Toggle\ToggleSwitch.xaml.cs">
+    <Compile Include="Controls\Common\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\Toggle\ToggleSwitchViewModel.cs" />
     <Compile Include="Controls\PlayingTrack\PlayingTrackControl.xaml.cs">
       <DependentUpon>PlayingTrackControl.xaml</DependentUpon>
     </Compile>
@@ -163,7 +163,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\Toggle\ToggleSwitch.xaml">
+    <Page Include="Controls\Common\ToggleSwitch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
