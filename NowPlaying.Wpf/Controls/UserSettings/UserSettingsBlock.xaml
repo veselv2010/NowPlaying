@@ -8,7 +8,7 @@
              xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls.UserSettings.Controls"
              xmlns:common="clr-namespace:NowPlaying.Wpf.Controls.Common"
              mc:Ignorable="d" 
-             Height="300" 
+             Height="auto" 
              Width="450">
     <StackPanel>
         <StackPanel  Orientation="Horizontal" Margin="45,0,0,0">
