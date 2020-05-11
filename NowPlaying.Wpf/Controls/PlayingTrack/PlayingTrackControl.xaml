@@ -25,7 +25,7 @@
                    Padding="0,5,0,0"
                    FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
         
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
             <TextBlock x:Name="CurrentProgress" 
                        Text="0:00" 
                        FontSize="12" 

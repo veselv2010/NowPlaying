@@ -23,10 +23,11 @@
     <StackPanel>
         <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
-        <controls:NpcWorkSwitch />
+        <controls:NpcWorkSwitch Margin="45"/>
+        
+        <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
+                                          Margin="45,45,45,0" Width="Auto"/>
 
-        <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" Padding="30,0,30,0"/>
-
-        <userSettings:UserSettingsBlock/>
+        <userSettings:UserSettingsBlock Margin="-15"/>
     </StackPanel>
 </reactiveui:ReactiveWindow>
