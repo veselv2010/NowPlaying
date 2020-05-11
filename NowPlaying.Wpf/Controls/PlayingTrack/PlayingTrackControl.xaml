@@ -28,17 +28,16 @@
             <TextBlock x:Name="CurrentProgress" 
                        Text="0:00" 
                        FontSize="12" 
-                       Foreground="#1DB954" 
-                       FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+                       Foreground="#1DB954"/>
+            
             <TextBlock Text="/" 
                        FontSize="12"
-                       Foreground="#7E7E7E" 
-                       FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+                       Foreground="#7E7E7E"/>
+
             <TextBlock x:Name="EstimatedProgress" 
                        Text="0:00" 
                        FontSize="12" 
-                       Foreground="#7E7E7E" 
-                       FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+                       Foreground="#7E7E7E"/>
         </StackPanel>
     </StackPanel>
 </local:PlayingTrackControlBase>

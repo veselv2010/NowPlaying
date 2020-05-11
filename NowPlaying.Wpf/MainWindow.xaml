@@ -10,6 +10,7 @@
         xmlns:header="clr-namespace:NowPlaying.Wpf.Controls.Header"
         xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls"
         xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
+        xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
         Background="#171717"
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
@@ -27,5 +28,6 @@
 
         <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" Padding="30,0,30,0"/>
 
+        <userSettings:UserSettingsBlock/>
     </StackPanel>
 </reactiveui:ReactiveWindow>

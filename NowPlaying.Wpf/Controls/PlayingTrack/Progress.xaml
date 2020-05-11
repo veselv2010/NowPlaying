@@ -9,7 +9,10 @@
         d:DesignHeight="2" d:DesignWidth="100" HorizontalAlignment="Stretch">
     <Grid>
         <Border Background="#D9D9D9">
-            <Border Background="#1DB954" Width="50" HorizontalAlignment="Left" x:Name="FillingLine"/>
+            <Border x:Name="FillingLine"
+                    Background="#1DB954" 
+                    Width="50" 
+                    HorizontalAlignment="Left"/>
         </Border>
     </Grid>
 </local:ProgressBase>

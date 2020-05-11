@@ -7,10 +7,13 @@
              xmlns:toggle="clr-namespace:NowPlaying.Wpf.Controls.Common.Toggle"
              mc:Ignorable="d"
              Height="100" Width="111">
-    <Viewbox>
-        <StackPanel>
-            <TextBlock Text="npc work" FontSize="24" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-            <toggle:ToggleSwitch HorizontalAlignment="Center"/>
-        </StackPanel>
-    </Viewbox>
+    <StackPanel>
+        <TextBlock Text="npc work" 
+                   FontSize="24" 
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,5"/>
+        
+        <toggle:ToggleSwitch HorizontalAlignment="Center"/>
+    </StackPanel>
 </UserControl>

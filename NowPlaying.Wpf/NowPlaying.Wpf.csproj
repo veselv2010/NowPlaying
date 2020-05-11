@@ -41,6 +41,7 @@
     <Reference Include="DynamicData, Version=6.7.1.2534, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.6.7.1.2534\lib\net46\DynamicData.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="ReactiveUI, Version=9.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ReactiveUI.9.9.5\lib\net461\ReactiveUI.dll</HintPath>
     </Reference>
@@ -93,6 +94,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Common\CustomCheckbox.xaml.cs">
+      <DependentUpon>CustomCheckbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\CustomCheckboxViewModel.cs" />
+    <Compile Include="Controls\UserSettings\Controls\CurrentKeyControl.xaml.cs">
+      <DependentUpon>CurrentKeyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserSettings\Controls\CustomCombobox.xaml.cs">
+      <DependentUpon>CustomCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserSettings\Controls\CurrentKeyControlViewModel.cs" />
     <Compile Include="Controls\Header\Buttons\CrossButton.xaml.cs">
       <DependentUpon>CrossButton.xaml</DependentUpon>
     </Compile>
@@ -118,7 +130,23 @@
       <DependentUpon>Progress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayingTrack\ProgressViewModel.cs" />
+    <Compile Include="Controls\UserSettings\UserSettingsBlockViewModel.cs" />
+    <Compile Include="Controls\UserSettings\UserSettingsBlock.xaml.cs">
+      <DependentUpon>UserSettingsBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Theme.cs" />
+    <Page Include="Controls\Common\CustomCheckbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserSettings\Controls\CurrentKeyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserSettings\Controls\CustomCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Header\Buttons\CrossButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlayingTrack\Progress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserSettings\UserSettingsBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
