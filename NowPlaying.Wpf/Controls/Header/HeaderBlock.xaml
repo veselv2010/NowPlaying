@@ -30,6 +30,8 @@
                    Padding="5" 
                    Cursor="Hand"/>
 
+        <Rectangle Grid.Column="1" Fill="Transparent"/>
+
         <Border Grid.Column="2">
             <StackPanel Orientation="Horizontal">
               

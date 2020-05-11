@@ -20,9 +20,8 @@
         AllowsTransparency="True" 
         Width="450"
         Height="685">
-    <!--Opacity="0.95"-->
     <StackPanel>
-        <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" />
+        <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
         <controls:NpcWorkSwitch />
 
