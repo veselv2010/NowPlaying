@@ -14,7 +14,7 @@
         Background="#171717"
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
-        Title="NowPlaying RUI"
+        Title="NowPlaying"
         Opacity="1" 
         WindowStyle="None" 
         AllowsTransparency="True" 
