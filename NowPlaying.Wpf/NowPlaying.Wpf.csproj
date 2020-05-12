@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DynamicData, Version=6.7.1.2534, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.6.7.1.2534\lib\net46\DynamicData.dll</HintPath>
@@ -93,6 +96,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AcrylicMaterial.cs" />
+    <Compile Include="ColorsConstants.cs" />
+    <Compile Include="Controls\Common\CustomCheckbox.xaml.cs">
+      <DependentUpon>CustomCheckbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\Toggle\ToggleBase.cs" />
+    <Compile Include="Controls\Common\Toggle\ToggleViewModel.cs" />
+    <Compile Include="Controls\UserSettings\Controls\CurrentKeyControl.xaml.cs">
+      <DependentUpon>CurrentKeyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserSettings\Controls\CustomCombobox.xaml.cs">
+      <DependentUpon>CustomCombobox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Header\Buttons\CrossButton.xaml.cs">
       <DependentUpon>CrossButton.xaml</DependentUpon>
     </Compile>
@@ -106,10 +122,9 @@
     <Compile Include="Controls\NpcWorkSwitch.xaml.cs">
       <DependentUpon>NpcWorkSwitch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\Toggle\ToggleSwitch.xaml.cs">
+    <Compile Include="Controls\Common\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\Toggle\ToggleSwitchViewModel.cs" />
     <Compile Include="Controls\PlayingTrack\PlayingTrackControl.xaml.cs">
       <DependentUpon>PlayingTrackControl.xaml</DependentUpon>
     </Compile>
@@ -118,7 +133,23 @@
       <DependentUpon>Progress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayingTrack\ProgressViewModel.cs" />
+    <Compile Include="Controls\UserSettings\UserSettingsBlockViewModel.cs" />
+    <Compile Include="Controls\UserSettings\UserSettingsBlock.xaml.cs">
+      <DependentUpon>UserSettingsBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Theme.cs" />
+    <Page Include="Controls\Common\CustomCheckbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserSettings\Controls\CurrentKeyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserSettings\Controls\CustomCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Header\Buttons\CrossButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,7 +166,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\Toggle\ToggleSwitch.xaml">
+    <Page Include="Controls\Common\ToggleSwitch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlayingTrack\Progress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserSettings\UserSettingsBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,9 +219,32 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Font\Montserrat-Black.otf" />
+    <Resource Include="Resources\Font\Montserrat-Black.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Bold.otf" />
+    <Resource Include="Resources\Font\Montserrat-Bold.ttf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraBold.otf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraBold.ttf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraLight.otf" />
+    <Resource Include="Resources\Font\Montserrat-ExtraLight.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Light.otf" />
+    <Resource Include="Resources\Font\Montserrat-Light.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Medium.otf" />
+    <Resource Include="Resources\Font\Montserrat-Medium.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Regular.otf" />
+    <Resource Include="Resources\Font\Montserrat-Regular.ttf" />
+    <Resource Include="Resources\Font\Montserrat-SemiBold.otf" />
+    <Resource Include="Resources\Font\Montserrat-SemiBold.ttf" />
+    <Resource Include="Resources\Font\Montserrat-Thin.otf" />
+    <Resource Include="Resources\Font\Montserrat-Thin.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Font\OFL.txt" />
+    <Resource Include="Resources\icon.ico" />
+    <Resource Include="Resources\SourceKeys.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />

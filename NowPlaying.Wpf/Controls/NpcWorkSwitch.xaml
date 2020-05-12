@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NowPlaying.Wpf.Controls"
-             xmlns:toggle="clr-namespace:NowPlaying.Wpf.Controls.Common.Toggle"
+             xmlns:toggle="clr-namespace:NowPlaying.Wpf.Controls.Common"
              mc:Ignorable="d"
-             Height="115" Width="150">
+             Height="100" Width="111">
     <StackPanel>
-        <TextBlock Text="npc work" Foreground="White" HorizontalAlignment="Center"/>
-        <toggle:ToggleSwitch HorizontalAlignment="Center" />
+        <TextBlock Text="npc work" 
+                   FontSize="24" 
+                   Foreground="#464646" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,5"/>
+        
+        <toggle:ToggleSwitch HorizontalAlignment="Center"/>
     </StackPanel>
 </UserControl>

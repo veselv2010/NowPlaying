@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.Header"
         xmlns:buttons="clr-namespace:NowPlaying.Wpf.Controls.Header.Buttons"
-        xmlns:toggle="clr-namespace:NowPlaying.Wpf.Controls.Common.Toggle"
+        xmlns:common="clr-namespace:NowPlaying.Wpf.Controls.Common"
         mc:Ignorable="d"
         Width="450">
     <Grid>
@@ -17,22 +17,45 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition />
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="help!" Foreground="AliceBlue" TextDecorations="Underline" x:Name="HelpTextBlock"/>
+        <TextBlock x:Name="HelpTextBlock"
+                   Text="help!"                   
+                   Foreground="#7E7E7E" 
+                   TextDecorations="Underline" 
+                   VerticalAlignment="Center" 
+                   Padding="5" 
+                   Cursor="Hand"/>
+
+        <Rectangle Grid.Column="1" Fill="Transparent"/>
 
         <Border Grid.Column="2">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="O_O" />
-                <toggle:ToggleSwitch x:Name="ToggleTheme" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="40"/>
-                <TextBlock Text="v_v" />
+              
+                <TextBlock Text="O_O" 
+                           VerticalAlignment="Center" 
+                           Margin="5" 
+                           Foreground="#7E7E7E"/>
+                
+                <common:ToggleSwitch x:Name="ToggleTheme" 
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch" 
+                                     Height="20" 
+                                     Width="auto"/>
+                
+                <TextBlock Text="v_v" 
+                           VerticalAlignment="Center" 
+                           Margin="5" 
+                           Foreground="#7E7E7E"/>
             </StackPanel>
         </Border>
 
-        <buttons:LineButton Grid.Column="3"/>
-        <buttons:CrossButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
+        <buttons:LineButton Grid.Column="3" Height="Auto" 
+                            Padding="5,15" Width="Auto"/>
+        <buttons:CrossButton Grid.Column="4" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown" 
+                             Height="Auto" Padding="5,15" Width="Auto"/>
     </Grid>
 </local:HeaderBlockBase>

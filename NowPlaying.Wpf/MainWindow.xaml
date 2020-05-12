@@ -9,17 +9,25 @@
         xmlns:NowPlaying.Wpf="clr-namespace:NowPlaying.Wpf"
         xmlns:header="clr-namespace:NowPlaying.Wpf.Controls.Header"
         xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls"
-        xmlns:playingtrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
-        Background="LightBlue"
+        xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
+        xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
+        Background="#171717"
+        ResizeMode="CanMinimize"
         mc:Ignorable="d"
-        Title="HelloWorld RUI" Width="450" Height="685">
-
+        Title="NowPlaying"
+        Opacity="0.95" 
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Width="450"
+        Height="600" Loaded="WindowLoaded">
     <StackPanel>
-        <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" />
+        <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
-        <controls:NpcWorkSwitch />
+        <controls:NpcWorkSwitch Margin="45"/>
+        
+        <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
+                                          Margin="45,45,45,0" Width="Auto"/>
 
-        <playingtrack:PlayingTrackControl x:Name="PlayingTrackControl" Padding="30,0,30,0"/>
-
+        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="-15"/>
     </StackPanel>
 </reactiveui:ReactiveWindow>

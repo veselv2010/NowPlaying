@@ -1,4 +1,5 @@
-﻿using NowPlaying.Wpf.Themes;
+﻿using NowPlaying.Wpf.Controls.UserSettings;
+using NowPlaying.Wpf.Themes;
 using ReactiveUI;
 using System.Reactive.Disposables;
 using System.Windows.Media;
@@ -15,6 +16,7 @@ namespace NowPlaying.Wpf
 
             HeaderBlock.ViewModel = ViewModel.HeaderViewModel;
             PlayingTrackControl.ViewModel = ViewModel.PlayingTrack;
+            UserSettingsBlock.ViewModel = ViewModel.UserSettings;
 
             this.WhenActivated(d => {
                 this.OneWayBind(ViewModel, vm => vm.HeaderViewModel.Theme, v => v.Background, ThemeToBrush)
@@ -23,6 +25,17 @@ namespace NowPlaying.Wpf
         }
 
         // TODO: custom colors
-        private Brush ThemeToBrush(Theme theme) => theme == Theme.Black ? Brushes.DarkGray : Brushes.Gray;
+        private SolidColorBrush ThemeToBrush(Theme theme) => theme == Theme.Black ? ColorsConstants.BlackThemeBackground : ColorsConstants.White;
+
+        private void HeaderBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OnMouseLeftButtonDown(e);
+            this.DragMove();
+        }
+
+        private void WindowLoaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            AcrylicMaterial.EnableBlur(this);
+        }
     }
 }

@@ -4,6 +4,21 @@
              xmlns:local="clr-namespace:NowPlaying.Wpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+            </Style>
+            <Style TargetType="{x:Type Control}" x:Key="fontStyling">
+                <Setter Property="FontFamily" Value="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+            </Style>
+            <Style TargetType="{x:Type Label}" BasedOn="{DynamicResource fontStyling}"/>
+            <Style TargetType="{x:Type TextBox}" BasedOn="{DynamicResource fontStyling}"/>
+            <Style TargetType="{x:Type ListView}" BasedOn="{DynamicResource fontStyling}"/>
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{DynamicResource fontStyling}"/>
+            <!-- Add other targets such as CheckBox here. -->
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

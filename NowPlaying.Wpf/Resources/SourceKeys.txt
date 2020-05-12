@@ -1,0 +1,102 @@
+﻿Space Bar - space
+Caps Lock - capslock
+Escape - escape
+F1 - f1
+F2 - f2
+F3 - f3
+F4 - f4
+F5 - f5
+F6 - f6
+F7 - f7
+F8 - f8
+F9 - f9
+F10 - f10
+F11 - f11
+F12 - f12
+Pause - pause
+Left Quote - `
+Hyphen - -
+Equals Sign - =
+Backspace - backspace
+Tab Key - tab
+Left Bracket - ]
+Right Bracket - [
+Forward Slash - /
+Semicolon - semicolon
+Right Quote - '
+Back Slash - \
+Shift Key - shift
+Enter - enter
+Comma - ,
+Control - ctrl
+Alt - alt
+One - 1
+Two - 2
+Three - 3
+Four - 4
+Five - 5
+Six - 6
+Seven - 7
+Eight - 8
+Nine - 9
+Zero - 0
+A - a
+B - b
+C - c
+D - d
+E - e
+F - f
+G - g
+H - h
+I - i
+J - j
+K - k
+L - l
+M - m
+N - n
+O - o
+P - p
+Q - q
+R - r
+S - s
+T - t
+U - u
+V - v
+W - w
+X - x
+Y - y
+Z - z
+Up Arrow - uparrow
+Down Arrow - downarrow
+Right Arrow - rightarrow
+Left Arrow - leftarrow
+Insert - ins
+Home - home
+Page Up - pgup
+Page Down - pgdn
+Delete - del
+End - end
+Mouse Button 1 - mouse1
+Mouse Button 2 - mouse2
+Mouse Button 3 - mouse3
+Mouse Button 4 - mouse4
+Mouse Button 5 - mouse5
+Mouse Wheel Up - mwheelup
+Mouse Wheel Down - mwheeldown
+Keypad Key - Key Bind Name
+1 - kp_end
+2 - kp_downarrow
+3 - kp_pgdn
+4 - kp_leftarrow
+5 - kp_5
+6 - kp_rightarrow
+7 - kp_home
+8 - kp_uparrow
+9 - kp_pgup
+0 - kp_ins
++ - kp_plus
+- - kp_minus
+/ - kp_slash
+. - kp_del
+* - *
+Enter - kp_enter
