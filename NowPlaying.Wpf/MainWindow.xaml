@@ -19,7 +19,7 @@
         WindowStyle="None" 
         AllowsTransparency="True" 
         Width="450"
-        Height="685" Loaded="WindowLoaded">
+        Height="600" Loaded="WindowLoaded">
     <StackPanel>
         <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
@@ -28,6 +28,6 @@
         <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
                                           Margin="45,45,45,0" Width="Auto"/>
 
-        <userSettings:UserSettingsBlock Margin="-15"/>
+        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="-15"/>
     </StackPanel>
 </reactiveui:ReactiveWindow>

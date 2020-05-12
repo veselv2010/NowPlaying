@@ -1,4 +1,4 @@
-﻿<control:CurrentKeyControlBase 
+﻿<UserControl
              xmlns:control="clr-namespace:NowPlaying.Wpf.Controls.UserSettings.Controls"
              x:Class="NowPlaying.Wpf.Controls.UserSettings.Controls.CurrentKeyControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -12,17 +12,15 @@
     <StackPanel>
         <Rectangle Fill="Transparent" Width="184" 
                    Height="28" 
+                   Stroke="#FFB3B3B3"
                    MouseLeftButtonDown="KeyControlMouseLeftButtonDown"/>
+
+        <TextBlock x:Name="CurrentKeyTextBlock"
+                   Margin="0,-28,0,0"
+                   Text="kp_5" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Foreground="#7E7E7E"/>
         
-        <Border BorderBrush="#FFB3B3B3" Height="28" 
-                Margin="0,-28,0,0" BorderThickness="1" 
-                MouseLeftButtonDown="KeyControlMouseLeftButtonDown">
-            
-            <TextBlock x:Name="CurrentKeyTextBlock"
-                       Text="kp_5" 
-                       VerticalAlignment="Center" 
-                       HorizontalAlignment="Center" 
-                       Foreground="#7E7E7E"/>
-        </Border>
     </StackPanel>
-</control:CurrentKeyControlBase>
+</UserControl>

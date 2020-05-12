@@ -16,6 +16,11 @@ namespace NowPlaying.Wpf.Controls.UserSettings
         {
             ViewModel = new UserSettingsBlockViewModel();
             InitializeComponent();
+
+            this.WhenActivated(d => {
+                this.OneWayBind(ViewModel, vm => vm.CurrentKey, v => v.CurrentKeyControl.CurrentKeyTextBlock.Text)
+                    .DisposeWith(d);
+            });
         }
     }
 }

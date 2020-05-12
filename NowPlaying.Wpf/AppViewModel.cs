@@ -16,12 +16,9 @@ namespace NowPlaying.Wpf
         [Reactive] public PlayingTrackViewModel PlayingTrack { get; set; } = new PlayingTrackViewModel();
 
         [Reactive] public UserSettingsBlockViewModel UserSettings { get; set; } = new UserSettingsBlockViewModel();
-        [Reactive] public CurrentKeyControlViewModel CurrentKeyViewModel { get; set; } = new CurrentKeyControlViewModel();
 
         [Reactive] public bool IsRunning { get; set; }
-
         [Reactive] public string SendBindKey { get; set; }
-
         [Reactive] public IEnumerable<string> Accounts { get; set; }
         [Reactive] public string SelectedAccount { get; set; }
 
@@ -34,8 +31,8 @@ namespace NowPlaying.Wpf
             PlayingTrack.DurationMs = 240000;
             PlayingTrack.CurrentProgress = $"{(PlayingTrack.ProgressMs / 1000 / 60)}:{(PlayingTrack.ProgressMs / 1000 % 60):00}";
             PlayingTrack.EstimatedProgress = $"{(PlayingTrack.DurationMs / 1000 / 60)}:{(PlayingTrack.DurationMs / 1000 % 60):00}";
-            
-            CurrentKeyViewModel.CurrentKey = "kp_5";
+
+            UserSettings.CurrentKey = "it just works";
         }
     }
 }

@@ -7,5 +7,6 @@ namespace NowPlaying.Wpf.Controls.UserSettings
     public class UserSettingsBlockViewModel : ReactiveObject
     {
         [Reactive] public Theme Theme { get; set; }
+        [Reactive] public string CurrentKey { get; set; }
     }
 }

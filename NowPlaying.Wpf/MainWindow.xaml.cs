@@ -1,4 +1,5 @@
-﻿using NowPlaying.Wpf.Themes;
+﻿using NowPlaying.Wpf.Controls.UserSettings;
+using NowPlaying.Wpf.Themes;
 using ReactiveUI;
 using System.Reactive.Disposables;
 using System.Windows.Media;
@@ -15,6 +16,7 @@ namespace NowPlaying.Wpf
 
             HeaderBlock.ViewModel = ViewModel.HeaderViewModel;
             PlayingTrackControl.ViewModel = ViewModel.PlayingTrack;
+            UserSettingsBlock.ViewModel = ViewModel.UserSettings;
 
             this.WhenActivated(d => {
                 this.OneWayBind(ViewModel, vm => vm.HeaderViewModel.Theme, v => v.Background, ThemeToBrush)
