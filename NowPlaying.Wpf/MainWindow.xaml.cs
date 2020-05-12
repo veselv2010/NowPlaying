@@ -23,12 +23,17 @@ namespace NowPlaying.Wpf
         }
 
         // TODO: custom colors
-        private SolidColorBrush ThemeToBrush(Theme theme) => theme == Theme.Black ? ColorsConstants.AlmostBlack : ColorsConstants.White;
+        private SolidColorBrush ThemeToBrush(Theme theme) => theme == Theme.Black ? ColorsConstants.BlackThemeBackground : ColorsConstants.White;
 
         private void HeaderBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             OnMouseLeftButtonDown(e);
             this.DragMove();
+        }
+
+        private void WindowLoaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            AcrylicMaterial.EnableBlur(this);
         }
     }
 }

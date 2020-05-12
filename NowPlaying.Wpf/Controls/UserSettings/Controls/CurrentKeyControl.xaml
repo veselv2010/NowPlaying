@@ -18,7 +18,8 @@
                 Margin="0,-28,0,0" BorderThickness="1" 
                 MouseLeftButtonDown="KeyControlMouseLeftButtonDown">
             
-            <TextBlock Text="kp_5" 
+            <TextBlock x:Name="CurrentKeyTextBlock"
+                       Text="kp_5" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Center" 
                        Foreground="#7E7E7E"/>

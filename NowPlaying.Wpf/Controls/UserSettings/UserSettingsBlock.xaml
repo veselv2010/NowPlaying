@@ -11,14 +11,12 @@
              Height="auto" 
              Width="450">
     <StackPanel>
-        <StackPanel  Orientation="Horizontal" Margin="45,0,0,0">
-            <TextBlock Text="Current acc: " 
-                       Foreground="#7E7E7E"/>
-            <TextBlock x:Name="CurrentAccountText" 
-                       Text="accountname" 
-                       Foreground="#7E7E7E"/>
-        </StackPanel>
-        
+
+        <TextBlock x:Name="CurrentAccountText" 
+                   Margin="45,0,0,0"
+                   Text="accountname" 
+                   Foreground="#7E7E7E"/>
+
         <TextBlock x:Name="CurrentGameText"
                    Text="gameprocessname" 
                    Foreground="#7E7E7E" Margin="45,11,0,0"/>
@@ -31,7 +29,7 @@
                        FontSize="14"
                        Foreground="#7E7E7E"/>
 
-                <controls:CurrentKeyControl HorizontalAlignment="Left"/>
+                <controls:CurrentKeyControl x:Name="CurrentKeyControl" HorizontalAlignment="Left"/>
             </StackPanel>
             
             <common:CustomCheckbox Height="16" Width="16"

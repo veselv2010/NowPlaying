@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using System.Reactive.Disposables;
 
 namespace NowPlaying.Wpf.Controls.UserSettings.Controls
 {
@@ -13,6 +14,11 @@ namespace NowPlaying.Wpf.Controls.UserSettings.Controls
         {
             ViewModel = new CurrentKeyControlViewModel();
             InitializeComponent();
+
+            this.WhenActivated(d => {
+                this.OneWayBind(ViewModel, vm => vm.CurrentKey, v => v.CurrentKeyTextBlock.Text)
+                    .DisposeWith(d);
+            });
         }
 
         private void KeyControlMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

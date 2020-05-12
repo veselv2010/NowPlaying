@@ -10,7 +10,7 @@
     <StackPanel>
         <TextBlock Text="npc work" 
                    FontSize="24" 
-                   Foreground="White" 
+                   Foreground="#464646" 
                    HorizontalAlignment="Center" 
                    Margin="0,0,0,5"/>
         

@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AcrylicMaterial.cs" />
     <Compile Include="ColorsConstants.cs" />
     <Compile Include="Controls\Common\CustomCheckbox.xaml.cs">
       <DependentUpon>CustomCheckbox.xaml</DependentUpon>
