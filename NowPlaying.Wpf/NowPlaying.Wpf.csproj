@@ -123,6 +123,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AcrylicMaterial.cs" />
+    <Compile Include="Auth\AuthWindow.xaml.cs">
+      <DependentUpon>AuthWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ColorsConstants.cs" />
     <Compile Include="Controls\Common\CustomCheckbox.xaml.cs">
       <DependentUpon>CustomCheckbox.xaml</DependentUpon>
@@ -164,6 +167,10 @@
       <DependentUpon>UserSettingsBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Theme.cs" />
+    <Page Include="Auth\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Common\CustomCheckbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +278,12 @@
     <Resource Include="Resources\Font\OFL.txt" />
     <Resource Include="Resources\icon.ico" />
     <Resource Include="Resources\SourceKeys.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NowPlaying.Core\NowPlaying.Core.csproj">
+      <Project>{39e6a1b8-e1b4-4051-a2ef-c51495778f7a}</Project>
+      <Name>NowPlaying.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />
