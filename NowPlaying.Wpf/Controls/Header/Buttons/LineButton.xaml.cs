@@ -11,12 +11,12 @@ namespace NowPlaying.Wpf.Controls.Header.Buttons
 
         private void LineButtonMouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            this.Line.Fill = ColorsConstants.DarkGray;
+            this.Line.Fill = ColorsConstants.MilkyGray;
         }
 
         private void LineButtonMouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            this.Line.Fill = ColorsConstants.MilkyGray;
+            this.Line.Fill = ColorsConstants.DarkGray;
         }
     }
 }

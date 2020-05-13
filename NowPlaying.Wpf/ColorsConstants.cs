@@ -22,12 +22,12 @@ namespace NowPlaying.Wpf
         /// <summary>
         /// Black theme font color
         /// </summary>
-        public static readonly SolidColorBrush DarkGray = new SolidColorBrush(Color.FromRgb(0xB2, 0xB2, 0xB2));
+        public static readonly SolidColorBrush MilkyGray = new SolidColorBrush(Color.FromRgb(0xB2, 0xB2, 0xB2));
 
         /// <summary>
         /// White theme font color
         /// </summary>
-        public static readonly SolidColorBrush MilkyGray = new SolidColorBrush(Color.FromRgb(0x7E, 0x7E, 0x7E));
+        public static readonly SolidColorBrush DarkGray = new SolidColorBrush(Color.FromRgb(0x7E, 0x7E, 0x7E));
 
         /// <summary>
         /// White theme "npc work", "Current track", textbox text color

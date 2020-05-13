@@ -1,5 +1,7 @@
 ﻿using NowPlaying.Wpf.Themes;
 using ReactiveUI;
+using System.Windows.Media;
+using System.Collections.Generic;
 using System.Reactive.Disposables;
 
 namespace NowPlaying.Wpf.Controls.Header
@@ -17,6 +19,12 @@ namespace NowPlaying.Wpf.Controls.Header
 
             InitializeComponent();
 
+            var toggleColors = new Dictionary<bool, SolidColorBrush>
+            {
+                { false, ColorsConstants.MilkyGray },
+                { true, ColorsConstants.DarkGray },
+            };
+
             this.WhenActivated(d =>
             {
                 this.Bind(ViewModel,
@@ -24,6 +32,12 @@ namespace NowPlaying.Wpf.Controls.Header
                         view => view.ToggleTheme.ViewModel.IsToggled,
                         ThemeToBool, BoolToTheme)
                     .DisposeWith(d);
+
+                ToggleTheme.OneWayBind(ToggleTheme.ViewModel,
+                    vm => vm.IsToggled,
+                    view => view.RectangleToggle.Fill,
+                    IsToggled => toggleColors[IsToggled])
+                .DisposeWith(d);
             });
         }
 

@@ -22,7 +22,7 @@ namespace NowPlaying.Wpf.Controls.Common
             ViewModel = new ToggleViewModel();
             InitializeComponent();
 
-            var map = new Dictionary<bool, Thickness>
+            var toggleMap = new Dictionary<bool, Thickness>
             {
                 { false, LeftSideThickness },
                 { true, RightSideThickness },
@@ -30,8 +30,11 @@ namespace NowPlaying.Wpf.Controls.Common
 
             this.WhenActivated(d =>
             {
-                this.OneWayBind(ViewModel, vm => vm.IsToggled, view => view.Dot.Margin, isToggled => map[isToggled])
-                    .DisposeWith(d);
+                this.OneWayBind(ViewModel, 
+                    vm => vm.IsToggled, 
+                    view => view.Dot.Margin, 
+                    isToggled => toggleMap[isToggled])
+                .DisposeWith(d);
             });
         }
 

@@ -12,7 +12,7 @@
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="111" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
             <!-- TODO: Animation -->
 
-            <Rectangle Height="60" RadiusX="30" RadiusY="30" Fill="#FF4040"/>
+            <Rectangle x:Name="RectangleToggle" Height="60" RadiusX="30" RadiusY="30" Fill="#FF4040"/>
 
             <Ellipse x:Name="Dot" Height="46" Width="46" Fill="White" HorizontalAlignment="Center"  />
 
