@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NowPlaying.Wpf.Auth
 {
-    public partial class AuthWindow : Window
+    public partial class AuthWindow : Window, IDisposable
     {
         private delegate void AddressChanged();
         private event AddressChanged addressChanged;
@@ -45,9 +45,14 @@ namespace NowPlaying.Wpf.Auth
             if (this.url.Contains("?code="))
             {
                 Code = UriExtensions.GetPropertyValue(this.url, "code");
-                Dispatcher.Invoke(() => this.BrowserControl.Dispose());
                 Dispatcher.Invoke(() => this.Close());
             }
+        }
+
+        public void Dispose()
+        {
+            Dispatcher.Invoke(() => Cef.Shutdown());
+            Dispatcher.Invoke(() => this.BrowserControl.Dispose());
         }
     }
 }

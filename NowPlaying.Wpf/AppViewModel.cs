@@ -30,10 +30,7 @@ namespace NowPlaying.Wpf
         
         public AppViewModel()
         {
-            spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
-
-            spotify.StartTokenRequests(GetCode());
+            SpotifyRequestInitialize();
 
             HeaderViewModel.Theme = Theme.White;
             PlayingTrack.Title = "тайтл";
@@ -48,10 +45,19 @@ namespace NowPlaying.Wpf
 
         private string GetCode()
         {
-            var auth = new AuthWindow(spotify.GetAuthUrl());
-            auth.ShowDialog();
+            using (var auth = new AuthWindow(spotify.GetAuthUrl()))
+            {
+                auth.ShowDialog();
+                return auth.Code;
+            }
+        }
 
-            return auth.Code;
+        private async Task SpotifyRequestInitialize()
+        {
+            spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
+                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
+
+            await spotify.StartTokenRequests(GetCode());
         }
     }
 }
