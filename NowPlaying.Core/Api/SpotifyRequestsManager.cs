@@ -10,7 +10,7 @@ using System.Net.Http;
 
 namespace NowPlaying.Core.Api
 {
-    public sealed class SpotifyRequestsManager : RequestsManager, IDisposable
+    public sealed class SpotifyRequestsManager : RequestsManager
     {
         private enum RequestType
         {
@@ -71,7 +71,7 @@ namespace NowPlaying.Core.Api
         public async Task<CurrentTrackResponse> GetCurrentTrack()
         {
             if (!isAuthorized)
-                throw new System.Exception();
+                throw new System.Security.Authentication.AuthenticationException();
 
             string resp = await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
