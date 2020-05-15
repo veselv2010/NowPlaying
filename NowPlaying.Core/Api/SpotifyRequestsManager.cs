@@ -30,7 +30,7 @@ namespace NowPlaying.Core.Api
         private Timer tokenRefreshTimer;
         private TokenResponse lastTokenResponse;
 
-        private bool IsAuthorized => lastTokenResponse == null ? false : true;
+        private bool isAuthorized => lastTokenResponse == null ? false : true;
 
         private readonly string authorization;
         private readonly string clientId;
@@ -70,7 +70,7 @@ namespace NowPlaying.Core.Api
         /// <returns></returns>
         public async Task<CurrentTrackResponse> GetCurrentTrack()
         {
-            string resp = IsAuthorized ? 
+            string resp = isAuthorized ? 
                 await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken) : null;
 
             if (string.IsNullOrEmpty(resp))
