@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -6,14 +7,17 @@ namespace NowPlaying.Core.InputSender
 {
     public class KeySender
     {
-        public void SendInputWithAPI(string Key)
+        /// <summary>
+        /// </summary>
+        /// <param name="virtualKey">This needs to be converted by VirtualKeyFromKey(Wpf-key) (there is no System.Windows.Input.KeyInterop in netStandard2.0)</param>
+        public void SendInputWithAPI(ushort virtualKey)
         {
             INPUT[] Inputs = new INPUT[1];
             INPUT Input = new INPUT();
 
             Input.type = 1; // 1 = Keyboard Input
-            Input.U.ki.wVk = GetVirtualKey(Key);
-            Input.U.ki.wScan = GetKey(Key);
+            Input.U.ki.wVk = virtualKey;
+            Input.U.ki.wScan = GetScanKey(virtualKey);
             Input.U.ki.dwFlags = KEYEVENTF.SCANCODE;
             Inputs[0] = Input;
 
@@ -91,7 +95,7 @@ namespace NowPlaying.Core.InputSender
         [StructLayout(LayoutKind.Sequential)]
         internal struct KEYBDINPUT
         {
-            internal VirtualKeyShort wVk;
+            internal ushort wVk;
             internal ScanCodeShort wScan;
             internal KEYEVENTF dwFlags;
             internal int time;
@@ -105,700 +109,6 @@ namespace NowPlaying.Core.InputSender
             KEYUP = 0x0002,
             SCANCODE = 0x0008,
             UNICODE = 0x0004
-        }
-
-        internal enum VirtualKeyShort : short
-        {
-            ///<summary>
-            ///Left mouse button
-            ///</summary>
-            LBUTTON = 0x01,
-            ///<summary>
-            ///Right mouse button
-            ///</summary>
-            RBUTTON = 0x02,
-            ///<summary>
-            ///Control-break processing
-            ///</summary>
-            CANCEL = 0x03,
-            ///<summary>
-            ///Middle mouse button (three-button mouse)
-            ///</summary>
-            MBUTTON = 0x04,
-            ///<summary>
-            ///Windows 2000/XP: X1 mouse button
-            ///</summary>
-            XBUTTON1 = 0x05,
-            ///<summary>
-            ///Windows 2000/XP: X2 mouse button
-            ///</summary>
-            XBUTTON2 = 0x06,
-            ///<summary>
-            ///BACKSPACE key
-            ///</summary>
-            BACK = 0x08,
-            ///<summary>
-            ///TAB key
-            ///</summary>
-            TAB = 0x09,
-            ///<summary>
-            ///CLEAR key
-            ///</summary>
-            CLEAR = 0x0C,
-            ///<summary>
-            ///ENTER key
-            ///</summary>
-            RETURN = 0x0D,
-            ///<summary>
-            ///SHIFT key
-            ///</summary>
-            SHIFT = 0x10,
-            ///<summary>
-            ///CTRL key
-            ///</summary>
-            CONTROL = 0x11,
-            ///<summary>
-            ///ALT key
-            ///</summary>
-            MENU = 0x12,
-            ///<summary>
-            ///PAUSE key
-            ///</summary>
-            PAUSE = 0x13,
-            ///<summary>
-            ///CAPS LOCK key
-            ///</summary>
-            CAPITAL = 0x14,
-            ///<summary>
-            ///Input Method Editor (IME) Kana mode
-            ///</summary>
-            KANA = 0x15,
-            ///<summary>
-            ///IME Hangul mode
-            ///</summary>
-            HANGUL = 0x15,
-            ///<summary>
-            ///IME Junja mode
-            ///</summary>
-            JUNJA = 0x17,
-            ///<summary>
-            ///IME final mode
-            ///</summary>
-            FINAL = 0x18,
-            ///<summary>
-            ///IME Hanja mode
-            ///</summary>
-            HANJA = 0x19,
-            ///<summary>
-            ///IME Kanji mode
-            ///</summary>
-            KANJI = 0x19,
-            ///<summary>
-            ///ESC key
-            ///</summary>
-            ESCAPE = 0x1B,
-            ///<summary>
-            ///IME convert
-            ///</summary>
-            CONVERT = 0x1C,
-            ///<summary>
-            ///IME nonconvert
-            ///</summary>
-            NONCONVERT = 0x1D,
-            ///<summary>
-            ///IME accept
-            ///</summary>
-            ACCEPT = 0x1E,
-            ///<summary>
-            ///IME mode change request
-            ///</summary>
-            MODECHANGE = 0x1F,
-            ///<summary>
-            ///SPACEBAR
-            ///</summary>
-            SPACE = 0x20,
-            ///<summary>
-            ///PAGE UP key
-            ///</summary>
-            PRIOR = 0x21,
-            ///<summary>
-            ///PAGE DOWN key
-            ///</summary>
-            NEXT = 0x22,
-            ///<summary>
-            ///END key
-            ///</summary>
-            END = 0x23,
-            ///<summary>
-            ///HOME key
-            ///</summary>
-            HOME = 0x24,
-            ///<summary>
-            ///LEFT ARROW key
-            ///</summary>
-            LEFT = 0x25,
-            ///<summary>
-            ///UP ARROW key
-            ///</summary>
-            UP = 0x26,
-            ///<summary>
-            ///RIGHT ARROW key
-            ///</summary>
-            RIGHT = 0x27,
-            ///<summary>
-            ///DOWN ARROW key
-            ///</summary>
-            DOWN = 0x28,
-            ///<summary>
-            ///SELECT key
-            ///</summary>
-            SELECT = 0x29,
-            ///<summary>
-            ///PRINT key
-            ///</summary>
-            PRINT = 0x2A,
-            ///<summary>
-            ///EXECUTE key
-            ///</summary>
-            EXECUTE = 0x2B,
-            ///<summary>
-            ///PRINT SCREEN key
-            ///</summary>
-            SNAPSHOT = 0x2C,
-            ///<summary>
-            ///INS key
-            ///</summary>
-            INSERT = 0x2D,
-            ///<summary>
-            ///DEL key
-            ///</summary>
-            DELETE = 0x2E,
-            ///<summary>
-            ///HELP key
-            ///</summary>
-            HELP = 0x2F,
-            ///<summary>
-            ///0 key
-            ///</summary>
-            KEY_0 = 0x30,
-            ///<summary>
-            ///1 key
-            ///</summary>
-            KEY_1 = 0x31,
-            ///<summary>
-            ///2 key
-            ///</summary>
-            KEY_2 = 0x32,
-            ///<summary>
-            ///3 key
-            ///</summary>
-            KEY_3 = 0x33,
-            ///<summary>
-            ///4 key
-            ///</summary>
-            KEY_4 = 0x34,
-            ///<summary>
-            ///5 key
-            ///</summary>
-            KEY_5 = 0x35,
-            ///<summary>
-            ///6 key
-            ///</summary>
-            KEY_6 = 0x36,
-            ///<summary>
-            ///7 key
-            ///</summary>
-            KEY_7 = 0x37,
-            ///<summary>
-            ///8 key
-            ///</summary>
-            KEY_8 = 0x38,
-            ///<summary>
-            ///9 key
-            ///</summary>
-            KEY_9 = 0x39,
-            ///<summary>
-            ///A key
-            ///</summary>
-            KEY_A = 0x41,
-            ///<summary>
-            ///B key
-            ///</summary>
-            KEY_B = 0x42,
-            ///<summary>
-            ///C key
-            ///</summary>
-            KEY_C = 0x43,
-            ///<summary>
-            ///D key
-            ///</summary>
-            KEY_D = 0x44,
-            ///<summary>
-            ///E key
-            ///</summary>
-            KEY_E = 0x45,
-            ///<summary>
-            ///F key
-            ///</summary>
-            KEY_F = 0x46,
-            ///<summary>
-            ///G key
-            ///</summary>
-            KEY_G = 0x47,
-            ///<summary>
-            ///H key
-            ///</summary>
-            KEY_H = 0x48,
-            ///<summary>
-            ///I key
-            ///</summary>
-            KEY_I = 0x49,
-            ///<summary>
-            ///J key
-            ///</summary>
-            KEY_J = 0x4A,
-            ///<summary>
-            ///K key
-            ///</summary>
-            KEY_K = 0x4B,
-            ///<summary>
-            ///L key
-            ///</summary>
-            KEY_L = 0x4C,
-            ///<summary>
-            ///M key
-            ///</summary>
-            KEY_M = 0x4D,
-            ///<summary>
-            ///N key
-            ///</summary>
-            KEY_N = 0x4E,
-            ///<summary>
-            ///O key
-            ///</summary>
-            KEY_O = 0x4F,
-            ///<summary>
-            ///P key
-            ///</summary>
-            KEY_P = 0x50,
-            ///<summary>
-            ///Q key
-            ///</summary>
-            KEY_Q = 0x51,
-            ///<summary>
-            ///R key
-            ///</summary>
-            KEY_R = 0x52,
-            ///<summary>
-            ///S key
-            ///</summary>
-            KEY_S = 0x53,
-            ///<summary>
-            ///T key
-            ///</summary>
-            KEY_T = 0x54,
-            ///<summary>
-            ///U key
-            ///</summary>
-            KEY_U = 0x55,
-            ///<summary>
-            ///V key
-            ///</summary>
-            KEY_V = 0x56,
-            ///<summary>
-            ///W key
-            ///</summary>
-            KEY_W = 0x57,
-            ///<summary>
-            ///X key
-            ///</summary>
-            KEY_X = 0x58,
-            ///<summary>
-            ///Y key
-            ///</summary>
-            KEY_Y = 0x59,
-            ///<summary>
-            ///Z key
-            ///</summary>
-            KEY_Z = 0x5A,
-            ///<summary>
-            ///Left Windows key (Microsoft Natural keyboard)
-            ///</summary>
-            LWIN = 0x5B,
-            ///<summary>
-            ///Right Windows key (Natural keyboard)
-            ///</summary>
-            RWIN = 0x5C,
-            ///<summary>
-            ///Applications key (Natural keyboard)
-            ///</summary>
-            APPS = 0x5D,
-            ///<summary>
-            ///Computer Sleep key
-            ///</summary>
-            SLEEP = 0x5F,
-            ///<summary>
-            ///Numeric keypad 0 key
-            ///</summary>
-            NUMPAD0 = 0x60,
-            ///<summary>
-            ///Numeric keypad 1 key
-            ///</summary>
-            NUMPAD1 = 0x61,
-            ///<summary>
-            ///Numeric keypad 2 key
-            ///</summary>
-            NUMPAD2 = 0x62,
-            ///<summary>
-            ///Numeric keypad 3 key
-            ///</summary>
-            NUMPAD3 = 0x63,
-            ///<summary>
-            ///Numeric keypad 4 key
-            ///</summary>
-            NUMPAD4 = 0x64,
-            ///<summary>
-            ///Numeric keypad 5 key
-            ///</summary>
-            NUMPAD5 = 0x65,
-            ///<summary>
-            ///Numeric keypad 6 key
-            ///</summary>
-            NUMPAD6 = 0x66,
-            ///<summary>
-            ///Numeric keypad 7 key
-            ///</summary>
-            NUMPAD7 = 0x67,
-            ///<summary>
-            ///Numeric keypad 8 key
-            ///</summary>
-            NUMPAD8 = 0x68,
-            ///<summary>
-            ///Numeric keypad 9 key
-            ///</summary>
-            NUMPAD9 = 0x69,
-            ///<summary>
-            ///Multiply key
-            ///</summary>
-            MULTIPLY = 0x6A,
-            ///<summary>
-            ///Add key
-            ///</summary>
-            ADD = 0x6B,
-            ///<summary>
-            ///Separator key
-            ///</summary>
-            SEPARATOR = 0x6C,
-            ///<summary>
-            ///Subtract key
-            ///</summary>
-            SUBTRACT = 0x6D,
-            ///<summary>
-            ///Decimal key
-            ///</summary>
-            DECIMAL = 0x6E,
-            ///<summary>
-            ///Divide key
-            ///</summary>
-            DIVIDE = 0x6F,
-            ///<summary>
-            ///F1 key
-            ///</summary>
-            F1 = 0x70,
-            ///<summary>
-            ///F2 key
-            ///</summary>
-            F2 = 0x71,
-            ///<summary>
-            ///F3 key
-            ///</summary>
-            F3 = 0x72,
-            ///<summary>
-            ///F4 key
-            ///</summary>
-            F4 = 0x73,
-            ///<summary>
-            ///F5 key
-            ///</summary>
-            F5 = 0x74,
-            ///<summary>
-            ///F6 key
-            ///</summary>
-            F6 = 0x75,
-            ///<summary>
-            ///F7 key
-            ///</summary>
-            F7 = 0x76,
-            ///<summary>
-            ///F8 key
-            ///</summary>
-            F8 = 0x77,
-            ///<summary>
-            ///F9 key
-            ///</summary>
-            F9 = 0x78,
-            ///<summary>
-            ///F10 key
-            ///</summary>
-            F10 = 0x79,
-            ///<summary>
-            ///F11 key
-            ///</summary>
-            F11 = 0x7A,
-            ///<summary>
-            ///F12 key
-            ///</summary>
-            F12 = 0x7B,
-            ///<summary>
-            ///F13 key
-            ///</summary>
-            F13 = 0x7C,
-            ///<summary>
-            ///F14 key
-            ///</summary>
-            F14 = 0x7D,
-            ///<summary>
-            ///F15 key
-            ///</summary>
-            F15 = 0x7E,
-            ///<summary>
-            ///F16 key
-            ///</summary>
-            F16 = 0x7F,
-            ///<summary>
-            ///F17 key
-            ///</summary>
-            F17 = 0x80,
-            ///<summary>
-            ///F18 key
-            ///</summary>
-            F18 = 0x81,
-            ///<summary>
-            ///F19 key
-            ///</summary>
-            F19 = 0x82,
-            ///<summary>
-            ///F20 key
-            ///</summary>
-            F20 = 0x83,
-            ///<summary>
-            ///F21 key
-            ///</summary>
-            F21 = 0x84,
-            ///<summary>
-            ///F22 key, (PPC only) Key used to lock device.
-            ///</summary>
-            F22 = 0x85,
-            ///<summary>
-            ///F23 key
-            ///</summary>
-            F23 = 0x86,
-            ///<summary>
-            ///F24 key
-            ///</summary>
-            F24 = 0x87,
-            ///<summary>
-            ///NUM LOCK key
-            ///</summary>
-            NUMLOCK = 0x90,
-            ///<summary>
-            ///SCROLL LOCK key
-            ///</summary>
-            SCROLL = 0x91,
-            ///<summary>
-            ///Left SHIFT key
-            ///</summary>
-            LSHIFT = 0xA0,
-            ///<summary>
-            ///Right SHIFT key
-            ///</summary>
-            RSHIFT = 0xA1,
-            ///<summary>
-            ///Left CONTROL key
-            ///</summary>
-            LCONTROL = 0xA2,
-            ///<summary>
-            ///Right CONTROL key
-            ///</summary>
-            RCONTROL = 0xA3,
-            ///<summary>
-            ///Left MENU key
-            ///</summary>
-            LMENU = 0xA4,
-            ///<summary>
-            ///Right MENU key
-            ///</summary>
-            RMENU = 0xA5,
-            ///<summary>
-            ///Windows 2000/XP: Browser Back key
-            ///</summary>
-            BROWSER_BACK = 0xA6,
-            ///<summary>
-            ///Windows 2000/XP: Browser Forward key
-            ///</summary>
-            BROWSER_FORWARD = 0xA7,
-            ///<summary>
-            ///Windows 2000/XP: Browser Refresh key
-            ///</summary>
-            BROWSER_REFRESH = 0xA8,
-            ///<summary>
-            ///Windows 2000/XP: Browser Stop key
-            ///</summary>
-            BROWSER_STOP = 0xA9,
-            ///<summary>
-            ///Windows 2000/XP: Browser Search key
-            ///</summary>
-            BROWSER_SEARCH = 0xAA,
-            ///<summary>
-            ///Windows 2000/XP: Browser Favorites key
-            ///</summary>
-            BROWSER_FAVORITES = 0xAB,
-            ///<summary>
-            ///Windows 2000/XP: Browser Start and Home key
-            ///</summary>
-            BROWSER_HOME = 0xAC,
-            ///<summary>
-            ///Windows 2000/XP: Volume Mute key
-            ///</summary>
-            VOLUME_MUTE = 0xAD,
-            ///<summary>
-            ///Windows 2000/XP: Volume Down key
-            ///</summary>
-            VOLUME_DOWN = 0xAE,
-            ///<summary>
-            ///Windows 2000/XP: Volume Up key
-            ///</summary>
-            VOLUME_UP = 0xAF,
-            ///<summary>
-            ///Windows 2000/XP: Next Track key
-            ///</summary>
-            MEDIA_NEXT_TRACK = 0xB0,
-            ///<summary>
-            ///Windows 2000/XP: Previous Track key
-            ///</summary>
-            MEDIA_PREV_TRACK = 0xB1,
-            ///<summary>
-            ///Windows 2000/XP: Stop Media key
-            ///</summary>
-            MEDIA_STOP = 0xB2,
-            ///<summary>
-            ///Windows 2000/XP: Play/Pause Media key
-            ///</summary>
-            MEDIA_PLAY_PAUSE = 0xB3,
-            ///<summary>
-            ///Windows 2000/XP: Start Mail key
-            ///</summary>
-            LAUNCH_MAIL = 0xB4,
-            ///<summary>
-            ///Windows 2000/XP: Select Media key
-            ///</summary>
-            LAUNCH_MEDIA_SELECT = 0xB5,
-            ///<summary>
-            ///Windows 2000/XP: Start Application 1 key
-            ///</summary>
-            LAUNCH_APP1 = 0xB6,
-            ///<summary>
-            ///Windows 2000/XP: Start Application 2 key
-            ///</summary>
-            LAUNCH_APP2 = 0xB7,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_1 = 0xBA,
-            ///<summary>
-            ///Windows 2000/XP: For any country/region, the '+' key
-            ///</summary>
-            OEM_PLUS = 0xBB,
-            ///<summary>
-            ///Windows 2000/XP: For any country/region, the ',' key
-            ///</summary>
-            OEM_COMMA = 0xBC,
-            ///<summary>
-            ///Windows 2000/XP: For any country/region, the '-' key
-            ///</summary>
-            OEM_MINUS = 0xBD,
-            ///<summary>
-            ///Windows 2000/XP: For any country/region, the '.' key
-            ///</summary>
-            OEM_PERIOD = 0xBE,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_2 = 0xBF,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_3 = 0xC0,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_4 = 0xDB,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_5 = 0xDC,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_6 = 0xDD,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_7 = 0xDE,
-            ///<summary>
-            ///Used for miscellaneous characters; it can vary by keyboard.
-            ///</summary>
-            OEM_8 = 0xDF,
-            ///<summary>
-            ///Windows 2000/XP: Either the angle bracket key or the backslash key on the RT 102-key keyboard
-            ///</summary>
-            OEM_102 = 0xE2,
-            ///<summary>
-            ///Windows 95/98/Me, Windows NT 4.0, Windows 2000/XP: IME PROCESS key
-            ///</summary>
-            PROCESSKEY = 0xE5,
-            ///<summary>
-            ///Windows 2000/XP: Used to pass Unicode characters as if they were keystrokes.
-            ///The VK_PACKET key is the low word of a 32-bit Virtual Key value used for non-keyboard input methods. For more information,
-            ///see Remark in KEYBDINPUT, SendInput, WM_KEYDOWN, and WM_KEYUP
-            ///</summary>
-            PACKET = 0xE7,
-            ///<summary>
-            ///Attn key
-            ///</summary>
-            ATTN = 0xF6,
-            ///<summary>
-            ///CrSel key
-            ///</summary>
-            CRSEL = 0xF7,
-            ///<summary>
-            ///ExSel key
-            ///</summary>
-            EXSEL = 0xF8,
-            ///<summary>
-            ///Erase EOF key
-            ///</summary>
-            EREOF = 0xF9,
-            ///<summary>
-            ///Play key
-            ///</summary>
-            PLAY = 0xFA,
-            ///<summary>
-            ///Zoom key
-            ///</summary>
-            ZOOM = 0xFB,
-            ///<summary>
-            ///Reserved
-            ///</summary>
-            NONAME = 0xFC,
-            ///<summary>
-            ///PA1 key
-            ///</summary>
-            PA1 = 0xFD,
-            ///<summary>
-            ///Clear key
-            ///</summary>
-            OEM_CLEAR = 0xFE
         }
 
         internal enum ScanCodeShort : short
@@ -985,150 +295,152 @@ namespace NowPlaying.Core.InputSender
             internal short wParamH;
         }
 
-        private ScanCodeShort GetKey(string Key)
+        private ScanCodeShort GetScanKey(ushort key)
         {
-            KeyValuePairs.TryGetValue(Key, out ScanCodeShort KeyCode);
+            KeyValuePairs.TryGetValue(key, out ScanCodeShort KeyCode);
             return KeyCode;
         }
 
-        private VirtualKeyShort GetVirtualKey(string Key)
+        /// <summary>
+        /// Hardcoded System.Windows.Forms.Keys enum to ScanCodeShort
+        /// </summary>
+        private Dictionary<ushort, ScanCodeShort> KeyValuePairs = new Dictionary<ushort, ScanCodeShort>
         {
-            VirtualKeyValuePairs.TryGetValue(Key, out VirtualKeyShort KeyCode);
-            return KeyCode;
-        }
-
-        private Dictionary<string, ScanCodeShort> KeyValuePairs = new Dictionary<string, ScanCodeShort>
-        {
-          //{""},
-            {"space", ScanCodeShort.SPACE},
+            {32, ScanCodeShort.SPACE},
           //{"capslock"},
-            {"escape", ScanCodeShort.ESCAPE},
-            {"kp_5", ScanCodeShort.NUMPAD5},
-            {"w", ScanCodeShort.KEY_W},
-            {"f1", ScanCodeShort.F1},
-            {"f2", ScanCodeShort.F2},
-            {"f3", ScanCodeShort.F3},
-            {"f4", ScanCodeShort.F4},
-            {"f5", ScanCodeShort.F5},
-            {"f6", ScanCodeShort.F6},
-            {"f7", ScanCodeShort.F7},
-            {"f8", ScanCodeShort.F8},
-            {"f9", ScanCodeShort.F9},
-            {"f10", ScanCodeShort.F10},
-            {"f11", ScanCodeShort.F11},
-            {"f12", ScanCodeShort.F12},
-            {"pause", ScanCodeShort.PAUSE},
-            //{"`"},
-            {"-", ScanCodeShort.OEM_MINUS},
+            {27, ScanCodeShort.ESCAPE},
+            {112, ScanCodeShort.F1},
+            {113, ScanCodeShort.F2},
+            {114, ScanCodeShort.F3},
+            {115, ScanCodeShort.F4},
+            {116, ScanCodeShort.F5},
+            {117, ScanCodeShort.F6},
+            {118, ScanCodeShort.F7},
+            {119, ScanCodeShort.F8},
+            {120, ScanCodeShort.F9},
+            {121, ScanCodeShort.F10},
+            {122, ScanCodeShort.F11},
+            {123, ScanCodeShort.F12},
+            {19, ScanCodeShort.PAUSE},
+            {192, ScanCodeShort.OEM_3},
+            {189, ScanCodeShort.OEM_MINUS},
             //{"=", ScanCodeShort.},
-            //{"backspace", },
-            {"tab", ScanCodeShort.TAB},
-            //{"]"},
-            //{"["},
+            {8, ScanCodeShort.BACK},
+            {9, ScanCodeShort.TAB},
+            {221, ScanCodeShort.OEM_6},
+            {219, ScanCodeShort.OEM_4},
             //{"/"},
-            //{"semicolon"},
-            //{"'"},
-            //{"\\"},
-            //{"shift"},
+            {186, ScanCodeShort.OEM_1},
+            {222, ScanCodeShort.OEM_7},
+            {226, ScanCodeShort.OEM_102},
+            {16, ScanCodeShort.SHIFT},
             //{"enter"},
             //{","},
-            //{"ctrl"},
-            //{"alt"},
-            {"1", ScanCodeShort.KEY_1},
-            {"2", ScanCodeShort.KEY_2},
-            {"3", ScanCodeShort.KEY_3},
-            {"4", ScanCodeShort.KEY_4},
-            {"5", ScanCodeShort.KEY_5},
-            {"6", ScanCodeShort.KEY_6},
-            {"7", ScanCodeShort.KEY_7},
-            {"8", ScanCodeShort.KEY_8},
-            {"9", ScanCodeShort.KEY_9},
-            {"0", ScanCodeShort.KEY_0},
-            {"a", ScanCodeShort.KEY_A},
-            {"b", ScanCodeShort.KEY_B},
-            {"c", ScanCodeShort.KEY_C},
-            {"d", ScanCodeShort.KEY_D},
-            {"e", ScanCodeShort.KEY_E},
-            {"f", ScanCodeShort.KEY_F},
-            {"g", ScanCodeShort.KEY_G},
-            {"h", ScanCodeShort.KEY_H},
-            {"i", ScanCodeShort.KEY_I},
-            {"j", ScanCodeShort.KEY_J},
-            {"k", ScanCodeShort.KEY_K},
-            {"l", ScanCodeShort.KEY_L},
-            {"m", ScanCodeShort.KEY_M},
-            {"n", ScanCodeShort.KEY_N},
-            {"o", ScanCodeShort.KEY_O},
-            {"p", ScanCodeShort.KEY_P},
-            {"q", ScanCodeShort.KEY_Q},
-            {"r", ScanCodeShort.KEY_R},
-            {"s", ScanCodeShort.KEY_S},
-            {"t", ScanCodeShort.KEY_T},
-            {"u", ScanCodeShort.KEY_U},
-            {"v", ScanCodeShort.KEY_V},
-            {"x", ScanCodeShort.KEY_X},
-            {"y", ScanCodeShort.KEY_Y},
-            {"z", ScanCodeShort.KEY_Z},
-            {"uparrow", ScanCodeShort.UP},
-            {"downarrow", ScanCodeShort.DOWN},
-            {"rightarrow", ScanCodeShort.RIGHT},
-            {"leftarrow", ScanCodeShort.LEFT},
-            {"ins", ScanCodeShort.INSERT},
-            {"home", ScanCodeShort.HOME},
-            //{"pgup"},
-            //{"pgdn"},
-            {"del", ScanCodeShort.DELETE},
-            {"end", ScanCodeShort.END},
+            {17, ScanCodeShort.CONTROL}, //same as below
+            {18, ScanCodeShort.MENU}, //lmenu rmenu
+            {49, ScanCodeShort.KEY_1},
+            {50, ScanCodeShort.KEY_2},
+            {51, ScanCodeShort.KEY_3},
+            {52, ScanCodeShort.KEY_4},
+            {53, ScanCodeShort.KEY_5},
+            {54, ScanCodeShort.KEY_6},
+            {55, ScanCodeShort.KEY_7},
+            {56, ScanCodeShort.KEY_8},
+            {57, ScanCodeShort.KEY_9},
+            {48, ScanCodeShort.KEY_0},
+            {65, ScanCodeShort.KEY_A},
+            {66, ScanCodeShort.KEY_B},
+            {67, ScanCodeShort.KEY_C},
+            {68, ScanCodeShort.KEY_D},
+            {69, ScanCodeShort.KEY_E},
+            {70, ScanCodeShort.KEY_F},
+            {71, ScanCodeShort.KEY_G},
+            {72, ScanCodeShort.KEY_H},
+            {73, ScanCodeShort.KEY_I},
+            {74, ScanCodeShort.KEY_J},
+            {75, ScanCodeShort.KEY_K},
+            {76, ScanCodeShort.KEY_L},
+            {77, ScanCodeShort.KEY_M},
+            {78, ScanCodeShort.KEY_N},
+            {79, ScanCodeShort.KEY_O},
+            {80, ScanCodeShort.KEY_P},
+            {81, ScanCodeShort.KEY_Q},
+            {82, ScanCodeShort.KEY_R},
+            {83, ScanCodeShort.KEY_S},
+            {84, ScanCodeShort.KEY_T},
+            {85, ScanCodeShort.KEY_U},
+            {86, ScanCodeShort.KEY_V},
+            {87, ScanCodeShort.KEY_W},
+            {88, ScanCodeShort.KEY_X},
+            {89, ScanCodeShort.KEY_Y},
+            {90, ScanCodeShort.KEY_Z},
+            {38, ScanCodeShort.UP},
+            {40, ScanCodeShort.DOWN},
+            {39, ScanCodeShort.RIGHT},
+            {37, ScanCodeShort.LEFT},
+            {45, ScanCodeShort.INSERT},
+            {36, ScanCodeShort.HOME},
+            {33, ScanCodeShort.UP},
+            {34, ScanCodeShort.DOWN}, //
+            {46, ScanCodeShort.DELETE},
+            {35, ScanCodeShort.END},
             //{"mouse1"},
             //{"mouse2"},
             //{"mouse3"},
-            //{"mouse4"},
-            //{"mouse5"},
+            {5, ScanCodeShort.XBUTTON1},
+            {6, ScanCodeShort.XBUTTON2},
             //{"mwheelup"},
             //{"mwheeldown"},
-            {"kp_end", ScanCodeShort.NUMPAD1},
-            {"kp_downarrow", ScanCodeShort.NUMPAD2},
-            {"kp_pgdn", ScanCodeShort.NUMPAD3},
-            {"kp_leftarrow", ScanCodeShort.NUMPAD4},
-            {"kp_rightarrow", ScanCodeShort.NUMPAD6},
-            {"kp_home", ScanCodeShort.NUMPAD7},
-            {"kp_uparrow", ScanCodeShort.NUMPAD8},
-            {"kp_pgup", ScanCodeShort.NUMPAD9},
-            {"kp_ins", ScanCodeShort.NUMPAD0},
-            {"kp_plus", ScanCodeShort.OEM_PLUS},
-            {"kp_minus", ScanCodeShort.OEM_MINUS}
+            {96, ScanCodeShort.NUMPAD0},
+            {97, ScanCodeShort.NUMPAD1},
+            {98, ScanCodeShort.NUMPAD2},
+            {99, ScanCodeShort.NUMPAD3},
+            {100, ScanCodeShort.NUMPAD4},
+            {101, ScanCodeShort.NUMPAD5},
+            {102, ScanCodeShort.NUMPAD6},
+            {103, ScanCodeShort.NUMPAD7},
+            {104, ScanCodeShort.NUMPAD8},
+            {105, ScanCodeShort.NUMPAD9},
+            {187, ScanCodeShort.OEM_PLUS},
+            //{189, ScanCodeShort.OEM_MINUS}, 
             //{"kp_slash"},
-            //{"kp_del", ScanCodeShort.},
+            //{46, ScanCodeShort.DELETE}, //
             //{"*"},
             //{"kp_enter"}
         };
 
-        private Dictionary<string, VirtualKeyShort> VirtualKeyValuePairs = new Dictionary<string, VirtualKeyShort>
+        /// <summary>
+        /// VirtualKey ushort to source engine key
+        /// </summary>
+        public string GetSourceKey(ushort key)
         {
-          //{"", null},
-            {"space", VirtualKeyShort.SPACE},
-          //{"capslock", null},
-            {"escape", VirtualKeyShort.ESCAPE},
-            {"kp_5", VirtualKeyShort.NUMPAD5},
-            {"w", VirtualKeyShort.KEY_W},
-            {"f1", VirtualKeyShort.F1},
-            {"f2", VirtualKeyShort.F2},
-            {"f3", VirtualKeyShort.F3},
-            {"f4", VirtualKeyShort.F4},
-            {"f5", VirtualKeyShort.F5},
-            {"f6", VirtualKeyShort.F6},
-            {"f7", VirtualKeyShort.F7},
-            {"f8", VirtualKeyShort.F8},
-            {"f9", VirtualKeyShort.F9},
-            {"f10", VirtualKeyShort.F10},
-            {"f11", VirtualKeyShort.F11},
-            {"f12", VirtualKeyShort.F12},
-            {"pause", VirtualKeyShort.PAUSE},
+            SourceEngineAllowedKeys.TryGetValue(key, out string sourceKey);
+            return sourceKey;
+        }
+
+        private IDictionary<ushort, string> SourceEngineAllowedKeys = new Dictionary<ushort, string>() //todo
+        {
+            //{"space"}, 
+            //{"capslock"},
+            //{"escape"},
+            //{"f1"},
+            //{"f2"},
+            //{"f3"},
+            //{"f4"},
+            //{"f5"},
+            //{"f6"},
+            //{"f7"},
+            //{"f8"},
+            //{"f9"},
+            //{"f10"},
+            //{"f11"},
+            //{"f12"},
+            //{"pause"},
             //{"`"},
-            {"-", VirtualKeyShort.OEM_MINUS},
-            //{"=", VirtualKeyShort.},
-            //{"backspace", },
-            {"tab", VirtualKeyShort.TAB},
+            //{"-"},
+            //{"="},
+            //{"backspace"},
+            //{"tab"},
             //{"]"},
             //{"["},
             //{"/"},
@@ -1140,51 +452,52 @@ namespace NowPlaying.Core.InputSender
             //{","},
             //{"ctrl"},
             //{"alt"},
-            {"1", VirtualKeyShort.KEY_1},
-            {"2", VirtualKeyShort.KEY_2},
-            {"3", VirtualKeyShort.KEY_3},
-            {"4", VirtualKeyShort.KEY_4},
-            {"5", VirtualKeyShort.KEY_5},
-            {"6", VirtualKeyShort.KEY_6},
-            {"7", VirtualKeyShort.KEY_7},
-            {"8", VirtualKeyShort.KEY_8},
-            {"9", VirtualKeyShort.KEY_9},
-            {"0", VirtualKeyShort.KEY_0},
-            {"a", VirtualKeyShort.KEY_A},
-            {"b", VirtualKeyShort.KEY_B},
-            {"c", VirtualKeyShort.KEY_C},
-            {"d", VirtualKeyShort.KEY_D},
-            {"e", VirtualKeyShort.KEY_E},
-            {"f", VirtualKeyShort.KEY_F},
-            {"g", VirtualKeyShort.KEY_G},
-            {"h", VirtualKeyShort.KEY_H},
-            {"i", VirtualKeyShort.KEY_I},
-            {"j", VirtualKeyShort.KEY_J},
-            {"k", VirtualKeyShort.KEY_K},
-            {"l", VirtualKeyShort.KEY_L},
-            {"m", VirtualKeyShort.KEY_M},
-            {"n", VirtualKeyShort.KEY_N},
-            {"o", VirtualKeyShort.KEY_O},
-            {"p", VirtualKeyShort.KEY_P},
-            {"q", VirtualKeyShort.KEY_Q},
-            {"r", VirtualKeyShort.KEY_R},
-            {"s", VirtualKeyShort.KEY_S},
-            {"t", VirtualKeyShort.KEY_T},
-            {"u", VirtualKeyShort.KEY_U},
-            {"v", VirtualKeyShort.KEY_V},
-            {"x", VirtualKeyShort.KEY_X},
-            {"y", VirtualKeyShort.KEY_Y},
-            {"z", VirtualKeyShort.KEY_Z},
-            {"uparrow", VirtualKeyShort.UP},
-            {"downarrow", VirtualKeyShort.DOWN},
-            {"rightarrow", VirtualKeyShort.RIGHT},
-            {"leftarrow", VirtualKeyShort.LEFT},
-            {"ins", VirtualKeyShort.INSERT},
-            {"home", VirtualKeyShort.HOME},
+            {49,"1"},
+            {50,"2"},
+            {51,"3"},
+            {52,"4"},
+            {53,"5"},
+            {54,"6"},
+            {55,"7"},
+            {56,"8"},
+            {57,"9"},
+            {48,"0"},
+            {65,"a"},
+            {66,"b"},
+            {67,"c"},
+            {68,"d"},
+            {69,"e"},
+            {70,"f"},
+            {71,"g"},
+            {72,"h"},
+            {73,"i"},
+            {74,"j"},
+            {75,"k"},
+            {76,"l"},
+            {77,"m"},
+            {78,"n"},
+            {79,"o"},
+            {80,"p"},
+            {81,"q"},
+            {82,"r"},
+            {83,"s"},
+            {84,"t"},
+            {85,"u"},
+            {86,"v"},
+            {87,"w"},
+            {88,"x"},
+            {89,"y"},
+            {90,"z"},
+            //{"uparrow"},
+            //{"downarrow"},
+            //{"rightarrow"},
+            //{"leftarrow"},
+            //{"ins"},
+            //{"home"},
             //{"pgup"},
             //{"pgdn"},
-            {"del", VirtualKeyShort.DELETE},
-            {"end", VirtualKeyShort.END},
+            //{"del"},
+            //{"end"},
             //{"mouse1"},
             //{"mouse2"},
             //{"mouse3"},
@@ -1192,19 +505,20 @@ namespace NowPlaying.Core.InputSender
             //{"mouse5"},
             //{"mwheelup"},
             //{"mwheeldown"},
-            {"kp_end", VirtualKeyShort.NUMPAD1},
-            {"kp_downarrow", VirtualKeyShort.NUMPAD2},
-            {"kp_pgdn", VirtualKeyShort.NUMPAD3},
-            {"kp_leftarrow", VirtualKeyShort.NUMPAD4},
-            {"kp_rightarrow", VirtualKeyShort.NUMPAD6},
-            {"kp_home", VirtualKeyShort.NUMPAD7},
-            {"kp_uparrow", VirtualKeyShort.NUMPAD8},
-            {"kp_pgup", VirtualKeyShort.NUMPAD9},
-            {"kp_ins", VirtualKeyShort.NUMPAD0},
-            {"kp_plus", VirtualKeyShort.OEM_PLUS},
-            {"kp_minus", VirtualKeyShort.OEM_MINUS}
+            //{"kp_end"},
+            //{"kp_downarrow"},
+            //{"kp_pgdn"},
+            //{"kp_leftarrow"},
+            {101,"kp_5"},
+            //{"kp_rightarrow"},
+            //{"kp_home"},
+            //{"kp_uparrow"},
+            //{"kp_pgup"},
+            {96, "kp_ins"},
+            //{"kp_plus "},
+            //{"kp_minus"},
             //{"kp_slash"},
-            //{"kp_del", VirtualKeyShort.},
+            //{"kp_del"},
             //{"*"},
             //{"kp_enter"}
         };

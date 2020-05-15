@@ -55,7 +55,8 @@ namespace NowPlaying.Cli
             configWriter = new ConfigWriter(writePath);
 
             string lastTrackId = null;
-            string currentKey = "kp_5";
+            ushort currentKeyVirtual = 101;
+            string currentKey = keySender.GetSourceKey(currentKeyVirtual);
 
             while (true)
             {
@@ -72,7 +73,7 @@ namespace NowPlaying.Cli
                     {
                         if (process.IsValid)
                         {
-                            keySender.SendInputWithAPI(currentKey);
+                            keySender.SendInputWithAPI(currentKeyVirtual);
                         }
 
                         lastTrackId = resp.Id;
