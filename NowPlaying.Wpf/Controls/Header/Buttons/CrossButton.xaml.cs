@@ -17,8 +17,8 @@ namespace NowPlaying.Wpf.Controls.Header.Buttons
 
         private void CrossButtonMouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            this.Cross1.Fill = ColorsConstants.MilkyGray;
-            this.Cross2.Fill = ColorsConstants.MilkyGray;
+            this.Cross1.Fill = ColorsConstants.DarkGray;
+            this.Cross2.Fill = ColorsConstants.DarkGray;
         }
     }
 }

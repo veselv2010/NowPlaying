@@ -29,13 +29,23 @@ namespace NowPlaying.Wpf
 
         private void HeaderBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            OnMouseLeftButtonDown(e);
-            this.DragMove();
+            try 
+            {
+                OnMouseLeftButtonDown(e);
+                this.DragMove();
+            }
+            catch (System.InvalidOperationException)
+            {
+                return;
+            }
         }
 
-        private void WindowLoaded(object sender, System.Windows.RoutedEventArgs e)
+        private async void WindowLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
             AcrylicMaterial.EnableBlur(this);
+            this.Hide();
+            await this.ViewModel.SpotifyRequestInitialize();
+            this.Show();
         }
     }
 }

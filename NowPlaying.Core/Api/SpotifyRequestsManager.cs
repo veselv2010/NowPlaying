@@ -30,6 +30,8 @@ namespace NowPlaying.Core.Api
         private Timer tokenRefreshTimer;
         private TokenResponse lastTokenResponse;
 
+        private bool isAuthorized => lastTokenResponse == null ? false : true;
+
         private readonly string authorization;
         private readonly string clientId;
         private readonly string redirectUrl;
@@ -63,11 +65,14 @@ namespace NowPlaying.Core.Api
         }
 
         /// <summary>
-        /// Returns null if nothing is playing rn
+        /// Returns null if nothing is playing rn (or there is no access token)
         /// </summary>
         /// <returns></returns>
         public async Task<CurrentTrackResponse> GetCurrentTrack()
         {
+            if (!isAuthorized)
+                throw new System.Security.Authentication.AuthenticationException();
+
             string resp = await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
             if (string.IsNullOrEmpty(resp))
@@ -149,6 +154,12 @@ namespace NowPlaying.Core.Api
             var tokenReqParams = CreateTokenReqParams(RequestType.Auth, code);
 
             return await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            tokenRefreshTimer.Dispose();          
         }
     }
 }

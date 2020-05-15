@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
 
 namespace NowPlaying.Core.Api
 {
-    public abstract class RequestsManager
+    public abstract class RequestsManager : IDisposable
     {
         private readonly HttpClient client;      
 
@@ -42,6 +43,11 @@ namespace NowPlaying.Core.Api
                     return JsonConvert.DeserializeObject<RespT>(respContent);
                 }
             }
+        }
+
+        public virtual void Dispose()
+        {
+            client.Dispose();
         }
     }
 }

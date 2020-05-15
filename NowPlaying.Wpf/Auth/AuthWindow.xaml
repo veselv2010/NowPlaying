@@ -1,0 +1,13 @@
+﻿<Window x:Name="ActualWindow" x:Class="NowPlaying.Wpf.Auth.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NowPlaying.Wpf.Auth"
+        xmlns:CefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
+        Title="AuthWindow" MaxHeight="720" MaxWidth="550">
+    <Grid>
+        <CefSharp:ChromiumWebBrowser x:Name="BrowserControl"/>
+    </Grid>
+</Window>
