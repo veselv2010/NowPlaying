@@ -30,20 +30,19 @@ namespace NowPlaying.Wpf
         
         public AppViewModel()
         {
-            SpotifyRequestInitialize();
+            spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
+                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
 
             HeaderViewModel.Theme = Theme.White;
-            PlayingTrack.Title = "тайтл";
-            PlayingTrack.Author = "автор";
-            PlayingTrack.ProgressMs = 203232;
-            PlayingTrack.DurationMs = 240000;
-            PlayingTrack.CurrentProgress = $"{(PlayingTrack.ProgressMs / 1000 / 60)}:{(PlayingTrack.ProgressMs / 1000 % 60):00}";
-            PlayingTrack.EstimatedProgress = $"{(PlayingTrack.DurationMs / 1000 / 60)}:{(PlayingTrack.DurationMs / 1000 % 60):00}";
+            PlayingTrack.Title = "Title";
+            PlayingTrack.Author = "Artist";
+            PlayingTrack.CurrentProgress = $"{0}:{0:00}";
+            PlayingTrack.EstimatedProgress = $"{0}:{0:00}";
 
             UserSettings.CurrentKey = "it just works";
         }
 
-        private string GetCode()
+        private string AskCode()
         {
             using (var auth = new AuthWindow(spotify.GetAuthUrl()))
             {
@@ -52,12 +51,10 @@ namespace NowPlaying.Wpf
             }
         }
 
-        private async Task SpotifyRequestInitialize()
+        public async Task SpotifyRequestInitialize()
         {
-            spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
-
-            await spotify.StartTokenRequests(GetCode());
+            string code = AskCode();
+            await spotify.StartTokenRequests(code);
         }
     }
 }

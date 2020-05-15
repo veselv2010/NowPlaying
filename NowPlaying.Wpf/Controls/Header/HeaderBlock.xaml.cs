@@ -1,5 +1,6 @@
 ﻿using NowPlaying.Wpf.Themes;
 using ReactiveUI;
+using System.Diagnostics;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
@@ -50,6 +51,11 @@ namespace NowPlaying.Wpf.Controls.Header
         {
             // TODO: вроде это не оч
             System.Environment.Exit(0);
+        }
+
+        private void HelpTextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Process.Start("https://github.com/veselv2010/NowPlaying");
         }
     }
 }

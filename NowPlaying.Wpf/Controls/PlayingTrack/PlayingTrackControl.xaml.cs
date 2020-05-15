@@ -25,7 +25,7 @@ namespace NowPlaying.Wpf.Controls.PlayingTrack
 
                 this.OneWayBind(ViewModel,
                         vm => vm.ProgressMs, v => v.Progress.ViewModel.Progress,
-                        progressMs => progressMs / (ViewModel.DurationMs / 100))
+                        progressMs => GetProgess(progressMs, ViewModel.DurationMs))
                     .DisposeWith(d);
 
                 this.OneWayBind(ViewModel, vm => vm.CurrentProgress, v => v.CurrentProgress.Text)
@@ -34,6 +34,11 @@ namespace NowPlaying.Wpf.Controls.PlayingTrack
                 this.OneWayBind(ViewModel, vm => vm.EstimatedProgress, v => v.EstimatedProgress.Text)
                      .DisposeWith(d);
             });
+        }
+
+        private long GetProgess(long progressMs, long durationMs)
+        {
+            return durationMs == 0 ? 0 : progressMs / durationMs / 100;
         }
     }
 }

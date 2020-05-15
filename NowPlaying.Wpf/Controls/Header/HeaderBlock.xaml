@@ -23,6 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock x:Name="HelpTextBlock"
+                   MouseLeftButtonDown="HelpTextBlock_MouseLeftButtonDown"
                    Text="help!"                   
                    Foreground="#7E7E7E" 
                    TextDecorations="Underline" 
