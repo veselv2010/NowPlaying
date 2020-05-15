@@ -10,7 +10,7 @@ using System.Net.Http;
 
 namespace NowPlaying.Core.Api
 {
-    public sealed class SpotifyRequestsManager : RequestsManager
+    public sealed class SpotifyRequestsManager : RequestsManager, IDisposable
     {
         private enum RequestType
         {
@@ -70,8 +70,10 @@ namespace NowPlaying.Core.Api
         /// <returns></returns>
         public async Task<CurrentTrackResponse> GetCurrentTrack()
         {
-            string resp = isAuthorized ? 
-                await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken) : null;
+            if (!isAuthorized)
+                throw new System.Exception();
+
+            string resp = await SpotifyGet(SpotifyApiUrls.CurrentlyPlaying, lastTokenResponse.AccessToken);
 
             if (string.IsNullOrEmpty(resp))
                 return null;
@@ -152,6 +154,12 @@ namespace NowPlaying.Core.Api
             var tokenReqParams = CreateTokenReqParams(RequestType.Auth, code);
 
             return await SpotifyPost<TokenResponse>(SpotifyApiUrls.Token, tokenReqParams);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            tokenRefreshTimer.Dispose();          
         }
     }
 }
