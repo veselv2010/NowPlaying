@@ -2,6 +2,7 @@
 spotify current track to csgo chat very nice
 
 # How to use
+(master branch)
 1. Login to your Spotify account (Don't forget to use "Remember me" option)
 2. Select your Steam account in "current acc" list
 3. Enter desired chat button (If you run into any trouble setting one, you can press the "!keys" button to see the Source engine keys)
