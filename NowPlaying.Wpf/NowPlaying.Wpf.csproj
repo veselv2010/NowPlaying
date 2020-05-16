@@ -138,6 +138,7 @@
     <Compile Include="Controls\UserSettings\Controls\CurrentKeyControl.xaml.cs">
       <DependentUpon>CurrentKeyControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserSettings\Controls\CurrentKeyControlViewModel.cs" />
     <Compile Include="Controls\UserSettings\Controls\CustomCombobox.xaml.cs">
       <DependentUpon>CustomCombobox.xaml</DependentUpon>
     </Compile>

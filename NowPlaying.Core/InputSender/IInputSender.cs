@@ -1,6 +1,6 @@
 ﻿namespace NowPlaying.Core.InputSender
 {
-    interface IInputSender
+    public interface IInputSender
     {
         void SendSystemInput(ushort key);
         string GetSourceKey(ushort key);

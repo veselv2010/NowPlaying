@@ -24,12 +24,12 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">
                 <TextBlock Text="Chat button"
+                       VerticalAlignment="Top"
                        HorizontalAlignment="Center"
-                       Margin="11"
+                       Margin="0,0,0,25"
                        FontSize="14"
                        Foreground="#7E7E7E"/>
 
-                <controls:CurrentKeyControl x:Name="CurrentKeyControl" HorizontalAlignment="Left"/>
             </StackPanel>
             
             <common:CustomCheckbox Height="16" Width="16"
