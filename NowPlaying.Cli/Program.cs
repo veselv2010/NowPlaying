@@ -20,7 +20,7 @@ namespace NowPlaying.Cli
         private static ConfigWorker config;
         private static PathResolver pathResolver;
         private static ConfigWriter configWriter;
-        private static KeySender keySender;
+        private static InputSenderWindows keySender;
 
         static async Task Main()
         {
@@ -45,7 +45,7 @@ namespace NowPlaying.Cli
 
             await requestsManager.StartTokenRequests(code);
 
-            keySender = new KeySender();
+            keySender = new InputSenderWindows();
             pathResolver = new PathResolver();
 
             int accSteamId3 = accounts[steamInfo.LastAccount];
@@ -54,9 +54,12 @@ namespace NowPlaying.Cli
 
             configWriter = new ConfigWriter(writePath);
 
-            string lastTrackId = null;
-            ushort currentKeyVirtual = 101;
+            Console.WriteLine("Press bind button");
+            var consoleInput = Console.ReadKey(true);
+            ushort currentKeyVirtual = (ushort)consoleInput.Key;
             string currentKey = keySender.GetSourceKey(currentKeyVirtual);
+
+            string lastTrackId = string.Empty;
 
             while (true)
             {
@@ -65,7 +68,7 @@ namespace NowPlaying.Cli
                 if (resp != null)
                 {
                     Console.Clear();
-                    Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds})");
+                    Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds:00})");
                     Console.WriteLine("Current account: " + steamInfo.LastAccount);
                     Console.WriteLine("Current key: " + currentKey);
 
@@ -73,7 +76,7 @@ namespace NowPlaying.Cli
                     {
                         if (process.IsValid)
                         {
-                            keySender.SendInputWithAPI(currentKeyVirtual);
+                            keySender.SendSystemInput(currentKeyVirtual);
                         }
 
                         lastTrackId = resp.Id;

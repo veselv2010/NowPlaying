@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Windows.Input;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace NowPlaying.Core.InputSender
 {
-    public class KeySender
+    public class InputSenderWindows : IInputSender
     {
         /// <summary>
         /// </summary>
         /// <param name="virtualKey">This needs to be converted by VirtualKeyFromKey(Wpf-key) (there is no System.Windows.Input.KeyInterop in netStandard2.0)</param>
-        public void SendInputWithAPI(ushort virtualKey)
+        public void SendSystemInput(ushort virtualKey)
         {
             INPUT[] Inputs = new INPUT[1];
             INPUT Input = new INPUT();
@@ -33,7 +32,7 @@ namespace NowPlaying.Core.InputSender
         private static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, int cbSize);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct INPUT
+        private struct INPUT
         {
             internal uint type;
             internal InputUnion U;
@@ -44,7 +43,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [StructLayout(LayoutKind.Explicit)]
-        internal struct InputUnion
+        private struct InputUnion
         {
             [FieldOffset(0)]
             internal MOUSEINPUT mi;
@@ -55,7 +54,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct MOUSEINPUT
+        private struct MOUSEINPUT
         {
             internal int dx;
             internal int dy;
@@ -66,7 +65,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [Flags]
-        internal enum MouseEventDataXButtons : uint
+        private enum MouseEventDataXButtons : uint
         {
             Nothing = 0x00000000,
             XBUTTON1 = 0x00000001,
@@ -74,7 +73,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [Flags]
-        internal enum MOUSEEVENTF : uint
+        private enum MOUSEEVENTF : uint
         {
             ABSOLUTE = 0x8000,
             HWHEEL = 0x01000,
@@ -93,7 +92,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct KEYBDINPUT
+        private struct KEYBDINPUT
         {
             internal ushort wVk;
             internal ScanCodeShort wScan;
@@ -103,7 +102,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [Flags]
-        internal enum KEYEVENTF : uint
+        private enum KEYEVENTF : uint
         {
             EXTENDEDKEY = 0x0001,
             KEYUP = 0x0002,
@@ -111,7 +110,7 @@ namespace NowPlaying.Core.InputSender
             UNICODE = 0x0004
         }
 
-        internal enum ScanCodeShort : short
+        private enum ScanCodeShort : short
         {
             LBUTTON = 0,
             RBUTTON = 0,
@@ -288,7 +287,7 @@ namespace NowPlaying.Core.InputSender
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct HARDWAREINPUT
+        private struct HARDWAREINPUT
         {
             internal int uMsg;
             internal short wParamL;
@@ -414,44 +413,47 @@ namespace NowPlaying.Core.InputSender
         /// </summary>
         public string GetSourceKey(ushort key)
         {
-            SourceEngineAllowedKeys.TryGetValue(key, out string sourceKey);
-            return sourceKey;
+            if (VirtualKeysToSourceKeys.TryGetValue(key, out string sourceKey))
+                return sourceKey;
+
+            return "key not found";
         }
 
-        private IDictionary<ushort, string> SourceEngineAllowedKeys = new Dictionary<ushort, string>() //todo
+        private IDictionary<ushort, string> VirtualKeysToSourceKeys = new Dictionary<ushort, string>() //todo
         {
-            //{"space"}, 
+            {0, "none" },
+            {32,"space"}, 
             //{"capslock"},
-            //{"escape"},
-            //{"f1"},
-            //{"f2"},
-            //{"f3"},
-            //{"f4"},
-            //{"f5"},
-            //{"f6"},
-            //{"f7"},
-            //{"f8"},
-            //{"f9"},
-            //{"f10"},
-            //{"f11"},
-            //{"f12"},
-            //{"pause"},
-            //{"`"},
-            //{"-"},
+            {27,"escape"},
+            {112,"f1"},
+            {113,"f2"},
+            {114,"f3"},
+            {115,"f4"},
+            {116,"f5"},
+            {117,"f6"},
+            {118,"f7"},
+            {119,"f8"},
+            {120,"f9"},
+            {121,"f10"},
+            {122,"f11"},
+            {123,"f12"},
+            {19,"pause"},
+            {192,"`"},
+            {189,"-"},
             //{"="},
             //{"backspace"},
-            //{"tab"},
-            //{"]"},
-            //{"["},
+            {9,"tab"},
+            {221,"]"},
+            {219,"["},
             //{"/"},
             //{"semicolon"},
-            //{"'"},
-            //{"\\"},
-            //{"shift"},
-            //{"enter"},
+            {222,"'"},
+            {226,"\\"},
+            {16,"shift"},
+            {13,"enter"},
             //{","},
-            //{"ctrl"},
-            //{"alt"},
+            {17, "ctrl"},
+            {18, "alt"},
             {49,"1"},
             {50,"2"},
             {51,"3"},
@@ -488,34 +490,34 @@ namespace NowPlaying.Core.InputSender
             {88,"x"},
             {89,"y"},
             {90,"z"},
-            //{"uparrow"},
-            //{"downarrow"},
-            //{"rightarrow"},
-            //{"leftarrow"},
-            //{"ins"},
-            //{"home"},
-            //{"pgup"},
-            //{"pgdn"},
-            //{"del"},
-            //{"end"},
+            {38,"uparrow"},
+            {40,"downarrow"},
+            {39,"rightarrow"},
+            {37,"leftarrow"},
+            {45,"ins"},
+            {36,"home"},
+            {33,"pgup"},
+            {34,"pgdn"},
+            {46,"del"},
+            {35,"end"},
             //{"mouse1"},
-            //{"mouse2"},
+            //{2,"mouse2"},
             //{"mouse3"},
-            //{"mouse4"},
-            //{"mouse5"},
+            {5,"mouse4"},
+            {6,"mouse5"},
             //{"mwheelup"},
             //{"mwheeldown"},
-            //{"kp_end"},
-            //{"kp_downarrow"},
-            //{"kp_pgdn"},
-            //{"kp_leftarrow"},
+            {97,"kp_end"},
+            {98,"kp_downarrow"},
+            {99,"kp_pgdn"},
+            {100,"kp_leftarrow"},
             {101,"kp_5"},
-            //{"kp_rightarrow"},
-            //{"kp_home"},
-            //{"kp_uparrow"},
-            //{"kp_pgup"},
+            {102,"kp_rightarrow"},
+            {103,"kp_home"},
+            {104,"kp_uparrow"},
+            {105,"kp_pgup"},
             {96, "kp_ins"},
-            //{"kp_plus "},
+            {187,"kp_plus"},
             //{"kp_minus"},
             //{"kp_slash"},
             //{"kp_del"},
