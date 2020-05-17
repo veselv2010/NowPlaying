@@ -19,7 +19,7 @@ namespace NowPlaying.Core.InputSender
 
         private readonly IDictionary<ushort, string> VirtualKeysToSourceKeys = new Dictionary<ushort, string>()
         {
-            {0, "none" },
+            {0,"none"},
             {32,"space"}, 
             {20,"capslock"},
             {27,"escape"},
@@ -31,6 +31,7 @@ namespace NowPlaying.Core.InputSender
             {117,"f6"},
             {118,"f7"},
             {119,"f8"},
+            {120,"f9"},
             {120,"f9"},
             {121,"f10"},
             {122,"f11"},
@@ -49,12 +50,11 @@ namespace NowPlaying.Core.InputSender
             {222,"'"},
             {220,"\\"},
             {160,"shift"},
-            {161,"shift"},
+            {161,"rshift"},
             {13,"enter"},
             {188,","},
             {162,"ctrl"},
-            {163,"ctrl"},
-            {18,"alt"},
+            {163,"rctrl"},
             {49,"1"},
             {50,"2"},
             {51,"3"},

@@ -306,7 +306,7 @@ namespace NowPlaying.Core.InputSender
         private readonly Dictionary<ushort, ScanCodeShort> KeyValuePairs = new Dictionary<ushort, ScanCodeShort>
         {
             {32, ScanCodeShort.SPACE},
-          //{"capslock"},
+            {20, ScanCodeShort.CAPITAL},
             {27, ScanCodeShort.ESCAPE},
             {112, ScanCodeShort.F1},
             {113, ScanCodeShort.F2},
@@ -323,20 +323,22 @@ namespace NowPlaying.Core.InputSender
             {19, ScanCodeShort.PAUSE},
             {192, ScanCodeShort.OEM_3},
             {189, ScanCodeShort.OEM_MINUS},
-            //{"=", ScanCodeShort.},
+            {190, ScanCodeShort.OEM_PERIOD},
+            {187, ScanCodeShort.OEM_PLUS},
             {8, ScanCodeShort.BACK},
             {9, ScanCodeShort.TAB},
             {221, ScanCodeShort.OEM_6},
             {219, ScanCodeShort.OEM_4},
-            //{"/"},
+            {191, ScanCodeShort.OEM_2},
             {186, ScanCodeShort.OEM_1},
             {222, ScanCodeShort.OEM_7},
-            {226, ScanCodeShort.OEM_102},
-            {16, ScanCodeShort.SHIFT},
-            //{"enter"},
-            //{","},
-            {17, ScanCodeShort.CONTROL}, //same as below
-            {18, ScanCodeShort.MENU}, //lmenu rmenu
+            {220, ScanCodeShort.OEM_5},
+            {160, ScanCodeShort.LSHIFT},
+            {161, ScanCodeShort.RSHIFT},
+            {13, ScanCodeShort.RETURN},
+            {188, ScanCodeShort.OEM_COMMA},
+            {162, ScanCodeShort.RCONTROL},
+            {163, ScanCodeShort.LCONTROL},
             {49, ScanCodeShort.KEY_1},
             {50, ScanCodeShort.KEY_2},
             {51, ScanCodeShort.KEY_3},
@@ -373,13 +375,13 @@ namespace NowPlaying.Core.InputSender
             {88, ScanCodeShort.KEY_X},
             {89, ScanCodeShort.KEY_Y},
             {90, ScanCodeShort.KEY_Z},
-            {38, ScanCodeShort.UP},
-            {40, ScanCodeShort.DOWN},
-            {39, ScanCodeShort.RIGHT},
-            {37, ScanCodeShort.LEFT},
+            {38, ScanCodeShort.UP}, //
+            {40, ScanCodeShort.DOWN},//
+            {39, ScanCodeShort.RIGHT},//
+            {37, ScanCodeShort.LEFT},//
             {45, ScanCodeShort.INSERT},
             {36, ScanCodeShort.HOME},
-            {33, ScanCodeShort.UP},
+            {33, ScanCodeShort.UP}, //
             {34, ScanCodeShort.DOWN}, //
             {46, ScanCodeShort.DELETE},
             {35, ScanCodeShort.END},
@@ -390,7 +392,6 @@ namespace NowPlaying.Core.InputSender
             {6, ScanCodeShort.XBUTTON2},
             //{"mwheelup"},
             //{"mwheeldown"},
-            {96, ScanCodeShort.NUMPAD0},
             {97, ScanCodeShort.NUMPAD1},
             {98, ScanCodeShort.NUMPAD2},
             {99, ScanCodeShort.NUMPAD3},
@@ -400,12 +401,13 @@ namespace NowPlaying.Core.InputSender
             {103, ScanCodeShort.NUMPAD7},
             {104, ScanCodeShort.NUMPAD8},
             {105, ScanCodeShort.NUMPAD9},
-            {187, ScanCodeShort.OEM_PLUS},
-            //{189, ScanCodeShort.OEM_MINUS}, 
-            //{"kp_slash"},
-            //{46, ScanCodeShort.DELETE}, //
-            //{"*"},
-            //{"kp_enter"}
+            {96, ScanCodeShort.NUMPAD0},
+            {107, ScanCodeShort.ADD},
+            {109, ScanCodeShort.SUBTRACT},
+            {111, ScanCodeShort.DIVIDE},
+            {110, ScanCodeShort.DECIMAL},
+            {106, ScanCodeShort.MULTIPLY},
+            //{"kp_enter"} //same as enter
         };
     }
 }
