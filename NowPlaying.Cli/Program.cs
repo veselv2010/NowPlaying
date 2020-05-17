@@ -53,7 +53,7 @@ namespace NowPlaying.Cli
 
             configWriter = new ConfigWriter(writePath);
 
-            Console.WriteLine("Press the bind button");
+            Console.WriteLine("Press the bind key");
             var consoleInput = Console.ReadKey(true);
             ushort currentKeyVirtual = (ushort)consoleInput.Key;
             string currentKey = keyFormatter.GetSourceKey(currentKeyVirtual);
