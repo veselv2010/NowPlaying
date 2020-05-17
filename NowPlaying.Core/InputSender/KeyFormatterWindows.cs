@@ -32,7 +32,6 @@ namespace NowPlaying.Core.InputSender
             {118,"f7"},
             {119,"f8"},
             {120,"f9"},
-            {120,"f9"},
             {121,"f10"},
             {122,"f11"},
             {123,"f12"},

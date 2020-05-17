@@ -296,14 +296,14 @@ namespace NowPlaying.Core.InputSender
 
         private ScanCodeShort GetScanKey(ushort key)
         {
-            KeyValuePairs.TryGetValue(key, out ScanCodeShort KeyCode);
+            VirtualScanShortPairs.TryGetValue(key, out ScanCodeShort KeyCode);
             return KeyCode;
         }
 
         /// <summary>
         /// Hardcoded System.Windows.Forms.Keys enum to ScanCodeShort
         /// </summary>
-        private readonly Dictionary<ushort, ScanCodeShort> KeyValuePairs = new Dictionary<ushort, ScanCodeShort>
+        private readonly IDictionary<ushort, ScanCodeShort> VirtualScanShortPairs = new Dictionary<ushort, ScanCodeShort>
         {
             {32, ScanCodeShort.SPACE},
             {20, ScanCodeShort.CAPITAL},
