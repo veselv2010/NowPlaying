@@ -21,8 +21,6 @@ namespace NowPlaying.Wpf
 
         [Reactive] public UserSettingsBlockViewModel UserSettings { get; set; } = new UserSettingsBlockViewModel();
 
-        [Reactive] public CurrentKeyControlViewModel CurrentKeyVM { get; set; } = new CurrentKeyControlViewModel();
-
         [Reactive] public bool IsRunning { get; set; }
         [Reactive] public string SendBindKey { get; set; }
         [Reactive] public IEnumerable<string> Accounts { get; set; }

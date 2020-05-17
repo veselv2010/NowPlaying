@@ -18,7 +18,6 @@ namespace NowPlaying.Wpf
             HeaderBlock.ViewModel = ViewModel.HeaderViewModel;
             PlayingTrackControl.ViewModel = ViewModel.PlayingTrack;
             UserSettingsBlock.ViewModel = ViewModel.UserSettings;
-            CurrentKeyControlBlock.ViewModel = ViewModel.CurrentKeyVM;
 
             this.WhenActivated(d => {
                 this.OneWayBind(ViewModel, vm => vm.HeaderViewModel.Theme, v => v.Background, ThemeToBrush)

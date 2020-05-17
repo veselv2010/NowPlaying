@@ -28,7 +28,8 @@
 
         <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
                                           Margin="45,45,45,0" Width="Auto"/>
-        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-100"/>
-        <currentKeyControl:CurrentKeyControl x:Name="CurrentKeyControlBlock" Margin="150"/>
+        
+        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
+
     </StackPanel>
 </reactiveui:ReactiveWindow>

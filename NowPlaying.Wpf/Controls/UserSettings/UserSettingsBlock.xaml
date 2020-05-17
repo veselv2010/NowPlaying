@@ -26,9 +26,11 @@
                 <TextBlock Text="Chat button"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Center"
-                       Margin="0,0,0,25"
+                       Margin="0,0,0,11"
                        FontSize="14"
                        Foreground="#7E7E7E"/>
+
+                <controls:CurrentKeyControl x:Name="CurrentKeyControl" HorizontalAlignment="Left" MouseLeftButtonDown="CurrentKeyControl_MouseLeftButtonDown"/>
 
             </StackPanel>
             
