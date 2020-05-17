@@ -38,6 +38,7 @@ namespace NowPlaying.Wpf
             PlayingTrack.Author = "Artist";
             PlayingTrack.CurrentProgress = $"{0}:{0:00}";
             PlayingTrack.EstimatedProgress = $"{0}:{0:00}";
+            UserSettings.CurrentSourceKey = "kp_5";
         }
 
         private string AskCode()

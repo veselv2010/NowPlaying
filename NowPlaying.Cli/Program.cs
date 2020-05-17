@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using NowPlaying.Core.GameProcessHook;
@@ -20,33 +19,33 @@ namespace NowPlaying.Cli
         private static ConfigWorker config;
         private static PathResolver pathResolver;
         private static ConfigWriter configWriter;
-        private static InputSenderWindows keySender;
+        private static IInputSender keySender;
+        private static IKeyFormatter keyFormatter;
 
         static async Task Main()
         {
+            keySender = new InputSenderWindows();
+            keyFormatter = new KeyFormatterWindows();
+            pathResolver = new PathResolver();
+            steamService = new SteamServiceWindows();
+            requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
+                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
+
             process = new GameProcess();
             process.Start();
 
-            steamService = new SteamServiceWindows();
             var steamInfo = steamService.GetSteamInfo();
 
             var loginUsersReader = new LoginUsersReader(steamInfo.LoginUsersPath);
             var accounts = loginUsersReader.Read();
 
-            requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
-
-            string authUrl = requestsManager.GetAuthUrl();
-            authUrl = authUrl.Replace("&", "^&");
+            string authUrl = requestsManager.GetAuthUrl().Replace("&", "^&");
             Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
 
             Console.Write("code = ");
             string code = Console.ReadLine();
 
             await requestsManager.StartTokenRequests(code);
-
-            keySender = new InputSenderWindows();
-            pathResolver = new PathResolver();
 
             int accSteamId3 = accounts[steamInfo.LastAccount];
 
@@ -57,7 +56,7 @@ namespace NowPlaying.Cli
             Console.WriteLine("Press the bind button");
             var consoleInput = Console.ReadKey(true);
             ushort currentKeyVirtual = (ushort)consoleInput.Key;
-            string currentKey = keySender.GetSourceKey(currentKeyVirtual);
+            string currentKey = keyFormatter.GetSourceKey(currentKeyVirtual);
 
             string lastTrackId = string.Empty;
 

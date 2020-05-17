@@ -14,7 +14,7 @@ namespace NowPlaying.Wpf.Controls.UserSettings
 
     public partial class UserSettingsBlock : UserSettingsBlockBase
     {
-        private IInputSender inputSender = new InputSenderWindows();
+        private readonly IKeyFormatter keyFormatter = new KeyFormatterWindows();
         public UserSettingsBlock()
         {
             ViewModel = new UserSettingsBlockViewModel();
@@ -38,7 +38,7 @@ namespace NowPlaying.Wpf.Controls.UserSettings
             CurrentKeyControl.MouseLeftButtonDown -= CurrentKeyControl_MouseLeftButtonDown;
 
             ushort virtualKey = (ushort)KeyInterop.VirtualKeyFromKey(e.Key);
-            string sourceKey = inputSender.GetSourceKey(virtualKey);
+            string sourceKey = keyFormatter.GetSourceKey(virtualKey);
 
             this.ViewModel.CurrentSourceKey = sourceKey;
 
