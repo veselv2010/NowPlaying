@@ -1,5 +1,4 @@
 ﻿using NowPlaying.Wpf.Controls.UserSettings;
-using NowPlaying.Wpf.Controls.UserSettings.Controls;
 using NowPlaying.Wpf.Themes;
 using ReactiveUI;
 using System.Reactive.Disposables;

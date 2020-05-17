@@ -1,9 +1,7 @@
 ﻿using ReactiveUI;
-using NowPlaying.Wpf.Controls.Common;
 using NowPlaying.Wpf.Controls.UserSettings.Controls;
 using System.Reactive.Disposables;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using NowPlaying.Core.InputSender;
 

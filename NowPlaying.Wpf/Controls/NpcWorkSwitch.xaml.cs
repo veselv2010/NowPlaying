@@ -1,7 +1,6 @@
 ﻿using ReactiveUI;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
-using System.Windows;
 using System.Windows.Media;
 
 namespace NowPlaying.Wpf.Controls
