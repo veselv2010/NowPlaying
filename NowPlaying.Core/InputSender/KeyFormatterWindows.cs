@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NowPlaying.Core.InputSender
 {
@@ -11,10 +9,8 @@ namespace NowPlaying.Core.InputSender
         /// </summary>
         public string GetSourceKey(ushort key)
         {
-            if (VirtualKeysToSourceKeys.TryGetValue(key, out string sourceKey))
-                return sourceKey;
-
-            return "key not found";
+            VirtualKeysToSourceKeys.TryGetValue(key, out string sourceKey);
+            return sourceKey;
         }
 
         private readonly IDictionary<ushort, string> VirtualKeysToSourceKeys = new Dictionary<ushort, string>()

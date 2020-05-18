@@ -2,10 +2,8 @@
 using NowPlaying.Wpf.Controls.Header;
 using NowPlaying.Wpf.Controls.PlayingTrack;
 using NowPlaying.Wpf.Controls.UserSettings;
-using NowPlaying.Wpf.Controls.UserSettings.Controls;
 using NowPlaying.Wpf.Themes;
 using NowPlaying.Core.Api;
-using NowPlaying.Core.Api.SpotifyResponses;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.Generic;

@@ -4,7 +4,9 @@ namespace NowPlaying.Wpf.Controls.PlayingTrack
 {
     public class ProgressViewModel
     {
-        // 0 <= Progress <= 100
+        /// <summary>
+        /// 0 <= Progress <= 100
+        /// </summary>
         [Reactive] public long Progress { get; set; }
     }
 }
