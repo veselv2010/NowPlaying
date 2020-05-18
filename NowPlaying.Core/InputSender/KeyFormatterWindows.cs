@@ -15,7 +15,6 @@ namespace NowPlaying.Core.InputSender
 
         private readonly IDictionary<ushort, string> VirtualKeysToSourceKeys = new Dictionary<ushort, string>()
         {
-            {0,"none"},
             {32,"space"}, 
             {20,"capslock"},
             {27,"escape"},

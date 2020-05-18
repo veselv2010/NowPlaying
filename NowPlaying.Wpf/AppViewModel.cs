@@ -8,6 +8,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NowPlaying.Core.Steam;
 
 namespace NowPlaying.Wpf
 {
@@ -23,11 +24,12 @@ namespace NowPlaying.Wpf
         [Reactive] public string SendBindKey { get; set; }
         [Reactive] public IEnumerable<string> Accounts { get; set; }
         [Reactive] public string SelectedAccount { get; set; }
-
-        public SpotifyRequestsManager spotify;
+        private readonly SpotifyRequestsManager spotify;
+        private readonly ISteamService steamService;
         
         public AppViewModel()
         {
+            steamService = new SteamServiceWindows();
             spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
                 "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
 

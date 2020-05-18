@@ -6,5 +6,6 @@ namespace NowPlaying.Wpf.Controls.UserSettings
     public class UserSettingsBlockViewModel : ReactiveObject
     {
         [Reactive] public string CurrentSourceKey { get; set; }
+        [Reactive] public ushort CurrentVirtualKey { get; set; }
     }
 }

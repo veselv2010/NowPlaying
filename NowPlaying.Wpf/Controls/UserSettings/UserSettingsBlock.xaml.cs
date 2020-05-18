@@ -28,9 +28,8 @@ namespace NowPlaying.Wpf.Controls.UserSettings
 
         private void CurrentKeyControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var window = Window.GetWindow(this);
-            window.KeyDown += KeyboardKeyDown;
-            this.ViewModel.CurrentSourceKey = "press bind button";
+            Window.GetWindow(this).KeyDown += KeyboardKeyDown;
+            this.ViewModel.CurrentSourceKey = "press bind key";
         }
 
         private void KeyboardKeyDown(object sender, KeyEventArgs e)
@@ -40,7 +39,8 @@ namespace NowPlaying.Wpf.Controls.UserSettings
             ushort virtualKey = (ushort)KeyInterop.VirtualKeyFromKey(e.Key);
             string sourceKey = keyFormatter.GetSourceKey(virtualKey);
 
-            this.ViewModel.CurrentSourceKey = sourceKey;
+            this.ViewModel.CurrentSourceKey = sourceKey ?? "key not supported";
+            this.ViewModel.CurrentVirtualKey = virtualKey;
 
             Window.GetWindow(this).KeyDown -= KeyboardKeyDown;
             CurrentKeyControl.MouseLeftButtonDown += CurrentKeyControl_MouseLeftButtonDown;
