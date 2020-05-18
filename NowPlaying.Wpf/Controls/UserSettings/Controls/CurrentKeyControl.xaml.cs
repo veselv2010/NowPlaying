@@ -8,10 +8,5 @@ namespace NowPlaying.Wpf.Controls.UserSettings.Controls
         {
             InitializeComponent();
         }
-
-        private void KeyControlMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            
-        }
     }
 }

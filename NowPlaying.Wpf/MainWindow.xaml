@@ -11,6 +11,7 @@
         xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls"
         xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
         xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
+        xmlns:currentKeyControl="clr-namespace:NowPlaying.Wpf.Controls.UserSettings.Controls"
         Background="#171717"
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
@@ -24,10 +25,11 @@
         <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
         <controls:NpcWorkSwitch Margin="45"/>
-        
+
         <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
                                           Margin="45,45,45,0" Width="Auto"/>
+        
+        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
 
-        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="-15"/>
     </StackPanel>
 </reactiveui:ReactiveWindow>

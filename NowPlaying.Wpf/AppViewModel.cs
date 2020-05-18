@@ -2,10 +2,8 @@
 using NowPlaying.Wpf.Controls.Header;
 using NowPlaying.Wpf.Controls.PlayingTrack;
 using NowPlaying.Wpf.Controls.UserSettings;
-using NowPlaying.Wpf.Controls.UserSettings.Controls;
 using NowPlaying.Wpf.Themes;
 using NowPlaying.Core.Api;
-using NowPlaying.Core.Api.SpotifyResponses;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.Generic;
@@ -38,8 +36,7 @@ namespace NowPlaying.Wpf
             PlayingTrack.Author = "Artist";
             PlayingTrack.CurrentProgress = $"{0}:{0:00}";
             PlayingTrack.EstimatedProgress = $"{0}:{0:00}";
-
-            UserSettings.CurrentKey = "it just works";
+            UserSettings.CurrentSourceKey = "kp_5";
         }
 
         private string AskCode()
