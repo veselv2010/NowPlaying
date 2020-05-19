@@ -1,6 +1,8 @@
 # NowPlaying
 spotify current track to csgo chat very nice
 
+![logo](https://sun9-37.userapi.com/c206828/v206828168/126142/2QOY6DgGLtc.jpg)
+
 # How to use
 (master branch)
 1. Login to your Spotify account (Don't forget to use "Remember me" option)
