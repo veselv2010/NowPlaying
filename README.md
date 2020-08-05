@@ -1,5 +1,6 @@
 # NowPlaying
 spotify current track to csgo chat very nice
+
 dev branch contains unfinished project refactoring with reactiveui
 
 ![logo](https://sun9-37.userapi.com/c206828/v206828168/126142/2QOY6DgGLtc.jpg)
