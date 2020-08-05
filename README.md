@@ -2,6 +2,7 @@
 spotify current track to csgo chat very nice
 
 ![logo](https://sun9-37.userapi.com/c206828/v206828168/126142/2QOY6DgGLtc.jpg)
+![logo](https://sun9-31.userapi.com/gvhRYJeNLGwgAkdDtt4SxzB7yQpi0RxN4wl71A/X-iRumWHWwE.jpg)
 
 # How to use
 (master branch)
