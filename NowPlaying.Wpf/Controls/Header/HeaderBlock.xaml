@@ -31,27 +31,6 @@
 
         <Rectangle Grid.Column="1" Fill="Transparent"/>
 
-        <Border Grid.Column="2">
-            <StackPanel Orientation="Horizontal">
-
-                <TextBlock Text="O_O" 
-                           VerticalAlignment="Center" 
-                           Margin="5" 
-                           Foreground="#B2B2B2"/>
-
-                <common:ToggleSwitch x:Name="ToggleTheme" 
-                                     HorizontalAlignment="Stretch" 
-                                     VerticalAlignment="Stretch" 
-                                     Height="20" 
-                                     Width="auto"/>
-
-                <TextBlock Text="v_v" 
-                           VerticalAlignment="Center" 
-                           Margin="5" 
-                           Foreground="#B2B2B2"/>
-            </StackPanel>
-        </Border>
-
         <buttons:LineButton Grid.Column="3" Height="Auto" 
                             Padding="5,15" Width="Auto"/>
         

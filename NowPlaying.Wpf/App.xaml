@@ -14,7 +14,6 @@
                 <Setter Property="FontFamily" Value="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
             </Style>
             <Style TargetType="{x:Type Label}" BasedOn="{DynamicResource fontStyling}"/>
-            <Style TargetType="{x:Type TextBox}" BasedOn="{DynamicResource fontStyling}"/>
             <Style TargetType="{x:Type ListView}" BasedOn="{DynamicResource fontStyling}"/>
             <Style TargetType="{x:Type CheckBox}" BasedOn="{DynamicResource fontStyling}"/>
 

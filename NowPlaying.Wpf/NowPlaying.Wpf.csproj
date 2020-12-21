@@ -121,10 +121,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Common\ToggleSwitch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Header\Buttons\CrossButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,9 +164,6 @@
     <Compile Include="ColorsConstants.cs" />
     <Compile Include="Controls\Common\CustomCheckbox.xaml.cs">
       <DependentUpon>CustomCheckbox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Common\ToggleSwitch.xaml.cs">
-      <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Header\Buttons\CrossButton.xaml.cs">
       <DependentUpon>CrossButton.xaml</DependentUpon>

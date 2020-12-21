@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:header="clr-namespace:NowPlaying.Wpf.Controls.Header" 
+    xmlns:local="clr-namespace:NowPlaying.Wpf"
     xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack" xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
     Background="#171717"
         ResizeMode="CanMinimize"
@@ -15,12 +16,27 @@
         AllowsTransparency="True" 
         Width="450"
         Height="450" Loaded="WindowLoaded">
-    <StackPanel>
-        <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
+    <Grid>
+        <Image x:Name="AlbumCover" Opacity="0.05"/>
+        <StackPanel x:Name="MainPanel">
+            <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
-        <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
-                                          Margin="45,120,45,0" Width="Auto"/>
+            <TextBox Background="Transparent"
+                     x:Name="ConsolePaste"
+                     HorizontalContentAlignment="Center"
+                     Foreground="#B2B2B2"
+                     FontSize="18"
+         BorderThickness="0"
+         IsReadOnly="True"
+         TextWrapping="Wrap" 
+                     FontWeight="Light"
+                     FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"
+                     Margin="45,20,45,0"/>
 
-        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
-    </StackPanel>
+            <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
+                                          Margin="45,80,45,0" Width="Auto"/>
+
+            <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
+        </StackPanel>
+    </Grid>
 </Window>

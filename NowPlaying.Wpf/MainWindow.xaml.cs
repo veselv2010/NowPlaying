@@ -4,9 +4,14 @@ using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.InputSender;
 using NowPlaying.Core.Steam;
 using NowPlaying.Wpf.Auth;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace NowPlaying.Wpf
 {
@@ -48,6 +53,7 @@ namespace NowPlaying.Wpf
             trackUpdateTimer.AutoReset = true;
             trackUpdateTimer.Elapsed += updateTrackInfo;
 
+            ConsolePaste.Text = "bind \"key\" \"exec audio.cfg\"";
             UserSettingsBlock.CurrentAccountText.Text = userContext.LastAccount;
         }
 
@@ -57,14 +63,31 @@ namespace NowPlaying.Wpf
             var currentTrack = await spotify.GetCurrentTrack();
             PlayingTrackControl.CurrentTrack = currentTrack;
 
+            await Dispatcher.Invoke(async () =>
+            {
+                var image = await GetAlbumImage(currentTrack.CoverUrl);
+                AlbumCover.Source = image;
+                UserSettingsBlock.CurrentGameText.Text = gameProcess.CurrentProcess?.WindowName ?? "";
+            });
+
             if (!gameProcess.IsValid || lastTrackId == currentTrack.Id)
                 return;
 
             lastTrackId = currentTrack.Id;
+
             configWriter.RewriteKeyBinding(currentTrack);
 
             if(UserSettingsBlock.AutosendCheck.IsToggled)
                 keySender.SendSystemInput(UserSettingsBlock.CurrentVirtualKey);
+        }
+
+        private async Task<BitmapImage> GetAlbumImage(string url)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(url, UriKind.Absolute);
+            bitmap.EndInit();
+            return bitmap;
         }
 
         private string AskCode()
