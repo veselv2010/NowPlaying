@@ -14,9 +14,9 @@ namespace NowPlaying.Core.Steam
             throw new NotImplementedException();
         }
 
-        public SteamInfo GetSteamInfo()
+        public SteamContext GetSteamContext()
         {
-            return new SteamInfo(GetSteamFullPath(), GetSteamLastAccount());
+            return new SteamContext(GetSteamFullPath(), GetSteamLastAccount());
         }
     }
 }

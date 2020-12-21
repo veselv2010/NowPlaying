@@ -1,4 +1,5 @@
-﻿using NowPlaying.Core.Api;
+﻿using NowPlaying.Core;
+using NowPlaying.Core.Api;
 using NowPlaying.Core.Config;
 using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.InputSender;
@@ -6,6 +7,7 @@ using NowPlaying.Core.Steam;
 using NowPlaying.Wpf.Auth;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Timers;
@@ -19,11 +21,10 @@ namespace NowPlaying.Wpf
     {
         private ISteamService steamService;
         private PathResolver pathResolver;
-        private LoginUsersReader usersReader;
         private ConfigWriter configWriter;
         private GameProcess gameProcess;
         private IInputSender keySender;
-        private SteamInfo userContext;
+        private SteamContext userContext;
         private SpotifyRequestsManager spotify;
         private IDictionary<string, int> accounts;
 
@@ -33,20 +34,19 @@ namespace NowPlaying.Wpf
             InitializeComponent();
 
             spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
+                "29bd9ec2676c4bf593f3cc2858099838", @"http://localhost:8888/");
             steamService = new SteamServiceWindows();
             pathResolver = new PathResolver();
             keySender = new InputSenderWindows();
-            userContext = steamService.GetSteamInfo();
+            userContext = steamService.GetSteamContext();
 
-            usersReader = new LoginUsersReader(userContext.LoginUsersPath);
-            accounts = usersReader.Read();
+            accounts = userContext.GetAccounts();
 
             gameProcess = new GameProcess();
             gameProcess.Start();
 
-            int userdataContext = accounts[userContext.LastAccount];
-            string writePath = pathResolver.GetWritePath(gameProcess.CurrentProcess, userContext, userdataContext.ToString());
+            int steamid3 = accounts[userContext.LastAccount];
+            string writePath = pathResolver.GetWritePath(gameProcess.CurrentProcess, userContext.UserdataPath, steamid3.ToString());
             configWriter = new ConfigWriter(writePath);
 
             trackUpdateTimer = new Timer(1000);
@@ -57,7 +57,7 @@ namespace NowPlaying.Wpf
             UserSettingsBlock.CurrentAccountText.Text = userContext.LastAccount;
         }
 
-        string lastTrackId;
+        private string lastTrackId;
         private async void updateTrackInfo(object sender, ElapsedEventArgs e)
         {
             var currentTrack = await spotify.GetCurrentTrack();
@@ -90,12 +90,13 @@ namespace NowPlaying.Wpf
             return bitmap;
         }
 
-        private string AskCode()
+        private async Task<string> AskCode()
         {
-            using (var auth = new AuthWindow(spotify.GetAuthUrl()))
+            using (var auth = new AuthServer(@"http://localhost:8888/"))
             {
-                auth.ShowDialog();
-                return auth.Code;
+                string authUrl = spotify.GetAuthUrl().Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
+                return await auth.GetAuthCode();
             }
         }
 
@@ -103,7 +104,7 @@ namespace NowPlaying.Wpf
         {
             AcrylicMaterial.EnableBlur(this);
             this.Hide();
-            string code = AskCode();
+            string code = await AskCode();
 
             if (code == default)
                 Application.Current.Shutdown();

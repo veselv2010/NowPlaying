@@ -27,9 +27,9 @@ namespace NowPlaying.Core.Steam
             return account;
         }
 
-        public SteamInfo GetSteamInfo()
+        public SteamContext GetSteamContext()
         {
-            return new SteamInfo(GetSteamFullPath(), GetSteamLastAccount());
+            return new SteamContext(GetSteamFullPath(), GetSteamLastAccount());
         }
     }
 }

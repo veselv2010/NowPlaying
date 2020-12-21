@@ -8,6 +8,7 @@ using NowPlaying.Core.Steam;
 using NowPlaying.Core.Config;
 using NowPlaying.Core.NowPlayingConfig;
 using NowPlaying.Core.InputSender;
+using NowPlaying.Core;
 
 namespace NowPlaying.Cli
 {
@@ -24,32 +25,32 @@ namespace NowPlaying.Cli
 
         static async Task Main()
         {
+            string redirectUrl = @"http://localhost:8888/";
             keySender = new InputSenderWindows();
             keyFormatter = new KeyFormatterWindows();
             pathResolver = new PathResolver();
             steamService = new SteamServiceWindows();
             requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", @"https://www.google.com/");
+                "29bd9ec2676c4bf593f3cc2858099838", redirectUrl);
 
             process = new GameProcess();
             process.Start();
 
-            var steamInfo = steamService.GetSteamInfo();
+            var steamContext = steamService.GetSteamContext();
+            var accounts = steamContext.GetAccounts();
 
-            var loginUsersReader = new LoginUsersReader(steamInfo.LoginUsersPath);
-            var accounts = loginUsersReader.Read();
+            Console.Write("Awaiting user authorization...");
+            var server = new AuthServer(redirectUrl);
 
             string authUrl = requestsManager.GetAuthUrl().Replace("&", "^&");
             Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
-
-            Console.Write("code = ");
-            string code = Console.ReadLine();
+            string code = await server.GetAuthCode();
 
             await requestsManager.StartTokenRequests(code);
 
-            int accSteamId3 = accounts[steamInfo.LastAccount];
+            int accSteamId3 = accounts[steamContext.LastAccount];
 
-            string writePath = pathResolver.GetWritePath(process.CurrentProcess, steamInfo, accSteamId3.ToString());
+            string writePath = pathResolver.GetWritePath(process.CurrentProcess, steamContext.UserdataPath, accSteamId3.ToString());
 
             configWriter = new ConfigWriter(writePath);
 
@@ -68,7 +69,7 @@ namespace NowPlaying.Cli
                 {
                     Console.Clear();
                     Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds:00})");
-                    Console.WriteLine("Current account: " + steamInfo.LastAccount);
+                    Console.WriteLine("Current account: " + steamContext.LastAccount);
                     Console.WriteLine("Current key: " + currentKey);
 
                     if (resp.Id != lastTrackId)
