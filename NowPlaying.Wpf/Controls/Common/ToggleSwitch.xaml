@@ -1,4 +1,4 @@
-﻿<common:ToggleSwitchBase
+﻿<UserControl
     xmlns:common="clr-namespace:NowPlaying.Wpf.Controls.Common"
     x:Class="NowPlaying.Wpf.Controls.Common.ToggleSwitch"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -18,4 +18,4 @@
 
         </Grid>
     </Viewbox>
-</common:ToggleSwitchBase>
+</UserControl>

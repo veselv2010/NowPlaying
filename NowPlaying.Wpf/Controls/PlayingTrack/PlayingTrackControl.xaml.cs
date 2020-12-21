@@ -1,44 +1,37 @@
-﻿using ReactiveUI;
-using System.Reactive.Disposables;
+﻿using NowPlaying.Core.Api.SpotifyResponses;
+using System;
+using System.Windows.Controls;
 
 namespace NowPlaying.Wpf.Controls.PlayingTrack
 {
-    public class PlayingTrackControlBase : ReactiveUserControl<PlayingTrackViewModel>
+    public partial class PlayingTrackControl : UserControl
     {
-        //
-    }
+        private CurrentTrackResponse _currentTrack;
+        public CurrentTrackResponse CurrentTrack 
+        { 
+            get
+            {
+                return _currentTrack;
+            } 
 
-    public partial class PlayingTrackControl : PlayingTrackControlBase
-    {
+            set
+            {
+                _currentTrack = value;
+                Dispatcher.Invoke(() =>
+                {
+                    DataContext = CurrentTrack;
+                    Progress.ProgressPercentage = GetProgess(_currentTrack.Progress, _currentTrack.Duration);
+                });
+            }
+        }
         public PlayingTrackControl()
         {
-            ViewModel = new PlayingTrackViewModel();
-
             InitializeComponent();
-
-            this.WhenActivated(d => {
-                this.OneWayBind(ViewModel, vm => vm.Author, v => v.TrackAuthorTextBlock.Text)
-                    .DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.Title, v => v.TrackNameTextBlock.Text)
-                    .DisposeWith(d);
-
-                this.OneWayBind(ViewModel,
-                        vm => vm.ProgressMs, v => v.Progress.ViewModel.Progress,
-                        progressMs => GetProgess(progressMs, ViewModel.DurationMs))
-                    .DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.CurrentProgress, v => v.CurrentProgress.Text)
-                     .DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.EstimatedProgress, v => v.EstimatedProgress.Text)
-                     .DisposeWith(d);
-            });
+            DataContext = CurrentTrack;
         }
 
-        private long GetProgess(long progressMs, long durationMs)
-        {
-            return durationMs == 0 ? 0 : progressMs / durationMs / 100;
-        }
+        private double GetProgess(long progressMs, long durationMs) =>
+            durationMs != 0 ? (Convert.ToDouble(progressMs) / Convert.ToDouble(durationMs)) * 100 : 0;
+        
     }
 }

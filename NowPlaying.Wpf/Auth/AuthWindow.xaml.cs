@@ -3,7 +3,6 @@ using System.Windows;
 using NowPlaying.Core.Extensions;
 using CefSharp;
 using CefSharp.Wpf;
-using System.Threading.Tasks;
 
 namespace NowPlaying.Wpf.Auth
 {
@@ -17,7 +16,7 @@ namespace NowPlaying.Wpf.Auth
         {
             var cefSettings = new CefSettings
             {
-                CachePath = "cache"
+                CachePath = System.IO.Path.GetFullPath("cache")
             };
             Cef.Initialize(cefSettings);
             InitializeComponent();
@@ -33,11 +32,11 @@ namespace NowPlaying.Wpf.Auth
             string currentUrl = string.Empty;
             Dispatcher.Invoke(() => currentUrl = BrowserControl.Address);
 
-            if(currentUrl != this.url)
+            if (currentUrl != this.url)
             {
                 this.url = currentUrl;
                 addressChanged.Invoke();
-            }         
+            }
         }
 
         private void GetCode()

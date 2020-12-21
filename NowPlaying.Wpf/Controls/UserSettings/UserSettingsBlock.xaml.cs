@@ -1,36 +1,26 @@
-﻿using ReactiveUI;
-using NowPlaying.Wpf.Controls.UserSettings.Controls;
-using System.Reactive.Disposables;
+﻿using NowPlaying.Core.InputSender;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using NowPlaying.Core.InputSender;
 
 namespace NowPlaying.Wpf.Controls.UserSettings
 {
-    public partial class UserSettingsBlockBase : ReactiveUserControl<UserSettingsBlockViewModel>
+    public partial class UserSettingsBlock : UserControl
     {
+        private readonly IKeyFormatter keyFormatter;
+        public ushort CurrentVirtualKey { get; set; }
 
-    }
-
-    public partial class UserSettingsBlock : UserSettingsBlockBase
-    {
-        private readonly IKeyFormatter keyFormatter = new KeyFormatterWindows();
         public UserSettingsBlock()
         {
-            ViewModel = new UserSettingsBlockViewModel();
             InitializeComponent();
-
-            this.WhenActivated(d => {
-                this.OneWayBind(ViewModel, vm => vm.CurrentSourceKey, v => v.CurrentKeyControl.CurrentKeyTextBlock.Text)
-                    .DisposeWith(d);
-            });
+            keyFormatter = new KeyFormatterWindows();
         }
 
         private void CurrentKeyControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var window = Window.GetWindow(this);
             window.KeyDown += KeyboardKeyDown;
-            this.ViewModel.CurrentSourceKey = "press bind button";
+            CurrentKeyControl.CurrentKey = "press bind button";
         }
 
         private void KeyboardKeyDown(object sender, KeyEventArgs e)
@@ -40,7 +30,8 @@ namespace NowPlaying.Wpf.Controls.UserSettings
             ushort virtualKey = (ushort)KeyInterop.VirtualKeyFromKey(e.Key);
             string sourceKey = keyFormatter.GetSourceKey(virtualKey);
 
-            this.ViewModel.CurrentSourceKey = sourceKey;
+            CurrentKeyControl.CurrentKey = sourceKey;
+            CurrentVirtualKey = virtualKey;
 
             Window.GetWindow(this).KeyDown -= KeyboardKeyDown;
             CurrentKeyControl.MouseLeftButtonDown += CurrentKeyControl_MouseLeftButtonDown;

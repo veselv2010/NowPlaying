@@ -1,10 +1,9 @@
-﻿<local:UserSettingsBlockBase 
+﻿<UserControl
              x:Class="NowPlaying.Wpf.Controls.UserSettings.UserSettingsBlock"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
              xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls.UserSettings.Controls"
              xmlns:common="clr-namespace:NowPlaying.Wpf.Controls.Common"
              mc:Ignorable="d" 
@@ -15,11 +14,11 @@
         <TextBlock x:Name="CurrentAccountText" 
                    Margin="45,0,0,0"
                    Text="accountname" 
-                   Foreground="#7E7E7E"/>
+                   Foreground="#B2B2B2"/>
 
         <TextBlock x:Name="CurrentGameText"
                    Text="gameprocessname" 
-                   Foreground="#7E7E7E" Margin="45,11,0,0"/>
+                   Foreground="#B2B2B2" Margin="45,11,0,0"/>
 
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">
@@ -28,20 +27,20 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,11"
                        FontSize="14"
-                       Foreground="#7E7E7E"/>
+                       Foreground="#B2B2B2"/>
 
                 <controls:CurrentKeyControl x:Name="CurrentKeyControl" HorizontalAlignment="Left" MouseLeftButtonDown="CurrentKeyControl_MouseLeftButtonDown"/>
 
             </StackPanel>
-            
-            <common:CustomCheckbox Height="16" Width="16"
+
+            <common:CustomCheckbox x:Name="AutosendCheck" Height="16" Width="16"
                                    VerticalAlignment="Bottom" 
                                    Margin="11,0,0,6"/>
             <TextBlock Text="autosend on new track" 
                        Height="16" 
                        VerticalAlignment="Bottom" 
-                       Foreground="#7E7E7E" Margin="6"/>
-            
+                       Foreground="#B2B2B2" Margin="6"/>
+
         </StackPanel>
     </StackPanel>
-</local:UserSettingsBlockBase>
+</UserControl>

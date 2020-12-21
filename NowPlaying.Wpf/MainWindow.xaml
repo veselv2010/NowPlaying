@@ -1,18 +1,12 @@
-﻿<reactiveui:ReactiveWindow
-        x:Class="NowPlaying.Wpf.MainWindow"
-        x:TypeArguments="NowPlaying.Wpf:AppViewModel"
-        xmlns:reactiveui="http://reactiveui.net"
+﻿<Window 
+    x:Class="NowPlaying.Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:NowPlaying.Wpf="clr-namespace:NowPlaying.Wpf"
-        xmlns:header="clr-namespace:NowPlaying.Wpf.Controls.Header"
-        xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls"
-        xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
-        xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
-        xmlns:currentKeyControl="clr-namespace:NowPlaying.Wpf.Controls.UserSettings.Controls"
-        Background="#171717"
+        xmlns:header="clr-namespace:NowPlaying.Wpf.Controls.Header" 
+    xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack" xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
+    Background="#171717"
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
         Title="NowPlaying"
@@ -20,16 +14,13 @@
         WindowStyle="None" 
         AllowsTransparency="True" 
         Width="450"
-        Height="600" Loaded="WindowLoaded">
+        Height="450" Loaded="WindowLoaded">
     <StackPanel>
         <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
 
-        <controls:NpcWorkSwitch Margin="45"/>
-
         <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
-                                          Margin="45,45,45,0" Width="Auto"/>
-        
-        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
+                                          Margin="45,120,45,0" Width="Auto"/>
 
+        <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
     </StackPanel>
-</reactiveui:ReactiveWindow>
+</Window>

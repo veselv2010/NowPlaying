@@ -11,15 +11,27 @@
              Width="184">
     <StackPanel>
         <Rectangle Fill="Transparent" Width="184" 
-                   Height="28" 
-                   Stroke="#FFB3B3B3"/>
+                   Height="28">
+            <Rectangle.Style>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Rectangle.Stroke" Value="#1DB954"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Rectangle.Stroke" Value="#FFB3B3B3"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
 
         <TextBlock x:Name="CurrentKeyTextBlock"
                    Margin="0,-28,0,0"
-                   Text="kp_5" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Center" 
-                   Foreground="#7E7E7E"/>
-        
+                   Foreground="#F9F9F9"/>
+
+
     </StackPanel>
 </UserControl>
