@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NowPlaying.Wpf.Models;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -6,24 +7,11 @@ namespace NowPlaying.Wpf.Controls.Common
 {
     public partial class CustomCheckbox : UserControl
     {
-        public bool IsToggled { get; set; }
-        IDictionary<bool, SolidColorBrush> colorMap;
+        public bool IsToggled { get; private set; }
 
         public CustomCheckbox()
         {
-
             InitializeComponent();
-
-            colorMap = new Dictionary<bool, SolidColorBrush>
-            {
-                { false, ColorsConstants.Transparent },
-                { true, ColorsConstants.SpotifyGreen },
-            };
-        }
-
-        private void StackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Toggle();
         }
 
         private void StackPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -36,10 +24,11 @@ namespace NowPlaying.Wpf.Controls.Common
             BorderRectangle.Stroke = ColorsConstants.MilkyGrayBorder;
         }
 
-        public void Toggle(bool? newToggled = null)
+        public void Toggle()
         {
-            IsToggled = newToggled ?? !IsToggled;
-            CheckedRectangle.Fill = colorMap[IsToggled];
+            var model = (CustomCheckboxModel)Resources["checkBoxModel"];
+            model.IsToggled = !model.IsToggled;
+            IsToggled = model.IsToggled;
         }
     }
 }

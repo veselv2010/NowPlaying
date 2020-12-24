@@ -5,11 +5,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:model="clr-namespace:NowPlaying.Wpf.Models"
              mc:Ignorable="d" 
              Height="25" 
              Width="25">
+    <UserControl.Resources>
+        <model:CustomCheckboxModel x:Key="checkBoxModel"/>
+    </UserControl.Resources>
     <Viewbox>
-        <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+        <StackPanel DataContext="{StaticResource checkBoxModel}" 
+                    MouseEnter="StackPanel_MouseEnter" 
+                    MouseLeave="StackPanel_MouseLeave">
+            
             <Rectangle x:Name="BorderRectangle" 
                        Width="25" Height="25" 
                        Fill="Transparent" 
@@ -18,9 +25,25 @@
 
             <Rectangle x:Name="CheckedRectangle" 
                        Width="23" Height="23" 
-                       Fill="Transparent"
                        Margin="0,-25,0,0"
-                       Panel.ZIndex="1"/>
+                       Panel.ZIndex="1">
+                <Rectangle.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Value="True" Binding="{Binding IsToggled}">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Rectangle.Fill" Value="#1DB954"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                            <DataTrigger Value="False" Binding="{Binding IsToggled}">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Rectangle.Fill" Value="Transparent"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
         </StackPanel>
     </Viewbox>
 </UserControl>

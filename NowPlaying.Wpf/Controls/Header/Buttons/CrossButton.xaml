@@ -8,22 +8,40 @@
             Width="20" Height="20">
     <Viewbox>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Rectangle x:Name="Cross1" 
-                       Width="2" Height="12" Fill="#7E7E7E" 
-                       MouseEnter="CrossButtonMouseEnter" 
-                       MouseLeave="CrossButtonMouseLeave">
+            <Rectangle x:Name="Cross1" Width="2" Height="12">
                 <Rectangle.LayoutTransform>
                     <RotateTransform Angle="-45"/>
                 </Rectangle.LayoutTransform>
+                <Rectangle.Style>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Rectangle.Stroke" Value="#FF4040"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Rectangle.Stroke" Value="#7E7E7E"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
             </Rectangle>
 
-            <Rectangle x:Name="Cross2" 
-                       Width="2" Height="12" Fill="#7E7E7E" 
-                       MouseEnter="CrossButtonMouseEnter" 
-                       MouseLeave="CrossButtonMouseLeave">
+            <Rectangle x:Name="Cross2" Width="2" Height="12">
                 <Rectangle.LayoutTransform>
                     <RotateTransform Angle="45"/>
                 </Rectangle.LayoutTransform>
+                <Rectangle.Style>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Rectangle.Stroke" Value="#FF4040"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Rectangle.Stroke" Value="#7E7E7E"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
             </Rectangle>
         </Grid>
     </Viewbox>

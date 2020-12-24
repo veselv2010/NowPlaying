@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
+        xmlns:model="clr-namespace:NowPlaying.Wpf.Models"
         mc:Ignorable="d"
         Height="auto" 
         Width="360">
-    <StackPanel>
+    <UserControl.Resources>
+        <model:PlayingTrackModel x:Key="currentTrack" />
+    </UserControl.Resources>
+    <StackPanel DataContext="{StaticResource currentTrack}">
         <TextBlock x:Name="TrackAuthorTextBlock" 
                    FontSize="20" 
                    Text="{Binding FormattedArtists}"

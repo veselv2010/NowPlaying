@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace NowPlaying.Wpf.Controls.Header
 {
@@ -10,12 +8,6 @@ namespace NowPlaying.Wpf.Controls.Header
         public HeaderBlock()
         {
             InitializeComponent();
-
-            var toggleColors = new Dictionary<bool, SolidColorBrush>
-            {
-                { false, ColorsConstants.MilkyGray },
-                { true, ColorsConstants.DarkGray },
-            };
         }
 
         private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

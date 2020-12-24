@@ -53,4 +53,9 @@
     <PackageReference Include="System.Security.AccessControl" Version="5.0.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Models\AlbumCoverBackgroundModel.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+  </ItemGroup>
 </Project>

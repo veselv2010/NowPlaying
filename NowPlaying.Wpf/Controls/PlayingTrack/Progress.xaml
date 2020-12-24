@@ -5,13 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
+        xmlns:model="clr-namespace:NowPlaying.Wpf.Models"
         mc:Ignorable="d"
         Height="2" Width="360" HorizontalAlignment="Stretch">
-    <Grid>
+    <UserControl.Resources>
+        <model:ProgressModel x:Key="progressModel"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource progressModel}">
         <Border Background="#666666" x:Name="BackLine">
             <Border x:Name="FillingLine"
                     Background="#1DB954"
-                    Width="360"
+                    Width="{Binding ProgressPercentage}"
                     HorizontalAlignment="Left"/>
         </Border>
     </Grid>

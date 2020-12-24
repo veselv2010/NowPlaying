@@ -1,37 +1,25 @@
 ﻿using NowPlaying.Core.Api.SpotifyResponses;
 using System;
 using System.Windows.Controls;
+using NowPlaying.Wpf.Models;
 
 namespace NowPlaying.Wpf.Controls.PlayingTrack
 {
     public partial class PlayingTrackControl : UserControl
     {
-        private CurrentTrackResponse _currentTrack;
-        public CurrentTrackResponse CurrentTrack 
-        { 
-            get
-            {
-                return _currentTrack;
-            } 
-
-            set
-            {
-                _currentTrack = value;
-                Dispatcher.Invoke(() =>
-                {
-                    DataContext = CurrentTrack;
-                    Progress.ProgressPercentage = GetProgess(_currentTrack.Progress, _currentTrack.Duration);
-                });
-            }
-        }
         public PlayingTrackControl()
         {
             InitializeComponent();
-            DataContext = CurrentTrack;
+        }
+
+        public void Update(CurrentTrackResponse resp)
+        {
+            var currentTrack = (PlayingTrackModel)Resources["currentTrack"];
+            currentTrack.UpdateProperties(resp);
+            Progress.Update(GetProgess(resp.Progress, resp.Duration));
         }
 
         private double GetProgess(long progressMs, long durationMs) =>
             durationMs != 0 ? (Convert.ToDouble(progressMs) / Convert.ToDouble(durationMs)) * 100 : 0;
-        
     }
 }

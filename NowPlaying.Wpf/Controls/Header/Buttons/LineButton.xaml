@@ -6,10 +6,22 @@
              xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.Header.Buttons"
              mc:Ignorable="d" 
              Width="10" Height="10">
+
     <Rectangle x:Name="Line" 
                Width="10" Height="2" 
                Fill="#7E7E7E"
-               VerticalAlignment="Bottom" 
-               MouseEnter="LineButtonMouseEnter" 
-               MouseLeave="LineButtonMouseLeave"/>
+               VerticalAlignment="Bottom" >
+        <Rectangle.Style>
+            <Style TargetType="{x:Type Rectangle}">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Rectangle.Stroke" Value="#B2B2B2"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="False">
+                        <Setter Property="Rectangle.Stroke" Value="#7E7E7E"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Rectangle.Style>
+    </Rectangle>
 </UserControl>
