@@ -15,7 +15,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition />
-            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
@@ -31,11 +30,12 @@
 
         <Rectangle Grid.Column="1" Fill="Transparent"/>
 
-        <buttons:LineButton Grid.Column="3" Height="Auto" 
-                            Padding="5,15" Width="Auto"/>
+        <buttons:LineButton Grid.Column="2" Height="Auto" 
+                            Padding="5,15" Width="Auto"
+                            x:Name="CollapseButton"/>
         
-        <buttons:CrossButton Grid.Column="4" 
-                             MouseLeftButtonDown="CloseButton_MouseLeftButtonDown" 
+        <buttons:CrossButton Grid.Column="3" 
+                             x:Name="CloseButton"
                              Height="Auto" Padding="5,15" Width="Auto"/>
     </Grid>
 </UserControl>

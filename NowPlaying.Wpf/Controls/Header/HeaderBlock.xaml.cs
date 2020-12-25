@@ -12,7 +12,7 @@ namespace NowPlaying.Wpf.Controls.Header
 
         private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();   
         }
 
         private void HelpTextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

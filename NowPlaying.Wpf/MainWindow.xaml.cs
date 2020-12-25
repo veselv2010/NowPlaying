@@ -1,9 +1,9 @@
-﻿using NowPlaying.Core;
-using NowPlaying.Core.Api;
+﻿using NowPlaying.Core.Api;
 using NowPlaying.Core.Config;
 using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.InputSender;
 using NowPlaying.Core.Steam;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -28,6 +28,8 @@ namespace NowPlaying.Wpf
         {
             InitializeComponent();
 
+            HeaderBlock.CloseButton.MouseLeftButtonDown += CloseButton_MouseLeftButtonDown;
+
             _spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
                 "29bd9ec2676c4bf593f3cc2858099838", @"http://localhost:8888/");
             _steamService = new SteamServiceWindows();
@@ -50,6 +52,11 @@ namespace NowPlaying.Wpf
 
             ConsolePaste.Text = "bind \"key\" \"exec audio.cfg\"";
             UserSettingsBlock.CurrentAccountText.Text = _userContext.LastAccount;
+        }
+
+        private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         private string lastTrackId;
@@ -115,6 +122,21 @@ namespace NowPlaying.Wpf
             {
                 return;
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _trackUpdateTimer.Stop();
+            _trackUpdateTimer.Dispose();
+
+            _spotify.Dispose();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            Application.Current.Shutdown();
         }
     }
 }

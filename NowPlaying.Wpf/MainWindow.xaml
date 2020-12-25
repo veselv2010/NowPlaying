@@ -16,7 +16,7 @@
         WindowStyle="None" 
         AllowsTransparency="True" 
         Width="450"
-        Height="450" Loaded="WindowLoaded">
+        Height="450" Loaded="WindowLoaded" Closing="Window_Closing">
     <Grid>
         <background:AlbumCoverBackground x:Name="BackgroundCover"/>
         <StackPanel x:Name="MainPanel">
