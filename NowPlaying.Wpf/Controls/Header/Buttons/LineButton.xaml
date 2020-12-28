@@ -3,22 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.Header.Buttons"
              mc:Ignorable="d" 
              Width="10" Height="10">
 
     <Rectangle x:Name="Line" 
                Width="10" Height="2" 
-               Fill="#7E7E7E"
+               Fill="{StaticResource DarkGray}"
                VerticalAlignment="Bottom" >
         <Rectangle.Style>
             <Style TargetType="{x:Type Rectangle}">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Rectangle.Stroke" Value="#B2B2B2"/>
+                        <Setter Property="Rectangle.Stroke" Value="{StaticResource MilkyGray}"/>
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="False">
-                        <Setter Property="Rectangle.Stroke" Value="#7E7E7E"/>
+                        <Setter Property="Rectangle.Stroke" Value="{StaticResource DarkGray}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>

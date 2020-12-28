@@ -18,11 +18,11 @@
         <TextBlock x:Name="CurrentAccountText" 
                    Margin="45,0,0,0"
                    Text="{Binding AccountName}" 
-                   Foreground="#B2B2B2"/>
+                   Foreground="{StaticResource MilkyGray}"/>
 
         <TextBlock x:Name="CurrentGameText"
                    Text="{Binding GameName}" 
-                   Foreground="#B2B2B2" Margin="45,11,0,0"/>
+                   Foreground="{StaticResource MilkyGray}" Margin="45,11,0,0"/>
 
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">
@@ -31,7 +31,7 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,11"
                        FontSize="14"
-                       Foreground="#B2B2B2"/>
+                       Foreground="{StaticResource MilkyGray}"/>
 
                 <controls:CurrentKeyControl x:Name="CurrentKeyControl" HorizontalAlignment="Left" MouseLeftButtonDown="CurrentKeyControl_MouseLeftButtonDown"/>
 
@@ -45,7 +45,7 @@
             <TextBlock Text="autosend on new track" 
                        Height="16" 
                        VerticalAlignment="Bottom" 
-                       Foreground="#B2B2B2" Margin="6"/>
+                       Foreground="{StaticResource MilkyGray}" Margin="6"/>
 
         </StackPanel>
     </StackPanel>

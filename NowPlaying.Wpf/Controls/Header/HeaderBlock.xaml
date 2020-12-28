@@ -22,7 +22,7 @@
         <TextBlock x:Name="HelpTextBlock"
                    MouseLeftButtonDown="HelpTextBlock_MouseLeftButtonDown"
                    Text="help!"                   
-                   Foreground="#B2B2B2" 
+                   Foreground="{StaticResource MilkyGray}" 
                    TextDecorations="Underline" 
                    VerticalAlignment="Center" 
                    Padding="5" 

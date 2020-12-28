@@ -1,7 +1,5 @@
 ﻿using NowPlaying.Wpf.Models;
-using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace NowPlaying.Wpf.Controls.Common
 {
@@ -12,16 +10,6 @@ namespace NowPlaying.Wpf.Controls.Common
         public CustomCheckbox()
         {
             InitializeComponent();
-        }
-
-        private void StackPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            BorderRectangle.Stroke = ColorsConstants.SpotifyGreen;
-        }
-
-        private void StackPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            BorderRectangle.Stroke = ColorsConstants.MilkyGrayBorder;
         }
 
         public void Toggle()

@@ -1,6 +1,6 @@
 ﻿namespace NowPlaying.Wpf.Models
 {
-    class CustomCheckboxModel : PropertyNotifier
+    public class CustomCheckboxModel : PropertyNotifier
     {
         private bool _isToggled;
         public bool IsToggled

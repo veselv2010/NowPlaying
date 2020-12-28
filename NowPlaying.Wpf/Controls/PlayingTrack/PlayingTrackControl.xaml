@@ -15,8 +15,8 @@
     <StackPanel DataContext="{StaticResource currentTrack}">
         <TextBlock x:Name="TrackAuthorTextBlock" 
                    FontSize="20" 
-                   Text="{Binding FormattedArtists}"
-                   Foreground="#1DB954"
+                   Text="{Binding FormattedArtists, TargetNullValue='NowPlaying'}"
+                   Foreground="{StaticResource SpotifyGreen}"
                    HorizontalAlignment="Center"
                    FontWeight="Medium"
                    Padding="0,0,0,8" 
@@ -27,16 +27,16 @@
         <TextBlock x:Name="TrackNameTextBlock" 
                    FontSize="16"
                    FontWeight="Light"
-                   Text="{Binding Name}"
+                   Text="{Binding Name, TargetNullValue='Nothing is playing!'}"
                    HorizontalAlignment="Center" 
-                   Foreground="#1DB954" 
+                   Foreground="{StaticResource SpotifyGreen}" 
                    Padding="0,8,0,0"
                    FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
             <TextBlock x:Name="CurrentProgress" 
                        FontSize="12" 
-                       Foreground="#1DB954">
+                       Foreground="{StaticResource SpotifyGreen}">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}:{1:00}">
                         <Binding Path="ProgressMinutes"/>
@@ -47,11 +47,11 @@
 
             <TextBlock Text=" / " 
                        FontSize="12"
-                       Foreground="#B2B2B2"/>
+                       Foreground="{StaticResource MilkyGray}"/>
 
             <TextBlock x:Name="EstimatedProgress" 
                        FontSize="12" 
-                       Foreground="#B2B2B2">
+                       Foreground="{StaticResource MilkyGray}">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}:{1:00}">
                         <Binding Path="DurationMinutes"/>

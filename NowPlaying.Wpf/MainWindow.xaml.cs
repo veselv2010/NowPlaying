@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Input;
 
 namespace NowPlaying.Wpf
 {
@@ -28,7 +29,10 @@ namespace NowPlaying.Wpf
         {
             InitializeComponent();
 
-            HeaderBlock.CloseButton.MouseLeftButtonDown += CloseButton_MouseLeftButtonDown;
+            HeaderBlock.CloseButton.MouseLeftButtonDown += 
+                new MouseButtonEventHandler((o, sender) => Application.Current.Shutdown());
+            HeaderBlock.CollapseButton.MouseLeftButtonDown += 
+                new MouseButtonEventHandler((o, s) => WindowState = WindowState.Minimized);
 
             _spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
                 "29bd9ec2676c4bf593f3cc2858099838", @"http://localhost:8888/");
@@ -52,11 +56,6 @@ namespace NowPlaying.Wpf
 
             ConsolePaste.Text = "bind \"key\" \"exec audio.cfg\"";
             UserSettingsBlock.CurrentAccountText.Text = _userContext.LastAccount;
-        }
-
-        private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private string lastTrackId;
@@ -111,14 +110,14 @@ namespace NowPlaying.Wpf
             this.Show();
         }
 
-        private void HeaderBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void HeaderBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
                 OnMouseLeftButtonDown(e);
-                this.DragMove();
+                DragMove();
             }
-            catch (System.InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 return;
             }
@@ -130,13 +129,6 @@ namespace NowPlaying.Wpf
             _trackUpdateTimer.Dispose();
 
             _spotify.Dispose();
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-
-            Application.Current.Shutdown();
         }
     }
 }
