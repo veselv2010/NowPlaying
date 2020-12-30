@@ -17,7 +17,8 @@ namespace NowPlaying.Wpf.Controls.Header
 
         private void HelpTextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Process.Start("https://github.com/veselv2010/NowPlaying");
+            string githubUrl = "https://github.com/veselv2010/NowPlaying";
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {githubUrl}") { CreateNoWindow = true });
         }
     }
 }

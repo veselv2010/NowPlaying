@@ -70,7 +70,7 @@ namespace NowPlaying.Core.Steam
                     if (TryReadAccountName(line, out var accName))
                     {
                         if (currentSteamId32 == 0)
-                            throw new FileFormatException("VDF file has incorrect formatting");
+                            throw new IOException("VDF file has incorrect formatting");
 
                         accounts.Add(accName, currentSteamId32);
                         continue;

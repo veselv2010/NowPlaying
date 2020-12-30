@@ -1,18 +1,11 @@
 ﻿<Application x:Class="NowPlaying.Wpf.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:NowPlaying.Wpf"
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-            <!--<Color x:Key="SpotifyGreen">#FF1DB954</Color>
-            <Color x:Key="BlackThemeBackground">#FF171717</Color>
-            <Color x:Key="DarkGray">#FF7E7E7E</Color>
-            <Color x:Key="MilkyGray">#FFB2B2B2</Color>
-            <Color x:Key="MilkyGrayBorder">#FFB3B3B3</Color>-->
 
             <SolidColorBrush x:Key="SpotifyGreen">#FF1DB954</SolidColorBrush>
             <SolidColorBrush x:Key="BlackThemeBackground">#FF171717</SolidColorBrush>
@@ -31,6 +24,7 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Width="10" Height="10">
+             Width="20" Height="20">
 
     <Rectangle x:Name="Line" 
-               Width="10" Height="2" 
+               Height="3"
                Fill="{StaticResource DarkGray}"
-               VerticalAlignment="Bottom" >
+               VerticalAlignment="Bottom">
         <Rectangle.Style>
             <Style TargetType="{x:Type Rectangle}">
                 <Style.Triggers>
