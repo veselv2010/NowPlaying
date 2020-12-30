@@ -6,9 +6,7 @@ using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.Api;
 using NowPlaying.Core.Steam;
 using NowPlaying.Core.Config;
-using NowPlaying.Core.NowPlayingConfig;
 using NowPlaying.Core.InputSender;
-using NowPlaying.Core;
 
 namespace NowPlaying.Cli
 {
@@ -17,7 +15,6 @@ namespace NowPlaying.Cli
         private static GameProcess process;
         private static SpotifyRequestsManager requestsManager;
         private static ISteamService steamService;
-        private static ConfigWorker config;
         private static PathResolver pathResolver;
         private static ConfigWriter configWriter;
         private static IInputSender keySender;
@@ -40,7 +37,7 @@ namespace NowPlaying.Cli
             var steamContext = steamService.GetSteamContext();
             var accounts = steamContext.GetAccounts();
 
-            Console.Write("Awaiting user authorization...");
+            Console.WriteLine("Awaiting user authorization...");
             var server = new AuthServer(redirectUrl);
 
             string authUrl = requestsManager.GetAuthUrl().Replace("&", "^&");
@@ -66,23 +63,28 @@ namespace NowPlaying.Cli
             {
                 var resp = await requestsManager.GetCurrentTrack();
 
-                if (resp != null)
+                if (resp == null)
                 {
                     Console.Clear();
-                    Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds:00})");
-                    Console.WriteLine("Current account: " + steamContext.LastAccount);
-                    Console.WriteLine("Current key: " + currentKey);
+                    Console.WriteLine("Nothing is playing!");
+                    Thread.Sleep(1000);
+                    continue;
+                }
 
-                    if (resp.Id != lastTrackId)
+                Console.Clear();
+                Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds:00})");
+                Console.WriteLine("Current account: " + steamContext.LastAccount);
+                Console.WriteLine("Current key: " + currentKey);
+
+                if (resp.Id != lastTrackId)
+                {
+                    if (process.IsValid)
                     {
-                        if (process.IsValid)
-                        {
-                            keySender.SendSystemInput(currentKeyVirtual);
-                        }
-
-                        lastTrackId = resp.Id;
-                        configWriter.RewriteKeyBinding(resp);
+                        keySender.SendSystemInput(currentKeyVirtual);
                     }
+
+                    lastTrackId = resp.Id;
+                    configWriter.RewriteKeyBinding(resp);
                 }
 
                 Thread.Sleep(1000);
