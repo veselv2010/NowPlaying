@@ -18,26 +18,17 @@
         Width="450"
         Height="450" Loaded="WindowLoaded" Closing="Window_Closing">
     <Grid>
-        <background:AlbumCoverBackground x:Name="BackgroundCover"/>
-        <StackPanel x:Name="MainPanel">
-            <header:HeaderBlock Padding="10,2,10,2" x:Name="HeaderBlock" MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" />
-
-            <TextBox Background="Transparent"
-                     x:Name="ConsolePaste"
-                     HorizontalContentAlignment="Center"
-                     Foreground="{StaticResource MilkyGray}"
-                     FontSize="18"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     TextWrapping="Wrap" 
-                     FontWeight="Light"
-                     FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"
-                     Margin="45,20,45,0"/>
+        <background:AlbumCoverBackground x:Name="BackgroundCover" Panel.ZIndex="-1"/>
+        <Grid x:Name="MainPanel">
+            <header:HeaderBlock Padding="10,2,10,2" 
+                                x:Name="HeaderBlock"
+                                MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" 
+                                VerticalAlignment="Top"/>
 
             <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
-                                          Margin="45,80,45,0" Width="Auto"/>
+                                          Margin="45,175,45,0" Width="Auto"/>
 
-            <userSettings:UserSettingsBlock x:Name="UserSettingsBlock" Margin="0,-15"/>
-        </StackPanel>
+            <userSettings:UserSettingsBlock x:Name="UserSettingsBlock"/>
+        </Grid>
     </Grid>
 </Window>

@@ -8,15 +8,27 @@
     xmlns:common="clr-namespace:NowPlaying.Wpf.Controls.Common"
     xmlns:model="clr-namespace:NowPlaying.Wpf.Models"
     mc:Ignorable="d" 
-    Height="auto" 
+    Height="450" 
     Width="450">
     <UserControl.Resources>
         <model:UserSettingsModel x:Key="userSettingsModel"/>
     </UserControl.Resources>
     <StackPanel DataContext="{StaticResource userSettingsModel}">
 
+        <TextBox Background="Transparent"
+                     x:Name="ConsolePaste"
+                     HorizontalContentAlignment="Center"
+                     Foreground="{StaticResource MilkyGray}"
+                     FontSize="18"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap" 
+                     FontWeight="Light"
+                     FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"
+                     Margin="45,75,45,0"/>
+
         <TextBlock x:Name="CurrentAccountText" 
-                   Margin="45,0,0,0"
+                   Margin="45,157,0,0"
                    Text="{Binding AccountName}" 
                    Foreground="{StaticResource MilkyGray}"/>
 
@@ -24,7 +36,7 @@
                    Text="{Binding GameName}" 
                    Foreground="{StaticResource MilkyGray}" Margin="45,11,0,0"/>
 
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
             <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">
                 <TextBlock Text="Chat button"
                        VerticalAlignment="Top"
@@ -33,8 +45,9 @@
                        FontSize="14"
                        Foreground="{StaticResource MilkyGray}"/>
 
-                <controls:CurrentKeyControl x:Name="CurrentKeyControl" HorizontalAlignment="Left" MouseLeftButtonDown="CurrentKeyControl_MouseLeftButtonDown"/>
-
+                <controls:CurrentKeyControl x:Name="CurrentKeyControl" 
+                                            HorizontalAlignment="Left" 
+                                            MouseLeftButtonDown="CurrentKeyControl_MouseLeftButtonDown"/>
             </StackPanel>
 
             <common:CustomCheckbox x:Name="AutosendCheck" Height="16" Width="16"

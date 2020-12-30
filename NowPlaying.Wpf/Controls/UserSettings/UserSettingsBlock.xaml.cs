@@ -39,6 +39,7 @@ namespace NowPlaying.Wpf.Controls.UserSettings
 
             CurrentKeyControl.Update(sourceKey);
             CurrentVirtualKey = virtualKey;
+            ConsolePaste.Text = $"bind \"{sourceKey}\" \"exec audio.cfg\"";
 
             Window.GetWindow(this).KeyDown -= KeyboardKeyDown;
             CurrentKeyControl.MouseLeftButtonDown += CurrentKeyControl_MouseLeftButtonDown;

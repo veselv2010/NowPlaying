@@ -25,11 +25,12 @@ namespace NowPlaying.Cli
 
         static async Task Main()
         {
+            steamService = OperatingSystem.IsWindows() ? new SteamServiceWindows() : new SteamServiceLinux();
             string redirectUrl = @"http://localhost:8888/";
             keySender = new InputSenderWindows();
             keyFormatter = new KeyFormatterWindows();
             pathResolver = new PathResolver();
-            steamService = new SteamServiceWindows();
+
             requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
                 "29bd9ec2676c4bf593f3cc2858099838", redirectUrl);
 

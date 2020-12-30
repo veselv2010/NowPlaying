@@ -54,7 +54,6 @@ namespace NowPlaying.Wpf
             _trackUpdateTimer.AutoReset = true;
             _trackUpdateTimer.Elapsed += UpdateTrackInfo;
 
-            ConsolePaste.Text = "bind \"key\" \"exec audio.cfg\"";
             UserSettingsBlock.CurrentAccountText.Text = _userContext.LastAccount;
         }
 

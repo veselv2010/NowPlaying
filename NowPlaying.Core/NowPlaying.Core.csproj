@@ -5,7 +5,6 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
 	 <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	 <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	 <PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,6 +20,7 @@
 	  <DebugType>none</DebugType>
 	  <DebugSymbols>false</DebugSymbols>
 	  <OutputPath>..\bin\NowPlaying\</OutputPath>
+	  <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
 	</PropertyGroup>
 
 </Project>
