@@ -16,7 +16,7 @@ That version is based on WPF, but there is also an console one.
 7. On top of NowPlaying window you'll see a "bind "key" "exec audio.cfg"" line. Copy it to the clipboard and head back to CS:GO window 
 8. Open console (~) in CS:GO
 9 Paste the string into the console
-10. Now depending on the method (manual or autosend) you'll either automatically send a chat message with track information on each change of it or do it yourself when in game. Aside from that, you can press the assigned button anytime to send mentioned chat message.
+10. Now depending on the method (manual or autosend) you'll either automatically send a chat message with track information on each change of it or do it yourself when in game. Aside from that, you can press the assigned button anytime to send the mentioned chat message.
 
 
 
