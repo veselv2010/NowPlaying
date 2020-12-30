@@ -15,7 +15,7 @@ There is WPF and CLI verisons for now
 6. Launch CS:GO (It can be done on any stage).
 7. On top of NowPlaying window you'll see a "bind "key" "exec audio.cfg"" line. Copy it to the clipboard and head back to CS:GO window.
 8. Open console (~) in CS:GO.
-9 Paste the string into the console.
+9. Paste the string into the console.
 10. Now depending on the method (manual or autosend) you'll either automatically send a chat message with track information on each change of it or do it yourself when in game. Aside from that, you can press the assigned button anytime to send the mentioned chat message.
 
 
