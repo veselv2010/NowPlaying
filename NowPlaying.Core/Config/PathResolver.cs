@@ -6,7 +6,7 @@ namespace NowPlaying.Core.Config
     public class PathResolver
     {
         public string GetWritePath(GameProcessInfo processInfo,
-            SteamInfo steamInfo, string steamId32)
+            string userdataPath, string steamId3)
         {
             //switch (processInfo.Process)
             //{
@@ -18,7 +18,7 @@ namespace NowPlaying.Core.Config
             //        throw new NotImplementedException();
             //}
 
-            return $"{steamInfo.UserdataPath}\\{steamId32}\\730\\local\\cfg\\audio.cfg";
+            return $"{userdataPath}\\{steamId3}\\730\\local\\cfg\\audio.cfg";
         }
     }
 }

@@ -1,44 +1,25 @@
-﻿using ReactiveUI;
-using System.Reactive.Disposables;
+﻿using NowPlaying.Core.Api.SpotifyResponses;
+using System;
+using System.Windows.Controls;
+using NowPlaying.Wpf.Models;
 
 namespace NowPlaying.Wpf.Controls.PlayingTrack
 {
-    public class PlayingTrackControlBase : ReactiveUserControl<PlayingTrackViewModel>
-    {
-        //
-    }
-
-    public partial class PlayingTrackControl : PlayingTrackControlBase
+    public partial class PlayingTrackControl : UserControl
     {
         public PlayingTrackControl()
         {
-            ViewModel = new PlayingTrackViewModel();
-
             InitializeComponent();
-
-            this.WhenActivated(d => {
-                this.OneWayBind(ViewModel, vm => vm.Author, v => v.TrackAuthorTextBlock.Text)
-                    .DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.Title, v => v.TrackNameTextBlock.Text)
-                    .DisposeWith(d);
-
-                this.OneWayBind(ViewModel,
-                        vm => vm.ProgressMs, v => v.Progress.ViewModel.Progress,
-                        progressMs => GetProgess(progressMs, ViewModel.DurationMs))
-                    .DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.CurrentProgress, v => v.CurrentProgress.Text)
-                     .DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.EstimatedProgress, v => v.EstimatedProgress.Text)
-                     .DisposeWith(d);
-            });
         }
 
-        private long GetProgess(long progressMs, long durationMs)
+        public void Update(CurrentTrackResponse resp)
         {
-            return durationMs == 0 ? 0 : progressMs / durationMs / 100;
+            var currentTrack = (PlayingTrackModel)Resources["currentTrack"];
+            currentTrack.UpdateProperties(resp);
+            Progress.Update(GetProgess(resp.Progress, resp.Duration));
         }
+
+        private double GetProgess(long progressMs, long durationMs) =>
+            durationMs != 0 ? (Convert.ToDouble(progressMs) / Convert.ToDouble(durationMs)) * 100 : 0;
     }
 }

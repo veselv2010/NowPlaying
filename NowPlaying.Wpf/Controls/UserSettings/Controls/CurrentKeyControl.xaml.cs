@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using NowPlaying.Wpf.Models;
 
 namespace NowPlaying.Wpf.Controls.UserSettings.Controls
 {
@@ -7,6 +8,12 @@ namespace NowPlaying.Wpf.Controls.UserSettings.Controls
         public CurrentKeyControl()
         {
             InitializeComponent();
+        }
+
+        public void Update(string key)
+        {
+            var currentKeyModel = (CurrentKeyControlModel)Resources["currentKeyModel"];
+            currentKeyModel.UpdateProperties(key);
         }
     }
 }

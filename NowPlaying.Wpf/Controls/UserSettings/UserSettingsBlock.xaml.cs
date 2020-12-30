@@ -1,36 +1,33 @@
-﻿using ReactiveUI;
-using NowPlaying.Wpf.Controls.UserSettings.Controls;
-using System.Reactive.Disposables;
+﻿using NowPlaying.Core.InputSender;
+using NowPlaying.Wpf.Models;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using NowPlaying.Core.InputSender;
 
 namespace NowPlaying.Wpf.Controls.UserSettings
 {
-    public partial class UserSettingsBlockBase : ReactiveUserControl<UserSettingsBlockViewModel>
+    public partial class UserSettingsBlock : UserControl
     {
+        private readonly IKeyFormatter keyFormatter;
+        public ushort CurrentVirtualKey { get; set; }
 
-    }
-
-    public partial class UserSettingsBlock : UserSettingsBlockBase
-    {
-        private readonly IKeyFormatter keyFormatter = new KeyFormatterWindows();
         public UserSettingsBlock()
         {
-            ViewModel = new UserSettingsBlockViewModel();
             InitializeComponent();
+            keyFormatter = new KeyFormatterWindows();
+        }
 
-            this.WhenActivated(d => {
-                this.OneWayBind(ViewModel, vm => vm.CurrentSourceKey, v => v.CurrentKeyControl.CurrentKeyTextBlock.Text)
-                    .DisposeWith(d);
-            });
+        public void Update(string accountName, string gameName)
+        {
+            var model = (UserSettingsModel)Resources["userSettingsModel"];
+            model.UpdateProperties(accountName, gameName);
         }
 
         private void CurrentKeyControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var window = Window.GetWindow(this);
             window.KeyDown += KeyboardKeyDown;
-            this.ViewModel.CurrentSourceKey = "press bind button";
+            CurrentKeyControl.Update("press bind button");
         }
 
         private void KeyboardKeyDown(object sender, KeyEventArgs e)
@@ -40,10 +37,16 @@ namespace NowPlaying.Wpf.Controls.UserSettings
             ushort virtualKey = (ushort)KeyInterop.VirtualKeyFromKey(e.Key);
             string sourceKey = keyFormatter.GetSourceKey(virtualKey);
 
-            this.ViewModel.CurrentSourceKey = sourceKey;
+            CurrentKeyControl.Update(sourceKey);
+            CurrentVirtualKey = virtualKey;
 
             Window.GetWindow(this).KeyDown -= KeyboardKeyDown;
             CurrentKeyControl.MouseLeftButtonDown += CurrentKeyControl_MouseLeftButtonDown;
+        }
+
+        private void AutosendCheck_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            AutosendCheck.Toggle();
         }
     }
 }

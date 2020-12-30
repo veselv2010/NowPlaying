@@ -1,25 +1,19 @@
-﻿using ReactiveUI;
-using System.Reactive.Disposables;
+﻿using NowPlaying.Wpf.Models;
+using System.Windows.Controls;
 
 namespace NowPlaying.Wpf.Controls.PlayingTrack
 {
-    public class ProgressBase : ReactiveUserControl<ProgressViewModel>
-    {
-    }
-
-    public partial class Progress : ProgressBase
+    public partial class Progress : UserControl
     {
         public Progress()
         {
-            ViewModel = new ProgressViewModel();
             InitializeComponent();
+        }
 
-            this.WhenActivated(d =>
-            {
-                this.OneWayBind(ViewModel, vm => vm.Progress, v => v.FillingLine.Width,
-                    progress => (FillingLine.Width / 100) * progress)
-                    .DisposeWith(d);
-            });
+        public void Update(double progressMs)
+        {
+            var progress = (ProgressModel)Resources["progressModel"];
+            progress.UpdateProperties(progressMs, 360); //TODO
         }
     }
 }

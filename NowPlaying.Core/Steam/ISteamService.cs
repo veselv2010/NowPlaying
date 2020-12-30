@@ -2,7 +2,7 @@
 {
     public interface ISteamService
     {
-        SteamInfo GetSteamInfo();
+        SteamContext GetSteamContext();
         string GetSteamFullPath();
         string GetSteamLastAccount();
     }
