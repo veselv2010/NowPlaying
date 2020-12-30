@@ -1,7 +1,7 @@
 # NowPlaying
 spotify current track to csgo chat very nice
 
-That version is based on WPF, but there is also an console one.
+There is WPF and CLI verisons for now
 
 ![logo](https://sun9-37.userapi.com/c206828/v206828168/126142/2QOY6DgGLtc.jpg)
 ![logo](https://sun9-31.userapi.com/gvhRYJeNLGwgAkdDtt4SxzB7yQpi0RxN4wl71A/X-iRumWHWwE.jpg)
