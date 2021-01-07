@@ -1,0 +1,64 @@
+﻿<UserControl
+        x:Class="NowPlaying.Wpf.Controls.PlayingTrack.PlayingTrackControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack"
+        xmlns:model="clr-namespace:NowPlaying.Wpf.Models"
+        mc:Ignorable="d"
+        Height="auto" 
+        Width="360">
+    <UserControl.Resources>
+        <model:PlayingTrackModel x:Key="currentTrack" />
+    </UserControl.Resources>
+    <StackPanel DataContext="{StaticResource currentTrack}">
+        <TextBlock x:Name="TrackAuthorTextBlock" 
+                   FontSize="20" 
+                   Text="{Binding FormattedArtists, TargetNullValue='NowPlaying'}"
+                   Foreground="{StaticResource SpotifyGreen}"
+                   HorizontalAlignment="Center"
+                   FontWeight="Medium"
+                   Padding="0,0,0,8" 
+                   FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+
+        <local:Progress x:Name="Progress" Height="4"/>
+
+        <TextBlock x:Name="TrackNameTextBlock" 
+                   FontSize="16"
+                   FontWeight="Light"
+                   Text="{Binding Name, TargetNullValue='Nothing is playing!'}"
+                   HorizontalAlignment="Center" 
+                   Foreground="{StaticResource SpotifyGreen}" 
+                   Padding="0,8,0,0"
+                   FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <TextBlock x:Name="CurrentProgress" 
+                       FontSize="12" 
+                       Foreground="{StaticResource SpotifyGreen}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}:{1:00}">
+                        <Binding Path="ProgressMinutes"/>
+                        <Binding Path="ProgressSeconds"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <TextBlock Text=" / " 
+                       FontSize="12"
+                       Foreground="{StaticResource MilkyGray}"/>
+
+            <TextBlock x:Name="EstimatedProgress" 
+                       FontSize="12" 
+                       Foreground="{StaticResource MilkyGray}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}:{1:00}">
+                        <Binding Path="DurationMinutes"/>
+                        <Binding Path="DurationSeconds"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

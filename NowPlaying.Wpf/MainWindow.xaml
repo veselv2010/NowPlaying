@@ -1,0 +1,34 @@
+﻿<Window x:Class="NowPlaying.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:header="clr-namespace:NowPlaying.Wpf.Controls.Header" 
+        xmlns:local="clr-namespace:NowPlaying.Wpf"
+        xmlns:playingTrack="clr-namespace:NowPlaying.Wpf.Controls.PlayingTrack" 
+        xmlns:userSettings="clr-namespace:NowPlaying.Wpf.Controls.UserSettings"
+        xmlns:background="clr-namespace:NowPlaying.Wpf.Controls"
+        Background="{StaticResource BlackThemeBackground}"
+        ResizeMode="CanMinimize"
+        mc:Ignorable="d"
+        Title="NowPlaying"
+        Opacity="0.95" 
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Width="450"
+        Height="450" Loaded="WindowLoaded" Closing="Window_Closing">
+    <Grid>
+        <background:AlbumCoverBackground x:Name="BackgroundCover" Panel.ZIndex="-1"/>
+        <Grid x:Name="MainPanel">
+            <header:HeaderBlock Padding="10,2,10,2" 
+                                x:Name="HeaderBlock"
+                                MouseLeftButtonDown="HeaderBlock_MouseLeftButtonDown" 
+                                VerticalAlignment="Top"/>
+
+            <playingTrack:PlayingTrackControl x:Name="PlayingTrackControl" 
+                                          Margin="45,175,45,0" Width="Auto"/>
+
+            <userSettings:UserSettingsBlock x:Name="UserSettingsBlock"/>
+        </Grid>
+    </Grid>
+</Window>
