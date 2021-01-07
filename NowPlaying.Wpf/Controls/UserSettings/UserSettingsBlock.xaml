@@ -1,0 +1,65 @@
+﻿<UserControl
+    x:Class="NowPlaying.Wpf.Controls.UserSettings.UserSettingsBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:controls="clr-namespace:NowPlaying.Wpf.Controls.UserSettings.Controls"
+    xmlns:common="clr-namespace:NowPlaying.Wpf.Controls.Common"
+    xmlns:model="clr-namespace:NowPlaying.Wpf.Models"
+    mc:Ignorable="d" 
+    Height="450" 
+    Width="450">
+    <UserControl.Resources>
+        <model:UserSettingsModel x:Key="userSettingsModel"/>
+    </UserControl.Resources>
+    <StackPanel DataContext="{StaticResource userSettingsModel}">
+
+        <TextBox Background="Transparent"
+                     x:Name="ConsolePaste"
+                     HorizontalContentAlignment="Center"
+                     Foreground="{StaticResource MilkyGray}"
+                     FontSize="18"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap" 
+                     FontWeight="Light"
+                     FontFamily="/NowPlaying.Wpf;component/Resources/Font/#Montserrat"
+                     Margin="45,75,45,0"/>
+
+        <TextBlock x:Name="CurrentAccountText" 
+                   Margin="45,157,0,0"
+                   Text="{Binding AccountName}" 
+                   Foreground="{StaticResource MilkyGray}"/>
+
+        <TextBlock x:Name="CurrentGameText"
+                   Text="{Binding GameName}" 
+                   Foreground="{StaticResource MilkyGray}" Margin="45,11,0,0"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">
+                <TextBlock Text="Chat button"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,11"
+                       FontSize="14"
+                       Foreground="{StaticResource MilkyGray}"/>
+
+                <controls:CurrentKeyControl x:Name="CurrentKeyControl" 
+                                            HorizontalAlignment="Left" 
+                                            MouseLeftButtonDown="CurrentKeyControl_MouseLeftButtonDown"/>
+            </StackPanel>
+
+            <common:CustomCheckbox x:Name="AutosendCheck" Height="16" Width="16"
+                                   VerticalAlignment="Bottom" 
+                                   Margin="11,0,0,6"
+                                   MouseLeftButtonDown="AutosendCheck_MouseLeftButtonDown"/>
+            
+            <TextBlock Text="autosend on new track" 
+                       Height="16" 
+                       VerticalAlignment="Bottom" 
+                       Foreground="{StaticResource MilkyGray}" Margin="6"/>
+
+        </StackPanel>
+    </StackPanel>
+</UserControl>
