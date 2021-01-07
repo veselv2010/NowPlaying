@@ -1,11 +1,10 @@
-﻿namespace NowPlaying.Core.NowPlayingConfig
+﻿namespace NowPlaying.Core.Settings
 {
-    public class Config
+    public class UserSettings
     {
         public string CfgText { get; set; }
         public string LastUsedKey { get; set; }
         public bool IsAutoSendEnabled { get; set; }
-        public bool IsNightModeEnabled { get; set; }
         public bool IsDebugModeEnabled { get; set; }
     }
 }

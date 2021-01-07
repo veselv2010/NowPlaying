@@ -37,12 +37,17 @@ namespace NowPlaying.Wpf.Controls.UserSettings
             ushort virtualKey = (ushort)KeyInterop.VirtualKeyFromKey(e.Key);
             string sourceKey = keyFormatter.GetSourceKey(virtualKey);
 
-            CurrentKeyControl.Update(sourceKey);
             CurrentVirtualKey = virtualKey;
-            ConsolePaste.Text = $"bind \"{sourceKey}\" \"exec audio.cfg\"";
+            UpdateKey(sourceKey);
 
             Window.GetWindow(this).KeyDown -= KeyboardKeyDown;
             CurrentKeyControl.MouseLeftButtonDown += CurrentKeyControl_MouseLeftButtonDown;
+        }
+
+        public void UpdateKey(string sourceKey)
+        {
+            CurrentKeyControl.Update(sourceKey);
+            ConsolePaste.Text = $"bind \"{sourceKey}\" \"exec audio.cfg\"";
         }
 
         private void AutosendCheck_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

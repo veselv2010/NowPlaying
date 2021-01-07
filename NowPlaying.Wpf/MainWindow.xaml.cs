@@ -3,6 +3,7 @@ using NowPlaying.Core.Config;
 using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.InputSender;
 using NowPlaying.Core.Steam;
+using NowPlaying.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,6 +24,8 @@ namespace NowPlaying.Wpf
         private SteamContext _userContext;
         private SpotifyRequestsManager _spotify;
         private IDictionary<string, int> _accounts;
+        private UserSettingsWorker _appConfigWorker;
+        private UserSettings _appConfig;
 
         private Timer _trackUpdateTimer;
         public MainWindow()
@@ -30,7 +33,7 @@ namespace NowPlaying.Wpf
             InitializeComponent();
 
             HeaderBlock.CloseButton.MouseLeftButtonDown += 
-                new MouseButtonEventHandler((o, sender) => Application.Current.Shutdown());
+                new MouseButtonEventHandler((o, s) => Application.Current.Shutdown());
             HeaderBlock.CollapseButton.MouseLeftButtonDown += 
                 new MouseButtonEventHandler((o, s) => WindowState = WindowState.Minimized);
 
@@ -39,6 +42,8 @@ namespace NowPlaying.Wpf
             _steamService = new SteamServiceWindows();
             _pathResolver = new PathResolver();
             _keySender = new InputSenderWindows();
+            _appConfigWorker = new UserSettingsWorker();
+            _appConfig = _appConfigWorker.ReadConfigFile();
             _userContext = _steamService.GetSteamContext();
 
             _accounts = _userContext.GetAccounts();
@@ -48,16 +53,20 @@ namespace NowPlaying.Wpf
 
             int steamid3 = _accounts[_userContext.LastAccount];
             string writePath = _pathResolver.GetWritePath(_gameProcess.CurrentProcess, _userContext.UserdataPath, steamid3.ToString());
-            _configWriter = new ConfigWriter(writePath);
+            _configWriter = new ConfigWriter(writePath, _appConfig.CfgText);
 
             _trackUpdateTimer = new Timer(1000);
             _trackUpdateTimer.AutoReset = true;
             _trackUpdateTimer.Elapsed += UpdateTrackInfo;
 
             UserSettingsBlock.CurrentAccountText.Text = _userContext.LastAccount;
+            UserSettingsBlock.UpdateKey(_appConfig.LastUsedKey);
+
+            if(_appConfig.IsAutoSendEnabled) 
+                UserSettingsBlock.AutosendCheck.Toggle();
         }
 
-        private string lastTrackId;
+        private string _lastTrackFullName; //local files handling
         private async void UpdateTrackInfo(object sender, ElapsedEventArgs e)
         {
             var currentTrack = await _spotify.GetCurrentTrack();
@@ -70,18 +79,15 @@ namespace NowPlaying.Wpf
             string gameName = _gameProcess.CurrentProcess?.WindowName ?? "";
             UserSettingsBlock.Update(_userContext.LastAccount, gameName);
 
-            if (lastTrackId == currentTrack.Id)
+            if (_lastTrackFullName == currentTrack.FullName)
                 return;
 
             BackgroundCover.Update(currentTrack.CoverUrl);
-            lastTrackId = currentTrack.Id;
-
-            if (!_gameProcess.IsValid)
-                return;
-
             _configWriter.RewriteKeyBinding(currentTrack);
 
-            if(UserSettingsBlock.AutosendCheck.IsToggled)
+            _lastTrackFullName = currentTrack.FullName;
+
+            if(UserSettingsBlock.AutosendCheck.IsToggled && _gameProcess.IsValid)
                 _keySender.SendSystemInput(UserSettingsBlock.CurrentVirtualKey);
         }
 
@@ -124,6 +130,10 @@ namespace NowPlaying.Wpf
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            _appConfig.IsAutoSendEnabled = UserSettingsBlock.AutosendCheck.IsToggled;
+            _appConfig.LastUsedKey = UserSettingsBlock.CurrentKeyControl.CurrentKeyTextBlock.Text;
+            _appConfigWorker.SaveConfigFile(_appConfig);
+
             _trackUpdateTimer.Stop();
             _trackUpdateTimer.Dispose();
 
