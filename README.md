@@ -1,7 +1,7 @@
 # NowPlaying
 spotify current track to csgo chat very nice
 
-There is WPF and CLI verisons for now
+There are WPF and CLI verisons for now
 
 ![logo](https://sun9-37.userapi.com/c206828/v206828168/126142/2QOY6DgGLtc.jpg)
 ![logo](https://sun9-31.userapi.com/gvhRYJeNLGwgAkdDtt4SxzB7yQpi0RxN4wl71A/X-iRumWHWwE.jpg)
@@ -13,7 +13,7 @@ There is WPF and CLI verisons for now
 4. Click in the box named "Chat button" and press any key, that you will use later to manually send chat message.
 5. Optionally, you can use autosend function, which automatically activates send button for you with every track change in Spotify via WinAPI SendInput (works only when you are in game and haven't opened any kind of menu or chat).
 6. Launch CS:GO (It can be done on any stage).
-7. On top of NowPlaying window you'll see a "bind "key" "exec audio.cfg"" line. Copy it to the clipboard and head back to CS:GO window.
+7. On top of NowPlaying window you'll see a `bind "key" "exec audio.cfg"` line. Copy it to the clipboard and head back to CS:GO window.
 8. Open console (~) in CS:GO.
 9. Paste the string into the console.
 10. Now depending on the method (manual or autosend) you'll either automatically send a chat message with track information on each change of it or do it yourself when in game. Aside from that, you can press the assigned button anytime to send the mentioned chat message.
