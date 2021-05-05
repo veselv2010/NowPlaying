@@ -5,6 +5,8 @@ There are WPF and CLI verisons for now
 
 ![logo](https://sun9-37.userapi.com/c206828/v206828168/126142/2QOY6DgGLtc.jpg)
 ![logo](https://sun9-31.userapi.com/gvhRYJeNLGwgAkdDtt4SxzB7yQpi0RxN4wl71A/X-iRumWHWwE.jpg)
+![logo](https://sun9-20.userapi.com/impg/be4vbQOclPTLN9lkd0FbmBhewyBTWeaeu7WDiQ/hj9EHqnvKMw.jpg?size=497x109&quality=96&sign=dcdc7a481c51d0eb3f52e7ad28399827&type=album)
+![logo](https://sun9-11.userapi.com/impg/ZLTktGxG3b9I8fFJHjwNOtn8VH_8QO55fWHdXA/G1mx2WUv3j8.jpg?size=478x49&quality=96&sign=cc1cebbf92ae2a9d087cca4885f3f1e9&type=album)
 
 # How to use
 1. Lauch the program via `NowPlaying.Wpf.exe` file.
