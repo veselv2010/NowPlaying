@@ -91,7 +91,8 @@ namespace NowPlaying.Core.Api
             long progress = (long)currentTrackJson["progress_ms"];
             long duration = (long)trackInfo["duration_ms"];
 
-            string coverUrl = (string)albumCover["images"][0]["url"];
+            string coverUrl = albumCover["images"].Count() == 0 ? "" : (string)albumCover["images"][0]["url"];
+
             
             return new CurrentTrackResponse(trackId, trackName, coverUrl, artists, progress, duration);
         }
