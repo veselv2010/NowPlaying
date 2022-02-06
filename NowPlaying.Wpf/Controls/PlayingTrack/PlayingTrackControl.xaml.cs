@@ -1,4 +1,4 @@
-﻿using NowPlaying.Core.Api.SpotifyResponses;
+﻿using NowPlaying.Core.Api;
 using System;
 using System.Windows.Controls;
 using NowPlaying.Wpf.Models;
@@ -12,7 +12,7 @@ namespace NowPlaying.Wpf.Controls.PlayingTrack
             InitializeComponent();
         }
 
-        public void Update(CurrentTrackResponse resp)
+        public void Update(IPlaybackResponse resp)
         {
             var currentTrack = (PlayingTrackModel)Resources["currentTrack"];
             currentTrack.UpdateProperties(resp);

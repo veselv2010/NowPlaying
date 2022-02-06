@@ -9,7 +9,7 @@ namespace NowPlaying.Core.Api
 {
     public abstract class RequestsManager : IDisposable
     {
-        private readonly HttpClient client;      
+        private readonly HttpClient client;
 
         protected RequestsManager(HttpClient httpClient)
         {

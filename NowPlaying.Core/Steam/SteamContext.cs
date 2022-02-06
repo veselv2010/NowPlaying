@@ -51,9 +51,9 @@ namespace NowPlaying.Core.Steam
             return true;
         }
 
-        public IDictionary<string, int> GetAccounts()
+        public IEnumerable<User> GetAccounts()
         {
-            var accounts = new Dictionary<string, int>();
+            var accounts = new List<User>();
             string line;
             int currentSteamId32 = 0;
 
@@ -72,7 +72,7 @@ namespace NowPlaying.Core.Steam
                         if (currentSteamId32 == 0)
                             throw new IOException("VDF file has incorrect formatting");
 
-                        accounts.Add(accName, currentSteamId32);
+                        accounts.Add(new User(accName, currentSteamId32));
                         continue;
                     }
                 }

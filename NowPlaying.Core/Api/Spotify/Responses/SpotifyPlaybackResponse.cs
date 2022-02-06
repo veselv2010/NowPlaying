@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NowPlaying.Core.Api.SpotifyResponses
+namespace NowPlaying.Core.Api.Spotify.Responses
 {
-    public class CurrentTrackResponse
+    public class SpotifyPlaybackResponse : IPlaybackResponse
     {
         public string Id { get; }
 
@@ -41,7 +41,7 @@ namespace NowPlaying.Core.Api.SpotifyResponses
 
         public bool IsLocalFile { get; }
 
-        public CurrentTrackResponse(string trackId, string trackName, string coverUrl, IEnumerable<string> artists, long progress, long duration)
+        public SpotifyPlaybackResponse(string trackId, string trackName, string coverUrl, IEnumerable<string> artists, long progress, long duration)
         {
             this.Id = trackId;
             this.Name = trackName ?? throw new ArgumentNullException(nameof(trackName));

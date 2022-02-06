@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using NowPlaying.Core.Api.SpotifyResponses;
+using NowPlaying.Core.Api;
 
 namespace NowPlaying.Core.Config
 {
@@ -15,7 +15,7 @@ namespace NowPlaying.Core.Config
             this.writeConfigText = writeConfigText;
         }
 
-        public void RewriteKeyBinding(CurrentTrackResponse currentTrack)
+        public void RewriteKeyBinding(IPlaybackResponse currentTrack)
         {
             int indexOfAudioCfg = this.writePath.IndexOf(@"\audio.cfg");
             Directory.CreateDirectory(this.writePath.Remove(indexOfAudioCfg));

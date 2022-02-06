@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace NowPlaying.Core.Api.SpotifyResponses
+namespace NowPlaying.Core.Api.Spotify.Responses
 {
-    public class TokenResponse
+    public class SpotifyTokenResponse
     {
         [JsonProperty(PropertyName = "access_token")]
         public string AccessToken { get; private set; }
