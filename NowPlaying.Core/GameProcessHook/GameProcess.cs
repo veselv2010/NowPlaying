@@ -15,7 +15,7 @@ namespace NowPlaying.Core.GameProcessHook
     {
         private GameProcessInfo[] gameInfo = new GameProcessInfo[]
         {
-            new GameProcessInfo(SupportedProcess.csgo, "Counter-Strike: Global Offensive"),
+            new GameProcessInfo(SupportedProcess.csgo, "Counter-Strike: Global Offensive - Direct3D 9"),
             // new GameProcessInfo(SupportedProcess.hl2, "Team Fortress 2")
         };
 

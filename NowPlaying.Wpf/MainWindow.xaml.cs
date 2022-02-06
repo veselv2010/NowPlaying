@@ -53,7 +53,7 @@ namespace NowPlaying.Wpf
             _gameProcess = new GameProcess();
             _gameProcess.Start();
 
-            int steamid3 = _accounts.Last().SteamId3;
+            int steamid3 = _accounts.FirstOrDefault((x) => x.Name == _userContext.LastAccount).SteamId3;
             string writePath = _pathResolver.GetWritePath(_gameProcess.CurrentProcess, _userContext.UserdataPath, steamid3.ToString());
             _configWriter = new ConfigWriter(writePath, _appConfig.CfgText);
 
@@ -70,6 +70,9 @@ namespace NowPlaying.Wpf
         private string _lastTrackFullName; //local files handling
         private void UpdateTrackInfo(IPlaybackResponse playbackState)
         {
+            if (playbackState == null)
+                return;
+
             PlayingTrackControl.Update(playbackState);
 
             string gameName = _gameProcess.CurrentProcess?.WindowName ?? "";

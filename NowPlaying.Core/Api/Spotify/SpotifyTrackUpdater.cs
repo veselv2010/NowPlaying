@@ -24,11 +24,7 @@ namespace NowPlaying.Core.Api.Spotify
 
         private async void onTimeElapsed(object sender, ElapsedEventArgs e)
         {
-            var currentTrack = await _spotify.GetCurrentTrack();
-
-            if (currentTrack == null) return;
-
-            OnPlaybackStateUpdate.Invoke(currentTrack);
+            OnPlaybackStateUpdate.Invoke(await _spotify.GetCurrentTrack());
         }
 
         public void Dispose()
