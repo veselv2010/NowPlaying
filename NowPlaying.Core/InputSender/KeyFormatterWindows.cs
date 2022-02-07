@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace NowPlaying.Core.InputSender
 {
@@ -13,10 +14,19 @@ namespace NowPlaying.Core.InputSender
             return sourceKey;
         }
 
+        /// <summary>
+        /// source engine key to VirtualKey
+        /// </summary>
+        public ushort GetVirtualKey(string sourceKey)
+        {
+            return VirtualKeysToSourceKeys
+                .Where((pair) => pair.Value == sourceKey).FirstOrDefault().Key;
+        }
+
         private readonly IDictionary<ushort, string> VirtualKeysToSourceKeys = new Dictionary<ushort, string>()
         {
             {0,"none"},
-            {32,"space"}, 
+            {32,"space"},
             {20,"capslock"},
             {27,"escape"},
             {112,"f1"},

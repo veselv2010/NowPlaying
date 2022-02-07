@@ -1,10 +1,10 @@
-﻿using NowPlaying.Core.Api.SpotifyResponses;
+﻿using NowPlaying.Core.Api;
 
 namespace NowPlaying.Wpf.Models
 {
     public class PlayingTrackModel : PropertyNotifier
     {
-        public void UpdateProperties(CurrentTrackResponse resp)
+        public void UpdateProperties(IPlaybackResponse resp)
         {
             FormattedArtists = resp.FormattedArtists;
             Name = resp.Name;

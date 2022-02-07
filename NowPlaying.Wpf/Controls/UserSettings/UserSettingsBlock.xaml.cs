@@ -46,6 +46,11 @@ namespace NowPlaying.Wpf.Controls.UserSettings
 
         public void UpdateKey(string sourceKey)
         {
+            if(CurrentVirtualKey == default)
+            {
+                CurrentVirtualKey = keyFormatter.GetVirtualKey(sourceKey);
+            }
+
             CurrentKeyControl.Update(sourceKey);
             ConsolePaste.Text = $"bind \"{sourceKey}\" \"exec audio.cfg\"";
         }
