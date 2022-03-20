@@ -15,6 +15,7 @@ namespace NowPlaying.Core.Settings
             settings.IsDebugModeEnabled = settingsOnExit.IsDebugModeEnabled;
             settings.LastUsedKey = settingsOnExit.LastUsedKey;
             settings.IsAutoSendEnabled = settingsOnExit.IsAutoSendEnabled;
+            settings.LastProvder = settingsOnExit.LastProvider;
 
             File.WriteAllText(ConfigName, settings.ToString());
         }
@@ -33,6 +34,7 @@ namespace NowPlaying.Core.Settings
             settings.LastUsedKey = "";
             settings.IsAutoSendEnabled = false;
             settings.IsDebugModeEnabled = false;
+            settings.lastProvider = 1;
 
             File.WriteAllText(ConfigName, settings.ToString());
         }
