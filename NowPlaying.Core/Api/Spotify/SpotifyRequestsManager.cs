@@ -2,8 +2,6 @@ using System;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json.Linq;
 using NowPlaying.Core.Api.Spotify.Responses;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -87,7 +85,6 @@ namespace NowPlaying.Core.Api.Spotify
             long duration = trackInfo.DurationMs;
 
             string coverUrl = albumCover.Images.Count == 0 ? "" : albumCover.Images[0].Url;
-
 
             return new SpotifyPlaybackResponse(trackId, trackName, coverUrl, artists, progress, duration);
         }

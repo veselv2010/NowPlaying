@@ -94,7 +94,7 @@ namespace NowPlaying.Cli
 
         private static void onPlaybackStateUpdate(IPlaybackResponse resp)
         {
-            Console.Clear();
+            Console.SetCursorPosition(0, 0);
 
             if (resp == null)
             {
