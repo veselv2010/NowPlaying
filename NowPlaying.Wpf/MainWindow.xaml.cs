@@ -60,8 +60,12 @@ namespace NowPlaying.Wpf
             if (_lastTrackFullName == playbackState.FullName)
                 return;
 
-            BackgroundCover.Update(playbackState.CoverUrl);
             _configWriter.RewriteKeyBinding(playbackState);
+
+            if (!string.IsNullOrEmpty(playbackState.CoverUrl))
+            {
+                BackgroundCover.Update(playbackState.CoverUrl);
+            }
 
             _lastTrackFullName = playbackState.FullName;
 
