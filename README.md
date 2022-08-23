@@ -13,11 +13,10 @@ There are WPF and CLI verisons for now
 # Different media providers
 By default, windows media provider will be selected, you can change that to spotify api by changing `LastProvider` property in `NowPlayingConfig.json`
 
-`
+```
 SPOTIFY = 0
-
 WINDOWSRT = 1
-`
+```
 
 # How to use (Spotify)
 1. Lauch the program via `NowPlaying.Wpf.exe` file.
