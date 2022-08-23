@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.Media.Control;
 
 namespace NowPlaying.Core.Api.WindowsManager
@@ -112,6 +111,7 @@ namespace NowPlaying.Core.Api.WindowsManager
                 Id = _ControlSession.SourceAppUserModelId;
 
                 _ControlSession.MediaPropertiesChanged += OnSongChange;
+                //_ControlSession.TimelinePropertiesChanged TODO: windows playback timeline
             }
 
             internal async void OnSongChange(GlobalSystemMediaTransportControlsSession controlSession, MediaPropertiesChangedEventArgs args = null)

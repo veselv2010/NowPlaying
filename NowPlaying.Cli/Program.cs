@@ -30,8 +30,8 @@ namespace NowPlaying.Cli
         static async Task Main()
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(onClose);
-            var settingsWorker = new UserSettingsWorker();
-            var settings = settingsWorker.ReadConfigFile();
+            var appConfigWorker = new UserSettingsWorker();
+            var appConfig = appConfigWorker.ReadConfigFile();
 
             steamService = OperatingSystem.IsWindows() ? new SteamServiceWindows() : new SteamServiceLinux();
             string redirectUrl = @"http://localhost:8888/";
@@ -39,7 +39,7 @@ namespace NowPlaying.Cli
             keyFormatter = new KeyFormatterWindows();
             pathResolver = new PathResolver();
 
-            if (settings.LastProvider == PlaybackStateProvider.SPOTIFY)
+            if (appConfig.LastProvider == PlaybackStateProvider.SPOTIFY)
             {
                 var requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187", 
                     "29bd9ec2676c4bf593f3cc2858099838", redirectUrl);
