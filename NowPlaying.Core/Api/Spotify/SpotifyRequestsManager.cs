@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using NowPlaying.Core.Api.Spotify.Responses;
 using System.Collections.Generic;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace NowPlaying.Core.Api.Spotify
 {
@@ -72,22 +73,22 @@ namespace NowPlaying.Core.Api.Spotify
             if (string.IsNullOrEmpty(resp))
                 return null;
 
-            var currentTrackJson = JToken.Parse(resp);
+            var currentTrackJson = JsonConvert.DeserializeObject<SpotifyPlayerState>(resp);
 
-            JToken trackInfo = currentTrackJson["item"];
-            JToken artistsInfo = trackInfo["artists"];
-            JToken albumCover = trackInfo["album"];
+            var trackInfo = currentTrackJson.Item;
+            var artistsInfo = trackInfo.Artists;
+            var albumCover = trackInfo.Album;
 
-            string trackId = (string) trackInfo["id"];
-            string trackName = (string)trackInfo["name"];
-            var artists = artistsInfo.Select(artist => (string)artist["name"]);
+            string trackId = trackInfo.Id;
+            string trackName = trackInfo.Name;
+            var artists = artistsInfo.Select(artist => artist.Name);
 
-            long progress = (long)currentTrackJson["progress_ms"];
-            long duration = (long)trackInfo["duration_ms"];
+            long progress = currentTrackJson.ProgressMs;
+            long duration = trackInfo.DurationMs;
 
-            string coverUrl = albumCover["images"].Count() == 0 ? "" : (string)albumCover["images"][0]["url"];
+            string coverUrl = albumCover.Images.Count == 0 ? "" : albumCover.Images[0].Url;
 
-            
+
             return new SpotifyPlaybackResponse(trackId, trackName, coverUrl, artists, progress, duration);
         }
 
@@ -154,7 +155,7 @@ namespace NowPlaying.Core.Api.Spotify
         public override void Dispose()
         {
             base.Dispose();
-            _tokenRefreshTimer.Dispose();          
+            _tokenRefreshTimer.Dispose();
         }
     }
 }
