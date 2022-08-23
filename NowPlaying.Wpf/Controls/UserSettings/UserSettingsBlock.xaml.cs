@@ -17,10 +17,10 @@ namespace NowPlaying.Wpf.Controls.UserSettings
             keyFormatter = new KeyFormatterWindows();
         }
 
-        public void Update(string accountName, string gameName)
+        public void Update(string accountName, string gameName, string playbackProvder)
         {
             var model = (UserSettingsModel)Resources["userSettingsModel"];
-            model.UpdateProperties(accountName, gameName);
+            model.UpdateProperties(accountName, gameName, $"Media provder: {playbackProvder}");
         }
 
         private void CurrentKeyControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

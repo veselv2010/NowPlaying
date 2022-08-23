@@ -55,7 +55,7 @@ namespace NowPlaying.Wpf
             PlayingTrackControl.Update(playbackState);
 
             string gameName = _gameProcess.CurrentProcess?.WindowName ?? "";
-            UserSettingsBlock.Update(_userContext.LastAccount, gameName);
+            UserSettingsBlock.Update(_userContext.LastAccount, gameName, _appConfig.LastProvider.ToString());
 
             if (_lastTrackFullName == playbackState.FullName)
                 return;
