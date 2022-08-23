@@ -1,5 +1,14 @@
 # NowPlaying
-spotify current track to csgo chat very nice
+spotify/windows media current track to csgo chat very nice
+
+Windows media provider works as a workaround for now, because spotify does not work in russia anymore
+
+By default, windows media provider will be selected, you can change that back to spotify api by changing `LastProvider` property in `NowPlayingConfig.json`
+
+`
+SPOTIFY = 0
+WINDOWSRT = 1
+`
 
 There are WPF and CLI verisons for now
 
