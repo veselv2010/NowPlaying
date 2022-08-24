@@ -8,15 +8,14 @@ using Windows.Media.Control;
 
 namespace NowPlaying.Core.Api.WindowsManager
 {
-    public class WindowsMediaManager : IDisposable, ITrackInfoUpdater
+    internal class WindowsMediaManager : ITrackInfoUpdater
     {
         public event StateUpdate OnPlaybackStateUpdate;
 
         internal ReadOnlyDictionary<string, MediaSession> CurrentMediaSessions => new ReadOnlyDictionary<string, MediaSession>(_CurrentMediaSessions);
         private readonly Dictionary<string, MediaSession> _CurrentMediaSessions = new Dictionary<string, MediaSession>();
 
-        public bool IsStarted { get => _IsStarted; }
-        private bool _IsStarted;
+        public bool IsStarted { get; private set; }
 
 
         public GlobalSystemMediaTransportControlsSessionManager WindowsSessionManager { get => _WindowsSessionManager; }
@@ -24,17 +23,15 @@ namespace NowPlaying.Core.Api.WindowsManager
 
         public void StartPlaybackUpdate()
         {
-            if (!_IsStarted)
-            {
-                _WindowsSessionManager = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().GetAwaiter().GetResult();
-                onSessionsChanged(_WindowsSessionManager);
-                _WindowsSessionManager.SessionsChanged += onSessionsChanged;
-                _IsStarted = true;
-            }
-            else
+            if (IsStarted)
             {
                 throw new InvalidOperationException("MediaManager already started");
             }
+
+            _WindowsSessionManager = GlobalSystemMediaTransportControlsSessionManager.RequestAsync().GetAwaiter().GetResult();
+            onSessionsChanged(_WindowsSessionManager);
+            _WindowsSessionManager.SessionsChanged += onSessionsChanged;
+            IsStarted = true;
         }
 
         private void onSessionsChanged(GlobalSystemMediaTransportControlsSessionManager winSessionManager, SessionsChangedEventArgs args = null)
@@ -54,17 +51,13 @@ namespace NowPlaying.Core.Api.WindowsManager
 
             //Checking if a source fell off the session list without doing a proper Closed event (*cough* spotify *cough*)
             var controlSessionIds = controlSessionList.Select(x => x.SourceAppUserModelId);
-            var sessionsToRemove = new List<MediaSession>();
+            var sessionsToRemove = CurrentMediaSessions
+                .Where(s => !controlSessionIds.Contains(s.Key)).Select(e => e.Value);
 
-            foreach (var session in CurrentMediaSessions)
+            foreach (var sessionToRemove in sessionsToRemove)
             {
-                if (!controlSessionIds.Contains(session.Key))
-                {
-                    sessionsToRemove.Add(session.Value);
-                }
+                sessionToRemove.Dispose();
             }
-
-            sessionsToRemove.ForEach(x => x.Dispose());
         }
 
 
@@ -81,24 +74,23 @@ namespace NowPlaying.Core.Api.WindowsManager
 
         public void Dispose()
         {
-            OnPlaybackStateUpdate = null;
+            _WindowsSessionManager.SessionsChanged -= onSessionsChanged;
+            IsStarted = false;
 
-            var keys = CurrentMediaSessions.Keys.ToList();
+            var keys = CurrentMediaSessions.Keys;
             foreach (var key in keys)
             {
                 CurrentMediaSessions[key].Dispose();
             }
             _CurrentMediaSessions?.Clear();
 
-            _IsStarted = false;
-            _WindowsSessionManager.SessionsChanged -= onSessionsChanged;
+            OnPlaybackStateUpdate = null;
             _WindowsSessionManager = null;
         }
 
         internal class MediaSession
         {
-            public GlobalSystemMediaTransportControlsSession ControlSession { get => _ControlSession; }
-            private GlobalSystemMediaTransportControlsSession _ControlSession;
+            public GlobalSystemMediaTransportControlsSession ControlSession { get; private set; }
 
             public readonly string Id;
 
@@ -107,11 +99,11 @@ namespace NowPlaying.Core.Api.WindowsManager
             internal MediaSession(GlobalSystemMediaTransportControlsSession controlSession, WindowsMediaManager mediaMangerInstance)
             {
                 MediaManagerInstance = mediaMangerInstance;
-                _ControlSession = controlSession;
-                Id = _ControlSession.SourceAppUserModelId;
+                ControlSession = controlSession;
+                Id = ControlSession.SourceAppUserModelId;
 
-                _ControlSession.MediaPropertiesChanged += OnSongChange;
-                //_ControlSession.TimelinePropertiesChanged TODO: windows playback timeline
+                ControlSession.MediaPropertiesChanged += OnSongChange;
+                //ControlSession.TimelinePropertiesChanged TODO: windows playback timeline
             }
 
             internal async void OnSongChange(GlobalSystemMediaTransportControlsSession controlSession, MediaPropertiesChangedEventArgs args = null)
@@ -128,8 +120,8 @@ namespace NowPlaying.Core.Api.WindowsManager
             {
                 if (MediaManagerInstance.RemoveSource(this))
                 {
-                    _ControlSession.MediaPropertiesChanged -= OnSongChange;
-                    _ControlSession = null;
+                    ControlSession.MediaPropertiesChanged -= OnSongChange;
+                    ControlSession = null;
                 }
             }
         }

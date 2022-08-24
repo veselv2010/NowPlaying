@@ -77,33 +77,8 @@ namespace NowPlaying.Wpf
         {
             AcrylicMaterial.EnableBlur(this);
             this.Hide();
-            if (_appConfig.LastProvider == PlaybackStateProvider.SPOTIFY)
-            {
-                string redirectUrl = @"http://localhost:8888/";
-
-                var requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", redirectUrl);
-
-                Console.WriteLine("Awaiting user authorization...");
-                using (var server = new AuthServer(redirectUrl))
-                {
-                    string authUrl = requestsManager.GetAuthUrl().Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
-                    string code = await server.GetAuthCode();
-
-                    if (code == default)
-                        Application.Current.Shutdown();
-
-                    await requestsManager.StartTokenRequests(code);
-
-                }
-
-                _playbackInfoUpdater = new SpotifyTrackUpdater(requestsManager);
-            }
-            else
-            {
-                _playbackInfoUpdater = new WindowsMediaManager();
-            }
+            _playbackInfoUpdater = await new PlaybackStateProviderResolver()
+                .ResolveTrackInfoUpdater(_appConfig.LastProvider);
 
             _gameProcess.Start();
 
@@ -147,7 +122,6 @@ namespace NowPlaying.Wpf
 
             _playbackInfoUpdater.Dispose();
             _gameProcess.Dispose();
-            _playbackInfoUpdater.Dispose();
         }
     }
 }

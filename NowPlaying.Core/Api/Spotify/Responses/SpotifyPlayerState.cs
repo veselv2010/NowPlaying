@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NowPlaying.Core.Api.Spotify.Responses
 {
-    public class Actions
+    internal class Actions
     {
         [JsonConstructor]
         public Actions(
@@ -17,7 +17,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public Disallows Disallows { get; }
     }
 
-    public class Album
+    internal class Album
     {
         [JsonConstructor]
         public Album(
@@ -91,7 +91,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public string Uri { get; }
     }
 
-    public class Artist
+    internal class Artist
     {
         [JsonConstructor]
         public Artist(
@@ -130,7 +130,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public string Uri { get; }
     }
 
-    public class Context
+    internal class Context
     {
         [JsonConstructor]
         public Context(
@@ -159,7 +159,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public string Uri { get; }
     }
 
-    public class Disallows
+    internal class Disallows
     {
         [JsonConstructor]
         public Disallows(
@@ -178,7 +178,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public bool SkippingPrev { get; }
     }
 
-    public class ExternalIds
+    internal class ExternalIds
     {
         [JsonConstructor]
         public ExternalIds(
@@ -192,7 +192,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public string Isrc { get; }
     }
 
-    public class ExternalUrls
+    internal class ExternalUrls
     {
         [JsonConstructor]
         public ExternalUrls(
@@ -206,7 +206,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public string Spotify { get; }
     }
 
-    public class Image
+    internal class Image
     {
         [JsonConstructor]
         public Image(
@@ -230,7 +230,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public int Width { get; }
     }
 
-    public class Item
+    internal class Item
     {
         [JsonConstructor]
         public Item(
@@ -324,7 +324,7 @@ namespace NowPlaying.Core.Api.Spotify.Responses
         public string Uri { get; }
     }
 
-    public class SpotifyPlayerState
+    internal class SpotifyPlayerState
     {
         [JsonConstructor]
         public SpotifyPlayerState(

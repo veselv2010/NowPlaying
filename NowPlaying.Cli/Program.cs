@@ -34,35 +34,15 @@ namespace NowPlaying.Cli
             var appConfig = appConfigWorker.ReadConfigFile();
 
             steamService = OperatingSystem.IsWindows() ? new SteamServiceWindows() : new SteamServiceLinux();
-            string redirectUrl = @"http://localhost:8888/";
             keySender = new InputSenderWindows();
             keyFormatter = new KeyFormatterWindows();
             pathResolver = new PathResolver();
 
-            if (appConfig.LastProvider == PlaybackStateProvider.SPOTIFY)
-            {
-                var requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187", 
-                    "29bd9ec2676c4bf593f3cc2858099838", redirectUrl);
+            Console.WriteLine("Awaiting user authorization...");
 
-                Console.WriteLine("Awaiting user authorization...");
-                using (var server = new AuthServer(redirectUrl))
-                {
-                    string authUrl = requestsManager.GetAuthUrl().Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
-                    string code = await server.GetAuthCode();
+            trackInfoUpdater = await new PlaybackStateProviderResolver()
+                .ResolveTrackInfoUpdater(appConfig.LastProvider);
 
-                    await requestsManager.StartTokenRequests(code);
-
-                }
-
-                trackInfoUpdater = new SpotifyTrackUpdater(requestsManager);
-
-            }
-            else
-            {
-                trackInfoUpdater = new WindowsMediaManager();
-            }
-            
             process = new GameProcess();
             process.Start();
 
@@ -70,7 +50,8 @@ namespace NowPlaying.Cli
             var accounts = steamContext.GetAccounts();
             int accSteamId3 = accounts.FirstOrDefault((x) => x.Name == steamContext.LastAccount).SteamId3;
 
-            string writePath = pathResolver.GetWritePath(process.CurrentProcess, steamContext.UserdataPath, accSteamId3.ToString());
+            string writePath = pathResolver
+                .GetWritePath(process.CurrentProcess, steamContext.UserdataPath, accSteamId3.ToString());
 
             configWriter = new ConfigWriter(writePath);
 
@@ -102,13 +83,11 @@ namespace NowPlaying.Cli
                 return;
             }
 
-            var consoleMessage = $"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds:00})\n" +
-                                 $"Current account: {steamContext.LastAccount}\n" +
-                                 $"Current key: {currentKey}\n"; 
-             Console.Write(consoleMessage);
+            var consoleMessage = getMessage(resp);
+            Console.WriteLine(consoleMessage);
 
             // Из-за WindowsMediaManager больше нет возможности проверять айди треков
-            if (lastTrackId!= resp.FullName)
+            if (lastTrackId != resp.FullName)
             {
                 if (process.IsValid)
                 {
@@ -118,6 +97,13 @@ namespace NowPlaying.Cli
                 lastTrackId = resp.FullName;
                 configWriter.RewriteKeyBinding(resp);
             }
+        }
+
+        private static string getMessage(IPlaybackResponse response)
+        {
+            return $"{response.FullName} ({response.ProgressMinutes}:{response.ProgressSeconds:00})\n" +
+                   $"Current account: {steamContext.LastAccount}\n" +
+                   $"Current key: {currentKey}";
         }
     }
 }

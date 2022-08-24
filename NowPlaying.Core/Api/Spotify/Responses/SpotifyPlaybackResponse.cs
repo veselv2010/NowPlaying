@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NowPlaying.Core.Api.Spotify.Responses
 {
-    public class SpotifyPlaybackResponse : IPlaybackResponse
+    internal class SpotifyPlaybackResponse : IPlaybackResponse
     {
         public string Id { get; }
 

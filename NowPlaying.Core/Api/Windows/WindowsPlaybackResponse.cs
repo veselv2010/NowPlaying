@@ -7,7 +7,7 @@ using Windows.Media.Control;
 
 namespace NowPlaying.Core.Api.WindowsManager
 {
-    public class WindowsPlaybackResponse : IPlaybackResponse
+    internal class WindowsPlaybackResponse : IPlaybackResponse
     {
         public IEnumerable<string> Artists { get; }
         public string CoverUrl { get; }
