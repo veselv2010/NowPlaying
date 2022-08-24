@@ -5,366 +5,196 @@ namespace NowPlaying.Core.Api.Spotify.Responses
 {
     internal class Actions
     {
-        [JsonConstructor]
-        public Actions(
-            [JsonProperty("disallows")] Disallows disallows
-        )
-        {
-            this.Disallows = disallows;
-        }
-
         [JsonProperty("disallows")]
-        public Disallows Disallows { get; }
+        public Disallows Disallows { get; set; }
     }
 
     internal class Album
     {
-        [JsonConstructor]
-        public Album(
-            [JsonProperty("album_type")] string albumType,
-            [JsonProperty("artists")] List<Artist> artists,
-            [JsonProperty("available_markets")] List<string> availableMarkets,
-            [JsonProperty("external_urls")] ExternalUrls externalUrls,
-            [JsonProperty("href")] string href,
-            [JsonProperty("id")] string id,
-            [JsonProperty("images")] List<Image> images,
-            [JsonProperty("name")] string name,
-            [JsonProperty("release_date")] string releaseDate,
-            [JsonProperty("release_date_precision")] string releaseDatePrecision,
-            [JsonProperty("total_tracks")] int totalTracks,
-            [JsonProperty("type")] string type,
-            [JsonProperty("uri")] string uri
-        )
-        {
-            this.AlbumType = albumType;
-            this.Artists = artists;
-            this.AvailableMarkets = availableMarkets;
-            this.ExternalUrls = externalUrls;
-            this.Href = href;
-            this.Id = id;
-            this.Images = images;
-            this.Name = name;
-            this.ReleaseDate = releaseDate;
-            this.ReleaseDatePrecision = releaseDatePrecision;
-            this.TotalTracks = totalTracks;
-            this.Type = type;
-            this.Uri = uri;
-        }
-
         [JsonProperty("album_type")]
-        public string AlbumType { get; }
+        public string AlbumType { get; set; }
 
         [JsonProperty("artists")]
-        public IReadOnlyList<Artist> Artists { get; }
+        public IReadOnlyList<Artist> Artists { get; set; }
 
         [JsonProperty("available_markets")]
-        public IReadOnlyList<string> AvailableMarkets { get; }
+        public IReadOnlyList<string> AvailableMarkets { get; set; }
 
         [JsonProperty("external_urls")]
-        public ExternalUrls ExternalUrls { get; }
+        public ExternalUrls ExternalUrls { get; set; }
 
         [JsonProperty("href")]
-        public string Href { get; }
+        public string Href { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; }
+        public string Id { get; set; }
 
         [JsonProperty("images")]
-        public IReadOnlyList<Image> Images { get; }
+        public IReadOnlyList<Image> Images { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [JsonProperty("release_date")]
-        public string ReleaseDate { get; }
+        public string ReleaseDate { get; set; }
 
         [JsonProperty("release_date_precision")]
-        public string ReleaseDatePrecision { get; }
+        public string ReleaseDatePrecision { get; set; }
 
         [JsonProperty("total_tracks")]
-        public int TotalTracks { get; }
+        public int TotalTracks { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; }
+        public string Type { get; set; }
 
         [JsonProperty("uri")]
-        public string Uri { get; }
+        public string Uri { get; set; }
     }
 
     internal class Artist
     {
-        [JsonConstructor]
-        public Artist(
-            [JsonProperty("external_urls")] ExternalUrls externalUrls,
-            [JsonProperty("href")] string href,
-            [JsonProperty("id")] string id,
-            [JsonProperty("name")] string name,
-            [JsonProperty("type")] string type,
-            [JsonProperty("uri")] string uri
-        )
-        {
-            this.ExternalUrls = externalUrls;
-            this.Href = href;
-            this.Id = id;
-            this.Name = name;
-            this.Type = type;
-            this.Uri = uri;
-        }
-
         [JsonProperty("external_urls")]
-        public ExternalUrls ExternalUrls { get; }
+        public ExternalUrls ExternalUrls { get; set; }
 
         [JsonProperty("href")]
-        public string Href { get; }
+        public string Href { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; }
+        public string Id { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; }
+        public string Type { get; set; }
 
         [JsonProperty("uri")]
-        public string Uri { get; }
+        public string Uri { get; set; }
     }
 
     internal class Context
     {
-        [JsonConstructor]
-        public Context(
-            [JsonProperty("external_urls")] ExternalUrls externalUrls,
-            [JsonProperty("href")] string href,
-            [JsonProperty("type")] string type,
-            [JsonProperty("uri")] string uri
-        )
-        {
-            this.ExternalUrls = externalUrls;
-            this.Href = href;
-            this.Type = type;
-            this.Uri = uri;
-        }
-
         [JsonProperty("external_urls")]
-        public ExternalUrls ExternalUrls { get; }
+        public ExternalUrls ExternalUrls { get; set; }
 
         [JsonProperty("href")]
-        public string Href { get; }
+        public string Href { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; }
+        public string Type { get; set; }
 
         [JsonProperty("uri")]
-        public string Uri { get; }
+        public string Uri { get; set; }
     }
 
     internal class Disallows
     {
-        [JsonConstructor]
-        public Disallows(
-            [JsonProperty("resuming")] bool resuming,
-            [JsonProperty("skipping_prev")] bool skippingPrev
-        )
-        {
-            this.Resuming = resuming;
-            this.SkippingPrev = skippingPrev;
-        }
-
         [JsonProperty("resuming")]
-        public bool Resuming { get; }
+        public bool Resuming { get; set; }
 
         [JsonProperty("skipping_prev")]
-        public bool SkippingPrev { get; }
+        public bool SkippingPrev { get; set; }
     }
 
     internal class ExternalIds
     {
-        [JsonConstructor]
-        public ExternalIds(
-            [JsonProperty("isrc")] string isrc
-        )
-        {
-            this.Isrc = isrc;
-        }
-
         [JsonProperty("isrc")]
-        public string Isrc { get; }
+        public string Isrc { get; set; }
     }
 
     internal class ExternalUrls
     {
-        [JsonConstructor]
-        public ExternalUrls(
-            [JsonProperty("spotify")] string spotify
-        )
-        {
-            this.Spotify = spotify;
-        }
-
         [JsonProperty("spotify")]
-        public string Spotify { get; }
+        public string Spotify { get; set; }
     }
 
     internal class Image
     {
-        [JsonConstructor]
-        public Image(
-            [JsonProperty("height")] int height,
-            [JsonProperty("url")] string url,
-            [JsonProperty("width")] int width
-        )
-        {
-            this.Height = height;
-            this.Url = url;
-            this.Width = width;
-        }
-
         [JsonProperty("height")]
-        public int Height { get; }
+        public int Height { get; set; }
 
         [JsonProperty("url")]
-        public string Url { get; }
+        public string Url { get; set; }
 
         [JsonProperty("width")]
-        public int Width { get; }
+        public int Width { get; set; }
     }
 
     internal class Item
     {
-        [JsonConstructor]
-        public Item(
-            [JsonProperty("album")] Album album,
-            [JsonProperty("artists")] List<Artist> artists,
-            [JsonProperty("available_markets")] List<string> availableMarkets,
-            [JsonProperty("disc_number")] int discNumber,
-            [JsonProperty("duration_ms")] int durationMs,
-            [JsonProperty("explicit")] bool @explicit,
-            [JsonProperty("external_ids")] ExternalIds externalIds,
-            [JsonProperty("external_urls")] ExternalUrls externalUrls,
-            [JsonProperty("href")] string href,
-            [JsonProperty("id")] string id,
-            [JsonProperty("is_local")] bool isLocal,
-            [JsonProperty("name")] string name,
-            [JsonProperty("popularity")] int popularity,
-            [JsonProperty("preview_url")] object previewUrl,
-            [JsonProperty("track_number")] int trackNumber,
-            [JsonProperty("type")] string type,
-            [JsonProperty("uri")] string uri
-        )
-        {
-            this.Album = album;
-            this.Artists = artists;
-            this.AvailableMarkets = availableMarkets;
-            this.DiscNumber = discNumber;
-            this.DurationMs = durationMs;
-            this.Explicit = @explicit;
-            this.ExternalIds = externalIds;
-            this.ExternalUrls = externalUrls;
-            this.Href = href;
-            this.Id = id;
-            this.IsLocal = isLocal;
-            this.Name = name;
-            this.Popularity = popularity;
-            this.PreviewUrl = previewUrl;
-            this.TrackNumber = trackNumber;
-            this.Type = type;
-            this.Uri = uri;
-        }
-
         [JsonProperty("album")]
-        public Album Album { get; }
+        public Album Album { get; set; }
 
         [JsonProperty("artists")]
-        public IReadOnlyList<Artist> Artists { get; }
+        public IReadOnlyList<Artist> Artists { get; set; }
 
         [JsonProperty("available_markets")]
-        public IReadOnlyList<string> AvailableMarkets { get; }
+        public IReadOnlyList<string> AvailableMarkets { get; set; }
 
         [JsonProperty("disc_number")]
-        public int DiscNumber { get; }
+        public int DiscNumber { get; set; }
 
         [JsonProperty("duration_ms")]
-        public long DurationMs { get; }
+        public long DurationMs { get; set; }
 
         [JsonProperty("explicit")]
-        public bool Explicit { get; }
+        public bool Explicit { get; set; }
 
         [JsonProperty("external_ids")]
-        public ExternalIds ExternalIds { get; }
+        public ExternalIds ExternalIds { get; set; }
 
         [JsonProperty("external_urls")]
-        public ExternalUrls ExternalUrls { get; }
+        public ExternalUrls ExternalUrls { get; set; }
 
         [JsonProperty("href")]
-        public string Href { get; }
+        public string Href { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; }
+        public string Id { get; set; }
 
         [JsonProperty("is_local")]
-        public bool IsLocal { get; }
+        public bool IsLocal { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [JsonProperty("popularity")]
-        public int Popularity { get; }
+        public int Popularity { get; set; }
 
         [JsonProperty("preview_url")]
-        public object PreviewUrl { get; }
+        public object PreviewUrl { get; set; }
 
         [JsonProperty("track_number")]
-        public int TrackNumber { get; }
+        public int TrackNumber { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; }
+        public string Type { get; set; }
 
         [JsonProperty("uri")]
-        public string Uri { get; }
+        public string Uri { get; set; }
     }
 
     internal class SpotifyPlayerState
     {
-        [JsonConstructor]
-        public SpotifyPlayerState(
-            [JsonProperty("timestamp")] long timestamp,
-            [JsonProperty("context")] Context context,
-            [JsonProperty("progress_ms")] int progressMs,
-            [JsonProperty("item")] Item item,
-            [JsonProperty("currently_playing_type")] string currentlyPlayingType,
-            [JsonProperty("actions")] Actions actions,
-            [JsonProperty("is_playing")] bool isPlaying
-        )
-        {
-            this.Timestamp = timestamp;
-            this.Context = context;
-            this.ProgressMs = progressMs;
-            this.Item = item;
-            this.CurrentlyPlayingType = currentlyPlayingType;
-            this.Actions = actions;
-            this.IsPlaying = isPlaying;
-        }
-
         [JsonProperty("timestamp")]
-        public long Timestamp { get; }
+        public long Timestamp { get; set; }
 
         [JsonProperty("context")]
-        public Context Context { get; }
+        public Context Context { get; set; }
 
         [JsonProperty("progress_ms")]
-        public long ProgressMs { get; }
+        public long ProgressMs { get; set; }
 
         [JsonProperty("item")]
-        public Item Item { get; }
+        public Item Item { get; set; }
 
         [JsonProperty("currently_playing_type")]
-        public string CurrentlyPlayingType { get; }
+        public string CurrentlyPlayingType { get; set; }
 
         [JsonProperty("actions")]
-        public Actions Actions { get; }
+        public Actions Actions { get; set; }
 
         [JsonProperty("is_playing")]
-        public bool IsPlaying { get; }
+        public bool IsPlaying { get; set; }
     }
 }

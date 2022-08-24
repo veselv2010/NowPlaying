@@ -11,14 +11,12 @@ namespace NowPlaying.Core.Api
     {
         public Task<ITrackInfoUpdater> ResolveTrackInfoUpdater(PlaybackStateProvider provider)
         {
-            switch (provider)
+            return provider switch
             {
-                case PlaybackStateProvider.SPOTIFY:
-                    return getSpotifyProvider();
-                case PlaybackStateProvider.WINDOWSRT:
-                    return getWindowsProvider();
-                default: throw new NotImplementedException($"Invalid provider: {provider.GetType().Name}");
-            }
+                PlaybackStateProvider.SPOTIFY => getSpotifyProvider(),
+                PlaybackStateProvider.WINDOWSRT => getWindowsProvider(),
+                _ => throw new NotImplementedException($"Invalid provider: {provider.GetType().Name}")
+            };
         }
 
         private async Task<ITrackInfoUpdater> getSpotifyProvider()

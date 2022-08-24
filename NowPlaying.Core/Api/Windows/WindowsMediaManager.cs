@@ -63,13 +63,13 @@ namespace NowPlaying.Core.Api.WindowsManager
 
         internal bool RemoveSource(MediaSession mediaSession)
         {
-            if (_CurrentMediaSessions.ContainsKey(mediaSession.Id))
+            if (!_CurrentMediaSessions.ContainsKey(mediaSession.Id))
             {
-                _CurrentMediaSessions.Remove(mediaSession.Id);
-
-                return true;
+                return false;
             }
-            return false;
+
+            _CurrentMediaSessions.Remove(mediaSession.Id);
+            return true;
         }
 
         public void Dispose()
