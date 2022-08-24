@@ -31,10 +31,15 @@
                    Margin="45,157,0,0"
                    Text="{Binding AccountName}" 
                    Foreground="{StaticResource MilkyGray}"/>
-
+        
+        <TextBlock x:Name="CurrentProviderText" 
+                   Margin="45,5,0,0"
+                   Text="{Binding PlaybackProvder}" 
+                   Foreground="{StaticResource MilkyGray}"/>
+        
         <TextBlock x:Name="CurrentGameText"
                    Text="{Binding GameName}" 
-                   Foreground="{StaticResource MilkyGray}" Margin="45,11,0,0"/>
+                   Foreground="{StaticResource MilkyGray}" Margin="45,5,0,0"/>
 
         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
             <StackPanel Width="184" HorizontalAlignment="Left" Margin="45,45,0,0">

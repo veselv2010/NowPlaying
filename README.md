@@ -1,5 +1,7 @@
 # NowPlaying
-spotify current track to csgo chat very nice
+spotify/windows media current track to csgo chat very nice
+
+(Windows media provider works as a workaround for now, because spotify does not work in russia anymore)
 
 There are WPF and CLI verisons for now
 
@@ -8,7 +10,15 @@ There are WPF and CLI verisons for now
 ![logo](https://sun9-20.userapi.com/impg/be4vbQOclPTLN9lkd0FbmBhewyBTWeaeu7WDiQ/hj9EHqnvKMw.jpg?size=497x109&quality=96&sign=dcdc7a481c51d0eb3f52e7ad28399827&type=album)
 ![logo](https://sun9-11.userapi.com/impg/ZLTktGxG3b9I8fFJHjwNOtn8VH_8QO55fWHdXA/G1mx2WUv3j8.jpg?size=478x49&quality=96&sign=cc1cebbf92ae2a9d087cca4885f3f1e9&type=album)
 
-# How to use
+# Different media providers
+By default, windows media provider will be selected, you can change that to spotify api by changing `LastProvider` property in `NowPlayingConfig.json`
+
+```
+SPOTIFY = 0
+WINDOWSRT = 1
+```
+
+# How to use (Spotify)
 1. Lauch the program via `NowPlaying.Wpf.exe` file.
 2. You will be redirected to the Spotify login form in your default browser (WARNING! If you're already logged on in this browser you'll only see a flash, which is caused by NowPlaying oppening a tab, getting the necessary API access token and closing the tab that does the thing). Login to your Spotify account if not already (it is recommended to use "Remember me" option, which will allow you to skip this step entirely (see the "WARNING!")).
 3. NowPlaying will determine the last Steam account you've logged in and will show it in left corner under the timeline (if you're going to use account that is different to the one displayed, you'll need to restart NowPlaying for it to update).
@@ -20,6 +30,8 @@ There are WPF and CLI verisons for now
 9. Paste the string into the console.
 10. Now depending on the method (manual or autosend) you'll either automatically send a chat message with track information on each change of it or do it yourself when in game. Aside from that, you can press the assigned button anytime to send the mentioned chat message.
 
+# How to use (Windows media API)
+Same steps as above, but without your default browser opening
 
 
 [![CodeFactor](https://www.codefactor.io/repository/github/veselv2010/nowplaying/badge)](https://www.codefactor.io/repository/github/veselv2010/nowplaying)

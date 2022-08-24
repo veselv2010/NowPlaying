@@ -1,9 +1,8 @@
-﻿using System;
-using System.Timers;
+﻿using System.Timers;
 
 namespace NowPlaying.Core.Api.Spotify
 {
-    public sealed class SpotifyTrackUpdater : ITrackInfoUpdater
+    internal sealed class SpotifyTrackUpdater : ITrackInfoUpdater
     {
         public event StateUpdate OnPlaybackStateUpdate;
 
@@ -31,6 +30,7 @@ namespace NowPlaying.Core.Api.Spotify
         {
             _timer.Stop();
             _timer.Dispose();
+            _spotify.Dispose();
         }
     }
 }

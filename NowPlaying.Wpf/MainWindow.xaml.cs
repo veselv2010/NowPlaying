@@ -8,11 +8,10 @@ using NowPlaying.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Linq;
+using NowPlaying.Core.Api.WindowsManager;
 
 namespace NowPlaying.Wpf
 {
@@ -24,12 +23,11 @@ namespace NowPlaying.Wpf
         private GameProcess _gameProcess;
         private IInputSender _keySender;
         private SteamContext _userContext;
-        private SpotifyRequestsManager _spotify;
+        private ITrackInfoUpdater _playbackInfoUpdater;
         private IEnumerable<User> _accounts;
         private UserSettingsWorker _appConfigWorker;
         private UserSettings _appConfig;
 
-        private ITrackInfoUpdater _playbackStateUpdater;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,37 +36,18 @@ namespace NowPlaying.Wpf
                 new MouseButtonEventHandler((o, s) => Application.Current.Shutdown());
             HeaderBlock.CollapseButton.MouseLeftButtonDown +=
                 new MouseButtonEventHandler((o, s) => WindowState = WindowState.Minimized);
-
-            _spotify = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", @"http://localhost:8888/");
-            _steamService = new SteamServiceWindows();
-            _pathResolver = new PathResolver();
-            _keySender = new InputSenderWindows();
             _appConfigWorker = new UserSettingsWorker();
             _appConfig = _appConfigWorker.ReadConfigFile();
-            _userContext = _steamService.GetSteamContext();
 
-            _accounts = _userContext.GetAccounts();
+            _steamService = OperatingSystem.IsWindows() ? new SteamServiceWindows() : new SteamServiceLinux();
 
+            _keySender = new InputSenderWindows();
+            _pathResolver = new PathResolver();
             _gameProcess = new GameProcess();
-            _gameProcess.Start();
-
-            int steamid3 = _accounts.FirstOrDefault((x) => x.Name == _userContext.LastAccount).SteamId3;
-            string writePath = _pathResolver.GetWritePath(_gameProcess.CurrentProcess, _userContext.UserdataPath, steamid3.ToString());
-            _configWriter = new ConfigWriter(writePath, _appConfig.CfgText);
-
-            _playbackStateUpdater = new SpotifyTrackUpdater(_spotify);
-            _playbackStateUpdater.OnPlaybackStateUpdate += UpdateTrackInfo;
-
-            UserSettingsBlock.CurrentAccountText.Text = _userContext.LastAccount;
-            UserSettingsBlock.UpdateKey(_appConfig.LastUsedKey);
-
-            if (_appConfig.IsAutoSendEnabled)
-                UserSettingsBlock.AutosendCheck.Toggle();
         }
 
         private string _lastTrackFullName; //local files handling
-        private void UpdateTrackInfo(IPlaybackResponse playbackState)
+        private void onPlaybackStateUpdate(IPlaybackResponse playbackState)
         {
             if (playbackState == null)
                 return;
@@ -76,13 +55,17 @@ namespace NowPlaying.Wpf
             PlayingTrackControl.Update(playbackState);
 
             string gameName = _gameProcess.CurrentProcess?.WindowName ?? "";
-            UserSettingsBlock.Update(_userContext.LastAccount, gameName);
+            UserSettingsBlock.Update(_userContext.LastAccount, gameName, _appConfig.LastProvider.ToString());
 
             if (_lastTrackFullName == playbackState.FullName)
                 return;
 
-            BackgroundCover.Update(playbackState.CoverUrl);
             _configWriter.RewriteKeyBinding(playbackState);
+
+            if (!string.IsNullOrEmpty(playbackState.CoverUrl))
+            {
+                BackgroundCover.Update(playbackState.CoverUrl);
+            }
 
             _lastTrackFullName = playbackState.FullName;
 
@@ -90,27 +73,31 @@ namespace NowPlaying.Wpf
                 _keySender.SendSystemInput(UserSettingsBlock.CurrentVirtualKey);
         }
 
-        private async Task<string> AskCode()
-        {
-            using (var auth = new AuthServer(@"http://localhost:8888/"))
-            {
-                string authUrl = _spotify.GetAuthUrl().Replace("&", "^&");
-                Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
-                return await auth.GetAuthCode();
-            }
-        }
-
         private async void WindowLoaded(object sender, RoutedEventArgs e)
         {
             AcrylicMaterial.EnableBlur(this);
             this.Hide();
-            string code = await AskCode();
+            _playbackInfoUpdater = await new PlaybackStateProviderResolver()
+                .ResolveTrackInfoUpdater(_appConfig.LastProvider);
 
-            if (code == default)
-                Application.Current.Shutdown();
+            _gameProcess.Start();
 
-            await _spotify.StartTokenRequests(code);
-            _playbackStateUpdater.StartPlaybackUpdate();
+            _userContext = _steamService.GetSteamContext();
+            _accounts = _userContext.GetAccounts();
+            int steamid3 = _accounts.FirstOrDefault((x) => x.Name == _userContext.LastAccount).SteamId3;
+            string writePath = _pathResolver.GetWritePath(_gameProcess.CurrentProcess, _userContext.UserdataPath, steamid3.ToString());
+
+            _configWriter = new ConfigWriter(writePath, _appConfig.CfgText);
+
+            _playbackInfoUpdater.OnPlaybackStateUpdate += onPlaybackStateUpdate;
+
+            UserSettingsBlock.CurrentAccountText.Text = _userContext.LastAccount;
+            UserSettingsBlock.UpdateKey(_appConfig.LastUsedKey);
+
+            if (_appConfig.IsAutoSendEnabled)
+                UserSettingsBlock.AutosendCheck.Toggle();
+
+            _playbackInfoUpdater.StartPlaybackUpdate();
             this.Show();
         }
 
@@ -133,9 +120,8 @@ namespace NowPlaying.Wpf
             _appConfig.LastUsedKey = UserSettingsBlock.CurrentKeyControl.CurrentKeyTextBlock.Text;
             _appConfigWorker.SaveConfigFile(_appConfig);
 
-            _playbackStateUpdater.Dispose();
+            _playbackInfoUpdater.Dispose();
             _gameProcess.Dispose();
-            _spotify.Dispose();
         }
     }
 }

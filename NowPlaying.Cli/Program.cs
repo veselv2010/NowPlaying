@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using NowPlaying.Core.GameProcessHook;
 using NowPlaying.Core.Api;
@@ -9,13 +8,14 @@ using NowPlaying.Core.Steam;
 using NowPlaying.Core.Config;
 using NowPlaying.Core.InputSender;
 using System.Linq;
+using NowPlaying.Core.Settings;
+using NowPlaying.Core.Api.WindowsManager;
 
 namespace NowPlaying.Cli
 {
     class Program
     {
         private static GameProcess process;
-        private static SpotifyRequestsManager requestsManager;
         private static ISteamService steamService;
         private static PathResolver pathResolver;
         private static ConfigWriter configWriter;
@@ -30,34 +30,28 @@ namespace NowPlaying.Cli
         static async Task Main()
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(onClose);
+            var appConfigWorker = new UserSettingsWorker();
+            var appConfig = appConfigWorker.ReadConfigFile();
 
             steamService = OperatingSystem.IsWindows() ? new SteamServiceWindows() : new SteamServiceLinux();
-            string redirectUrl = @"http://localhost:8888/";
             keySender = new InputSenderWindows();
             keyFormatter = new KeyFormatterWindows();
             pathResolver = new PathResolver();
 
-            requestsManager = new SpotifyRequestsManager("7633771350404368ac3e05c9cf73d187",
-                "29bd9ec2676c4bf593f3cc2858099838", redirectUrl);
+            Console.WriteLine("Awaiting user authorization...");
+
+            trackInfoUpdater = await new PlaybackStateProviderResolver()
+                .ResolveTrackInfoUpdater(appConfig.LastProvider);
 
             process = new GameProcess();
             process.Start();
 
             steamContext = steamService.GetSteamContext();
             var accounts = steamContext.GetAccounts();
-
-            Console.WriteLine("Awaiting user authorization...");
-            var server = new AuthServer(redirectUrl);
-
-            string authUrl = requestsManager.GetAuthUrl().Replace("&", "^&");
-            Process.Start(new ProcessStartInfo("cmd", $"/c start {authUrl}") { CreateNoWindow = true });
-            string code = await server.GetAuthCode();
-
-            await requestsManager.StartTokenRequests(code);
-
             int accSteamId3 = accounts.FirstOrDefault((x) => x.Name == steamContext.LastAccount).SteamId3;
 
-            string writePath = pathResolver.GetWritePath(process.CurrentProcess, steamContext.UserdataPath, accSteamId3.ToString());
+            string writePath = pathResolver
+                .GetWritePath(process.CurrentProcess, steamContext.UserdataPath, accSteamId3.ToString());
 
             configWriter = new ConfigWriter(writePath);
 
@@ -66,7 +60,7 @@ namespace NowPlaying.Cli
             currentKeyVirtual = (ushort)consoleInput.Key;
             currentKey = keyFormatter.GetSourceKey(currentKeyVirtual);
 
-            trackInfoUpdater = new SpotifyTrackUpdater(requestsManager);
+
             trackInfoUpdater.OnPlaybackStateUpdate += onPlaybackStateUpdate;
             trackInfoUpdater.StartPlaybackUpdate();
         }
@@ -76,34 +70,40 @@ namespace NowPlaying.Cli
         private static void onClose(object sender, EventArgs args)
         {
             process?.Dispose();
-            requestsManager?.Dispose();
             trackInfoUpdater?.Dispose();
         }
 
         private static void onPlaybackStateUpdate(IPlaybackResponse resp)
         {
+            Console.SetCursorPosition(0, 0);
+
             if (resp == null)
             {
-                Console.Clear();
                 Console.WriteLine("Nothing is playing!");
                 return;
             }
 
-            Console.Clear();
-            Console.WriteLine($"{resp.FullName} ({resp.ProgressMinutes}:{resp.ProgressSeconds:00})");
-            Console.WriteLine("Current account: " + steamContext.LastAccount);
-            Console.WriteLine("Current key: " + currentKey);
+            var consoleMessage = getMessage(resp);
+            Console.WriteLine(consoleMessage);
 
-            if (resp.Id != lastTrackId)
+            // Из-за WindowsMediaManager больше нет возможности проверять айди треков
+            if (lastTrackId != resp.FullName)
             {
                 if (process.IsValid)
                 {
                     keySender.SendSystemInput(currentKeyVirtual);
                 }
 
-                lastTrackId = resp.Id;
+                lastTrackId = resp.FullName;
                 configWriter.RewriteKeyBinding(resp);
             }
+        }
+
+        private static string getMessage(IPlaybackResponse response)
+        {
+            return $"{response.FullName} ({response.ProgressMinutes}:{response.ProgressSeconds:00})\n" +
+                   $"Current account: {steamContext.LastAccount}\n" +
+                   $"Current key: {currentKey}";
         }
     }
 }

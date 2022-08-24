@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace NowPlaying.Core.Settings
 {
@@ -10,31 +9,28 @@ namespace NowPlaying.Core.Settings
 
         public void SaveConfigFile(UserSettings settingsOnExit)
         {
-            dynamic settings = new JObject();
-            settings.CfgText = settingsOnExit.CfgText;
-            settings.IsDebugModeEnabled = settingsOnExit.IsDebugModeEnabled;
-            settings.LastUsedKey = settingsOnExit.LastUsedKey;
-            settings.IsAutoSendEnabled = settingsOnExit.IsAutoSendEnabled;
-
-            File.WriteAllText(ConfigName, settings.ToString());
+            File.WriteAllText(ConfigName, JsonConvert.SerializeObject(settingsOnExit));
         }
 
         public UserSettings ReadConfigFile()
         {
             if (!File.Exists(ConfigName))
-                CreateDefaultConfig();         
+                CreateDefaultConfig();
 
             return JsonConvert.DeserializeObject<UserSettings>(File.ReadAllText(ConfigName));
         }
         private void CreateDefaultConfig()
         {
-            dynamic settings = new JObject();
-            settings.CfgText = @"say [Spotify] Now Playing: {0}";
-            settings.LastUsedKey = "";
-            settings.IsAutoSendEnabled = false;
-            settings.IsDebugModeEnabled = false;
+            var settings = new UserSettings
+            {
+                CfgText = @"say [Spotify] Now Playing: {0}",
+                LastUsedKey = "",
+                IsAutoSendEnabled = false,
+                IsDebugModeEnabled = false,
+                LastProvider = PlaybackStateProvider.WINDOWSRT
+            };
 
-            File.WriteAllText(ConfigName, settings.ToString());
+            File.WriteAllText(ConfigName, JsonConvert.SerializeObject(settings));
         }
     }
 }
